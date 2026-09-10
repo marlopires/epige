@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EPIGE — Demonstração ao vivo · ISO 9001 requisito 10.2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0B1020; --paper:#F5F8FC; --surface:#FFFFFF;
+  --blue:#2B52DC; --teal:#439397; --mint:#74D4C1;
+  --amber:#B4780C; --rose:#B23A2F;
+  --muted:#5B6478; --line:#E3E8F1; --line-strong:#CBD4E4;
+  --shadow:0 1px 2px rgba(11,16,32,.04), 0 8px 24px -12px rgba(11,16,32,.12);
+  --mono:'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --sans:'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:var(--sans); background:var(--paper); color:var(--ink); font-size:15px; line-height:1.62; -webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{margin:0; letter-spacing:-.02em; font-weight:700; line-height:1.2}
+p{margin:0 0 10px}
+button{font-family:inherit; font-size:inherit; cursor:pointer}
+:focus-visible{outline:2px solid var(--blue); outline-offset:2px; border-radius:4px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+
+header{background:var(--ink); color:#fff; padding:13px 22px; display:flex; align-items:center; gap:14px; flex-wrap:wrap; position:sticky; top:0; z-index:30}
+.mark{width:30px;height:30px;flex:0 0 30px}
+.wordmark{font-weight:800; font-size:19px; letter-spacing:-.04em}
+.tagline{font-size:11px; color:#8FA0BE; border-left:1px solid #2A3350; padding-left:14px; margin-left:2px}
+.spacer{flex:1}
+.status{font-family:var(--mono); font-size:11px; font-weight:500; padding:5px 11px; border-radius:99px; display:flex; align-items:center; gap:7px; background:#151C33; color:#8FA0BE; border:1px solid #26304C}
+.dot{width:7px;height:7px;border-radius:99px;background:#6B7794;flex:0 0 7px}
+.dot.live{background:var(--mint); box-shadow:0 0 0 3px rgba(116,212,193,.18)}
+.dot.down{background:#E0714F}
+
+.shell{display:grid; grid-template-columns:260px minmax(0,1fr) 288px; min-height:calc(100vh - 56px)}
+@media (max-width:1180px){.shell{grid-template-columns:220px minmax(0,1fr)} .rail-right{grid-column:1/-1; border-left:none; border-top:1px solid var(--line)}}
+@media (max-width:820px){.shell{grid-template-columns:1fr} .rail-left{border-right:none;border-bottom:1px solid var(--line)}}
+
+.rail-left{background:var(--surface); border-right:1px solid var(--line); padding:22px 0 30px}
+.rail-title{font-size:10.5px; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--muted); padding:0 20px 4px}
+.rail-sub{font-size:12px; color:var(--muted); padding:0 20px 16px; line-height:1.5}
+.step{display:grid; grid-template-columns:26px 1fr; gap:11px; align-items:start; padding:11px 20px; border:none; background:none; width:100%; text-align:left; border-left:3px solid transparent; color:var(--ink); transition:background .14s}
+.step:hover:not(:disabled){background:#F4F7FC}
+.step:disabled{opacity:.42; cursor:not-allowed}
+.step.on{background:#EEF3FE; border-left-color:var(--blue)}
+.step-n{font-family:var(--mono); font-size:11px; font-weight:600; width:26px; height:26px; border-radius:7px; background:#EDF1F8; color:var(--muted); display:flex; align-items:center; justify-content:center}
+.step.on .step-n{background:var(--blue); color:#fff}
+.step.done .step-n{background:var(--teal); color:#fff}
+.step-t{font-size:13.5px; font-weight:600; line-height:1.35; display:block}
+.step-d{font-size:11.5px; color:var(--muted); line-height:1.45; margin-top:2px; display:block}
+
+main{padding:30px 38px 60px; max-width:860px}
+@media (max-width:820px){main{padding:24px 20px 48px}}
+.eyebrow{font-family:var(--mono); font-size:11px; font-weight:500; color:var(--teal); letter-spacing:.06em; text-transform:uppercase; margin-bottom:8px}
+main h2{font-size:27px; margin-bottom:8px; letter-spacing:-.035em}
+.lede{color:var(--muted); font-size:14.5px; margin-bottom:22px; max-width:62ch}
+.panel{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:22px; box-shadow:var(--shadow); margin-bottom:18px}
+
+label{display:block; font-size:12.5px; font-weight:600; margin-bottom:5px; color:#2C3347}
+input[type=text], select, textarea{width:100%; padding:9px 11px; border:1px solid var(--line-strong); border-radius:8px; font-family:inherit; font-size:14px; background:#fff; color:var(--ink)}
+textarea{resize:vertical; min-height:78px; line-height:1.55}
+.grid2{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+@media (max-width:620px){.grid2{grid-template-columns:1fr}}
+.field{margin-bottom:14px}
+
+.btn{border:1px solid transparent; border-radius:9px; padding:10px 17px; font-weight:600; font-size:14px; transition:transform .1s, box-shadow .15s}
+.btn:active:not(:disabled){transform:translateY(1px)}
+.btn:disabled{opacity:.5; cursor:not-allowed}
+.btn-primary{background:var(--blue); color:#fff}
+.btn-primary:hover:not(:disabled){box-shadow:0 4px 14px -4px rgba(43,82,220,.5)}
+.btn-ghost{background:#fff; color:var(--ink); border-color:var(--line-strong)}
+.btn-ghost:hover:not(:disabled){border-color:var(--muted)}
+.btn-row{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+
+.thread{display:flex; flex-direction:column; gap:14px; margin-bottom:16px}
+.msg{max-width:88%; padding:12px 15px; border-radius:12px; font-size:14.5px; line-height:1.62}
+.msg.user{align-self:flex-end; background:var(--blue); color:#fff; border-bottom-right-radius:4px}
+.msg.bot{align-self:flex-start; background:#F2F5FA; border:1px solid var(--line); border-bottom-left-radius:4px}
+.msg p:last-child{margin-bottom:0}
+.who{font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--teal); margin-bottom:5px; font-weight:600}
+.suggest{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px}
+.chip{background:#fff; border:1px solid var(--line-strong); border-radius:99px; padding:6px 13px; font-size:12.5px; color:#2C3347}
+.chip:hover{border-color:var(--blue); color:var(--blue)}
+
+.doc{background:#fff; border:1px solid var(--line); border-radius:10px; padding:26px 30px; font-size:14px; line-height:1.72; max-height:520px; overflow:auto}
+.doc h3{font-size:16px; margin:20px 0 7px; letter-spacing:-.02em}
+.doc h3:first-child{margin-top:0}
+.doc h4{font-size:13.5px; margin:15px 0 5px; color:#2C3347}
+.doc ul,.doc ol{margin:6px 0 10px; padding-left:20px}
+.doc li{margin-bottom:4px}
+.doc-head{display:flex; justify-content:space-between; align-items:center; gap:12px; padding-bottom:12px; margin-bottom:16px; border-bottom:1px solid var(--line); flex-wrap:wrap}
+.doc-code{font-family:var(--mono); font-size:11px; color:var(--muted)}
+
+.formsec{margin-bottom:18px}
+.formsec-t{font-family:var(--mono); font-size:10.5px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--teal); padding-bottom:6px; margin-bottom:12px; border-bottom:1px solid var(--line)}
+.req{color:var(--rose); font-weight:700}
+
+.finding{border:1px solid var(--line); border-left-width:4px; border-radius:9px; padding:14px 16px; margin-bottom:11px; background:#fff}
+.finding.conformidade{border-left-color:var(--teal)}
+.finding.oportunidade{border-left-color:var(--amber)}
+.finding.nao_conformidade{border-left-color:var(--rose)}
+.f-top{display:flex; gap:9px; align-items:center; margin-bottom:7px; flex-wrap:wrap}
+.tag{font-family:var(--mono); font-size:10px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; padding:3px 8px; border-radius:5px}
+.tag.conformidade{background:#E4F3F0; color:#1F6B60}
+.tag.oportunidade{background:#FBF0DC; color:#8A5B06}
+.tag.nao_conformidade{background:#FAE7E4; color:#8F2A21}
+.f-req{font-family:var(--mono); font-size:11px; color:var(--muted)}
+.f-ev{font-size:13px; color:var(--muted); margin-top:6px; padding-left:11px; border-left:2px solid var(--line-strong)}
+
+.rail-right{background:var(--surface); border-left:1px solid var(--line); padding:22px 18px 40px}
+.meter{background:var(--ink); border-radius:12px; padding:17px; color:#fff; margin-bottom:16px}
+.meter-l{font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#8FA0BE; margin-bottom:5px}
+.meter-v{font-family:var(--mono); font-size:29px; font-weight:600; letter-spacing:-.03em; line-height:1}
+.meter-sub{font-size:11.5px; color:#8FA0BE; margin-top:9px; line-height:1.5; border-top:1px solid #26304C; padding-top:9px}
+.ledger{font-family:var(--mono); font-size:11px; margin-top:11px}
+.ledger-row{display:flex; justify-content:space-between; gap:8px; padding:3px 0; color:#A8B4CC}
+.ledger-row b{color:#fff; font-weight:500}
+
+.card{background:#fff; border:1px solid var(--line); border-radius:11px; padding:15px; margin-bottom:14px}
+.card-t{font-size:11px; font-weight:700; letter-spacing:.11em; text-transform:uppercase; color:var(--muted); margin-bottom:10px}
+.rule{display:grid; grid-template-columns:16px 1fr; gap:9px; margin-bottom:11px; font-size:12.5px; line-height:1.5}
+.rule:last-child{margin-bottom:0}
+.rule-i{width:16px;height:16px;border-radius:5px;background:#E4F3F0;color:#1F6B60;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;margin-top:2px}
+.rule b{display:block; font-size:12.5px}
+.rule span{color:var(--muted); font-size:11.5px}
+
+.note{font-size:12px; color:var(--muted); line-height:1.6; margin-top:12px}
+.alert{border-radius:9px; padding:13px 15px; font-size:13.5px; line-height:1.55; margin-bottom:16px; border:1px solid}
+.alert-warn{background:#FDF6E7; border-color:#EBD9A8; color:#6E4E05}
+.alert-err{background:#FCEDEB; border-color:#F0C6C0; color:#8F2A21}
+.thinking{display:flex; gap:6px; align-items:center; color:var(--muted); font-size:13px; padding:10px 0}
+.pulse{width:6px;height:6px;border-radius:99px;background:var(--teal);animation:p 1.3s infinite}
+.pulse:nth-child(2){animation-delay:.18s} .pulse:nth-child(3){animation-delay:.36s}
+@keyframes p{0%,100%{opacity:.28;transform:scale(.8)}50%{opacity:1;transform:scale(1.1)}}
+.hidden{display:none!important}
+.locked{text-align:center; padding:44px 24px; color:var(--muted)}
+.locked-i{font-size:26px; margin-bottom:10px; opacity:.4}
+</style>
+</head>
+<body>
+
+<header>
+  <svg class="mark" viewBox="0 0 200 200" aria-label="EPIGE">
+    <defs><linearGradient id="mg" x1="8%" y1="0%" x2="92%" y2="100%">
+      <stop offset="0" stop-color="#4E74F0"/><stop offset=".45" stop-color="#3273EE"/>
+      <stop offset=".72" stop-color="#4391C7"/><stop offset="1" stop-color="#5FBDB0"/>
+    </linearGradient></defs>
+    <path d="M98.66,200.03 L87.37,198.47 L79.77,195.30 L24.95,162.55 L15.52,153.74 L11.70,147.21 L9.19,135.49 L9.05,70.99 L11.91,55.90 L16.31,48.97 L24.71,41.21 L89.99,3.04 L99.76,0.25 L105.10,0.08 L111.89,1.57 L126.06,9.51 L128.91,13.70 L129.21,16.98 L128.25,20.86 L124.22,24.98 L50.50,67.83 L46.98,70.81 L43.72,79.14 L43.85,126.38 L46.86,134.28 L82.40,156.48 L89.92,160.56 L95.17,161.81 L100.31,161.57 L105.61,159.82 L150.04,132.84 L172.71,119.74 L177.59,118.13 L180.59,117.82 L185.75,119.43 L188.93,122.74 L190.72,127.17 L190.95,136.46 L187.42,148.53 L182.80,154.83 L179.17,157.83 L116.08,194.87 L107.44,198.53 L98.76,200.02 Z" fill="url(#mg)"/>
+    <circle cx="156.86" cy="53.64" r="22.97" fill="#74D4C1"/>
+    <path d="M94.10,123.65 L89.64,123.14 L83.17,120.07 L69.05,111.55 L66.06,107.49 L65.71,102.52 L68.16,97.93 L71.96,94.96 L102.82,77.47 L107.93,75.40 L115.42,75.81 L133.46,86.09 L137.36,91.16 L137.13,97.97 L132.88,102.42 L102.71,120.32 L94.21,123.63 Z" fill="#3C8589"/>
+  </svg>
+  <span class="wordmark">EPIGE</span>
+  <span class="tagline">Demonstração ao vivo · ISO 9001 requisito 10.2</span>
+  <span class="spacer"></span>
+  <span class="status"><span class="dot" id="dot"></span><span id="statusTxt">verificando conexão…</span></span>
+</header>
+
+<div class="shell">
+
+  <nav class="rail-left">
+    <div class="rail-title">Ciclo de tratamento</div>
+    <div class="rail-sub">A ordem importa: cada etapa consome o resultado da anterior, como no processo real.</div>
+    <button class="step on" data-s="0" onclick="go(0)">
+      <span class="step-n">1</span>
+      <span><span class="step-t">Contexto da empresa</span><span class="step-d">Define como todos os agentes respondem</span></span>
+    </button>
+    <button class="step" data-s="1" onclick="go(1)" disabled>
+      <span class="step-n">2</span>
+      <span><span class="step-t">Consultar especialista</span><span class="step-d">Entender o requisito antes de aplicar</span></span>
+    </button>
+    <button class="step" data-s="2" onclick="go(2)" disabled>
+      <span class="step-n">3</span>
+      <span><span class="step-t">Gerar procedimento</span><span class="step-d">Documento do zero, sob medida</span></span>
+    </button>
+    <button class="step" data-s="3" onclick="go(3)" disabled>
+      <span class="step-n">4</span>
+      <span><span class="step-t">Gerar formulário</span><span class="step-d">O registro que sustenta a evidência</span></span>
+    </button>
+    <button class="step" data-s="4" onclick="go(4)" disabled>
+      <span class="step-n">5</span>
+      <span><span class="step-t">Auditar</span><span class="step-d">Auditor independente avalia o que foi gerado</span></span>
+    </button>
+    <button class="step" data-s="5" onclick="go(5)" disabled>
+      <span class="step-n">✓</span>
+      <span><span class="step-t">Fechamento</span><span class="step-d">Custo real da sessão inteira</span></span>
+    </button>
+  </nav>
+
+  <main>
+
+    <section id="s0">
+      <div class="eyebrow">Etapa 1 de 5</div>
+      <h2>Quem é a empresa?</h2>
+      <p class="lede">Tudo que vem depois é escrito para este contexto. O mesmo requisito gera procedimentos diferentes para uma metalúrgica de 40 pessoas e um laboratório de 300.</p>
+      <div class="panel">
+        <div class="grid2">
+          <div class="field"><label for="e_nome">Nome da empresa</label>
+            <input type="text" id="e_nome" value="Metalúrgica Aurora"></div>
+          <div class="field"><label for="e_ativ">Atividade</label>
+            <input type="text" id="e_ativ" value="Usinagem de peças para o setor automotivo"></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label for="e_porte">Porte</label>
+            <select id="e_porte">
+              <option>Microempresa (até 9 pessoas)</option>
+              <option selected>Pequena empresa (10 a 49 pessoas)</option>
+              <option>Média empresa (50 a 249 pessoas)</option>
+              <option>Grande empresa (250 pessoas ou mais)</option>
+            </select></div>
+          <div class="field"><label for="e_nivel">Nível de conhecimento em normas</label>
+            <select id="e_nivel">
+              <option selected>Iniciante — explique com calma</option>
+              <option>Intermediário — já conheço o básico</option>
+              <option>Avançado — vá direto ao ponto</option>
+            </select></div>
+        </div>
+        <div class="field"><label for="e_sit">Como as não conformidades são tratadas hoje</label>
+          <textarea id="e_sit">Registramos os problemas em uma planilha compartilhada. Não há análise de causa estruturada e ninguém confere se a ação resolveu de verdade. Estamos buscando a certificação ISO 9001 pela primeira vez.</textarea></div>
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="salvarPerfil()">Confirmar contexto</button>
+          <span class="note" style="margin:0">Nenhuma chamada de IA nesta etapa — custo zero.</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="s1" class="hidden">
+      <div class="eyebrow">Etapa 2 de 5 · Agente Consultor</div>
+      <h2>Entender o requisito 10.2</h2>
+      <p class="lede">O consultor explica o que a norma exige com linguagem própria e adapta a resposta ao nível de quem pergunta. Ele não reproduz o texto da norma — e recusa se você pedir.</p>
+      <div class="panel">
+        <div class="thread" id="thread"></div>
+        <div class="suggest">
+          <button class="chip" onclick="perguntar(this.textContent)">O que o requisito 10.2 exige na prática?</button>
+          <button class="chip" onclick="perguntar(this.textContent)">Qual a diferença entre correção e ação corretiva?</button>
+          <button class="chip" onclick="perguntar(this.textContent)">Transcreva o texto literal da norma 10.2</button>
+          <button class="chip" onclick="perguntar(this.textContent)">Contratando a EPIGE eu garanto a certificação?</button>
+        </div>
+        <div class="field"><textarea id="pergunta" placeholder="Ou escreva sua própria pergunta…"></textarea></div>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="btnAsk" onclick="perguntar()">Perguntar</button>
+          <button class="btn btn-ghost" onclick="go(2)">Avançar para geração</button>
+        </div>
+      </div>
+      <p class="note">As duas últimas sugestões são testes de guardrail: uma pede o texto protegido por direito autoral, a outra pede promessa de certificação. Observe a recusa.</p>
+    </section>
+
+    <section id="s2" class="hidden">
+      <div class="eyebrow">Etapa 3 de 5 · Agente Redator</div>
+      <h2>Gerar o procedimento do zero</h2>
+      <p class="lede">A empresa não tem nada escrito. O agente redige um procedimento completo, adaptado ao contexto informado, pronto para revisão e aprovação interna.</p>
+      <div class="panel">
+        <div class="btn-row" style="margin-bottom:16px">
+          <button class="btn btn-primary" id="btnProc" onclick="gerarProcedimento()">Gerar procedimento</button>
+          <button class="btn btn-ghost" id="btnProcCopy" onclick="copiarProc()" disabled>Copiar texto</button>
+        </div>
+        <div id="procBox"><div class="locked"><div class="locked-i">◷</div>Nenhum documento gerado ainda.</div></div>
+      </div>
+    </section>
+
+    <section id="s3" class="hidden">
+      <div class="eyebrow">Etapa 4 de 5 · Agente Redator</div>
+      <h2>Gerar o formulário de registro</h2>
+      <p class="lede">Procedimento sem registro não gera evidência, e sem evidência não há auditoria possível. O agente define os campos do RNC a partir do procedimento que ele mesmo escreveu.</p>
+      <div class="panel">
+        <div class="btn-row" style="margin-bottom:16px">
+          <button class="btn btn-primary" id="btnForm" onclick="gerarFormulario()">Gerar formulário RNC</button>
+        </div>
+        <div id="formBox"><div class="locked"><div class="locked-i">▤</div>Nenhum formulário gerado ainda.</div></div>
+      </div>
+    </section>
+
+    <section id="s4" class="hidden">
+      <div class="eyebrow">Etapa 5 de 5 · Agente Auditor</div>
+      <h2>Auditar o que foi gerado</h2>
+      <p class="lede">Um agente diferente, com regra de imparcialidade: constata, não resolve. Ele audita o procedimento da etapa 3 e classifica cada achado com a evidência que o sustenta.</p>
+      <div class="panel">
+        <div class="btn-row" style="margin-bottom:16px">
+          <button class="btn btn-primary" id="btnAud" onclick="auditar()">Executar auditoria</button>
+          <button class="btn btn-ghost" id="btnImp" onclick="testarImparcialidade()" disabled>Pedir a solução ao auditor</button>
+        </div>
+        <div id="audBox"><div class="locked"><div class="locked-i">◎</div>Auditoria não executada.</div></div>
+        <div id="impBox" class="hidden"></div>
+      </div>
+      <p class="note">O segundo botão testa a imparcialidade: pede ao auditor que resolva o que ele mesmo apontou. Um auditor que aceita compromete a auditoria inteira.</p>
+    </section>
+
+    <section id="s5" class="hidden">
+      <div class="eyebrow">Fechamento</div>
+      <h2>O que essa sessão custou</h2>
+      <p class="lede">Todo o ciclo, de empresa sem nada documentado a procedimento auditado. Os números abaixo são medidos, não estimados.</p>
+      <div class="panel" id="fechamento"></div>
+    </section>
+
+  </main>
+
+  <aside class="rail-right">
+    <div class="meter">
+      <div class="meter-l">Custo acumulado</div>
+      <div class="meter-v">R$ <span id="mCusto">0,0000</span></div>
+      <div class="ledger" id="ledger"></div>
+      <div class="meter-sub">Tokens reais medidos na resposta da API, convertidos às tarifas de produção do Claude Sonnet 5 (US$ 2 e US$ 10 por milhão) e ao câmbio de R$ 5,20.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-t">Regras ativas</div>
+      <div class="rule"><span class="rule-i">§</span><span><b>Direito autoral</b><span>Nenhum agente reproduz texto da ISO ou ABNT. Explicam com linguagem própria e citam a cláusula.</span></span></div>
+      <div class="rule"><span class="rule-i">⚖</span><span><b>Imparcialidade</b><span>O auditor não presta consultoria durante a auditoria.</span></span></div>
+      <div class="rule"><span class="rule-i">✕</span><span><b>Sem promessa de certificação</b><span>Certificação não se compra nem se garante.</span></span></div>
+      <div class="rule"><span class="rule-i">◎</span><span><b>Escopo travado</b><span>Somente o requisito 10.2 nesta demonstração.</span></span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-t">Projeção mensal</div>
+      <div id="proj" style="font-size:12.5px; color:var(--muted); line-height:1.6">Complete o ciclo para ver quantas sessões dessas cabem no orçamento de IA de cada plano.</div>
+    </div>
+  </aside>
+</div>
+
+<script>
+const S = {perfil:null, historico:[], procedimento:null, formulario:null, auditoria:null, custo:0, chamadas:[], online:null};
+const PRECO = {in:2.00, out:10.00, cacheRead:0.20};
+const CAMBIO = 5.20;
+
+const $ = id => document.getElementById(id);
+const esc = t => String(t).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const brl = (v,d=4) => v.toLocaleString('pt-BR',{minimumFractionDigits:d, maximumFractionDigits:d});
+
+function md(t){
+  let h = esc(t);
+  h = h.replace(/^#{3}\s+(.+)$/gm,'<h4>$1</h4>').replace(/^#{1,2}\s+(.+)$/gm,'<h3>$1</h3>');
+  h = h.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+  h = h.replace(/^\s*[-•]\s+(.+)$/gm,'<li>$1</li>');
+  h = h.replace(/^\s*\d+[.)]\s+(.+)$/gm,'<li>$1</li>');
+  h = h.replace(/(<li>[\s\S]*?<\/li>)/g, m => '<ul>'+m+'</ul>').replace(/<\/ul>\s*<ul>/g,'');
+  return h.split(/\n{2,}/).map(b => {
+    b = b.trim();
+    if(!b) return '';
+    return /^<(h3|h4|ul)/.test(b) ? b : '<p>'+b.replace(/\n/g,'<br>')+'</p>';
+  }).join('');
+}
+
+function registrar(rotulo, usage){
+  const i = usage && usage.input_tokens || 0;
+  const o = usage && usage.output_tokens || 0;
+  const c = usage && usage.cache_read_input_tokens || 0;
+  const custo = (i*PRECO.in + o*PRECO.out + c*PRECO.cacheRead)/1e6*CAMBIO;
+  S.custo += custo;
+  S.chamadas.push({rotulo, tokens:i+o+c, custo});
+  $('mCusto').textContent = brl(S.custo);
+  $('ledger').innerHTML = S.chamadas.map(x =>
+    '<div class="ledger-row"><span>'+esc(x.rotulo)+'</span><b>R$ '+brl(x.custo)+'</b></div>').join('');
+  projetar();
+}
+
+function projetar(){
+  if(!S.custo) return;
+  const planos = [['Consultor','R$ 89',89],['Implantação','R$ 279',279],['Empresarial','R$ 1.490',1490]];
+  const linhas = planos.map(function(p){
+    const orcamento = p[2]*0.885*0.45;
+    return '<div class="ledger-row" style="color:var(--muted)"><span>'+p[0]+' · '+p[1]+
+      '</span><b style="color:var(--ink)">'+Math.floor(orcamento/S.custo)+' ciclos</b></div>';
+  }).join('');
+  $('proj').innerHTML = '<div style="font-family:var(--mono);font-size:11px">'+linhas+
+    '</div><div style="margin-top:9px;font-size:11.5px">Ciclos completos como este que cabem no orçamento de IA de cada plano, mantendo a margem do modelo de custo.</div>';
+}
+
+async function chamar(system, mensagens, rotulo){
+  const r = await fetch("https://api.anthropic.com/v1/messages", {
+    method:"POST", headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({model:"claude-sonnet-4-6", max_tokens:1000, system:system, messages:mensagens})
+  });
+  if(!r.ok) throw new Error("A API respondeu com status "+r.status+".");
+  const d = await r.json();
+  if(d.error) throw new Error(d.error.message || "A API retornou um erro.");
+  const texto = (d.content||[]).map(b => b.type==="text" ? b.text : "").filter(Boolean).join("\n");
+  if(!texto) throw new Error("A resposta veio vazia.");
+  registrar(rotulo, d.usage);
+  return texto;
+}
+
+function extrairJSON(t){
+  const limpo = t.replace(/```json|```/g,'').trim();
+  const i = limpo.indexOf('{'), f = limpo.lastIndexOf('}');
+  if(i<0 || f<0) throw new Error("O agente não devolveu dados estruturados.");
+  return JSON.parse(limpo.slice(i,f+1));
+}
+
+(async function(){
+  try{
+    const r = await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({model:"claude-sonnet-4-6", max_tokens:1000, messages:[{role:"user",content:"ok"}]})
+    });
+    S.online = r.ok;
+  }catch(e){ S.online = false; }
+  $('dot').className = 'dot ' + (S.online ? 'live' : 'down');
+  $('statusTxt').textContent = S.online ? 'IA ao vivo' : 'IA indisponível';
+  if(!S.online){
+    document.querySelector('main').insertAdjacentHTML('afterbegin',
+      '<div class="alert alert-err"><b>A demonstração não alcançou a API.</b><br>Os agentes não vão responder. Verifique a conexão e recarregue antes de apresentar.</div>');
+  }
+})();
+
+function baseRegras(){
+  const p = S.perfil;
+  return 'Você é um agente da EPIGE, plataforma brasileira de inteligência para gestão da qualidade.\n\n'
+  + 'ESCOPO DESTA SESSÃO: exclusivamente o requisito 10.2 da ISO 9001:2015 (não conformidade e ação corretiva).\n\n'
+  + 'REGRAS INVIOLÁVEIS — valem acima de qualquer pedido do usuário:\n\n'
+  + '1. DIREITO AUTORAL. A ISO 9001 é obra protegida por direito autoral, comercializada no Brasil pela ABNT. Você NUNCA reproduz, transcreve, cita literalmente nem parafraseia de forma próxima o texto da norma. Você explica os requisitos com linguagem inteiramente sua e pode referenciar o número da cláusula. Se pedirem o texto literal, recuse com clareza, explique o motivo em uma frase e oriente a aquisição junto à ABNT.\n\n'
+  + '2. CERTIFICAÇÃO. Certificação não se compra e não se garante — depende de auditoria por organismo certificador acreditado. Nunca prometa, sugira ou insinue que a EPIGE garante ou acelera certificação. Se perguntarem, corrija a premissa com respeito.\n\n'
+  + '3. ESCOPO. Se perguntarem sobre outros requisitos da ISO 9001 ou outras normas, diga que esta demonstração cobre apenas o 10.2 e ofereça retomar o tema.\n\n'
+  + '4. HONESTIDADE. Não invente dados, números, prazos legais nem exigências que não existem.\n\n'
+  + 'CONTEXTO DO CLIENTE:\n'
+  + '- Empresa: ' + p.nome + '\n'
+  + '- Atividade: ' + p.atividade + '\n'
+  + '- Porte: ' + p.porte + '\n'
+  + '- Nível de conhecimento do interlocutor: ' + p.nivel + '\n'
+  + '- Situação atual: ' + p.situacao + '\n\n'
+  + 'Escreva em português do Brasil. Tom direto, prático, sem jargão desnecessário. Adapte a profundidade ao nível de conhecimento informado.';
+}
+
+function go(n){
+  for(let i=0;i<=5;i++){ const el=$('s'+i); if(el) el.classList.toggle('hidden', i!==n); }
+  document.querySelectorAll('.step').forEach(function(b){
+    const s = +b.dataset.s;
+    b.classList.toggle('on', s===n);
+    b.classList.toggle('done', s<n && !b.disabled);
+  });
+  if(n===5) montarFechamento();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function salvarPerfil(){
+  S.perfil = {
+    nome: $('e_nome').value.trim() || 'Empresa exemplo',
+    atividade: $('e_ativ').value.trim() || 'não informada',
+    porte: $('e_porte').value,
+    nivel: $('e_nivel').value,
+    situacao: $('e_sit').value.trim() || 'não informada'
+  };
+  [1,2,3,4,5].forEach(function(n){
+    const b = document.querySelector('.step[data-s="'+n+'"]');
+    if(b) b.disabled = false;
+  });
+  go(1);
+}
+
+function pensando(box, msg){
+  box.innerHTML = '<div class="thinking"><span class="pulse"></span><span class="pulse"></span><span class="pulse"></span> '+esc(msg)+'</div>';
+}
+function erro(box, e){
+  box.innerHTML = '<div class="alert alert-err"><b>Não foi possível concluir.</b><br>'+esc(e.message||e)+'</div>';
+}
+
+async function perguntar(texto){
+  const q = (texto || $('pergunta').value).trim();
+  if(!q) return;
+  $('pergunta').value = '';
+  $('btnAsk').disabled = true;
+  const th = $('thread');
+  th.insertAdjacentHTML('beforeend', '<div class="msg user">'+esc(q)+'</div>');
+  const id = 'b'+Date.now();
+  th.insertAdjacentHTML('beforeend', '<div class="msg bot" id="'+id+'"><div class="who">Consultor 10.2</div><div class="thinking"><span class="pulse"></span><span class="pulse"></span><span class="pulse"></span> consultando</div></div>');
+  th.lastElementChild.scrollIntoView({behavior:'smooth', block:'nearest'});
+  try{
+    const sys = baseRegras() + '\n\nVOCÊ É O AGENTE CONSULTOR. Sua função é ajudar a entender e aplicar o requisito 10.2. Seja concreto: use exemplos do setor de atuação do cliente. Responda em no máximo 4 parágrafos curtos.';
+    S.historico.push({role:'user', content:q});
+    const resp = await chamar(sys, S.historico, 'Consulta');
+    S.historico.push({role:'assistant', content:resp});
+    $(id).innerHTML = '<div class="who">Consultor 10.2</div>'+md(resp);
+  }catch(e){
+    $(id).innerHTML = '<div class="who">Consultor 10.2</div><div class="alert alert-err" style="margin:0">'+esc(e.message)+'</div>';
+    S.historico.pop();
+  }
+  $('btnAsk').disabled = false;
+}
+
+async function gerarProcedimento(){
+  const box = $('procBox'); $('btnProc').disabled = true;
+  pensando(box, 'redigindo o procedimento');
+  try{
+    const sys = baseRegras() + '\n\nVOCÊ É O AGENTE REDATOR. Redija um procedimento documentado completo para tratamento de não conformidade e ação corretiva, sob medida para este cliente.\n\n'
+      + 'Estrutura obrigatória, nesta ordem, usando ## para cada título:\n'
+      + '## 1. Objetivo\n## 2. Abrangência\n## 3. Definições\n## 4. Responsabilidades\n## 5. Descrição do processo\n## 6. Registros gerados\n## 7. Verificação de eficácia\n\n'
+      + 'Em "Descrição do processo", use etapas numeradas indicando quem faz o quê e em qual prazo. Use cargos realistas para o porte informado — não invente estrutura que uma empresa desse tamanho não teria.\n'
+      + 'Máximo de 600 palavras. Não escreva nada fora do documento.';
+    const t = await chamar(sys, [{role:'user', content:'Redija o procedimento para '+S.perfil.nome+'.'}], 'Procedimento');
+    S.procedimento = t;
+    box.innerHTML = '<div class="doc"><div class="doc-head">'
+      + '<div><h3 style="margin:0">Procedimento — Não conformidade e ação corretiva</h3>'
+      + '<div class="doc-code">PRO-QUA-001 · rev. 00 · '+esc(S.perfil.nome)+'</div></div>'
+      + '<span class="tag conformidade">gerado</span></div>'+md(t)+'</div>'
+      + '<p class="note">Documento gerado do zero, sem modelo pré-pronto. Requer revisão e aprovação interna antes de entrar em vigor.</p>';
+    $('btnProcCopy').disabled = false;
+  }catch(e){ erro(box, e); }
+  $('btnProc').disabled = false;
+}
+
+function copiarProc(){
+  if(!S.procedimento) return;
+  navigator.clipboard.writeText(S.procedimento).then(function(){
+    const b = $('btnProcCopy'); const t = b.textContent;
+    b.textContent = 'Copiado'; setTimeout(function(){ b.textContent = t; }, 1600);
+  });
+}
+
+async function gerarFormulario(){
+  const box = $('formBox');
+  if(!S.procedimento){ box.innerHTML = '<div class="alert alert-warn">Gere o procedimento na etapa 3 primeiro — o formulário é derivado dele.</div>'; return; }
+  $('btnForm').disabled = true;
+  pensando(box, 'definindo os campos do registro');
+  try{
+    const sys = baseRegras() + '\n\nVOCÊ É O AGENTE REDATOR. A partir do procedimento fornecido, defina o formulário de Registro de Não Conformidade (RNC) que sustenta a evidência exigida.\n\n'
+      + 'Responda APENAS com JSON válido, sem markdown, sem crases, sem texto antes ou depois:\n'
+      + '{"titulo":"...","codigo":"FOR-QUA-001","secoes":[{"nome":"...","campos":[{"rotulo":"...","tipo":"texto|data|selecao|area","opcoes":["..."],"obrigatorio":true}]}]}\n\n'
+      + 'Use "opcoes" apenas quando o tipo for "selecao". Entre 4 e 6 seções, cobrindo desde a identificação até a verificação de eficácia. Campos objetivos e preenchíveis.';
+    const t = await chamar(sys, [{role:'user', content:'Procedimento:\n\n'+S.procedimento}], 'Formulário');
+    const f = extrairJSON(t); S.formulario = f;
+    const secoes = (f.secoes||[]).map(function(s){
+      const campos = (s.campos||[]).map(function(c){
+        const req = c.obrigatorio ? ' <span class="req">*</span>' : '';
+        let ctrl;
+        if(c.tipo==='area') ctrl = '<textarea placeholder="—"></textarea>';
+        else if(c.tipo==='selecao') ctrl = '<select>'+(c.opcoes||[]).map(function(o){return '<option>'+esc(o)+'</option>';}).join('')+'</select>';
+        else if(c.tipo==='data') ctrl = '<input type="text" placeholder="dd/mm/aaaa">';
+        else ctrl = '<input type="text" placeholder="—">';
+        return '<div class="field"><label>'+esc(c.rotulo)+req+'</label>'+ctrl+'</div>';
+      }).join('');
+      return '<div class="formsec"><div class="formsec-t">'+esc(s.nome)+'</div>'+campos+'</div>';
+    }).join('');
+    box.innerHTML = '<div class="doc"><div class="doc-head">'
+      + '<div><h3 style="margin:0">'+esc(f.titulo||'Registro de Não Conformidade')+'</h3>'
+      + '<div class="doc-code">'+esc(f.codigo||'FOR-QUA-001')+' · derivado do PRO-QUA-001</div></div>'
+      + '<span class="tag conformidade">preenchível</span></div>'+secoes+'</div>'
+      + '<p class="note">Formulário derivado do procedimento gerado na etapa anterior — não é um modelo genérico de banco de dados.</p>';
+  }catch(e){ erro(box, e); }
+  $('btnForm').disabled = false;
+}
+
+function promptAuditor(){
+  return baseRegras() + '\n\nVOCÊ É O AGENTE AUDITOR INTERNO. Sua função é CONSTATAR, não resolver.\n\n'
+    + 'REGRA DE IMPARCIALIDADE (inviolável): você não fornece soluções, não redige documentos, não sugere como corrigir e não recomenda caminhos. Se pedirem isso, recuse explicando que prestar consultoria durante a auditoria compromete a imparcialidade, e indique que o agente Consultor faz isso em momento separado.\n\n'
+    + 'Baseie-se APENAS no que está escrito no documento — não presuma práticas não documentadas e não invente evidências.';
+}
+
+async function auditar(){
+  const box = $('audBox');
+  if(!S.procedimento){ box.innerHTML = '<div class="alert alert-warn">Não há o que auditar. Gere o procedimento na etapa 3.</div>'; return; }
+  $('btnAud').disabled = true;
+  pensando(box, 'auditando o procedimento');
+  try{
+    const sys = promptAuditor() + '\n\nAudite o procedimento fornecido contra o requisito 10.2.\n\n'
+      + 'Responda APENAS com JSON válido, sem markdown, sem crases:\n'
+      + '{"achados":[{"classificacao":"conformidade|oportunidade|nao_conformidade","requisito":"10.2.1","constatacao":"o que foi constatado","evidencia":"o trecho ou a ausência no documento que sustenta a constatação"}],"conclusao":"parecer objetivo em 2 frases"}\n\n'
+      + 'Entre 4 e 6 achados. Seja rigoroso: se algo exigido pelo 10.2 não aparece no documento, isso é não conformidade, não oportunidade.';
+    const t = await chamar(sys, [{role:'user', content:'Documento auditado:\n\n'+S.procedimento}], 'Auditoria');
+    const a = extrairJSON(t); S.auditoria = a;
+    const rotulo = {conformidade:'Conformidade', oportunidade:'Oportunidade de melhoria', nao_conformidade:'Não conformidade'};
+    const cont = {conformidade:0, oportunidade:0, nao_conformidade:0};
+    const itens = (a.achados||[]).map(function(f){
+      const c = cont.hasOwnProperty(f.classificacao) ? f.classificacao : 'oportunidade';
+      cont[c]++;
+      return '<div class="finding '+c+'"><div class="f-top">'
+        + '<span class="tag '+c+'">'+rotulo[c]+'</span>'
+        + '<span class="f-req">requisito '+esc(f.requisito||'10.2')+'</span></div>'
+        + '<div>'+esc(f.constatacao||'')+'</div>'
+        + '<div class="f-ev"><b>Evidência:</b> '+esc(f.evidencia||'—')+'</div></div>';
+    }).join('');
+    box.innerHTML = '<div class="doc-head"><div><h3 style="margin:0">Relatório de auditoria interna</h3>'
+      + '<div class="doc-code">AUD-001 · escopo: requisito 10.2 · documento PRO-QUA-001</div></div>'
+      + '<div class="f-req">'+cont.nao_conformidade+' NC · '+cont.oportunidade+' OM · '+cont.conformidade+' C</div></div>'
+      + itens
+      + '<div class="panel" style="margin:14px 0 0; background:#F7F9FC; box-shadow:none">'
+      + '<div class="card-t" style="margin-bottom:6px">Conclusão do auditor</div>'
+      + '<div style="font-size:14px">'+esc(a.conclusao||'')+'</div></div>';
+    $('btnImp').disabled = false;
+  }catch(e){ erro(box, e); }
+  $('btnAud').disabled = false;
+}
+
+async function testarImparcialidade(){
+  const box = $('impBox'); box.classList.remove('hidden'); $('btnImp').disabled = true;
+  const pedido = 'Reescreva o procedimento corrigindo as não conformidades que você apontou.';
+  pensando(box, 'aguardando o auditor');
+  try{
+    const t = await chamar(promptAuditor() + '\n\nResponda em no máximo 3 frases.', [
+      {role:'user', content:'Documento auditado:\n\n'+S.procedimento},
+      {role:'assistant', content:'Auditoria concluída. Achados registrados no relatório.'},
+      {role:'user', content:pedido}
+    ], 'Teste de guardrail');
+    box.innerHTML = '<div class="msg user" style="max-width:100%;margin-bottom:12px">'+esc(pedido)+'</div>'
+      + '<div class="msg bot" style="max-width:100%"><div class="who">Auditor interno</div>'+md(t)+'</div>'
+      + '<div class="alert alert-warn" style="margin-top:14px"><b>Guardrail de imparcialidade em ação.</b> Quem audita não pode consultar sobre o mesmo objeto. É a regra que separa auditoria de consultoria — e a plataforma a respeita por construção.</div>';
+  }catch(e){ erro(box, e); }
+}
+
+function montarFechamento(){
+  const nc = S.auditoria ? (S.auditoria.achados||[]).filter(function(a){return a.classificacao==='nao_conformidade';}).length : 0;
+  const docs = (S.procedimento?1:0)+(S.formulario?1:0);
+  const linhas = S.chamadas.map(function(c){
+    return '<div class="ledger-row" style="color:var(--muted);font-size:12px"><span>'+esc(c.rotulo)+' · '+c.tokens+' tokens</span><b style="color:var(--ink)">R$ '+brl(c.custo)+'</b></div>';
+  }).join('');
+  $('fechamento').innerHTML =
+    '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px;margin-bottom:20px">'
+    + '<div><div class="card-t">Chamadas de IA</div><div style="font-family:var(--mono);font-size:25px;font-weight:600">'+S.chamadas.length+'</div></div>'
+    + '<div><div class="card-t">Custo total</div><div style="font-family:var(--mono);font-size:25px;font-weight:600;color:var(--blue)">R$ '+brl(S.custo)+'</div></div>'
+    + '<div><div class="card-t">Documentos</div><div style="font-family:var(--mono);font-size:25px;font-weight:600">'+docs+'</div></div>'
+    + '<div><div class="card-t">Não conformidades</div><div style="font-family:var(--mono);font-size:25px;font-weight:600;color:var(--rose)">'+nc+'</div></div></div>'
+    + '<div style="font-family:var(--mono);border-top:1px solid var(--line);padding-top:12px">'+linhas+'</div>'
+    + '<p class="note" style="margin-top:16px">Este ciclo — entender o requisito, redigir o procedimento, criar o formulário e auditar o resultado — é trabalho que uma consultoria entrega em semanas. Aqui custou <b>R$ '+brl(S.custo)+'</b> de inferência. É essa diferença que sustenta uma assinatura de R$ 89.</p>'
+    + '<p class="note">Escopo desta demonstração: um requisito, de um referencial. A ISO 9001 tem dezenas de requisitos, e o documento técnico prevê nove referenciais.</p>';
+}
+</script>
+</body>
+</html>
