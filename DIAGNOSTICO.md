@@ -68,7 +68,7 @@ Abertos isoladamente, mostram ícone de imagem quebrada no lugar da marca.
 **Não precisa de conserto:** a partir da 6.0 a marca virou SVG inline (vetor, sem
 dependência externa) e o problema desapareceu sozinho. Ficam no histórico como estão.
 
-### 3.2 Modelo chamado ≠ modelo precificado — *pendente*
+### 3.2 Modelo chamado ≠ modelo precificado — *corrigido em 10/09/2026*
 Este é o achado que mais importa, porque afeta o modelo de custo.
 
 Tanto a `demo-10.2` quanto a `8.2` chamam a API com:
@@ -92,11 +92,11 @@ Tarifas reais por milhão de tokens:
 | Claude Opus 5 | `claude-opus-5` | US$ 5 | US$ 25 |
 | Claude Haiku 4.5 | `claude-haiku-4-5` | US$ 1 | US$ 5 |
 
-Ou seja: **o custo real das chamadas da demo é 50% maior do que o número exibido**,
-porque roda em Sonnet 4.6 e calcula em Sonnet 5. Correção de uma linha
-(`claude-sonnet-4-6` → `claude-sonnet-5`), mas precisa ser feita antes de qualquer
-apresentação em que o valor no medidor seja citado. Os arquivos foram arquivados
-verbatim; a correção está no `BACKLOG.md` como item F1-1.
+Ou seja: **o custo real das chamadas era 50% maior do que o número exibido**, porque
+rodava em Sonnet 4.6 e calculava em Sonnet 5.
+
+**Corrigido:** `claude-sonnet-4-6` → `claude-sonnet-5` em 4 pontos da 8.2 e 2 da demo.
+O medidor agora calcula a tarifa do modelo que é de fato chamado.
 
 ### 3.3 A demo só funciona dentro do ambiente Claude — *estrutural*
 `demo-10.2` e a área "viva" da `8.2` chamam `https://api.anthropic.com/v1/messages`
@@ -111,7 +111,7 @@ o alerta, o que é um bom comportamento, mas não resolve o problema.
 página. Para rodar fora do Claude, precisa de um proxy mínimo no servidor que guarde a
 chave — que é, não por acaso, a primeira peça de backend real do projeto.
 
-### 3.4 A demo 10.2 usa cores de marca fora do padrão — *pendente*
+### 3.4 A demo 10.2 usava cores de marca fora do padrão — *corrigido em 10/09/2026*
 Descoberto ao confrontar os arquivos com o manual de identidade da segunda leva.
 O gradiente do símbolo tem quatro paradas. A 8.2 e o manual concordam exatamente;
 a `demo-10.2` diverge nas duas pontas:
@@ -123,6 +123,8 @@ a `demo-10.2` diverge nas duas pontas:
 | 3 | `#4391C7` | `#4391C7` ✅ |
 | 4 (fim) | `#439397` verde-água | `#5FBDB0` ❌ |
 
+*(a coluna da demo mostra o estado anterior à correção)*
+
 Ponto (`#74D4C1`) e barra interna (`#3C8589`) batem nos dois.
 
 Isso não é detalhe estético. O manual de identidade estabelece que o gradiente é
@@ -130,9 +132,9 @@ semântico — azul profundo é o rigor normativo, verde-água é o resultado �
 "recolorir fora da paleta". A demo está com as duas cores que carregam significado
 trocadas por variantes mais claras.
 
-**Já corrigido em parte:** o `identidade/simbolo-epige.svg` deste repositório foi
-extraído da demo e por isso nasceu com as cores erradas. Foi corrigido para os valores
-canônicos e verificado contra a 8.2. Falta corrigir a própria demo — item **ID-3**.
+**Corrigido.** Primeiro o `identidade/simbolo-epige.svg`, que fora extraído da demo e
+por isso herdara as cores erradas; depois a própria demo. Demo, 8.2 e SVG agora têm as
+quatro paradas idênticas, conferidas por script.
 
 ### 3.5 Peso dos arquivos
 `4.2` tem 941 KB porque carrega o símbolo como PNG base64 de 617 KB — uma imagem

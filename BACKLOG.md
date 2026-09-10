@@ -12,11 +12,23 @@ Ordem = ordem sugerida de execução. Marque `[x]` ao concluir.
 
 ## Urgente — tem data
 
-- [ ] **F0-7 · Verificar se a ISO 9001:2026 já foi publicada.** O FDIS foi aprovado e a
-      publicação era esperada para **setembro de 2026** — estamos dentro do mês. Se saiu,
-      duas coisas mudam no mesmo dia: o conteúdo dos agentes precisa refletir a edição
-      nova, e a orientação "certifique na 2015 agora e transicione depois" vira a
-      mensagem comercial mais valiosa do produto. Fonte: `docs/revisao-completa.md` §1.
+- [x] **F0-7 · Verificar a publicação da ISO 9001:2026.** *Resolvido em 10/09/2026.*
+      **Data confirmada: 16 de setembro de 2026** — daqui a seis dias. O FDIS foi
+      aprovado e a votação encerrada, então a data é firme. Ver
+      `docs/situacao-normativa.md` para prazos, mudanças de conteúdo e fontes.
+- [ ] **F0-8 · Preparar o conteúdo dos agentes para a 9001:2026 antes de 16/09.**
+      As mudanças já são públicas e não dependem do texto final para serem endereçadas:
+      cultura da qualidade e comportamento ético na liderança (cláusula 5), mudança
+      climática formalizada no contexto (4.1), gestão de riscos e oportunidades mais
+      clara. O núcleo das cláusulas 4 a 10 muda pouco.
+      **A cláusula 10.2 — escopo da demo — permanece substancialmente a mesma**, com
+      ajustes de clareza sobre evidência documentada. A demo não fica obsoleta.
+- [ ] **F0-9 · Publicar a orientação de transição como conteúdo comercial.**
+      Os primeiros certificados na edição 2026 não saem antes do 3º trimestre de 2027,
+      porque os organismos certificadores precisam ser acreditados primeiro (9 a 12
+      meses após a publicação). Quem precisa certificar agora certifica na 2015 e
+      transiciona depois. É orientação correta, verificável, e que quase ninguém está
+      dando — ver `docs/situacao-normativa.md`.
 
 ## Fase 0 — Decisões (só você resolve, roda em paralelo a tudo)
 
@@ -47,12 +59,9 @@ Ordem = ordem sugerida de execução. Marque `[x]` ao concluir.
       do cliente contra a edição nova e devolver o que muda. É a prioridade 2 da revisão
       completa e a oportunidade comercial com prazo: entre 2026 e 2029, mais de um milhão
       de empresas certificadas no mundo precisam migrar. Construir primeiro para a 9001.
-- [ ] **F1-1 · Corrigir o modelo nas demos.** Trocar `claude-sonnet-4-6` por
-      `claude-sonnet-5` em `prototipos/demo-10.2/index.html` e `prototipos/8.2/index.html`
-      (4 ocorrências em cada). Hoje o medidor calcula a US$ 2/10 por milhão enquanto a
-      chamada roda a US$ 3/15 — o custo real é 50% maior que o exibido.
-      Ver `DIAGNOSTICO.md` §3.2. *Fazer antes de qualquer apresentação em que o número do
-      medidor seja citado.*
+- [x] **F1-1 · Corrigir o modelo nas demos.** *Feito em 10/09/2026.* `claude-sonnet-4-6`
+      → `claude-sonnet-5`: 4 ocorrências na 8.2, 2 na demo 10.2. O medidor de custo agora
+      calcula a tarifa do modelo que é de fato chamado.
 - [ ] **F1-3 · Extrair os prompts da demo para arquivos versionados.** Hoje as regras dos
       agentes vivem embutidas em `<script>` dentro do HTML. Precisam virar arquivos
       próprios, com histórico, para que uma mudança de prompt seja rastreável.
@@ -76,10 +85,9 @@ Ordem = ordem sugerida de execução. Marque `[x]` ao concluir.
 ## Identidade visual
 
 - [x] **ID-2 · Manual de marca.** *Entregue:* `identidade/IDENTIDADE_VISUAL.md`, 13 seções.
-- [ ] **ID-3 · Corrigir o gradiente da demo 10.2.** Duas paradas fora da paleta:
-      `#4E74F0` → `#2B52DC` e `#5FBDB0` → `#439397`. São justamente as duas cores que o
-      manual define como semânticas (rigor normativo e resultado). A 8.2 já está correta.
-      Ver `DIAGNOSTICO.md` §3.4.
+- [x] **ID-3 · Corrigir o gradiente da demo 10.2.** *Feito em 10/09/2026.*
+      `#4E74F0` → `#2B52DC` e `#5FBDB0` → `#439397`. Demo, 8.2 e `simbolo-epige.svg`
+      agora têm as quatro paradas idênticas, conferidas por script.
 - [ ] **ID-1 · Lockup vetorial definitivo.** O lockup atual
       (`identidade/originais/lockup-3.8-raster.png`) é raster com artefatos: texto borrado
       e "TRANSFORMAR" cortado. O manual já define as regras (peso 850, letter-spacing
@@ -120,6 +128,7 @@ que já foi decidido.
 |---|---|---|
 | 09/09/2026 | Material da EPIGE vai para repositório próprio, separado do ScopeMark | Os dois produtos não se misturam; nada da EPIGE é publicado por engano no GitHub Pages do ScopeMark |
 | 10/09/2026 | `marlopires/epige` criado (privado) e este material transplantado para a raiz | O abrigo provisório na branch do `scopemark-site` deixa de ser necessário e foi removido |
+| 10/09/2026 | ISO 9001:2026 publica em 16/09/2026; transição de 3 anos | Confirma a janela comercial e dá data ao F0-8 e ao F0-9 |
 | 09/09/2026 | Protótipo 8.2 é o canônico; 3.7 a 6.0 viram histórico | Só a 8.2 recebe alterações daqui em diante |
 | 10/09/2026 | Paleta canônica é a do manual de marca, conferida contra a 8.2 | `simbolo-epige.svg` corrigido; demo 10.2 fica fora de padrão até ID-3 |
 | 12/08/2026 | Faixa de preço B: R$ 89 / R$ 279 / R$ 1.490 | Margem de contribuição ≥ 41,8% mesmo no teto do plano com dólar a R$ 6,00 |

@@ -2164,7 +2164,7 @@ function toast3(msg){
   function call(system, msgs){
     return fetch("https://api.anthropic.com/v1/messages", {
       method:"POST", headers:{"Content-Type":"application/json"},
-      body: JSON.stringify({model:"claude-sonnet-4-6", max_tokens:1000, system:system, messages:msgs})
+      body: JSON.stringify({model:"claude-sonnet-5", max_tokens:1000, system:system, messages:msgs})
     }).then(function(r){
       if(!r.ok) throw new Error("O serviço respondeu com status "+r.status+". Tente novamente em instantes.");
       return r.json();
@@ -2329,7 +2329,7 @@ function toast3(msg){
   /* --- verificação de conexão --- */
   fetch("https://api.anthropic.com/v1/messages", {
     method:"POST", headers:{"Content-Type":"application/json"},
-    body: JSON.stringify({model:"claude-sonnet-4-6", max_tokens:1000, messages:[{role:"user",content:"ok"}]})
+    body: JSON.stringify({model:"claude-sonnet-5", max_tokens:1000, messages:[{role:"user",content:"ok"}]})
   }).then(function(r){ return r.ok; }).catch(function(){ return false; })
   .then(function(on){
     g('vivaLiveTxt').textContent = on ? 'IA ao vivo' : 'IA indisponível';
@@ -2679,7 +2679,7 @@ function falha(el,e){ el.innerHTML='<div class="vwarn"><b>Não foi possível con
 
 /* ---------- API ---------- */
 function call(system, msgs, custo, ferramentas){
-  var corpo = {model:"claude-sonnet-4-6", max_tokens:1000, system:system, messages:msgs};
+  var corpo = {model:"claude-sonnet-5", max_tokens:1000, system:system, messages:msgs};
   if(ferramentas) corpo.tools = ferramentas;
   return fetch("https://api.anthropic.com/v1/messages",{
     method:"POST", headers:{"Content-Type":"application/json"},
@@ -3169,7 +3169,7 @@ window.mvIr = function(norma, ferramenta){
 
 /* ---------- conexão ---------- */
 fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},
-  body: JSON.stringify({model:"claude-sonnet-4-6",max_tokens:1000,messages:[{role:"user",content:"ok"}]})
+  body: JSON.stringify({model:"claude-sonnet-5",max_tokens:1000,messages:[{role:"user",content:"ok"}]})
 }).then(function(r){return r.ok;}).catch(function(){return false;}).then(function(on){
   M.online=on;
   var l=g('mvLive'); if(!l) return;

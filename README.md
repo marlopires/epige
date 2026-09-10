@@ -20,6 +20,7 @@ qualidade, com escopo de lançamento em ISO 9001.
 | [`docs/revisao-completa.md`](docs/revisao-completa.md) | O mais recente. Auditoria de código da 8.2 + pesquisa normativa que reposiciona o produto. |
 | [`docs/modelo-custo-precificacao.md`](docs/modelo-custo-precificacao.md) | Modelo de custo: preços de inferência, cenários de uso, margem, ponto de equilíbrio, estresse. |
 | [`identidade/IDENTIDADE_VISUAL.md`](identidade/IDENTIDADE_VISUAL.md) | Manual de marca em 13 seções. Paleta canônica, tipografia, escala φ, usos vedados. |
+| [`docs/situacao-normativa.md`](docs/situacao-normativa.md) | Qual edição de cada ISO está vigente, com prazos e fontes. **Reverificar a cada trimestre.** |
 
 ## Estrutura
 
@@ -40,6 +41,7 @@ qualidade, com escopo de lançamento em ISO 9001.
 │   ├── opcoes-logo-preview.html  as 3 opções avaliadas
 │   └── originais/              PNGs extraídos dos protótipos
 └── docs/
+    ├── situacao-normativa.md        qual edição de cada ISO vale, com prazos e fontes
     ├── revisao-completa.md          auditoria de código + pesquisa normativa
     ├── modelo-custo-precificacao.md modelo de custo e preços
     └── roteiro-ate-lancamento.pdf   original de 12/08/2026
@@ -52,10 +54,12 @@ mais **uma demo que já roda IA de verdade de ponta a ponta** no requisito 10.2 
 medição de se as respostas estão certas. O próximo marco é o Consultor ISO 9001 com
 conjunto de avaliação.
 
-**E há um relógio correndo.** A ISO 14001:2026 já foi publicada, a ISO 9001:2026 era
-esperada para este mês, e a 45001 vem em 2027. Entre 2026 e 2029 mais de um milhão de
-empresas certificadas precisam migrar de edição. É a maior oportunidade comercial do
-produto, e ela tem prazo — ver `BACKLOG.md`, itens F0-7 e F1-8.
+**E há um relógio correndo.** A ISO 14001:2026 foi publicada em abril; a **ISO 9001:2026
+publica em 16 de setembro de 2026**, data confirmada; a 45001 vem em 2027. Entre 2026 e
+2029, mais de um milhão de empresas certificadas precisam migrar de edição — e os
+primeiros certificados na edição nova só saem no 2º semestre de 2027, porque os
+certificadores precisam ser acreditados antes. É a maior oportunidade comercial do
+produto, e ela tem prazo. Ver `docs/situacao-normativa.md`.
 
 ## Como rodar os protótipos
 

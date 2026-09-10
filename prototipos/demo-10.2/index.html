@@ -146,8 +146,8 @@ textarea{resize:vertical; min-height:78px; line-height:1.55}
 <header>
   <svg class="mark" viewBox="0 0 200 200" aria-label="EPIGE">
     <defs><linearGradient id="mg" x1="8%" y1="0%" x2="92%" y2="100%">
-      <stop offset="0" stop-color="#4E74F0"/><stop offset=".45" stop-color="#3273EE"/>
-      <stop offset=".72" stop-color="#4391C7"/><stop offset="1" stop-color="#5FBDB0"/>
+      <stop offset="0" stop-color="#2B52DC"/><stop offset=".45" stop-color="#3273EE"/>
+      <stop offset=".72" stop-color="#4391C7"/><stop offset="1" stop-color="#439397"/>
     </linearGradient></defs>
     <path d="M98.66,200.03 L87.37,198.47 L79.77,195.30 L24.95,162.55 L15.52,153.74 L11.70,147.21 L9.19,135.49 L9.05,70.99 L11.91,55.90 L16.31,48.97 L24.71,41.21 L89.99,3.04 L99.76,0.25 L105.10,0.08 L111.89,1.57 L126.06,9.51 L128.91,13.70 L129.21,16.98 L128.25,20.86 L124.22,24.98 L50.50,67.83 L46.98,70.81 L43.72,79.14 L43.85,126.38 L46.86,134.28 L82.40,156.48 L89.92,160.56 L95.17,161.81 L100.31,161.57 L105.61,159.82 L150.04,132.84 L172.71,119.74 L177.59,118.13 L180.59,117.82 L185.75,119.43 L188.93,122.74 L190.72,127.17 L190.95,136.46 L187.42,148.53 L182.80,154.83 L179.17,157.83 L116.08,194.87 L107.44,198.53 L98.76,200.02 Z" fill="url(#mg)"/>
     <circle cx="156.86" cy="53.64" r="22.97" fill="#74D4C1"/>
@@ -371,7 +371,7 @@ function projetar(){
 async function chamar(system, mensagens, rotulo){
   const r = await fetch("https://api.anthropic.com/v1/messages", {
     method:"POST", headers:{"Content-Type":"application/json"},
-    body: JSON.stringify({model:"claude-sonnet-4-6", max_tokens:1000, system:system, messages:mensagens})
+    body: JSON.stringify({model:"claude-sonnet-5", max_tokens:1000, system:system, messages:mensagens})
   });
   if(!r.ok) throw new Error("A API respondeu com status "+r.status+".");
   const d = await r.json();
@@ -393,7 +393,7 @@ function extrairJSON(t){
   try{
     const r = await fetch("https://api.anthropic.com/v1/messages",{
       method:"POST", headers:{"Content-Type":"application/json"},
-      body: JSON.stringify({model:"claude-sonnet-4-6", max_tokens:1000, messages:[{role:"user",content:"ok"}]})
+      body: JSON.stringify({model:"claude-sonnet-5", max_tokens:1000, messages:[{role:"user",content:"ok"}]})
     });
     S.online = r.ok;
   }catch(e){ S.online = false; }
