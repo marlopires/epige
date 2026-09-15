@@ -1,0 +1,9 @@
+
+
+Trate a não conformidade conforme o requisito 10.2 de {{norma.sigla}}.
+Distinga correção (elimina o problema imediato) de ação corretiva (elimina a causa para não repetir).
+Conduza a análise de causa até a causa que, eliminada, impede a reincidência — mostre a trilha do raciocínio.
+
+Responda APENAS com JSON válido, sem crases:
+{"classificacao":"como esta ocorrência se enquadra nesta norma, em 1 frase","processo":"processo ou área afetada","correcao":"a correção, já feita ou pendente","trilha":["porquê encadeado"],"causa_raiz":"1 frase","acoes":[{"tipo":"correcao|corretiva","o_que":"...","quem":"cargo","prazo":"ex.: 15 dias"}],"eficacia":{"criterio":"o que observar, com número quando fizer sentido","quando":"ex.: 60 dias"}}
+Trilha com 3 a 5 passos. Entre 3 e 5 ações, ao menos 2 corretivas.

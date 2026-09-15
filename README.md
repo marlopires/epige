@@ -21,6 +21,9 @@ qualidade, com escopo de lançamento em ISO 9001.
 | [`docs/modelo-custo-precificacao.md`](docs/modelo-custo-precificacao.md) | Modelo de custo: preços de inferência, cenários de uso, margem, ponto de equilíbrio, estresse. |
 | [`identidade/IDENTIDADE_VISUAL.md`](identidade/IDENTIDADE_VISUAL.md) | Manual de marca em 13 seções. Paleta canônica, tipografia, escala φ, usos vedados. |
 | [`docs/situacao-normativa.md`](docs/situacao-normativa.md) | Qual edição de cada ISO está vigente, com prazos e fontes. **Reverificar a cada trimestre.** |
+| [`docs/orientacao-transicao-9001.md`](docs/orientacao-transicao-9001.md) | Orientação de transição para clientes. Pronta para virar página, e-mail ou conversa comercial. |
+| [`agentes/README.md`](agentes/README.md) | Os prompts que governam os agentes, e a ressalva de sincronia com o HTML. |
+| [`avaliacao/README.md`](avaliacao/README.md) | Como preencher e rodar o conjunto de avaliação. **Tem uma parte que só você pode fazer.** |
 
 ## Estrutura
 
@@ -29,6 +32,8 @@ qualidade, com escopo de lançamento em ISO 9001.
 ├── DIAGNOSTICO.md              revisão do material existente
 ├── ROTEIRO.md                  plano até o lançamento
 ├── BACKLOG.md                  próximos passos + registro de decisões
+├── agentes/                    ← PROMPTS versionados · 15 arquivos + README
+├── avaliacao/                  ← CONJUNTO DE AVALIAÇÃO · 43 casos + executor
 ├── prototipos/
 │   ├── 8.2/index.html          ← CANÔNICO · 42 telas · toda alteração vem aqui
 │   ├── demo-10.2/index.html    ← demo ao vivo do requisito 10.2, com IA real
@@ -42,6 +47,7 @@ qualidade, com escopo de lançamento em ISO 9001.
 │   └── originais/              PNGs extraídos dos protótipos
 └── docs/
     ├── situacao-normativa.md        qual edição de cada ISO vale, com prazos e fontes
+    ├── orientacao-transicao-9001.md conteúdo de orientação para clientes
     ├── revisao-completa.md          auditoria de código + pesquisa normativa
     ├── modelo-custo-precificacao.md modelo de custo e preços
     └── roteiro-ate-lancamento.pdf   original de 12/08/2026
@@ -78,3 +84,5 @@ Abra o `index.html` no navegador. Duas ressalvas:
 - **A marca é o SVG.** `identidade/simbolo-epige.svg`, cores conferidas contra o manual
   e contra a 8.2. Os PNGs são derivados. O manual veda bitmap para o símbolo.
 - **Decisões viram linha no `BACKLOG.md`**, com data. O que está decidido não se re-discute.
+- **Prompt alterado no HTML, prompt reextraído.** O protótipo é a fonte; `agentes/` é
+  derivado. Até a reescrita para produção, editar só um dos dois cria divergência silenciosa.

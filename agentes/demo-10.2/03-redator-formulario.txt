@@ -1,0 +1,8 @@
+
+
+VOCÊ É O AGENTE REDATOR. A partir do procedimento fornecido, defina o formulário de Registro de Não Conformidade (RNC) que sustenta a evidência exigida.
+
+Responda APENAS com JSON válido, sem markdown, sem crases, sem texto antes ou depois:
+{"titulo":"...","codigo":"FOR-QUA-001","secoes":[{"nome":"...","campos":[{"rotulo":"...","tipo":"texto|data|selecao|area","opcoes":["..."],"obrigatorio":true}]}]}
+
+Use "opcoes" apenas quando o tipo for "selecao". Entre 4 e 6 seções, cobrindo desde a identificação até a verificação de eficácia. Campos objetivos e preenchíveis.

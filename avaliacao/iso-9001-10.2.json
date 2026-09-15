@@ -1,0 +1,347 @@
+{
+  "conjunto": "iso-9001-10.2",
+  "descricao": "Perguntas sobre não conformidade e ação corretiva. O campo resposta_correta está VAZIO de propósito — quem preenche é o Marlo. Os criterios são RASCUNHO meu, a corrigir. Ver README.md.",
+  "versao": 1,
+  "atualizado": "2026-09-15",
+  "preenchido_por": "",
+  "preenchido_em": "",
+  "casos": [
+    {
+      "id": "10.2-001",
+      "categoria": "conceito",
+      "pergunta": "O que o requisito 10.2 exige na prática de uma empresa que está começando do zero?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["reagir à não conformidade", "avaliar a necessidade de ação para eliminar a causa", "implementar ação", "analisar criticamente a eficácia", "reter informação documentada"],
+        "nao_pode_afirmar": ["que é obrigatório um software específico", "que exige procedimento documentado formal em todos os casos"]
+      },
+      "peso": "alto"
+    },
+    {
+      "id": "10.2-002",
+      "categoria": "conceito",
+      "pergunta": "Toda não conformidade exige ação corretiva?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["não", "a norma pede avaliar a necessidade de ação para eliminar a causa", "a avaliação em si é requisito, a ação nem sempre"],
+        "nao_pode_afirmar": ["que toda NC obriga ação corretiva", "que a empresa pode simplesmente ignorar sem avaliar"]
+      },
+      "peso": "alto"
+    },
+    {
+      "id": "10.2-003",
+      "categoria": "correcao-vs-acao-corretiva",
+      "pergunta": "Qual a diferença entre correção e ação corretiva?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["correção trata o efeito imediato", "ação corretiva elimina a causa para evitar recorrência", "podem coexistir no mesmo caso"],
+        "nao_pode_afirmar": ["que são sinônimos", "que correção substitui ação corretiva"]
+      },
+      "peso": "alto"
+    },
+    {
+      "id": "10.2-004",
+      "categoria": "correcao-vs-acao-corretiva",
+      "pergunta": "Retrabalhei a peça com defeito e ela saiu conforme. Posso fechar o RNC?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["o retrabalho é correção, não ação corretiva", "falta avaliar a necessidade de eliminar a causa"],
+        "nao_pode_afirmar": ["que o retrabalho encerra o tratamento"]
+      },
+      "peso": "alto"
+    },
+    {
+      "id": "10.2-005",
+      "categoria": "correcao-vs-acao-corretiva",
+      "pergunta": "Em que situação é legítimo aplicar só a correção, sem ação corretiva?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["quando a avaliação conclui que a ação não se justifica", "a avaliação precisa existir e ficar registrada", "critérios como recorrência, risco e consequência"],
+        "nao_pode_afirmar": ["que basta o julgamento informal de quem tratou"]
+      },
+      "peso": "alto"
+    },
+    {
+      "id": "10.2-006",
+      "categoria": "correcao-vs-acao-corretiva",
+      "pergunta": "Ação preventiva ainda existe na ISO 9001?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["não como cláusula própria desde 2015", "a função foi absorvida pela abordagem de riscos e oportunidades da cláusula 6"],
+        "nao_pode_afirmar": ["que continua existindo como requisito separado no 10.2"]
+      },
+      "peso": "médio"
+    },
+    {
+      "id": "10.2-007",
+      "categoria": "conceito",
+      "pergunta": "Uma reclamação de cliente é automaticamente uma não conformidade?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["precisa ser avaliada", "é NC se houver requisito não atendido", "reclamação improcedente não é NC, mas a avaliação fica registrada"],
+        "nao_pode_afirmar": ["que toda reclamação é NC por definição", "que reclamação nunca é NC"]
+      },
+      "peso": "alto"
+    },
+    {
+      "id": "10.2-008",
+      "categoria": "conceito",
+      "pergunta": "Quem deve abrir um registro de não conformidade na empresa?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["a norma não define cargo", "a organização define no seu procedimento", "restringir demais a abertura reduz a detecção"],
+        "nao_pode_afirmar": ["que a norma exige que seja o representante da direção", "que só a qualidade pode abrir"]
+      },
+      "peso": "médio"
+    },
+    {
+      "id": "10.2-009",
+      "categoria": "conceito",
+      "pergunta": "Não conformidade encontrada em auditoria interna segue o mesmo tratamento das demais?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["sim, o 10.2 se aplica independentemente da origem", "a origem é dado do registro, não muda o tratamento"],
+        "nao_pode_afirmar": ["que NC de auditoria tem processo distinto exigido pela norma"]
+      },
+      "peso": "médio"
+    },
+    {
+      "id": "10.2-010",
+      "categoria": "analise-causa",
+      "pergunta": "A norma exige os cinco porquês para análise de causa?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["não exige método específico", "exige que a causa seja determinada", "cinco porquês, Ishikawa e outros são escolhas da organização"],
+        "nao_pode_afirmar": ["que a norma obriga uma técnica nomeada"]
+      },
+      "peso": "alto"
+    },
+    {
+      "id": "10.2-011",
+      "categoria": "analise-causa",
+      "pergunta": "A causa que registramos foi 'falha do operador'. Isso é aceitável?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["em geral não é causa raiz, é o ponto onde o erro apareceu", "leva a ação corretiva fraca, do tipo treinar ou advertir", "a pergunta seguinte é o que permitiu o erro acontecer"],
+        "nao_pode_afirmar": ["que erro humano nunca pode ser causa"]
+      },
+      "peso": "alto",
+      "observacao": "A causa mais registrada e a mais frágil. Vale calibrar bem a resposta esperada."
+    },
+    {
+      "id": "10.2-012",
+      "categoria": "analise-causa",
+      "pergunta": "Uma não conformidade pode ter mais de uma causa?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["sim", "cada causa relevante precisa de tratamento ou de justificativa para não tratar"],
+        "nao_pode_afirmar": ["que a norma exige eleger uma causa única"]
+      },
+      "peso": "médio"
+    },
+    {
+      "id": "10.2-013",
+      "categoria": "analise-causa",
+      "pergunta": "A mesma não conformidade voltou a acontecer seis meses depois. O que isso indica sobre o tratamento anterior?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["indica que a causa não foi eliminada ou não era a causa real", "a verificação de eficácia anterior falhou ou não existiu", "recorrência é sinal clássico de tratamento superficial"],
+        "nao_pode_afirmar": ["que basta reabrir o mesmo registro e repetir a ação"]
+      },
+      "peso": "alto"
+    },
+    {
+      "id": "10.2-014",
+      "categoria": "evidencia-registro",
+      "pergunta": "O que precisa ficar registrado no tratamento de uma não conformidade?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["a natureza da não conformidade", "as ações tomadas", "os resultados da ação corretiva"],
+        "nao_pode_afirmar": ["campos específicos inventados como exigência da norma"]
+      },
+      "peso": "alto"
+    },
+    {
+      "id": "10.2-015",
+      "categoria": "evidencia-registro",
+      "pergunta": "Posso usar uma planilha compartilhada como registro de não conformidades?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["sim, a norma não exige ferramenta específica", "precisa atender aos controles de informação documentada da 7.5", "pontos de atenção: controle de versão, acesso, rastreabilidade de alteração"],
+        "nao_pode_afirmar": ["que a norma exige software de gestão"]
+      },
+      "peso": "alto"
+    },
+    {
+      "id": "10.2-016",
+      "categoria": "evidencia-registro",
+      "pergunta": "Por quanto tempo preciso guardar os registros de não conformidade?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["a norma não fixa prazo", "a organização define, considerando ciclo de auditoria, requisitos legais e contratuais"],
+        "nao_pode_afirmar": ["um número de anos apresentado como exigência da ISO 9001"]
+      },
+      "peso": "alto",
+      "observacao": "Parente próximo de uma armadilha. Inventar prazo aqui é falha grave."
+    },
+    {
+      "id": "10.2-017",
+      "categoria": "evidencia-registro",
+      "pergunta": "O procedimento de tratamento de não conformidade precisa ser documentado?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["a norma exige reter informação documentada sobre a NC e os resultados", "procedimento documentado em si não é exigência explícita do 10.2", "na prática é difícil sustentar consistência sem ele"],
+        "nao_pode_afirmar": ["que a norma exige um procedimento documentado no 10.2"]
+      },
+      "peso": "alto",
+      "observacao": "Distinção fina entre reter registro e ter procedimento. Erro comum inclusive entre consultores."
+    },
+    {
+      "id": "10.2-018",
+      "categoria": "verificacao-eficacia",
+      "pergunta": "Como verifico se a ação corretiva funcionou?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["definir critério e prazo de verificação no momento do planejamento", "buscar evidência objetiva de que a causa não voltou a produzir o efeito", "registrar o resultado da verificação"],
+        "nao_pode_afirmar": ["que basta confirmar que a ação foi executada"]
+      },
+      "peso": "alto"
+    },
+    {
+      "id": "10.2-019",
+      "categoria": "verificacao-eficacia",
+      "pergunta": "Qual o prazo adequado entre implementar a ação e verificar a eficácia?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["não há prazo normativo", "depende da frequência do evento", "precisa ser tempo suficiente para o problema reaparecer se a causa persistir"],
+        "nao_pode_afirmar": ["um prazo padrão apresentado como exigência"]
+      },
+      "peso": "médio"
+    },
+    {
+      "id": "10.2-020",
+      "categoria": "verificacao-eficacia",
+      "pergunta": "A verificação mostrou que a ação não foi eficaz. E agora?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["retomar a análise de causa, porque provavelmente a causa identificada não era a real", "registrar a ineficácia em vez de encerrar", "novo ciclo de ação"],
+        "nao_pode_afirmar": ["que se deve encerrar o registro e abrir outro do zero sem aproveitar a análise"]
+      },
+      "peso": "alto"
+    },
+    {
+      "id": "10.2-021",
+      "categoria": "aplicado",
+      "pergunta": "Somos uma metalúrgica de 40 pessoas, usinagem para o setor automotivo. Uma peça fora de tolerância chegou ao cliente. Como tratar?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["conter o efeito, incluindo avaliar o que já foi expedido", "avaliar consequências junto ao cliente", "analisar causa", "verificar eficácia", "cargos realistas para 40 pessoas"],
+        "nao_pode_afirmar": ["estrutura organizacional que uma empresa desse porte não teria", "requisitos de IATF apresentados como se fossem da ISO 9001"]
+      },
+      "peso": "alto",
+      "observacao": "Testa adaptação ao porte. Atenção ao risco de contaminar com IATF 16949 por ser setor automotivo."
+    },
+    {
+      "id": "10.2-022",
+      "categoria": "aplicado",
+      "pergunta": "Somos uma empresa de serviços com 8 pessoas. O tratamento precisa ser tão formal quanto numa indústria?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["o requisito é o mesmo, a formalidade se ajusta ao porte e ao risco", "registro simples pode atender", "o que não muda é avaliar causa e verificar eficácia"],
+        "nao_pode_afirmar": ["que empresas pequenas estão dispensadas de parte do 10.2"]
+      },
+      "peso": "alto"
+    },
+    {
+      "id": "10.2-023",
+      "categoria": "aplicado",
+      "pergunta": "A não conformidade foi causada por um fornecedor. A responsabilidade do tratamento é dele?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["a organização permanece responsável pelo seu sistema", "cabe tratar a própria causa, incluindo os controles de fornecimento que falharam", "acionar o fornecedor não encerra o tratamento interno"],
+        "nao_pode_afirmar": ["que basta repassar a NC ao fornecedor"]
+      },
+      "peso": "alto"
+    },
+    {
+      "id": "10.2-024",
+      "categoria": "aplicado",
+      "pergunta": "Temos 200 não conformidades abertas e não damos conta. Como priorizar?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["priorizar por consequência e risco", "o volume alto costuma indicar problema no processo de tratamento, não só nas ocorrências", "agrupar por causa comum"],
+        "nao_pode_afirmar": ["que se pode encerrar registros em massa sem avaliação", "que a norma permite descartar NC por falta de tempo"]
+      },
+      "peso": "médio"
+    },
+    {
+      "id": "10.2-025",
+      "categoria": "armadilha",
+      "pergunta": "Qual o formulário oficial de RNC exigido pela ISO 9001?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["não existe formulário oficial", "a norma define a informação a reter, não o formato", "a organização desenha o seu"],
+        "nao_pode_afirmar": ["referência a um modelo oficial, anexo ou template normativo"]
+      },
+      "peso": "alto"
+    },
+    {
+      "id": "10.2-026",
+      "categoria": "armadilha",
+      "pergunta": "Preciso classificar as não conformidades em maiores e menores conforme a norma exige?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["a ISO 9001 não exige essa classificação da organização", "maior e menor é vocabulário do processo de certificação, usado pelo organismo certificador", "a organização pode adotar se lhe for útil"],
+        "nao_pode_afirmar": ["que o 10.2 exige classificar em maior e menor"]
+      },
+      "peso": "alto",
+      "observacao": "Confusão muito frequente entre requisito da norma e prática de certificadora."
+    },
+    {
+      "id": "10.2-027",
+      "categoria": "armadilha",
+      "pergunta": "A ISO 9001 exige indicador de percentual de ações corretivas encerradas no prazo?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["não é indicador exigido", "a norma pede análise de desempenho e eficácia do sistema, sem definir indicadores nomeados", "pode ser útil, mas é escolha"],
+        "nao_pode_afirmar": ["que o indicador é requisito", "meta numérica apresentada como exigência"]
+      },
+      "peso": "alto"
+    },
+    {
+      "id": "10.2-028",
+      "categoria": "edicao",
+      "pergunta": "A ISO 9001 mudou em 2026. O que muda no tratamento de não conformidade?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["a cláusula permanece substancialmente a mesma", "ajustes de clareza sobre evidência documentada", "quem já trata bem não precisa mudar o processo"],
+        "nao_pode_afirmar": ["mudanças estruturais no 10.2 que não ocorreram", "novos requisitos inventados para a edição 2026"]
+      },
+      "peso": "alto"
+    },
+    {
+      "id": "10.2-029",
+      "categoria": "edicao",
+      "pergunta": "Meu certificado é na edição 2015. Perdi a validade com a publicação da nova edição?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["não, o certificado continua válido durante a transição de três anos", "os primeiros certificados na edição 2026 só saem depois que os certificadores forem acreditados", "quem certifica agora certifica na 2015"],
+        "nao_pode_afirmar": ["que o certificado perdeu validade na publicação", "data de expiração inventada"]
+      },
+      "peso": "alto",
+      "observacao": "A pergunta comercialmente mais importante do conjunto a partir de 16/09/2026."
+    },
+    {
+      "id": "10.2-030",
+      "categoria": "conceito",
+      "pergunta": "Saída não conforme e não conformidade são a mesma coisa?",
+      "resposta_correta": "",
+      "criterios": {
+        "deve_conter": ["não", "saída não conforme é tratada no 8.7, com identificação e controle para impedir uso não pretendido", "a não conformidade e a avaliação de causa ficam no 10.2", "podem ocorrer juntas"],
+        "nao_pode_afirmar": ["que os dois requisitos são intercambiáveis"]
+      },
+      "peso": "alto",
+      "observacao": "Distinção 8.7 versus 10.2. Falha recorrente citada na revisão completa: saída não conforme não segregada."
+    }
+  ]
+}

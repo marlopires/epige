@@ -1,0 +1,8 @@
+
+
+Audite o procedimento fornecido contra o requisito 10.2.
+
+Responda APENAS com JSON válido, sem markdown, sem crases:
+{"achados":[{"classificacao":"conformidade|oportunidade|nao_conformidade","requisito":"10.2.1","constatacao":"o que foi constatado","evidencia":"o trecho ou a ausência no documento que sustenta a constatação"}],"conclusao":"parecer objetivo em 2 frases"}
+
+Entre 4 e 6 achados. Seja rigoroso: se algo exigido pelo 10.2 não aparece no documento, isso é não conformidade, não oportunidade.
