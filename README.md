@@ -24,6 +24,7 @@ qualidade, com escopo de lançamento em ISO 9001.
 | [`docs/orientacao-transicao-9001.md`](docs/orientacao-transicao-9001.md) | Orientação de transição para clientes. Pronta para virar página, e-mail ou conversa comercial. |
 | [`agentes/README.md`](agentes/README.md) | Os prompts que governam os agentes, e a ressalva de sincronia com o HTML. |
 | [`avaliacao/README.md`](avaliacao/README.md) | Como preencher e rodar o conjunto de avaliação. **Tem uma parte que só você pode fazer.** |
+| [`web/README.md`](web/README.md) | **Como publicar.** Conta de API, Cloudflare, domínio, e as três camadas que protegem a conta. |
 
 ## Estrutura
 
@@ -32,6 +33,7 @@ qualidade, com escopo de lançamento em ISO 9001.
 ├── DIAGNOSTICO.md              revisão do material existente
 ├── ROTEIRO.md                  plano até o lançamento
 ├── BACKLOG.md                  próximos passos + registro de decisões
+├── web/                        ← A APLICAÇÃO PUBLICADA · proxy + demo
 ├── agentes/                    ← PROMPTS versionados · 15 arquivos + README
 ├── avaliacao/                  ← CONJUNTO DE AVALIAÇÃO · 43 casos + executor
 ├── prototipos/

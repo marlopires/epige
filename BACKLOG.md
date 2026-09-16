@@ -51,8 +51,10 @@ Ordem = ordem sugerida de execução. Marque `[x]` ao concluir.
       margem — mais do que o dólar ir a R$ 6,00. Resolver antes de publicar preço.
 - [ ] **F0-5 · LGPD.** Base legal, política de retenção, e decisão explícita sobre uso de
       documentos de cliente para melhoria de modelo. **Antes do primeiro upload real.**
-- [ ] **F0-6 · Constituição da empresa + conta no Claude Platform** em nome dela.
-      Sem isso não há API em produção.
+- [ ] **F0-6 · Conta de API da Anthropic em nome da empresa.** **É o único bloqueio real
+      hoje.** Tudo que depende de IA funcionando está construído e parado esperando a
+      chave: a publicação (`web/`) e o conjunto de avaliação (`avaliacao/`).
+      Passo a passo em `web/README.md`. Crie com limite de gasto mensal.
 
 ## Fase 1 — Consultor ISO 9001 de verdade (o próximo passo recomendado)
 
@@ -82,9 +84,12 @@ Ordem = ordem sugerida de execução. Marque `[x]` ao concluir.
       Inclui **três controles negativos** — casos em que o agente DEVE responder. Sem eles,
       um agente que recusa tudo passaria com 100%.
       **Bloqueado para rodar até o F0-6.**
-- [ ] **F1-5 · Proxy mínimo de API.** Servidor que guarda a chave e repassa a chamada.
-      Destrava rodar a demo fora do runtime do Claude — hoje ela só funciona lá dentro
-      (`DIAGNOSTICO.md` §3.3). É também a primeira peça real de backend.
+- [x] **F1-5 · Proxy mínimo de API.** *Feito em 16/09/2026:* `web/`. Cloudflare Pages
+      Function que guarda a chave, monta o prompt no servidor e aplica código de acesso,
+      teto diário e limites de tamanho. Lógica de guarda testada em sete cenários.
+      **Efeito colateral valioso:** os prompts param de ir para o navegador, e `agentes/`
+      vira a fonte de verdade da aplicação publicada — a divergência HTML/`.txt` deixa de
+      existir em produção. Falta só a chave (F0-6) e o domínio.
 - [ ] **F1-6 · Telemetria por tipo de interação.** Desde a primeira linha de código.
       O modelo de custo lista **seis premissas de confiança baixa** que só telemetria
       resolve — e todas movem o preço.
@@ -144,6 +149,9 @@ que já foi decidido.
 | 10/09/2026 | ISO 9001:2026 publica em 16/09/2026; transição de 3 anos | Confirma a janela comercial e dá data ao F0-8 e ao F0-9 |
 | 15/09/2026 | Prompts extraídos para `agentes/`, mas o HTML segue sendo a fonte | Evita a ilusão de que a plataforma já lê arquivo; inverte só na F2-4 |
 | 15/09/2026 | Guardrails têm controles negativos no conjunto de avaliação | Um agente que recusa tudo não pode pontuar 100% |
+| 16/09/2026 | Publicação em Cloudflare Pages, não Vercel nem GitHub Pages | Pages não roda servidor; o grátis do Vercel exclui uso comercial |
+| 16/09/2026 | Demo publicada fica atrás de código de acesso, com teto de gasto | Página pública ligada a chave de API é cartão de crédito exposto |
+| 16/09/2026 | Em produção, `agentes/` é a fonte e o protótipo vira legado | Acaba a divergência HTML/`.txt` para a aplicação publicada |
 | 09/09/2026 | Protótipo 8.2 é o canônico; 3.7 a 6.0 viram histórico | Só a 8.2 recebe alterações daqui em diante |
 | 10/09/2026 | Paleta canônica é a do manual de marca, conferida contra a 8.2 | `simbolo-epige.svg` corrigido; demo 10.2 fica fora de padrão até ID-3 |
 | 12/08/2026 | Faixa de preço B: R$ 89 / R$ 279 / R$ 1.490 | Margem de contribuição ≥ 41,8% mesmo no teto do plano com dólar a R$ 6,00 |
