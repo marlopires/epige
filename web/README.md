@@ -76,15 +76,30 @@ chamado `epige` e vincule com o nome de variável `EPIGE_KV`. Sem esse binding o
 funciona, mas o teto diário **não é aplicado** — a resposta devolve `medindo_teto: false`
 em vez de fingir que está protegendo.
 
-### 3. Domínio
+### 3. Domínio — `epige.com.br`
 
-Custom domains → Set up a domain. A Cloudflare mostra os nameservers; troque no
-**registro.br** (Painel → seu domínio → DNS → Alterar servidores DNS). Propaga em algumas
-horas.
+**Use um subdomínio, não a raiz.** A demo vai em `demo.epige.com.br`, e
+`epige.com.br` fica livre para o site institucional quando ele existir. Apontar a raiz
+para a demo agora dá trabalho para desfazer depois, e a primeira impressão de quem digitar
+o domínio não deve ser uma tela pedindo código de acesso.
 
-**Antes disso, me confirme a grafia.** Você falou `epaid.com.br`; a marca é EPIGE, então
-suspeito que seja `epige.com.br`. Nenhum dos dois resolve hoje, o que é normal em domínio
-novo sem DNS — mas eu não configuro o errado no escuro.
+**No Cloudflare:** Websites → Add a site → `epige.com.br`. Ele mostra dois nameservers,
+algo como `ana.ns.cloudflare.com` e `bob.ns.cloudflare.com`.
+
+**No registro.br:** entre em registro.br, Painel → `epige.com.br` → **DNS** →
+*Alterar servidores DNS* → cole os dois nameservers que o Cloudflare deu. Salve.
+
+Propagação costuma levar de minutos a algumas horas. O Cloudflare avisa por e-mail quando
+assume o domínio.
+
+**Depois que assumir:** volte no projeto Pages → Custom domains → Set up a domain →
+`demo.epige.com.br`. O registro DNS é criado sozinho, e o certificado HTTPS sai em
+alguns minutos.
+
+> **Cuidado no registro.br.** Trocar os nameservers move **todo** o DNS do domínio para o
+> Cloudflare. Se você já tem e-mail configurado nesse domínio, os registros MX precisam ser
+> recriados lá antes da troca, ou o e-mail para de funcionar. Se o domínio é novo e não tem
+> nada, não há com o que se preocupar.
 
 ## As três camadas que protegem sua conta
 

@@ -44,7 +44,11 @@ qualidade, com escopo de lançamento em ISO 9001.
 ├── identidade/
 │   ├── IDENTIDADE_VISUAL.md    ← MANUAL DE MARCA · 13 seções
 │   ├── EPIGE_identidade_visual.docx   mesmo conteúdo, para distribuição
-│   ├── simbolo-epige.svg       ← FONTE DA MARCA · vetor, 1,6 KB
+│   ├── simbolo-epige.svg       ← FONTE DA MARCA · vetor, 1,4 KB
+│   ├── lockup-epige.svg        símbolo + logotipo, texto em curvas
+│   ├── lockup-epige-assinatura.svg        e a versão com a assinatura
+│   ├── lockup-epige-assinatura-escuro.svg para fundo escuro
+│   ├── gerador/                como os lockups foram feitos, e como refazer
 │   ├── simbolo-epige.png       raster equivalente, para onde SVG não serve
 │   ├── opcoes-logo-preview.html  as 3 opções avaliadas
 │   └── originais/              PNGs extraídos dos protótipos

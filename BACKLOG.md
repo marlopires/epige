@@ -113,10 +113,15 @@ Ordem = ordem sugerida de execução. Marque `[x]` ao concluir.
 - [x] **ID-3 · Corrigir o gradiente da demo 10.2.** *Feito em 10/09/2026.*
       `#4E74F0` → `#2B52DC` e `#5FBDB0` → `#439397`. Demo, 8.2 e `simbolo-epige.svg`
       agora têm as quatro paradas idênticas, conferidas por script.
-- [ ] **ID-1 · Lockup vetorial definitivo.** O lockup atual
-      (`identidade/originais/lockup-3.8-raster.png`) é raster com artefatos: texto borrado
-      e "TRANSFORMAR" cortado. O manual já define as regras (peso 850, letter-spacing
-      −1px, espaço de um terço da altura do símbolo); falta executá-las em vetor.
+- [x] **ID-1 · Lockup vetorial definitivo.** *Feito em 21/09/2026.* Três arquivos:
+      `lockup-epige.svg`, `lockup-epige-assinatura.svg` e a versão para fundo escuro.
+      **Texto convertido em curvas**, não referenciado por nome de fonte — SVG que
+      referencia fonte vira Arial dentro de `<img>`, que é como logo é usado na maior
+      parte das vezes. Espaçamento e alinhamento conforme o manual; baseline calculada pela
+      cap-height, kerning real via HarfBuzz.
+      **Uma divergência do manual, registrada:** peso 800 em vez de 850, porque 850 só
+      existe na fonte variável e os subsets servidos não traziam os glifos. Diferença
+      visualmente desprezível; nota em `identidade/gerador/README.md`.
 - [ ] **ID-4 · Aplicar a escala φ na interface.** O manual define tipografia
       (9 · 12 · 15 · 24 · 39 · 63) e espaçamento (5 · 8 · 13 · 21 · 34 · 55) em progressão
       φ. Entra na reescrita para produção, junto com a consolidação dos nove blocos
@@ -161,6 +166,8 @@ que já foi decidido.
 | 16/09/2026 | Em produção, `agentes/` é a fonte e o protótipo vira legado | Acaba a divergência HTML/`.txt` para a aplicação publicada |
 | 21/09/2026 | Gabarito da avaliação preenchido por Claude, marcado como não validado | Destrava medir agora; `REVISAR.md` impede que o não validado vire verdade por esquecimento |
 | 21/09/2026 | Análise de lacuna devolve também o que **não** muda | O medo da transição costuma ser maior que a transição |
+| 21/09/2026 | Domínio é `epige.com.br`; a demo vai em `demo.epige.com.br` | A raiz fica livre para o site institucional; quem digitar o domínio não cai numa tela de senha |
+| 21/09/2026 | Lockups com texto em curvas, peso 800 em vez dos 850 do manual | Logo não depende de fonte instalada; 850 exigiria fonte variável completa |
 | 09/09/2026 | Protótipo 8.2 é o canônico; 3.7 a 6.0 viram histórico | Só a 8.2 recebe alterações daqui em diante |
 | 10/09/2026 | Paleta canônica é a do manual de marca, conferida contra a 8.2 | `simbolo-epige.svg` corrigido; demo 10.2 fica fora de padrão até ID-3 |
 | 12/08/2026 | Faixa de preço B: R$ 89 / R$ 279 / R$ 1.490 | Margem de contribuição ≥ 41,8% mesmo no teto do plano com dólar a R$ 6,00 |
