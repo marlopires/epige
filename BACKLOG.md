@@ -58,17 +58,21 @@ Ordem = ordem sugerida de execução. Marque `[x]` ao concluir.
 
 ## Fase 1 — Consultor ISO 9001 de verdade (o próximo passo recomendado)
 
-- [~] **F1-2 · Conjunto de avaliação.** *Estrutura pronta em 15/09/2026; falta a sua parte.*
+- [~] **F1-2 · Conjunto de avaliação.** *Gabarito preenchido em 21/09/2026, por delegação.*
+      **Escrito por Claude, NÃO validado por auditor.** `avaliacao/REVISAR.md` lista as sete
+      respostas de maior risco e a regra: nenhum número desta avaliação sustenta decisão de
+      produto enquanto a linha correspondente estiver aberta. Detalhe original:
       43 casos em `avaliacao/`: 13 guardrails **já especificados** (o comportamento esperado
       decorre das nossas regras, não de interpretação normativa) e 30 perguntas de conteúdo
       sobre o 10.2 com `resposta_correta` **em branco**, que é onde entra você.
       Os `criterios` de cada pergunta são rascunho meu, a corrigir.
       Executor em `avaliacao/rodar.mjs`, sem dependências, validado.
       **Bloqueado para rodar até o F0-6** (conta de API em nome da empresa).
-- [ ] **F1-8 · Ferramenta de análise de lacuna entre edições.** Comparar o sistema atual
-      do cliente contra a edição nova e devolver o que muda. É a prioridade 2 da revisão
-      completa e a oportunidade comercial com prazo: entre 2026 e 2029, mais de um milhão
-      de empresas certificadas no mundo precisam migrar. Construir primeiro para a 9001.
+- [x] **F1-8 · Ferramenta de análise de lacuna entre edições.** *Feito em 21/09/2026.*
+      Agente `lacuna` mais tela na demo publicada. Devolve lacunas com cláusula, situação
+      provável, o que passa a ser pedido, esforço e evidência sugerida — e uma lista do que
+      **não** muda, que é metade do valor: o medo da transição costuma ser maior que ela.
+      Cobre 9001 apenas; 14001 e 45001 entram depois.
 - [x] **F1-1 · Corrigir o modelo nas demos.** *Feito em 10/09/2026.* `claude-sonnet-4-6`
       → `claude-sonnet-5`: 4 ocorrências na 8.2, 2 na demo 10.2. O medidor de custo agora
       calcula a tarifa do modelo que é de fato chamado.
@@ -90,15 +94,18 @@ Ordem = ordem sugerida de execução. Marque `[x]` ao concluir.
       **Efeito colateral valioso:** os prompts param de ir para o navegador, e `agentes/`
       vira a fonte de verdade da aplicação publicada — a divergência HTML/`.txt` deixa de
       existir em produção. Falta só a chave (F0-6) e o domínio.
-- [ ] **F1-6 · Telemetria por tipo de interação.** Desde a primeira linha de código.
-      O modelo de custo lista **seis premissas de confiança baixa** que só telemetria
-      resolve — e todas movem o preço.
+- [x] **F1-6 · Telemetria por tipo de interação.** *Feito em 21/09/2026.* Contadores
+      agregados por dia e por agente no KV: chamadas, tokens de entrada, saída e cache,
+      custo e latência. Retenção de 90 dias, que cobre o piloto. Sem conteúdo de conversa.
+      Falha em silêncio de propósito — telemetria nunca derruba a resposta do usuário.
 - [ ] **F1-7 · Base de conhecimento autoral, ISO 9001.** A parte mais lenta e mais valiosa.
       Depende de F0-1. Começar pelos requisitos da cláusula 10 já cobertos pela demo.
-- [ ] **F1-9 · Encodar os modos de falha comuns nos agentes.** A revisão completa mapeou,
-      por norma, onde as empresas mais reprovam — e destaca a **auditoria interna fraca
-      como raiz da maioria das outras não conformidades**. Já parcialmente encodado;
-      verificar cobertura e transformar em casos do conjunto de avaliação.
+- [x] **F1-9 · Encodar os modos de falha comuns nos agentes.** *Feito em 21/09/2026.*
+      Já existiam como texto corrido no campo `achados` da 8.2, mas não nos prompts da demo.
+      Agora são `agentes/conhecimento/modos-de-falha-10.2.txt`: oito padrões, cada um com
+      sintoma, consequência e **a evidência que um auditor busca**. Entram no consultor, no
+      redator de procedimento e no auditor. Instrução explícita de não recitar a lista —
+      nomear o padrão quando ele aparecer no caso concreto.
 
 ## Identidade visual
 
@@ -152,6 +159,8 @@ que já foi decidido.
 | 16/09/2026 | Publicação em Cloudflare Pages, não Vercel nem GitHub Pages | Pages não roda servidor; o grátis do Vercel exclui uso comercial |
 | 16/09/2026 | Demo publicada fica atrás de código de acesso, com teto de gasto | Página pública ligada a chave de API é cartão de crédito exposto |
 | 16/09/2026 | Em produção, `agentes/` é a fonte e o protótipo vira legado | Acaba a divergência HTML/`.txt` para a aplicação publicada |
+| 21/09/2026 | Gabarito da avaliação preenchido por Claude, marcado como não validado | Destrava medir agora; `REVISAR.md` impede que o não validado vire verdade por esquecimento |
+| 21/09/2026 | Análise de lacuna devolve também o que **não** muda | O medo da transição costuma ser maior que a transição |
 | 09/09/2026 | Protótipo 8.2 é o canônico; 3.7 a 6.0 viram histórico | Só a 8.2 recebe alterações daqui em diante |
 | 10/09/2026 | Paleta canônica é a do manual de marca, conferida contra a 8.2 | `simbolo-epige.svg` corrigido; demo 10.2 fica fora de padrão até ID-3 |
 | 12/08/2026 | Faixa de preço B: R$ 89 / R$ 279 / R$ 1.490 | Margem de contribuição ≥ 41,8% mesmo no teto do plano com dólar a R$ 6,00 |

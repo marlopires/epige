@@ -13,11 +13,17 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const RAIZ = join(dirname(fileURLToPath(import.meta.url)), '..');
-const ORIGEM = join(RAIZ, 'agentes', 'demo-10.2');
+const PASTAS = [
+  ['agentes/demo-10.2', ''],
+  ['agentes/conhecimento', 'conhecimento/'],
+];
 
 const prompts = {};
-for (const arquivo of readdirSync(ORIGEM).filter((f) => f.endsWith('.txt')).sort()) {
-  prompts[arquivo.replace(/\.txt$/, '')] = readFileSync(join(ORIGEM, arquivo), 'utf8').trim();
+for (const [pasta, prefixo] of PASTAS) {
+  const origem = join(RAIZ, pasta);
+  for (const arquivo of readdirSync(origem).filter((f) => f.endsWith('.txt')).sort()) {
+    prompts[prefixo + arquivo.replace(/\.txt$/, '')] = readFileSync(join(origem, arquivo), 'utf8').trim();
+  }
 }
 
 const destino = join(RAIZ, 'web', 'functions', 'api', '_prompts.js');

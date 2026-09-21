@@ -1,0 +1,60 @@
+MODOS DE FALHA RECORRENTES NO TRATAMENTO DE NÃO CONFORMIDADE
+
+Padrões observados em auditorias reais, compilados de fontes de certificadoras e
+auditores. Use-os para saber o que procurar e o que alertar — não os recite como lista ao
+usuário. Quando um deles aparecer no caso concreto, nomeie aquele, explique por que é
+frágil, e diga qual evidência um auditor buscaria.
+
+1. AÇÃO CORRETIVA ENCERRADA SEM ANÁLISE DE CAUSA REAL
+   Sintoma: a causa registrada é uma reformulação do problema ("a peça saiu fora de
+   tolerância porque o processo não estava controlado") ou culpa individual ("falha do
+   operador"). A ação vira treinar, advertir ou reforçar atenção.
+   Consequência: reincidência em meses.
+   Evidência que o auditor busca: o mesmo problema em registros anteriores; ação do tipo
+   conscientização sem alteração de processo, dispositivo ou controle.
+
+2. CORREÇÃO TRATADA COMO SE FOSSE AÇÃO CORRETIVA
+   Sintoma: o registro é encerrado assim que o produto foi retrabalhado, substituído ou
+   o cliente foi atendido. Não há avaliação da necessidade de agir sobre a causa.
+   Evidência: campo de causa em branco, preenchido com "retrabalho realizado", ou
+   idêntico ao campo de correção.
+
+3. VERIFICAÇÃO DE EFICÁCIA AUSENTE OU PRECOCE
+   Sintoma: o campo existe e está preenchido com "ação implementada" ou "eficaz" no mesmo
+   dia ou na mesma semana da implementação.
+   Por que é frágil: confirma execução, não eficácia. E verificar antes de o problema ter
+   chance de reaparecer registra ausência de oportunidade de falhar como sucesso.
+   Evidência: data da verificação muito próxima da data da ação; ausência de critério
+   objetivo definido no planejamento.
+
+4. SAÍDA NÃO CONFORME NÃO IDENTIFICADA NEM SEGREGADA
+   Sintoma: produto não conforme permanece no fluxo, às vezes chega ao cliente.
+   Ponto de atenção: isto é requisito do 8.7, não do 10.2 — e é justamente a confusão
+   entre os dois que produz a falha. Quem trata tudo como 10.2 esquece a contenção
+   imediata; quem trata tudo como 8.7 esquece a causa.
+
+5. REGISTRO QUE NÃO PERMITE RECONSTRUIR O CASO
+   Sintoma: descrição genérica ("problema no processo"), sem o que aconteceu, onde,
+   quando e qual requisito foi violado.
+   Consequência: impossível analisar tendência, impossível auditar, impossível saber se
+   houve reincidência.
+   Evidência: registros que um terceiro não consegue entender sem perguntar a alguém.
+
+6. NÃO CONFORMIDADE SEMELHANTE NÃO PROCURADA EM OUTRO PONTO
+   Sintoma: trata-se a ocorrência isolada sem verificar se o mesmo pode estar acontecendo
+   em outra linha, turno, unidade ou produto.
+   Por que importa: essa verificação é parte explícita do que o requisito pede ao avaliar
+   a necessidade de ação, e é das etapas mais puladas.
+
+7. VOLUME ALTO DE REGISTROS ABERTOS SEM CONCLUSÃO
+   Sintoma: dezenas ou centenas de registros em aberto, sem responsável, prazo ou critério
+   de encerramento.
+   Leitura correta: costuma indicar problema no processo de tratamento, não aumento de
+   problemas. Abre-se com facilidade e conclui-se com dificuldade.
+
+8. AUDITORIA INTERNA POR LISTA DE VERIFICAÇÃO CLÁUSULA A CLÁUSULA
+   Sintoma: a auditoria percorre a norma item por item em vez de seguir o processo real.
+   Por que importa aqui: as fontes apontam a auditoria interna fraca como raiz da maioria
+   das outras não conformidades — inclusive das que chegam ao 10.2. Uma auditoria que não
+   enxerga processos inter-relacionados deixa passar o que o auditor de terceira parte
+   encontra depois.

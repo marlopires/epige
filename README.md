@@ -23,7 +23,8 @@ qualidade, com escopo de lançamento em ISO 9001.
 | [`docs/situacao-normativa.md`](docs/situacao-normativa.md) | Qual edição de cada ISO está vigente, com prazos e fontes. **Reverificar a cada trimestre.** |
 | [`docs/orientacao-transicao-9001.md`](docs/orientacao-transicao-9001.md) | Orientação de transição para clientes. Pronta para virar página, e-mail ou conversa comercial. |
 | [`agentes/README.md`](agentes/README.md) | Os prompts que governam os agentes, e a ressalva de sincronia com o HTML. |
-| [`avaliacao/README.md`](avaliacao/README.md) | Como preencher e rodar o conjunto de avaliação. **Tem uma parte que só você pode fazer.** |
+| [`avaliacao/README.md`](avaliacao/README.md) | Como preencher e rodar o conjunto de avaliação. |
+| [`avaliacao/REVISAR.md`](avaliacao/REVISAR.md) | **O que precisa da sua revisão.** O gabarito foi escrito por Claude e não está validado. |
 | [`web/README.md`](web/README.md) | **Como publicar.** Conta de API, Cloudflare, domínio, e as três camadas que protegem a conta. |
 
 ## Estrutura

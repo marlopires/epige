@@ -32,11 +32,12 @@ const CAMBIO = 5.2;
 
 /** Cada agente é uma composição de prompts de agentes/. */
 const AGENTES = {
-  consultor: ['00-regras-base', '01-consultor'],
-  procedimento: ['00-regras-base', '02-redator-procedimento'],
+  consultor: ['00-regras-base', 'conhecimento/modos-de-falha-10.2', '01-consultor'],
+  procedimento: ['00-regras-base', 'conhecimento/modos-de-falha-10.2', '02-redator-procedimento'],
   formulario: ['00-regras-base', '03-redator-formulario'],
-  auditor: ['00-regras-base', '04-auditor-base', '05-auditor-auditoria'],
+  auditor: ['00-regras-base', '04-auditor-base', 'conhecimento/modos-de-falha-10.2', '05-auditor-auditoria'],
   auditor_base: ['00-regras-base', '04-auditor-base'],
+  lacuna: ['00-regras-base', '06-lacuna-edicoes'],
 };
 
 const CAMPOS_CONTEXTO = ['nome', 'atividade', 'porte', 'nivel', 'situacao'];
@@ -87,7 +88,37 @@ async function registrarGasto(env, chave, valor) {
   await env.EPIGE_KV.put(chave, String(atual + valor), { expirationTtl: 172800 });
 }
 
+/**
+ * Telemetria por tipo de interação — item F1-6 do backlog.
+ *
+ * O modelo de custo tem seis premissas de confiança baixa, e todas movem o preço.
+ * Nenhuma delas se resolve sem medir uso real, por tipo de interação, desde a
+ * primeira chamada. Contadores agregados: nada de conteúdo de conversa.
+ */
+async function registrarTelemetria(env, agente, uso, custo, ms) {
+  if (!env.EPIGE_KV) return;
+  const chave = `tel:${new Date().toISOString().slice(0, 10)}:${agente}`;
+  try {
+    const atual = JSON.parse((await env.EPIGE_KV.get(chave)) ?? '{}');
+    await env.EPIGE_KV.put(
+      chave,
+      JSON.stringify({
+        chamadas: (atual.chamadas ?? 0) + 1,
+        entrada: (atual.entrada ?? 0) + (uso?.input_tokens ?? 0),
+        saida: (atual.saida ?? 0) + (uso?.output_tokens ?? 0),
+        cache: (atual.cache ?? 0) + (uso?.cache_read_input_tokens ?? 0),
+        custo: Number(((atual.custo ?? 0) + custo).toFixed(6)),
+        ms_total: (atual.ms_total ?? 0) + ms,
+      }),
+      { expirationTtl: 7776000 }, // 90 dias: cobre o piloto inteiro
+    );
+  } catch {
+    // Telemetria nunca derruba a resposta do usuário.
+  }
+}
+
 export async function onRequestPost({ request, env }) {
+  const inicio = Date.now();
   if (!env.ANTHROPIC_API_KEY) {
     return json({ erro: 'Servidor sem chave de API configurada.' }, 500);
   }
@@ -164,6 +195,7 @@ export async function onRequestPost({ request, env }) {
 
   const custo = custoBRL(dados.usage);
   await registrarGasto(env, teto.chave, custo);
+  await registrarTelemetria(env, corpo.agente, dados.usage, custo, Date.now() - inicio);
 
   return json({
     texto,

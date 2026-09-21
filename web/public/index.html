@@ -203,6 +203,10 @@ textarea{resize:vertical; min-height:78px; line-height:1.55}
       <span><span class="step-t">Auditar</span><span class="step-d">Auditor independente avalia o que foi gerado</span></span>
     </button>
     <button class="step" data-s="5" onclick="go(5)" disabled>
+      <span class="step-n">6</span>
+      <span><span class="step-t">Lacuna para a edição 2026</span><span class="step-d">O que muda com a ISO 9001:2026</span></span>
+    </button>
+    <button class="step" data-s="6" onclick="go(6)" disabled>
       <span class="step-n">✓</span>
       <span><span class="step-t">Fechamento</span><span class="step-d">Custo real da sessão inteira</span></span>
     </button>
@@ -307,6 +311,19 @@ textarea{resize:vertical; min-height:78px; line-height:1.55}
     </section>
 
     <section id="s5" class="hidden">
+      <div class="eyebrow">Extra · Agente de Transição</div>
+      <h2>O que muda com a ISO 9001:2026</h2>
+      <p class="lede">A norma foi publicada em 16 de setembro de 2026. O agente compara o contexto informado com a edição nova e devolve onde está a lacuna — e, igualmente importante, o que <em>não</em> muda.</p>
+      <div class="panel">
+        <div class="btn-row" style="margin-bottom:16px">
+          <button class="btn btn-primary" id="btnLac" onclick="analisarLacuna()">Analisar lacuna</button>
+        </div>
+        <div id="lacBox"><div class="locked"><div class="locked-i">⇄</div>Análise não executada.</div></div>
+      </div>
+      <p class="note">Transição de três anos, até cerca de setembro de 2029. Os primeiros certificados na edição nova só saem no segundo semestre de 2027, porque os organismos certificadores precisam ser acreditados antes.</p>
+    </section>
+
+    <section id="s6" class="hidden">
       <div class="eyebrow">Fechamento</div>
       <h2>O que essa sessão custou</h2>
       <p class="lede">Todo o ciclo, de empresa sem nada documentado a procedimento auditado. Os números abaixo são medidos, não estimados.</p>
@@ -439,13 +456,13 @@ async function entrar(){
 
 
 function go(n){
-  for(let i=0;i<=5;i++){ const el=$('s'+i); if(el) el.classList.toggle('hidden', i!==n); }
+  for(let i=0;i<=6;i++){ const el=$('s'+i); if(el) el.classList.toggle('hidden', i!==n); }
   document.querySelectorAll('.step').forEach(function(b){
     const s = +b.dataset.s;
     b.classList.toggle('on', s===n);
     b.classList.toggle('done', s<n && !b.disabled);
   });
-  if(n===5) montarFechamento();
+  if(n===6) montarFechamento();
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
@@ -457,7 +474,7 @@ function salvarPerfil(){
     nivel: $('e_nivel').value,
     situacao: $('e_sit').value.trim() || 'não informada'
   };
-  [1,2,3,4,5].forEach(function(n){
+  [1,2,3,4,5,6].forEach(function(n){
     const b = document.querySelector('.step[data-s="'+n+'"]');
     if(b) b.disabled = false;
   });
@@ -592,6 +609,40 @@ async function testarImparcialidade(){
       + '<div class="msg bot" style="max-width:100%"><div class="who">Auditor interno</div>'+md(t)+'</div>'
       + '<div class="alert alert-warn" style="margin-top:14px"><b>Guardrail de imparcialidade em ação.</b> Quem audita não pode consultar sobre o mesmo objeto. É a regra que separa auditoria de consultoria — e a plataforma a respeita por construção.</div>';
   }catch(e){ erro(box, e); }
+}
+
+async function analisarLacuna(){
+  const box = $('lacBox'); $('btnLac').disabled = true;
+  pensando(box, 'comparando o sistema com a edição 2026');
+  try{
+    const t = await chamar('lacuna', [{role:'user', content:'Analise a lacuna para a edição 2026 no contexto de '+S.perfil.nome+'.'}], 'Análise de lacuna');
+    const a = extrairJSON(t);
+    const esforco = {alto:'nao_conformidade', 'médio':'oportunidade', medio:'oportunidade', baixo:'conformidade'};
+    const lacunas = (a.lacunas||[]).map(function(l){
+      const c = esforco[l.esforco] || 'oportunidade';
+      return '<div class="finding '+c+'"><div class="f-top">'
+        + '<span class="tag '+c+'">esforço '+esc(l.esforco||'—')+'</span>'
+        + '<span class="f-req">cláusula '+esc(l.clausula||'—')+' · '+esc(l.tema||'')+'</span></div>'
+        + '<div><b>Hoje:</b> '+esc(l.situacao_provavel||'—')+'</div>'
+        + '<div style="margin-top:4px"><b>Passa a pedir:</b> '+esc(l.o_que_muda||'—')+'</div>'
+        + '<div class="f-ev"><b>Evidência sugerida:</b> '+esc(l.evidencia_sugerida||'—')+'</div></div>';
+    }).join('');
+    const naoMuda = (a.nao_muda||[]).map(function(x){ return '<li>'+esc(x)+'</li>'; }).join('');
+    const seq = (a.sequencia||[]).map(function(x){ return '<li>'+esc(x)+'</li>'; }).join('');
+    box.innerHTML = '<div class="doc-head"><div><h3 style="margin:0">Análise de lacuna — edição 2015 para 2026</h3>'
+      + '<div class="doc-code">LAC-001 · '+esc(S.perfil.nome)+'</div></div>'
+      + '<span class="tag oportunidade">'+(a.lacunas||[]).length+' lacunas</span></div>'
+      + '<div class="panel" style="margin:0 0 14px;background:#F7F9FC;box-shadow:none">'
+      + '<div class="card-t" style="margin-bottom:6px">Veredito</div>'
+      + '<div style="font-size:14px">'+esc(a.veredito||'')+'</div></div>'
+      + lacunas
+      + '<div class="grid2" style="margin-top:14px">'
+      + '<div class="card"><div class="card-t">O que não muda</div><ul style="margin:0;padding-left:18px;font-size:13px;line-height:1.6">'+naoMuda+'</ul></div>'
+      + '<div class="card"><div class="card-t">Por onde começar</div><ol style="margin:0;padding-left:18px;font-size:13px;line-height:1.6">'+seq+'</ol></div>'
+      + '</div>'
+      + '<div class="alert alert-warn" style="margin-top:14px"><b>Alerta.</b> '+esc(a.alerta||'')+'</div>';
+  }catch(e){ erro(box, e); }
+  $('btnLac').disabled = false;
 }
 
 function montarFechamento(){
