@@ -1,6 +1,6 @@
 # Publicação
 
-A demonstração do requisito 10.2, com agentes funcionando de verdade, num domínio seu.
+A plataforma e a demonstração do 10.2, com os agentes funcionando de verdade, num domínio seu.
 
 ---
 
@@ -136,7 +136,7 @@ variável de ambiente.
 ## Quando mudar um prompt
 
 ```bash
-# edite agentes/demo-10.2/*.txt
+# edite agentes/papeis/*.txt ou agentes/normas/*.txt
 node web/build-prompts.mjs
 git add -A && git commit -m "ajusta prompt do consultor" && git push
 ```
@@ -146,9 +146,6 @@ acompanha — ele tem a própria cópia embutida e agora é registro histórico.
 
 ## O que ainda não tem
 
-- **Sem persistência.** Recarregou, perdeu a conversa.
-- **Sem contas de usuário.** O código de acesso é um só, compartilhado.
-- **Sem limite por pessoa.** O teto é global, não individual.
 - **Sem contas de usuário.** O código de acesso é um só, compartilhado entre os testadores.
 - **Sem limite por pessoa nem por plano.** O teto é global.
 - **A conversa não sobrevive ao recarregamento.** Só o contexto da empresa e o código ficam
