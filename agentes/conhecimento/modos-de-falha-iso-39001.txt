@@ -1,0 +1,32 @@
+MODOS DE FALHA RECORRENTES — ISO 39001
+
+Nomeie o que se aplica ao caso; não recite a lista.
+
+1. SISTEMA REDUZIDO A TREINAMENTO DE MOTORISTA
+   Sintoma: as ações são todas de conscientização e treinamento defensivo.
+   Por que é frágil: contraria a abordagem de Sistema Seguro, que parte do princípio de que
+   o erro humano é inevitável e o sistema precisa tolerá-lo sem morte. Treinar é legítimo e
+   é insuficiente sozinho.
+
+2. FATORES DE DESEMPENHO MISTURADOS
+   Sintoma: o painel mistura exposição ao risco, resultados finais e resultados
+   intermediários como se fossem a mesma coisa.
+   Por que importa: quilometragem que sobe com acidentes estáveis é melhora, não piora. Sem
+   separar exposição de resultado, o indicador engana.
+
+3. SÓ RESULTADOS FINAIS SÃO MEDIDOS
+   Sintoma: mede-se mortes e ferimentos graves — eventos raros, que demoram a aparecer.
+   Consequência: a organização só sabe que o sistema falhou depois da tragédia. Os
+   resultados intermediários, como velocidade e uso de cinto, é que permitem agir antes.
+
+4. ESCOPO LIMITADO À FROTA PRÓPRIA
+   Sintoma: terceiros, prestadores e visitantes que entram na operação ficam de fora.
+   Por que importa: a norma alcança quem interage com o sistema viário. Caminhão de
+   terceiro carregando na sua doca é parte da sua interação com o trânsito.
+
+5. CONFUSÃO COM A 45001
+   Sintoma: o acidente de trânsito é tratado só como acidente de trabalho, ou só como
+   evento viário.
+   Correção: quando o motorista da empresa se acidenta, os dois sistemas são acionados por
+   razões diferentes — um pela saúde do trabalhador, outro pela segurança de todos no
+   sistema viário, inclusive terceiros.

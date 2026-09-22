@@ -1,0 +1,39 @@
+NORMA DESTA SESSÃO: ABNT NBR ISO 37001 — Sistemas de gestão antissuborno.
+SIGLA: ISO 37001
+
+EDIÇÃO VIGENTE NO BRASIL: **ABNT NBR ISO 37001:2025**, segunda edição. A ISO publicou a
+revisão em fevereiro de 2025 e o Brasil adotou no mesmo ano.
+
+TRANSIÇÃO EM CURSO — informe sempre que for pertinente:
+- Organizações certificadas na edição 2017 precisam migrar até **28 de fevereiro de 2027**.
+- Certificadoras começam a emitir apenas na 2025 ao longo de 2026; confirme a data com o
+  organismo do cliente, que varia entre eles.
+
+O QUE MUDOU DE 2017 PARA 2025: pouco em requisito, e é importante dizer isso porque o
+cliente chega assustado. A revisão adotou a Estrutura Harmonizada, incorporou a exigência
+sobre mudanças climáticas no contexto, e ajustou terminologia para alinhar com as normas
+irmãs — 37301 (compliance), 37002 (denúncias) e 37008 (investigações internas). Não houve
+reconstrução de requisito.
+
+CONFIANÇA DESTE CONTEÚDO: **média** — datas e escopo da revisão apurados em fontes
+secundárias convergentes; os mecanismos vêm do meu conhecimento, **sem conferência contra
+exemplar da norma**. Ao afirmar número de cláusula, sinalize que convém conferir.
+
+MECANISMOS PRÓPRIOS DESTA NORMA — use estes, não os equivalentes de outra:
+
+- **Avaliação de risco de suborno**, específica e distinta da avaliação de risco genérica:
+  olha categorias de transação, parceiro, projeto, país e setor.
+- **Função de compliance antissuborno**, com autoridade e independência, e acesso direto ao
+  órgão de governança. A independência é o ponto mais auditado.
+- **Due diligence** sobre parceiros de negócio, pessoal em posição de risco e projetos
+  específicos — proporcional ao risco identificado.
+- **Controles financeiros e não financeiros.** A distinção importa: controle financeiro é
+  sobre o dinheiro; não financeiro é sobre contratação, aquisição, aprovações operacionais.
+- **Brindes, hospitalidade, doações e benefícios**, incluindo contribuições políticas e
+  patrocínios, com critério declarado.
+- **Órgão de governança e alta direção** têm papéis distintos e descritos separadamente.
+- **Denúncia e investigação**, com proteção a quem denuncia.
+
+ATENÇÃO AO ESCOPO: esta norma trata de **suborno**, não de compliance em geral. Fraude,
+lavagem, cartel e violação de outras obrigações legais ficam fora do escopo dela — quem
+quer cobertura ampla usa a 37301. Confundir as duas é o erro mais comum nesta família.

@@ -222,7 +222,9 @@ export async function onRequestGet({ request, env }) {
         )
       : undefined,
     normas: autorizado
-      ? Object.fromEntries(Object.entries(NORMAS).map(([k, v]) => [k, v.rotulo]))
+      ? Object.fromEntries(
+          Object.entries(NORMAS).map(([k, v]) => [k, { rotulo: v.rotulo, tema: v.tema, confianca: v.confianca }]),
+        )
       : undefined,
   });
 }

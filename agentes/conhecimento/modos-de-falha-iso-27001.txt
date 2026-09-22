@@ -1,0 +1,31 @@
+MODOS DE FALHA RECORRENTES — ISO/IEC 27001
+
+Nomeie o que se aplica ao caso; não recite a lista.
+
+1. DECLARAÇÃO DE APLICABILIDADE SEM JUSTIFICATIVA DE EXCLUSÃO
+   Sintoma: a SoA lista os controles e marca aplicável/não aplicável, sem dizer por quê.
+   Evidência: pedir a justificativa de três exclusões. Se não existir, a SoA não atende.
+
+2. ANEXO A TRATADO COMO CHECKLIST A CUMPRIR
+   Sintoma: a organização começou pelo Anexo A e foi implementando controles, em vez de
+   partir da avaliação de riscos. A SoA vira cópia do anexo com tudo marcado como aplicável.
+   Por que é frágil: inverte a lógica da norma e produz controle sem risco associado —
+   custo sem propósito, e o auditor pergunta qual risco aquele controle trata.
+
+3. RISCOS SEM PROPRIETÁRIO REAL
+   Sintoma: todos os riscos pertencem à TI ou ao responsável pela segurança.
+   Por que importa: quem aceita risco residual precisa ter autoridade para assumi-lo. Risco
+   de continuidade de negócio aceito pelo analista de infraestrutura não foi aceito.
+
+4. AVALIAÇÃO DE RISCOS FEITA UMA VEZ
+   Sintoma: a matriz tem data antiga e nenhum critério registrado de como foi construída.
+   Evidência: comparar a data com mudanças de sistema, fornecedor ou processo.
+
+5. INCIDENTES NÃO REGISTRADOS PORQUE "NÃO DERAM EM NADA"
+   Sintoma: só incidentes com impacto aparecem no registro. Tentativa de phishing bem
+   sucedida sem consequência conhecida não é registrada.
+
+6. ESCOPO DESENHADO PARA FACILITAR A CERTIFICAÇÃO
+   Sintoma: o escopo exclui as áreas onde o risco realmente mora.
+   Por que importa: escopo é escolha legítima da organização, mas escopo que exclui o
+   essencial produz certificado que não significa o que o cliente dele imagina.

@@ -1,0 +1,41 @@
+NORMA DESTA SESSÃO: ABNT NBR ISO/IEC 27001 — Segurança da informação, cibersegurança e
+proteção da privacidade — Sistemas de gestão da segurança da informação.
+SIGLA: ISO/IEC 27001
+
+EDIÇÃO VIGENTE NO BRASIL: ABNT NBR ISO/IEC 27001:2022, **Versão Corrigida 2023**, acrescida
+da **Emenda 1 (2024)**, que é a Emenda de Ação Climática comum a todas as normas de sistema
+de gestão. Cancelou e substituiu a edição de 2013.
+
+A Versão Corrigida 2023 incorporou a Errata 1, de 31.03.2023. Ao citar a norma, a
+referência completa é 27001:2022, Versão Corrigida 2023, mais Em1.
+
+CONFIANÇA DESTE CONTEÚDO: **alta** — conferido contra exemplar da norma.
+
+MECANISMOS PRÓPRIOS DESTA NORMA — use estes, não os equivalentes de outra:
+
+- **Declaração de Aplicabilidade (SoA).** É o artefato central e o que mais distingue esta
+  norma. Precisa conter os controles necessários, a justificativa para cada inclusão, se
+  o controle está implementado ou não, e **a justificativa para cada exclusão** de controle
+  do Anexo A. É o primeiro documento que um auditor pede.
+
+- **O Anexo A é referência de verificação, não lista obrigatória.** Este é o erro de
+  interpretação mais comum. A organização determina os controles a partir do tratamento de
+  riscos e depois **compara** com o Anexo A para verificar se nada necessário foi omitido.
+  A própria norma diz que os controles do Anexo A não são exaustivos e que controles
+  adicionais podem ser incluídos. Quem trata o Anexo A como checklist a cumprir inverte a
+  lógica da norma.
+
+- **Proprietários dos riscos.** O plano de tratamento de riscos precisa ser aprovado pelos
+  proprietários dos riscos, e a aceitação dos riscos residuais é deles. Não é papel da área
+  de TI nem do responsável pela segurança.
+
+- **Processo de avaliação de riscos de segurança da informação**, com critérios definidos e
+  resultados comparáveis entre execuções — não uma matriz feita uma vez.
+
+- A edição 2022 reorganizou os controles do Anexo A em quatro temas: organizacionais,
+  de pessoas, físicos e tecnológicos. Quem veio da edição 2013 vai procurar a estrutura
+  antiga de 14 seções e não vai achar.
+
+CUIDADO AO INTEGRAR: segurança da informação tem lógica própria. Risco aqui é sobre
+confidencialidade, integridade e disponibilidade da informação — não é aspecto ambiental,
+não é perigo ocupacional, e não é risco do processo produtivo.

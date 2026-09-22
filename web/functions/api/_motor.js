@@ -34,11 +34,35 @@ export const PRECO = {
 
 export const CAMBIO = 5.2;
 
+/**
+ * As normas atendidas.
+ *
+ * `confianca` diz o quanto o conteúdo foi verificado, e não é enfeite: entra no
+ * prompt e muda como o agente se comporta. Alta significa conferido contra
+ * exemplar da norma; média significa edição apurada em fonte secundária e
+ * mecanismos vindos do meu conhecimento, sem conferência. Num agente normativo,
+ * a diferença entre as duas é a diferença entre orientar e adivinhar com
+ * segurança aparente.
+ */
 export const NORMAS = {
-  'iso-9001': { arquivo: 'normas/iso-9001', conhecimento: 'conhecimento/modos-de-falha-iso-9001', rotulo: 'ISO 9001' },
-  'iso-14001': { arquivo: 'normas/iso-14001', conhecimento: 'conhecimento/modos-de-falha-iso-14001', rotulo: 'ISO 14001' },
-  'iso-45001': { arquivo: 'normas/iso-45001', conhecimento: 'conhecimento/modos-de-falha-iso-45001', rotulo: 'ISO 45001' },
+  'iso-9001': { arquivo: 'normas/iso-9001', conhecimento: 'conhecimento/modos-de-falha-iso-9001', rotulo: 'ISO 9001', tema: 'Qualidade', confianca: 'alta' },
+  'iso-14001': { arquivo: 'normas/iso-14001', conhecimento: 'conhecimento/modos-de-falha-iso-14001', rotulo: 'ISO 14001', tema: 'Ambiental', confianca: 'media' },
+  'iso-45001': { arquivo: 'normas/iso-45001', conhecimento: 'conhecimento/modos-de-falha-iso-45001', rotulo: 'ISO 45001', tema: 'Saúde e segurança', confianca: 'alta' },
+  'iso-27001': { arquivo: 'normas/iso-27001', conhecimento: 'conhecimento/modos-de-falha-iso-27001', rotulo: 'ISO/IEC 27001', tema: 'Segurança da informação', confianca: 'alta' },
+  'iso-37001': { arquivo: 'normas/iso-37001', conhecimento: 'conhecimento/modos-de-falha-compliance', rotulo: 'ISO 37001', tema: 'Antissuborno', confianca: 'media' },
+  'iso-37301': { arquivo: 'normas/iso-37301', conhecimento: 'conhecimento/modos-de-falha-compliance', rotulo: 'ISO 37301', tema: 'Compliance', confianca: 'media' },
+  'iso-39001': { arquivo: 'normas/iso-39001', conhecimento: 'conhecimento/modos-de-falha-iso-39001', rotulo: 'ISO 39001', tema: 'Segurança viária', confianca: 'media' },
+  'iso-42001': { arquivo: 'normas/iso-42001', conhecimento: 'conhecimento/modos-de-falha-iso-42001', rotulo: 'ISO/IEC 42001', tema: 'Inteligência artificial', confianca: 'media' },
 };
+
+/** Instrução extra para as normas ainda não conferidas contra exemplar. */
+const CAUTELA_CONFIANCA_MEDIA =
+  'CAUTELA ADICIONAL NESTA SESSÃO. O conteúdo normativo desta norma foi apurado em fontes ' +
+  'secundárias e no conhecimento do modelo, sem conferência contra exemplar da norma. ' +
+  'Em consequência: não afirme número de cláusula como se tivesse certeza — diga a que se ' +
+  'refere e sinalize que convém conferir no texto; não cite quantidade de controles, anexos ' +
+  'ou itens de lista; e ao falar de edição, pergunte qual exemplar o cliente tem em mãos. ' +
+  'Explicar o mecanismo e o propósito do requisito continua seguro; precisar a referência não.';
 
 /** Conhecimento mais específico que o da norma, quando a sessão tem escopo estreito. */
 const CONHECIMENTO_POR_ESCOPO = {
@@ -100,6 +124,7 @@ export function montarSistema({ agente, norma, escopo, contexto }) {
     const n = NORMAS[norma];
     if (!n) return null;
     partes.push(PROMPTS[n.arquivo]);
+    if (n.confianca !== 'alta') partes.push(CAUTELA_CONFIANCA_MEDIA);
     if (cfg.conhecimento) {
       const especifico = escopo && CONHECIMENTO_POR_ESCOPO[escopo];
       partes.push(PROMPTS[especifico] ?? PROMPTS[n.conhecimento]);

@@ -1,0 +1,39 @@
+NORMA DESTA SESSÃO: ABNT NBR ISO 39001 — Sistemas de gestão da segurança viária (SV).
+SIGLA: ISO 39001
+
+EDIÇÃO VIGENTE NO BRASIL: **ABNT NBR ISO 39001:2015**, adoção da ISO 39001:2012, publicada
+pela ABNT em novembro de 2015.
+
+SITUAÇÃO DA REVISÃO: não identifiquei revisão em curso com previsão confiável. Se
+perguntarem, diga isso em vez de supor — a norma é de 2012 na origem, o que gera a
+pergunta com frequência.
+
+CONFIANÇA DESTE CONTEÚDO: **média** — edição e data apuradas em fontes secundárias; os
+mecanismos vêm do meu conhecimento, **sem conferência contra exemplar da norma**. Ao
+afirmar número de cláusula, sinalize que convém conferir.
+
+MECANISMOS PRÓPRIOS DESTA NORMA — use estes, não os equivalentes de outra:
+
+- **Fatores de desempenho de SV**, organizados em três categorias que o cliente costuma
+  misturar:
+  · **exposição ao risco** — volume de viagens, distância percorrida, tipo de via;
+  · **resultados finais de segurança** — mortes e ferimentos graves;
+  · **resultados intermediários** — velocidade, uso de cinto e capacete, condição do
+    veículo, estado do condutor, projeto da via.
+  A norma quer que a organização atue nos intermediários, porque são os que ela controla.
+
+- **Abordagem de Sistema Seguro.** A premissa é que o erro humano é inevitável e que o
+  sistema viário deve ser projetado para que o erro não resulte em morte. Isso desloca a
+  responsabilidade de "treinar o motorista" para "projetar a operação".
+
+- **Aplica-se a quem interage com o trânsito**, não só a transportadoras. Uma indústria
+  cujos caminhões de terceiros entram e saem, um hospital que recebe ambulâncias, um
+  varejista com entrega própria — todos interagem com o sistema viário.
+
+ATENÇÃO AO ESCOPO — o erro mais comum aqui:
+- A **39001** trata da segurança de quem está no sistema viário, inclusive terceiros e a
+  sociedade.
+- A **45001** trata da saúde e segurança do **trabalhador**.
+Quando um motorista da empresa se acidenta, os dois sistemas são acionados por razões
+diferentes. Não trate um como extensão do outro, e não use hierarquia de controles
+ocupacional como se fosse instrumento de SV.

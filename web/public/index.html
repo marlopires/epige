@@ -43,10 +43,11 @@ header{background:var(--ink); color:#fff; padding:var(--e-13) var(--e-21); displ
 .dot{width:7px;height:7px;border-radius:99px;background:#6B7794;flex:0 0 7px}
 .dot.live{background:var(--mint); box-shadow:0 0 0 3px rgba(116,212,193,.18)}
 .dot.down{background:#E0714F}
-.normas{display:flex; gap:var(--e-3); background:#151C33; border:1px solid #26304C; border-radius:var(--e-8); padding:var(--e-2)}
-.norma-b{background:none; border:none; color:#8FA0BE; font-size:var(--t-12); font-weight:600; padding:var(--e-5) var(--e-13); border-radius:var(--e-5)}
-.norma-b.on{background:var(--blue); color:#fff}
-.norma-b:hover:not(.on){color:#fff}
+.normas{background:#151C33; border:1px solid #26304C; border-radius:var(--e-8); color:#fff;
+  font-family:var(--sans); font-size:var(--t-12); font-weight:600; padding:var(--e-5) var(--e-8); width:auto; max-width:280px}
+.normas:hover{border-color:#3C4A6E}
+.aviso-conf{background:#FDF6E7; border:1px solid #EBD9A8; color:#6E4E05; border-radius:var(--e-8);
+  padding:var(--e-8) var(--e-13); font-size:var(--t-12); line-height:1.5; margin-bottom:var(--e-13)}
 
 .shell{display:grid; grid-template-columns:var(--rail-l) minmax(0,1fr) var(--rail-r); min-height:calc(100vh - 56px)}
 @media (max-width:1180px){.shell{grid-template-columns:220px minmax(0,1fr)} .rail-right{grid-column:1/-1; border-left:none; border-top:1px solid var(--line)}}
@@ -161,7 +162,7 @@ ul.plain{margin:0;padding-left:var(--e-21);font-size:var(--t-12);line-height:1.6
     <path d="M94.10,123.65 L89.64,123.14 L83.17,120.07 L69.05,111.55 L66.06,107.49 L65.71,102.52 L68.16,97.93 L71.96,94.96 L102.82,77.47 L107.93,75.40 L115.42,75.81 L133.46,86.09 L137.36,91.16 L137.13,97.97 L132.88,102.42 L102.71,120.32 L94.21,123.63 Z" fill="#3C8589"/>
   </svg>
   <span class="wordmark">EPIGE</span>
-  <span class="normas" id="normas" role="group" aria-label="Norma"></span>
+  <select class="normas" id="normas" aria-label="Norma" onchange="trocarNorma(this.value)"></select>
   <span class="spacer"></span>
   <span class="status"><span class="dot" id="dot"></span><span id="statusTxt">verificando…</span></span>
 </header>
@@ -257,7 +258,16 @@ function montarRail(){
 
 function montarNormas(){
   $('normas').innerHTML = Object.entries(S.normas).map(([k,v]) =>
-    '<button class="norma-b'+(S.norma===k?' on':'')+'" onclick="trocarNorma(\''+k+'\')">'+esc(v)+'</button>').join('');
+    '<option value="'+esc(k)+'"'+(S.norma===k?' selected':'')+'>'+esc(v.rotulo||v)+' · '+esc(v.tema||'')+'</option>').join('');
+}
+
+/** Normas ainda não conferidas contra exemplar avisam na tela, não só no prompt. */
+function avisoConfianca(){
+  const n = S.normas[S.norma];
+  if(!n || n.confianca === 'alta') return '';
+  return '<div class="aviso-conf"><b>Conteúdo não conferido contra exemplar da norma.</b> '
+    + 'A edição foi apurada em fonte secundária e os mecanismos vêm do conhecimento do modelo. '
+    + 'O agente vai evitar precisar número de cláusula — confira no texto antes de usar em auditoria.</div>';
 }
 
 function trocarNorma(k){
@@ -450,8 +460,9 @@ function resumoContexto(){
 }
 
 function telaSimples(f){
-  $('main').innerHTML = '<div class="eyebrow">Passo '+f.n+' · '+esc(S.normas[S.norma]||'')+'</div>'
+  $('main').innerHTML = '<div class="eyebrow">Passo '+f.n+' · '+esc((S.normas[S.norma]||{}).rotulo||'')+'</div>'
     + '<h2>'+esc(f.t)+'</h2><p class="lede">'+esc(f.d)+'</p>'
+    + avisoConfianca()
     + '<div class="panel"><div class="btn-row">'
     + '<button class="btn btn-primary" id="btnGo" onclick="rodar(\''+f.id+'\')">Executar</button>'
     + '<span class="note" style="margin:0">Modelo: '+esc((S.agentes[f.agente]||{}).modelo||'—')+'</span></div>'
@@ -466,8 +477,9 @@ function telaDocumento(f){
     analista:['Cole o documento a analisar',''],
     auditor:['Cole o documento ou descreva a prática a auditar',''],
   }[f.id] || ['Entrada',''];
-  $('main').innerHTML = '<div class="eyebrow">Passo '+f.n+' · '+esc(S.normas[S.norma]||'')+'</div>'
+  $('main').innerHTML = '<div class="eyebrow">Passo '+f.n+' · '+esc((S.normas[S.norma]||{}).rotulo||'')+'</div>'
     + '<h2>'+esc(f.t)+'</h2><p class="lede">'+esc(f.d)+'</p>'
+    + avisoConfianca()
     + '<div class="panel"><div class="field"><label for="entrada">'+esc(rotulos[0])+'</label>'
     + '<textarea id="entrada" class="doc" placeholder="'+esc(rotulos[1])+'"></textarea></div>'
     + '<div class="btn-row"><button class="btn btn-primary" id="btnGo" onclick="rodar(\''+f.id+'\')">Executar</button>'
@@ -481,8 +493,9 @@ function telaChat(f){
     consultor:['O que a cláusula 10.2 exige na prática?','Qual a diferença entre correção e ação corretiva?','Transcreva o texto literal da norma','Contratando a EPIGE eu garanto a certificação?'],
     causa:['A peça saiu fora de tolerância e o operador não percebeu','Reclamação de cliente sobre prazo de entrega'],
   }[f.id] || [];
-  $('main').innerHTML = '<div class="eyebrow">Passo '+f.n+' · '+esc(S.normas[S.norma]||'')+'</div>'
+  $('main').innerHTML = '<div class="eyebrow">Passo '+f.n+' · '+esc((S.normas[S.norma]||{}).rotulo||'')+'</div>'
     + '<h2>'+esc(f.t)+'</h2><p class="lede">'+esc(f.d)+'</p>'
+    + avisoConfianca()
     + '<div class="panel"><div class="thread" id="thread">'
     + hist.map(m => m.role==='user'
         ? '<div class="msg user">'+esc(m.content)+'</div>'

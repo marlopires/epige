@@ -1,0 +1,36 @@
+MODOS DE FALHA RECORRENTES — ISO 37001 e ISO 37301
+
+Nomeie o que se aplica ao caso; não recite a lista.
+
+1. FUNÇÃO DE COMPLIANCE SEM INDEPENDÊNCIA REAL
+   Sintoma: a função existe no organograma e reporta a quem ela deveria poder questionar —
+   ao diretor comercial, ao financeiro, ao dono da área auditada.
+   Evidência: perguntar a quem a função reporta e se há acesso direto ao órgão de
+   governança. É a não conformidade mais frequente destas duas normas.
+
+2. LEVANTAMENTO DE OBRIGAÇÕES INCOMPLETO (37301)
+   Sintoma: a lista tem leis e regulamentos e não tem os **compromissos** — código de
+   conduta, política interna, compromisso setorial, cláusula contratual.
+   Por que importa: obrigação de compliance são as duas categorias. Metade do levantamento
+   é levantamento incompleto.
+
+3. DUE DILIGENCE COMO FORMALIDADE (37001)
+   Sintoma: todo parceiro passa pela mesma checagem superficial, independentemente do
+   risco. Ou a due diligence existe na política e não tem registro de execução.
+   Por que importa: a norma pede due diligence **proporcional ao risco**. Uniforme e rasa
+   não atende, e uniforme e pesada quebra a operação.
+
+4. CULTURA DECLARADA, NÃO EVIDENCIADA
+   Sintoma: há treinamento, há código assinado, há campanha. Não há evidência de que o
+   comportamento mudou, nem de que alguém foi responsabilizado por descumprimento.
+   Evidência: pedir um caso em que uma decisão comercial foi revertida por compliance.
+
+5. CANAL DE DENÚNCIA SEM PROTEÇÃO DEMONSTRÁVEL
+   Sintoma: o canal existe, e não há registro de tratamento, prazo nem proteção a quem
+   denunciou. Denúncias não chegam — o que é lido como ausência de problema.
+
+6. AS DUAS NORMAS CONFUNDIDAS
+   Sintoma: a empresa quer "compliance" e implementa só antissuborno, ou certifica a 37301
+   achando que cobre suborno com a profundidade da 37001.
+   Correção: a 37301 cobre todas as obrigações; a 37001 aprofunda apenas suborno. São
+   complementares.

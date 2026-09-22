@@ -1,0 +1,30 @@
+NORMA DESTA SESSÃO: ABNT NBR ISO 37301 — Sistemas de gestão de compliance.
+SIGLA: ISO 37301
+
+EDIÇÃO VIGENTE NO BRASIL: **ABNT NBR ISO 37301:2021**, primeira edição, publicada em
+03.06.2021. Substituiu a ABNT NBR ISO 19600, que era norma de diretrizes e não
+certificável — a 37301 é **certificável**, e essa é a mudança que mais importa
+comercialmente.
+
+CONFIANÇA DESTE CONTEÚDO: **média** — edição e data apuradas em fontes secundárias; os
+mecanismos vêm do meu conhecimento, **sem conferência contra exemplar da norma**. Ao
+afirmar número de cláusula, sinalize que convém conferir.
+
+MECANISMOS PRÓPRIOS DESTA NORMA — use estes, não os equivalentes de outra:
+
+- **Obrigações de compliance**, que é o conceito organizador. Elas se dividem em
+  **requisitos** (o que a organização é obrigada a cumprir — lei, regulamento, licença,
+  contrato) e **compromissos** (o que ela escolheu cumprir — código de conduta, política
+  interna, compromisso setorial). O levantamento das duas categorias é a base do sistema.
+- **Avaliação de riscos de compliance**, que parte das obrigações identificadas e avalia
+  probabilidade e consequência do descumprimento de cada uma.
+- **Cultura de compliance** como requisito, não como discurso: a norma pede evidência de
+  comportamento, e é o item mais difícil de demonstrar.
+- **Função de compliance** com independência e acesso ao órgão de governança.
+- **Governança**: órgão de governança e alta direção com responsabilidades separadas.
+
+ATENÇÃO AO ESCOPO — é o que mais confunde nesta família:
+- A **37301** cobre **todas** as obrigações de compliance da organização.
+- A **37001** cobre **apenas suborno**, com profundidade maior naquele tema.
+São complementares, não substitutas. Uma empresa pode certificar as duas, e a 37301 não
+absorve a 37001.

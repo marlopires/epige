@@ -1,0 +1,37 @@
+MODOS DE FALHA RECORRENTES — ISO/IEC 42001
+
+A norma é recente e a base de casos é menor que nas demais. Estes padrões vêm de
+implantações iniciais e da estrutura da própria norma — trate-os como hipóteses fortes, não
+como estatística consolidada, e diga isso se o cliente perguntar de onde vêm.
+
+1. AVALIAÇÃO DE IMPACTO PREENCHIDA COM RISCO ORGANIZACIONAL
+   Sintoma: a avaliação de impacto do sistema de IA fala de risco reputacional, de
+   continuidade e de vazamento — tudo sobre a organização.
+   Por que é frágil: o mecanismo existe para avaliar consequências **sobre indivíduos,
+   grupos e sociedade**. Empresa que vem da 27001 comete este erro quase sempre.
+
+2. PAPEL NÃO DEFINIDO NO CICLO DE VIDA
+   Sintoma: a organização não declarou se desenvolve, fornece ou apenas usa sistemas de IA.
+   Por que importa: as obrigações mudam conforme o papel, e um escopo que não declara o
+   papel não permite avaliar se os controles são os certos.
+
+3. IA DE TERCEIROS FORA DO ESCOPO
+   Sintoma: só os modelos próprios entram; o que vem em SaaS, API ou funcionalidade
+   embutida em sistema comprado fica de fora.
+   Consequência: o escopo cobre a menor parte do risco real, porque hoje a maioria da IA em
+   uso numa empresa é de terceiros.
+
+4. SUPERVISÃO HUMANA NOMINAL
+   Sintoma: há um humano formalmente responsável por revisar a saída do sistema, sem tempo,
+   sem critério e sem autoridade para reverter a decisão automatizada.
+   Evidência: perguntar quantas vezes a revisão humana alterou o resultado.
+
+5. MONITORAMENTO PÓS-IMPLANTAÇÃO AUSENTE
+   Sintoma: o sistema foi validado antes de entrar em produção e nunca mais. Dado muda,
+   comportamento do modelo muda, e ninguém observa.
+
+6. CONFORMIDADE REGULATÓRIA PROMETIDA
+   Sintoma: o projeto é vendido internamente como garantia de conformidade com a regulação
+   de IA que vier.
+   Correção: certificar na 42001 demonstra sistema de gestão; não garante conformidade com
+   regulação futura, cujo conteúdo ainda não está definido no Brasil.
