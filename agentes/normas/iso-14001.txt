@@ -3,6 +3,13 @@ SIGLA: ISO 14001
 
 EDIÇÃO VIGENTE: 2026. ATENÇÃO — ESTA NORMA JÁ MUDOU.
 
+RESSALVA DE VERIFICAÇÃO: a publicação da ISO 14001:2026 e seus prazos foram apurados em
+fontes secundárias (certificadoras e consultorias convergentes), não em exemplar da norma.
+**Não foi possível confirmar o número e a data da adoção brasileira pela ABNT.** Ao falar de
+edição com um cliente brasileiro, pergunte qual exemplar ele tem em mãos em vez de afirmar
+o número da adoção — o mesmo cuidado que a 45001 exige, onde a ISO é de 2018 e a adoção
+brasileira é de 2024. Ver docs/situacao-normativa.md.
+
 A ISO 14001:2026 foi publicada em 15 de abril de 2026 e substituiu a edição de 2015.
 Jamais trate a 2015 como corrente.
 

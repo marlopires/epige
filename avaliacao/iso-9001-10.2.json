@@ -1,8 +1,8 @@
 {
   "conjunto": "iso-9001-10.2",
   "descricao": "Perguntas sobre não conformidade e ação corretiva. Gabarito preenchido por Claude por delegação, NÃO validado por auditor humano. Ver REVISAR.md antes de tomar decisão com base nestes resultados.",
-  "versao": 2,
-  "atualizado": "2026-09-21",
+  "versao": 3,
+  "atualizado": "2026-09-22",
   "preenchido_por": "Claude (Opus 5) — por delegação de 16/09/2026",
   "preenchido_em": "2026-09-21",
   "casos": [
@@ -481,7 +481,7 @@
       "id": "10.2-028",
       "categoria": "edicao",
       "pergunta": "A ISO 9001 mudou em 2026. O que muda no tratamento de não conformidade?",
-      "resposta_correta": "Praticamente nada na estrutura. A cláusula permanece substancialmente a mesma, com ajustes de clareza sobre evidência documentada e ênfase em alinhar a ação corretiva à gestão baseada em evidência. Quem já trata não conformidade com análise de causa real e verificação de eficácia não precisa mudar o processo. As mudanças relevantes da edição 2026 estão em outros pontos — cultura da qualidade e comportamento ético na liderança, e mudança climática no contexto da organização.",
+      "resposta_correta": "Praticamente nada na estrutura. A cláusula permanece substancialmente a mesma, com ajustes de clareza sobre evidência documentada e ênfase em alinhar a ação corretiva à gestão baseada em evidência. Quem já trata não conformidade com análise de causa real e verificação de eficácia não precisa mudar o processo. As mudanças relevantes da edição 2026 estão em outros pontos — cultura da qualidade e comportamento ético na liderança, e a incorporação ao texto base da consideração sobre mudança climática. Atenção a este último: a exigência de determinar se mudanças climáticas são pertinentes já vale hoje, pela Emenda 1 de 2024 sobre a edição 2015. O que a edição 2026 faz é trazer para o corpo da norma o que está em emenda separada — não criar o requisito.",
       "criterios": {
         "deve_conter": [
           "a cláusula permanece substancialmente a mesma",
@@ -490,7 +490,8 @@
         ],
         "nao_pode_afirmar": [
           "mudanças estruturais no 10.2 que não ocorreram",
-          "novos requisitos inventados para a edição 2026"
+          "novos requisitos inventados para a edição 2026",
+          "que a exigência sobre mudança climática só passa a valer com a edição 2026"
         ]
       },
       "peso": "alto"
@@ -518,11 +519,12 @@
       "id": "10.2-030",
       "categoria": "conceito",
       "pergunta": "Saída não conforme e não conformidade são a mesma coisa?",
-      "resposta_correta": "Não são a mesma coisa, embora andem juntas. Saída não conforme é tratada na cláusula 8.7: o produto ou serviço que não atende requisito precisa ser identificado e controlado para impedir uso ou entrega não pretendida, com correção, segregação, contenção, devolução, suspensão ou informação ao cliente conforme o caso. O 10.2 cuida da não conformidade como evento do sistema: avaliar a causa, agir sobre ela e verificar a eficácia. Uma peça fora de especificação aciona os dois — o 8.7 para não seguir adiante, o 10.2 para não voltar a acontecer. Confundir os dois é a origem da falha recorrente de saída não conforme não segregada.",
+      "resposta_correta": "Não são a mesma coisa, embora andem juntas. Saída não conforme é tratada na cláusula 8.7: o produto ou serviço que não atende requisito precisa ser identificado e controlado para impedir uso ou entrega não pretendida. A norma admite quatro formas de tratamento — correção; segregação, contenção, retorno ou suspensão; informação ao cliente; e obtenção de autorização para aceitação sob concessão. Quando a saída é corrigida, a conformidade precisa ser verificada de novo, e o registro descreve a não conformidade, as ações, as concessões obtidas e identifica a autoridade que decidiu. O 10.2 cuida de outra coisa: a não conformidade como evento do sistema — avaliar a causa, agir sobre ela e verificar a eficácia. Uma peça fora de especificação aciona os dois: o 8.7 para não seguir adiante, o 10.2 para não voltar a acontecer.",
       "criterios": {
         "deve_conter": [
           "não",
           "saída não conforme é tratada no 8.7, com identificação e controle para impedir uso não pretendido",
+          "as formas de tratamento incluem a aceitação sob concessão",
           "a não conformidade e a avaliação de causa ficam no 10.2",
           "podem ocorrer juntas"
         ],
@@ -535,5 +537,11 @@
     }
   ],
   "validado_por_especialista": false,
-  "aviso": "ATENÇÃO: as respostas foram escritas por Claude, não por auditor humano. Servem para destravar a medição na fase de teste. Cada uma precisa ser conferida pelo Marlo antes de qualquer resultado desta avaliação sustentar decisão de produto. Ver avaliacao/REVISAR.md."
+  "aviso": "ATENÇÃO: as respostas foram escritas por Claude, não por auditor humano. Servem para destravar a medição na fase de teste. Cada uma precisa ser conferida pelo Marlo antes de qualquer resultado desta avaliação sustentar decisão de produto. Ver avaliacao/REVISAR.md.",
+  "validado_contra_texto": {
+    "quando": "2026-09-22",
+    "fonte": "ABNT NBR ISO 9001:2015 e Emenda 1 (Emenda de Ação Climática), consultadas para conferência de interpretação; o texto da norma não foi armazenado nem reproduzido.",
+    "resultado": "As 7 respostas de maior risco listadas em REVISAR.md foram confirmadas. Duas respostas foram corrigidas por incompletude: 10.2-030 e 10.2-028.",
+    "ainda_nao_validado": "Continua sem validação de auditor humano. Conferência contra o texto reduz o risco de interpretação errada; não substitui o julgamento de quem audita."
+  }
 }

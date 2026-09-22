@@ -40,6 +40,11 @@ Ordem = ordem sugerida de execução. Marque `[x]` ao concluir.
 
 - [ ] **F0-1 · ABNT + advogado de PI.** Perguntar sobre programas de licenciamento de
       conteúdo normativo. Trava a arquitetura da base inteira. *Semana 1 do roteiro.*
+      **Adiado por decisão sua em 22/09/2026.** Registro a ressalva sem re-litigar: a
+      licença profissional de auditor cobre o seu trabalho, não alimentar um SaaS
+      comercial, e os exemplares consultados em 22/09 eram nominais a um terceiro. Enquanto
+      isso, a regra que nos protege é a que já está em vigor — o texto da norma nunca é
+      armazenado, indexado nem reproduzido; o que entra no produto é interpretação autoral.
 - [ ] **F0-2 · Escopo do MVP.** O roteiro recomenda **ISO 9001 apenas** + requisitos
       legais. A revisão completa mostra a janela de transição nas **três** normas.
       Não são incompatíveis — a transição 9001:2015→2026 sozinha já é mercado — mas a
@@ -183,6 +188,8 @@ que já foi decidido.
 | 22/09/2026 | Opus só no auditor; Haiku roteia | O custo de um auditor complacente é assimétrico; o roteamento barato paga o Opus |
 | 22/09/2026 | Regra 6 nova: não generalizar entre normas | Misturar aspecto/impacto com perigo/risco parece erudição e é erro |
 | 22/09/2026 | Plataforma em `/`, demo narrada em `/demo/` | Propósitos diferentes: área de trabalho versus percurso de demonstração |
+| 22/09/2026 | Exemplares das normas usados só para conferir interpretação, nunca ingeridos | Mantém o ativo defensável: o que entra no produto é texto autoral corrigido |
+| 22/09/2026 | Conversa com a ABNT adiada | Decisão sua; a ressalva fica registrada e a regra de não reprodução continua valendo |
 | 09/09/2026 | Protótipo 8.2 é o canônico; 3.7 a 6.0 viram histórico | Só a 8.2 recebe alterações daqui em diante |
 | 10/09/2026 | Paleta canônica é a do manual de marca, conferida contra a 8.2 | `simbolo-epige.svg` corrigido; demo 10.2 fica fora de padrão até ID-3 |
 | 12/08/2026 | Faixa de preço B: R$ 89 / R$ 279 / R$ 1.490 | Margem de contribuição ≥ 41,8% mesmo no teto do plano com dólar a R$ 6,00 |

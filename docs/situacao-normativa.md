@@ -6,13 +6,58 @@ em escala. **Reverificar a cada trimestre**, e imediatamente após 16/09/2026.
 
 ---
 
+## Correções de 22/09/2026 — conferência contra exemplares das normas
+
+Três erros nos arquivos de norma dos agentes, encontrados ao conferir o meu texto contra a
+ABNT NBR ISO 9001:2015, a ABNT NBR ISO 45001:2024 e suas emendas. Os exemplares foram
+consultados para verificação de interpretação; **o texto não foi armazenado, indexado nem
+reproduzido em nenhum ponto do produto.**
+
+**1. A Emenda de Ação Climática já está em vigor — e eu tratava como novidade de 2026.**
+A Emenda 1 (2024) acrescenta à cláusula 4.1 da edição 2015 a obrigação de determinar se o
+assunto mudanças climáticas é pertinente. Uma empresa certificada na 2015 **hoje** já
+precisa ter feito essa determinação. Eu descrevia isso como mudança que chega com a edição
+2026 — o que levaria um cliente a achar que pode esperar. A edição 2026 incorpora ao texto
+base o que hoje está em emenda separada; não cria o requisito. A emenda também **não altera
+o ano de publicação**: a norma segue sendo citada como 9001:2015.
+
+**2. A adoção brasileira da 45001 é de 2024, não de 2018.**
+A norma ISO é a ISO 45001:2018; a adoção brasileira mais recente é a
+**ABNT NBR ISO 45001:2024**, com Emenda 1 de 09.01.2025. O conteúdo técnico é o de 2018,
+mas o exemplar que um cliente brasileiro tem em mãos diz 2024. Afirmar "edição vigente
+2018" faria o cliente achar que está com documento desatualizado — ou que nós estamos.
+
+**3. O 8.7 estava incompleto.**
+Faltavam duas coisas: a aceitação sob concessão como forma legítima de tratar saída não
+conforme, e o requisito de o registro identificar a autoridade que decidiu.
+
+### O que se confirmou
+
+O ciclo do 10.2, inclusive a busca por não conformidades similares em outro ponto; a
+hierarquia de controles da 45001 na ordem correta; incidente incluindo quase acidente; a
+ação preventiva absorvida pela mentalidade de risco; o período de retenção como decisão da
+organização; e a ausência, no texto, de classificação maior/menor, formulário padronizado e
+método de análise de causa nomeado.
+
+### O que continua sem confirmação
+
+**A adoção brasileira da ISO 14001:2026.** O exemplar disponível da 14001 é digitalizado em
+imagem, sem texto extraível, e o outro é a norma espanhola UNE-EN ISO 14001:2015 — que
+serve para conferir mecanismos, não a situação brasileira. As datas da 14001:2026 continuam
+apoiadas só em fontes secundárias.
+
+---
+
 ## Resumo
 
-| Norma | Edição vigente hoje | Próxima edição | Situação |
+| Norma | Referência brasileira vigente | Próxima edição | Situação |
 |---|---|---|---|
-| ISO 9001 | **2015** | **2026** | Publica em **16/09/2026** — daqui a seis dias |
-| ISO 14001 | **2026** | — | Publicada em **15/04/2026**, transição em curso |
-| ISO 45001 | **2018** | 2027 | Revisão em curso, sem texto final |
+| ISO 9001 | **ABNT NBR ISO 9001:2015 + Em1:2024** | 2026 | Publicada pela ISO em **16/09/2026**; transição de três anos |
+| ISO 14001 | 2015 → 2026 *(adoção ABNT não confirmada)* | — | ISO publicada em **15/04/2026**, transição em curso |
+| ISO 45001 | **ABNT NBR ISO 45001:2024 + Em1:2025** | 2027 | Revisão ISO em curso, sem texto final |
+
+> A coluna diz **referência brasileira**, não ano da ISO. São coisas diferentes e confundi-las
+> foi um dos erros corrigidos em 22/09 — a 45001 é ISO 2018 e ABNT 2024.
 
 **As três estão em transição ao mesmo tempo.** É a circunstância que define a
 oportunidade comercial da EPIGE, e ela tem prazo.
@@ -55,10 +100,9 @@ significa carga baixa de transição para quem já atende a 2015.
   (cláusula 5). A alta direção passa a ter de demonstrar promoção de cultura da qualidade,
   integridade e comportamento ético — evidenciável por valores compartilhados, atitudes e
   comportamentos observados.
-- **Mudança climática formalizada no contexto** (cláusula 4.1). A emenda de 2024 foi
-  integrada ao texto: a organização precisa determinar se a mudança climática é questão
-  relevante para o seu SGQ, incluindo riscos, oportunidades e impactos sobre a qualidade
-  do produto ou serviço.
+- **Mudança climática incorporada ao texto base** (cláusula 4.1). **Não é requisito novo:**
+  já vale desde a Emenda 1 de 2024 sobre a edição 2015. A edição 2026 traz para o corpo da
+  norma o que hoje está em emenda separada.
 - **Gestão de riscos e oportunidades mais clara.**
 - **Não entraram** requisitos de inteligência artificial nem ampliação de ESG. Vale
   registrar porque é uma expectativa comum e errada — e um agente que a repita estaria
@@ -99,11 +143,15 @@ de recursos.
 
 ## ISO 45001
 
-Revisão em curso, publicação esperada para **2027**. Sem texto final publicado.
+**Referência brasileira vigente: ABNT NBR ISO 45001:2024**, adoção da ISO 45001:2018, com
+Emenda 1 de 09.01.2025. O conteúdo técnico é o da ISO 2018; o ano de 2024 é o da publicação
+brasileira — e é o que aparece na capa do exemplar do cliente.
+
+Revisão da norma ISO em curso, publicação esperada para **2027**. Sem texto final publicado.
 
 **Regra para os agentes: não especular sobre conteúdo.** Falar de requisito que ainda não
 existe é exatamente o tipo de invenção que a regra de honestidade proíbe. O que se pode
-dizer é que a revisão está em curso e a edição de 2018 segue vigente.
+dizer é que a revisão está em curso e que a ABNT NBR ISO 45001:2024 segue vigente.
 
 ---
 

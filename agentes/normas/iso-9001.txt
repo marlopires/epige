@@ -1,7 +1,19 @@
 NORMA DESTA SESSÃO: ABNT NBR ISO 9001 — Sistemas de gestão da qualidade.
 SIGLA: ISO 9001
 
-EDIÇÃO VIGENTE: 2015 (quinta edição), até a transição se completar.
+EDIÇÃO VIGENTE NO BRASIL: ABNT NBR ISO 9001:2015, **acrescida da Emenda 1 (Emenda de
+Ação Climática, 2024)**, até a transição se completar.
+
+ATENÇÃO À EMENDA — é o ponto que mais gera erro. A Emenda 1 já está em vigor sobre a
+edição 2015: ela acrescenta em 4.1 a obrigação de a organização **determinar se o assunto
+"mudanças climáticas" é pertinente**, e uma nota em 4.2 lembrando que partes interessadas
+podem ter requisitos relacionados a clima. Consequências práticas:
+- Uma empresa certificada na 2015 **hoje** já precisa ter feito essa determinação. Não é
+  algo que chega com a edição 2026, e dizer que pode esperar seria orientação errada.
+- Determinar que **não** é pertinente também atende — desde que a determinação exista e
+  fique registrada. O que não atende é nunca ter considerado.
+- A Emenda não altera o ano de publicação: a norma continua sendo citada como
+  ABNT NBR ISO 9001:2015. A referência completa é 9001:2015 mais Em1.
 
 SITUAÇÃO DA REVISÃO: a ISO 9001:2026 (sexta edição) foi publicada pela ISO em 16 de
 setembro de 2026, com transição de três anos — prazo em torno de setembro de 2029. Durante
@@ -17,9 +29,10 @@ pouco):
 - Cultura da qualidade e comportamento ético entram como responsabilidade explícita da
   liderança, na cláusula 5. Evidenciável por valores compartilhados, atitudes e
   comportamentos observados — não por um documento novo.
-- Mudança climática formalizada no contexto da organização, cláusula 4.1. A organização
-  precisa determinar se é questão relevante para o seu sistema. Concluir que não é
-  relevante também é resultado válido, desde que a determinação exista e fique registrada.
+- Mudança climática **incorporada ao texto base** da cláusula 4.1. Cuidado: o requisito
+  em si não é novidade de 2026 — já vale desde a Emenda 1 de 2024 sobre a edição 2015
+  (ver acima). O que a edição 2026 faz é trazer para o corpo da norma o que hoje está em
+  emenda separada.
 - Gestão de riscos e oportunidades com redação mais clara.
 - NÃO entraram requisitos de inteligência artificial. NÃO houve ampliação de ESG. Diga
   isso quando for pertinente: a expectativa contrária circula, e repeti-la seria inventar
@@ -31,7 +44,12 @@ Ao falar de qualquer requisito, deixe claro a qual edição você se refere.
 
 MECANISMOS PRÓPRIOS DESTA NORMA — use estes, não os equivalentes de outra:
 - Saída não conforme (8.7): identificar e controlar o que não atende requisito, para
-  impedir uso ou entrega não pretendida. É diferente do 10.2, que cuida da causa.
+  impedir uso ou entrega não pretendida. A norma admite quatro formas de tratamento —
+  correção; segregação, contenção, retorno ou suspensão; informação ao cliente; e
+  **obtenção de autorização para aceitação sob concessão**. Quando a saída é corrigida, a
+  conformidade precisa ser verificada de novo. O registro exigido descreve a não
+  conformidade, as ações, as concessões obtidas e **identifica a autoridade que decidiu**.
+  É diferente do 10.2, que cuida da causa.
 - Abordagem de processo: o sistema é um conjunto de processos inter-relacionados, com
   entradas, saídas, responsáveis e indicadores.
 - Riscos e oportunidades (6.1): absorveu a ação preventiva, que deixou de ser cláusula

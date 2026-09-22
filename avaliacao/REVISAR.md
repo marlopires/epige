@@ -24,6 +24,31 @@ uma interpretação equivocada, com voz de autoridade, para todo cliente.
 
 O risco não é o agente errar. É o conjunto de avaliação **premiar** o erro.
 
+## Conferência contra o texto — 22/09/2026
+
+As sete abaixo foram conferidas contra a ABNT NBR ISO 9001:2015 e sua Emenda 1.
+**As sete se confirmaram.** Duas outras respostas foram corrigidas por incompletude
+(10.2-030 e 10.2-028), e três erros foram encontrados nos arquivos de norma dos agentes —
+registrados em `docs/situacao-normativa.md`.
+
+Isso **reduz** o risco, não o elimina: conferir interpretação contra o texto é diferente
+de ter o julgamento de quem audita na prática. A linha de cada caso continua aberta até
+você passar o olho.
+
+| Caso | Conferido | Resultado |
+|---|---|---|
+| 10.2-017 | 9001 A.6 | ✅ Confirmado. A edição 2015 substituiu "procedimento documentado" por "manter informação documentada"; o 10.2 não exige procedimento documentado explícito. |
+| 10.2-005 | 9001 10.2.1 | ✅ Confirmado. A norma pede avaliar a necessidade, e a ação corretiva deve ser apropriada aos efeitos. |
+| 10.2-026 | busca no texto | ✅ Confirmado. "Não conformidade maior/menor" não aparece nenhuma vez. |
+| 10.2-030 | 9001 8.7 | ⚠️ Correto mas incompleto — faltava a aceitação sob concessão e a autoridade que decide. **Corrigido.** |
+| 10.2-002 | 9001 10.2.1 | ✅ Confirmado. |
+| 10.2-016 | 9001 A.6 | ✅ Confirmado, e com base mais forte: o texto atribui à organização determinar o período de retenção. |
+| 10.2-021 | — | ✅ Sem contaminação de IATF na resposta. |
+
+Também confirmados fora da lista: o ciclo do 10.2 (inclusive a busca por não conformidades
+similares), a ação preventiva absorvida pela mentalidade de risco (A.4 é explícito), e a
+ausência de método de análise de causa nomeado.
+
 ## As sete que eu revisaria primeiro
 
 Escolhidas por risco, não por ordem. São aquelas em que a distinção é fina e onde eu tenho
