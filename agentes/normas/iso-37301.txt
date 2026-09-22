@@ -1,26 +1,38 @@
 NORMA DESTA SESSÃO: ABNT NBR ISO 37301 — Sistemas de gestão de compliance.
 SIGLA: ISO 37301
 
-EDIÇÃO VIGENTE NO BRASIL: **ABNT NBR ISO 37301:2021**, primeira edição, publicada em
-03.06.2021. Substituiu a ABNT NBR ISO 19600, que era norma de diretrizes e não
-certificável — a 37301 é **certificável**, e essa é a mudança que mais importa
-comercialmente.
+EDIÇÃO VIGENTE NO BRASIL: **ABNT NBR ISO 37301:2021**, primeira edição.
 
-CONFIANÇA DESTE CONTEÚDO: **média** — edição e data apuradas em fontes secundárias; os
-mecanismos vêm do meu conhecimento, **sem conferência contra exemplar da norma**. Ao
-afirmar número de cláusula, sinalize que convém conferir.
+RELAÇÃO COM A ISO 19600: a 19600 é norma de **diretrizes** e não é certificável; a 37301
+traz requisitos e **é certificável**. Essa é a diferença que importa comercialmente. Não
+afirme que a 37301 cancelou formalmente a 19600 no Brasil — o prefácio nacional da 37301
+não traz essa declaração, e eu não confirmei o status da 19600 na ABNT.
+
+CONFIANÇA DESTE CONTEÚDO: **alta** — mecanismos conferidos contra exemplar da norma.
 
 MECANISMOS PRÓPRIOS DESTA NORMA — use estes, não os equivalentes de outra:
 
-- **Obrigações de compliance**, que é o conceito organizador. Elas se dividem em
-  **requisitos** (o que a organização é obrigada a cumprir — lei, regulamento, licença,
-  contrato) e **compromissos** (o que ela escolheu cumprir — código de conduta, política
-  interna, compromisso setorial). O levantamento das duas categorias é a base do sistema.
-- **Avaliação de riscos de compliance**, que parte das obrigações identificadas e avalia
-  probabilidade e consequência do descumprimento de cada uma.
-- **Cultura de compliance** como requisito, não como discurso: a norma pede evidência de
-  comportamento, e é o item mais difícil de demonstrar.
-- **Função de compliance** com independência e acesso ao órgão de governança.
+- **Obrigações de compliance**, o conceito organizador de toda a norma: são os requisitos
+  que a organização **mandatoriamente tem que cumprir** e também os que ela
+  **voluntariamente escolhe cumprir**. Lei, regulamento, licença e contrato caem na
+  primeira categoria; código de conduta, política interna e compromisso setorial, na
+  segunda. Levantamento que só tem a primeira é levantamento pela metade.
+- **Compliance** é o atendimento a **todas** as obrigações da organização, e **não
+  compliance** é o não atendimento delas. A norma define os dois termos — use-os assim, e
+  não como sinônimo genérico de "estar em conformidade".
+- **Riscos de compliance**: a probabilidade de ocorrência e as consequências do não
+  compliance com as obrigações da organização. Repare que o risco é definido **a partir das
+  obrigações** — sem o levantamento delas, não há como avaliar risco de compliance.
+- **Cultura de compliance**, que a norma define como os valores, a ética, as crenças e a
+  conduta que existem por toda a organização e **interagem com as estruturas e os sistemas
+  de controle** para produzir normas comportamentais. Não é discurso nem treinamento: é o
+  que resulta da interação entre o que se diz e o que os controles de fato premiam. Algumas
+  organizações usam pesquisa junto ao pessoal para medi-la.
+- **Conduta**: comportamentos e práticas que impactam o resultado. Termo definido, usado com
+  precisão.
+- **Função de compliance**: a pessoa ou o grupo com responsabilidade e autoridade para
+  operar o sistema. A norma orienta que a supervisão global seja preferencialmente atribuída
+  a **um indivíduo** — responsabilidade difusa é o começo da função que não funciona.
 - **Governança**: órgão de governança e alta direção com responsabilidades separadas.
 
 ATENÇÃO AO ESCOPO — é o que mais confunde nesta família:

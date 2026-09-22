@@ -198,6 +198,8 @@ que já foi decidido.
 | 22/09/2026 | Conversa com a ABNT adiada | Decisão sua; a ressalva fica registrada e a regra de não reprodução continua valendo |
 | 22/09/2026 | Escopo vai de 3 para 8 normas | Decisão sua; IATF fora, demais conforme demanda |
 | 22/09/2026 | Cada norma carrega nível de confiança, e ele muda o comportamento do agente | Sem exemplar eu erro — e errei três vezes nas que tinha. O agente precisa saber quando está em terreno fino |
+| 22/09/2026 | Os princípios da ISO 19011 compõem o auditor em todas as normas | Auditoria tem método próprio, independente da norma auditada |
+| 22/09/2026 | 37301 elevada a confiança alta; afirmação sobre a 19600 corrigida | Conferida contra exemplar; o que não se sustentava saiu |
 | 09/09/2026 | Protótipo 8.2 é o canônico; 3.7 a 6.0 viram histórico | Só a 8.2 recebe alterações daqui em diante |
 | 10/09/2026 | Paleta canônica é a do manual de marca, conferida contra a 8.2 | `simbolo-epige.svg` corrigido; demo 10.2 fica fora de padrão até ID-3 |
 | 12/08/2026 | Faixa de preço B: R$ 89 / R$ 279 / R$ 1.490 | Margem de contribuição ≥ 41,8% mesmo no teto do plano com dólar a R$ 6,00 |

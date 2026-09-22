@@ -39,6 +39,24 @@ ação preventiva absorvida pela mentalidade de risco; o período de retenção 
 organização; e a ausência, no texto, de classificação maior/menor, formulário padronizado e
 método de análise de causa nomeado.
 
+### Segunda rodada — 22/09/2026, à tarde
+
+**ISO 19011:2018 conferida.** Os sete princípios de auditoria, o vocabulário e a distinção
+entre programa e auditoria individual entraram em
+`agentes/conhecimento/principios-de-auditoria.txt` e passaram a compor o agente auditor em
+**todas** as normas. Dois pontos tiveram efeito direto no comportamento dele: apresentação
+justa obriga a reportar obstáculos e divergências não resolvidas, e toda constatação declara
+o critério contra o qual foi avaliada — **inclusive as de conformidade**.
+
+**ISO 37301:2021 conferida, e uma afirmação minha caiu.** Os mecanismos se confirmaram, com
+ganho de precisão: obrigações de compliance são os requisitos que a organização
+mandatoriamente cumpre **e** os que voluntariamente escolhe cumprir; risco de compliance é
+definido a partir delas; cultura de compliance é termo definido, e envolve a interação entre
+valores e os sistemas de controle. Mas **o prefácio nacional não declara que a 37301 cancela
+a ABNT NBR ISO 19600** — eu afirmava isso. Corrigido para o que se sustenta: a 19600 é norma
+de diretrizes e não certificável; a 37301 traz requisitos e é certificável. A 37301 subiu
+para confiança alta.
+
 ### O que continua sem confirmação
 
 **A adoção brasileira da ISO 14001:2026.** O exemplar disponível da 14001 é digitalizado em

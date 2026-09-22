@@ -1,0 +1,71 @@
+PRINCÍPIOS E VOCABULÁRIO DE AUDITORIA — base ABNT NBR ISO 19011:2018
+
+Esta é a norma de diretrizes para auditoria de sistemas de gestão. Ela não é certificável:
+orienta como auditar, não o que a organização deve ter. Conteúdo conferido contra exemplar
+da norma.
+
+OS SETE PRINCÍPIOS. A aderência a eles é pré-requisito para que conclusões sejam
+pertinentes e suficientes, e para que **auditores trabalhando independentemente cheguem a
+conclusões similares em circunstâncias similares**. Essa reprodutibilidade é o teste real
+de uma auditoria bem feita — e é o que um agente auditor precisa perseguir.
+
+1. **Integridade** — o fundamento do profissionalismo. Auditar apenas o que se é competente
+   para auditar; trabalhar de forma imparcial, justa e sem tendenciosidade; manter-se
+   sensível a influências sobre o julgamento.
+
+2. **Apresentação justa** — a obrigação de reportar com veracidade e exatidão. Constatações,
+   conclusões e relatório refletem as atividades de auditoria como elas foram. **Obstáculos
+   significativos e divergências não resolvidas entre auditor e auditado são reportados**,
+   não omitidos. Comunicação verdadeira, precisa, objetiva, em tempo hábil, clara e completa.
+
+3. **Devido cuidado profissional** — diligência e julgamento proporcionais à importância da
+   tarefa e à confiança depositada pelo cliente de auditoria.
+
+4. **Confidencialidade** — discrição no uso e proteção da informação obtida. A informação de
+   auditoria não é usada para ganho pessoal nem de maneira prejudicial aos legítimos
+   interesses do auditado.
+
+5. **Independência** — a base da imparcialidade e da objetividade das conclusões. Em
+   auditoria interna, o auditor é independente da função auditada quando praticável.
+   **Ponto importante para empresa pequena:** a norma reconhece que independência total pode
+   não ser possível, e pede que todo esforço seja feito para remover tendenciosidade e
+   encorajar objetividade. Não use isso como desculpa para auditor avaliar o próprio
+   trabalho — use para orientar como reduzir o viés quando não há alternativa.
+
+6. **Abordagem baseada em evidência** — o método racional para conclusões confiáveis e
+   reprodutíveis. A evidência precisa ser **verificável**. Em geral é baseada em **amostras**,
+   porque a auditoria acontece em tempo finito e com recursos limitados — e a adequação da
+   amostragem determina quanta confiança as conclusões merecem.
+
+7. **Abordagem baseada em risco** — considera riscos e oportunidades no planejamento, na
+   condução e no relato, para que a auditoria se concentre no que é significativo.
+
+VOCABULÁRIO — use com precisão, porque a confusão entre estes termos é o que mais enfraquece
+um relatório:
+
+- **Critérios de auditoria**: o conjunto de requisitos usado como referência, contra o qual a
+  evidência objetiva é comparada. Sem critério declarado não há auditoria, há opinião.
+- **Evidência de auditoria**: registros, apresentação de fatos ou outras informações
+  pertinentes aos critérios, **e verificáveis**. Se não é verificável, não é evidência.
+- **Constatação de auditoria**: o resultado da avaliação da evidência contra os critérios.
+- **Conclusão de auditoria**: o resultado da auditoria, considerando os objetivos e todas as
+  constatações. Conclusão não é a soma das constatações — é o julgamento sobre o conjunto.
+- **Programa de auditoria**: o arranjo de uma ou mais auditorias planejadas para um período e
+  um propósito. Distinto de uma auditoria individual.
+
+REGISTRO DE CONSTATAÇÕES — o que a norma orienta incluir:
+- Para **não conformidade**: descrição dos critérios ou referência a eles; a evidência; a
+  declaração de não conformidade; e constatações relacionadas, se houver.
+- Para **conformidade**: descrição dos critérios; a evidência que apoia a conformidade e a
+  eficácia, quando aplicável; e a declaração de conformidade.
+
+Repare que **os critérios aparecem nos dois casos**. Constatação sem critério declarado é
+incompleta, mesmo quando é elogio.
+
+O PROGRAMA DE AUDITORIA — a distinção que quase toda empresa pequena ignora:
+Auditoria individual é um evento. Programa é o arranjo do conjunto ao longo do tempo, e sua
+extensão se baseia no tamanho e na natureza do auditado, na complexidade e no **nível de
+maturidade** do sistema, e nos riscos e oportunidades envolvidos. Auditoria interna que
+percorre a norma cláusula a cláusula, todo ano igual, ignorando maturidade e risco, é
+programa mal desenhado — e as fontes apontam isso como raiz da maioria das outras não
+conformidades.
