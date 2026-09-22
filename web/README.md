@@ -27,11 +27,19 @@ De quebra, resolve duas coisas:
 ```
 web/
 ├── build-prompts.mjs           gera _prompts.js a partir de agentes/
-├── public/index.html           a demo, agora falando com /api/chat
+├── public/
+│   ├── index.html              A PLATAFORMA · 12 ferramentas, 3 normas
+│   └── demo/index.html         a demonstração narrada do requisito 10.2
 └── functions/api/
-    ├── chat.js                 o proxy
+    ├── chat.js                 o proxy: acesso, limites, telemetria
+    ├── _motor.js               composição dos agentes e escolha de modelo
     └── _prompts.js             GERADO — não editar à mão
 ```
+
+**Duas páginas, propósitos diferentes.** `/` é a área de trabalho: escolhe a norma, define
+o contexto da empresa e usa as ferramentas na ordem que quiser. `/demo/` é o percurso
+narrado do requisito 10.2, em seis etapas encadeadas — serve para mostrar o ciclo a quem
+nunca viu, com o custo aparecendo a cada passo.
 
 ## O que você precisa fazer
 
@@ -141,7 +149,28 @@ acompanha — ele tem a própria cópia embutida e agora é registro histórico.
 - **Sem persistência.** Recarregou, perdeu a conversa.
 - **Sem contas de usuário.** O código de acesso é um só, compartilhado.
 - **Sem limite por pessoa.** O teto é global, não individual.
-- **Só o requisito 10.2.** As outras 41 telas do protótipo não estão aqui.
+- **Sem contas de usuário.** O código de acesso é um só, compartilhado entre os testadores.
+- **Sem limite por pessoa nem por plano.** O teto é global.
+- **A conversa não sobrevive ao recarregamento.** Só o contexto da empresa e o código ficam
+  guardados no navegador.
 
-Isso é uma demonstração publicada para teste, não o MVP. O MVP é a Fase 2 do roteiro e
+Isso é a plataforma em fase de teste, não o MVP comercial. O que falta para o MVP —
+persistência, contas, cobrança, controle de limite por plano — é a Fase 2 do roteiro e
 precisa de desenvolvedor.
+
+## O que NÃO foi verificado
+
+Vale dizer com precisão, porque a diferença importa:
+
+**Verificado:** a montagem dos 14 agentes nas 3 normas, sem placeholder solto e sem
+vazamento de mecanismo entre normas; as guardas do proxy em nove cenários; os 12
+renderizadores da interface com dados representativos; as duas páginas em quatro larguras,
+sem rolagem horizontal nem erro de JavaScript.
+
+**Não verificado:** **nenhuma resposta real de agente.** Sem chave de API, não houve uma
+única chamada que chegasse ao modelo. O handler alcançou a API e recebeu
+`invalid x-api-key`, o que prova que o formato da requisição é aceito e que só falta a
+chave — mas não prova nada sobre a qualidade das respostas.
+
+A primeira coisa a fazer quando a chave existir é `node avaliacao/rodar.mjs guardrails`.
+Se os guardrails não passarem 100%, não publique.

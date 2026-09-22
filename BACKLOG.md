@@ -141,8 +141,12 @@ Ordem = ordem sugerida de execução. Marque `[x]` ao concluir.
       servido a todos. Sob demanda por usuário custa R$ 0,34 por execução — a operação
       mais cara da plataforma, 2,6× uma consulta. Como curadoria central custa R$ 35,10/mês
       fixos, menos de 0,15 p.p. de margem. Ver `docs/revisao-completa.md` §4.
-- [ ] **F2-2 · Três fluxos ponta a ponta:** diagnóstico inicial · consulta ao consultor
-      com contexto e histórico · análise de documento com lacunas apontadas.
+- [x] **F2-2 · Fluxos ponta a ponta.** *Feito em 22/09/2026, e além do pedido:* não três
+      fluxos, mas **12 ferramentas** em `web/public/index.html` — diagnóstico, consultor,
+      legal, lacuna de edições, SGI, redator, formulário, análise de causa, plano de ação,
+      analista de documentos, auditoria simulada e vigilância. Três normas selecionáveis,
+      contexto da empresa persistido no navegador, custo por chamada visível.
+      **Sem resposta real verificada** — falta a chave (F0-6).
 - [ ] **F2-4 · Reescrita para produção.** O protótipo cumpriu o papel: define exatamente
       o que construir. Dívida a resolver na reescrita: 9 blocos `<style>`, 85 `!important`,
       337 `onclick` embutidos (impedem CSP restritiva), zero persistência, arquivo único
@@ -175,6 +179,10 @@ que já foi decidido.
 | 21/09/2026 | Lockups com texto em curvas, peso 800 em vez dos 850 do manual | Logo não depende de fonte instalada; 850 exigiria fonte variável completa |
 | 22/09/2026 | Escala φ aplicada por papel, não por vizinho mais próximo | Proximidade cega colapsa hierarquia: título e descrição caem no mesmo tamanho |
 | 22/09/2026 | Réguas laterais mantidas em 260/288; só a razão segue φ | O manual fixa a razão conteúdo:painel, não a largura das réguas |
+| 22/09/2026 | Um agente é composição de camadas, não um prompt | Regras invioláveis primeiro, contexto por último: prefixo estável é o que o cache aproveita |
+| 22/09/2026 | Opus só no auditor; Haiku roteia | O custo de um auditor complacente é assimétrico; o roteamento barato paga o Opus |
+| 22/09/2026 | Regra 6 nova: não generalizar entre normas | Misturar aspecto/impacto com perigo/risco parece erudição e é erro |
+| 22/09/2026 | Plataforma em `/`, demo narrada em `/demo/` | Propósitos diferentes: área de trabalho versus percurso de demonstração |
 | 09/09/2026 | Protótipo 8.2 é o canônico; 3.7 a 6.0 viram histórico | Só a 8.2 recebe alterações daqui em diante |
 | 10/09/2026 | Paleta canônica é a do manual de marca, conferida contra a 8.2 | `simbolo-epige.svg` corrigido; demo 10.2 fica fora de padrão até ID-3 |
 | 12/08/2026 | Faixa de preço B: R$ 89 / R$ 279 / R$ 1.490 | Margem de contribuição ≥ 41,8% mesmo no teto do plano com dólar a R$ 6,00 |
