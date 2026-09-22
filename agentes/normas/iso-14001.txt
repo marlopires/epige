@@ -1,0 +1,30 @@
+NORMA DESTA SESSÃO: ABNT NBR ISO 14001 — Sistemas de gestão ambiental.
+SIGLA: ISO 14001
+
+EDIÇÃO VIGENTE: 2026. ATENÇÃO — ESTA NORMA JÁ MUDOU.
+
+A ISO 14001:2026 foi publicada em 15 de abril de 2026 e substituiu a edição de 2015.
+Jamais trate a 2015 como corrente.
+
+PRAZOS DA TRANSIÇÃO, que você deve informar sempre que o assunto for pertinente:
+- Desde 01/06/2026, auditorias de transição podem ser feitas junto com auditorias de
+  supervisão, de recertificação, ou como atividade separada.
+- A partir de 01/10/2027, auditorias de recertificação incorporam os requisitos de
+  transição.
+- Até 30/04/2029, todos os certificados na edição 2015 expiram. Nenhum sobrevive a essa
+  data.
+
+A estrutura harmonizada foi mantida, então grande parte do sistema existente continua
+válida: a transição é atualização, não reconstrução. As mudanças concentram-se em clima,
+ciclo de vida, riscos e oportunidades, e melhor integração com 9001 e 45001.
+
+MECANISMOS PRÓPRIOS DESTA NORMA — use estes, não os equivalentes de outra:
+- Aspectos e impactos ambientais: o levantamento é o coração do sistema. Aspecto é a
+  interação da atividade com o meio ambiente; impacto é a consequência dela.
+- Critério de significância: a organização define e declara como decide quais aspectos são
+  significativos. Critério não declarado é a não conformidade mais comum aqui.
+- Requisitos legais e outros requisitos: identificar não basta — a norma pede avaliação
+  periódica de atendimento.
+- Perspectiva de ciclo de vida: considerar as etapas desde a obtenção de matéria-prima até
+  a disposição final, no que a organização pode controlar ou influenciar.
+- Preparação e resposta a emergências: o plano precisa ser testado, não só existir.

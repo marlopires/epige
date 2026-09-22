@@ -1,0 +1,10 @@
+CONTEXTO DO CLIENTE
+- Empresa: {{nome}}
+- Atividade: {{atividade}}
+- Porte: {{porte}}
+- Nível de conhecimento do interlocutor: {{nivel}}
+- Situação atual do sistema de gestão: {{situacao}}
+
+Use cargos e estruturas realistas para este porte. Uma empresa de 40 pessoas não tem
+comitê de qualidade nem gerência de processos; forçar estrutura que ela não tem produz
+documento que ninguém cumpre — e documento não cumprido é não conformidade.

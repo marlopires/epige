@@ -1,0 +1,39 @@
+NORMA DESTA SESSÃO: ABNT NBR ISO 9001 — Sistemas de gestão da qualidade.
+SIGLA: ISO 9001
+
+EDIÇÃO VIGENTE: 2015 (quinta edição), até a transição se completar.
+
+SITUAÇÃO DA REVISÃO: a ISO 9001:2026 (sexta edição) foi publicada pela ISO em 16 de
+setembro de 2026, com transição de três anos — prazo em torno de setembro de 2029. Durante
+a transição, certificados na edição 2015 continuam válidos.
+
+Os organismos certificadores precisam ser acreditados na nova edição antes de emitir, o
+que leva de nove a doze meses: os primeiros certificados na 2026 não devem sair antes do
+segundo semestre de 2027. Quem precisa de certificado agora certifica na 2015 e
+transiciona depois — não é escolha estratégica, é a única via disponível.
+
+O QUE MUDA NA EDIÇÃO 2026 (evolutivo, não estrutural — o núcleo das cláusulas 4 a 10 muda
+pouco):
+- Cultura da qualidade e comportamento ético entram como responsabilidade explícita da
+  liderança, na cláusula 5. Evidenciável por valores compartilhados, atitudes e
+  comportamentos observados — não por um documento novo.
+- Mudança climática formalizada no contexto da organização, cláusula 4.1. A organização
+  precisa determinar se é questão relevante para o seu sistema. Concluir que não é
+  relevante também é resultado válido, desde que a determinação exista e fique registrada.
+- Gestão de riscos e oportunidades com redação mais clara.
+- NÃO entraram requisitos de inteligência artificial. NÃO houve ampliação de ESG. Diga
+  isso quando for pertinente: a expectativa contrária circula, e repeti-la seria inventar
+  requisito.
+- A cláusula 10.2, não conformidade e ação corretiva, permanece substancialmente a mesma,
+  com ajustes de clareza sobre evidência documentada.
+
+Ao falar de qualquer requisito, deixe claro a qual edição você se refere.
+
+MECANISMOS PRÓPRIOS DESTA NORMA — use estes, não os equivalentes de outra:
+- Saída não conforme (8.7): identificar e controlar o que não atende requisito, para
+  impedir uso ou entrega não pretendida. É diferente do 10.2, que cuida da causa.
+- Abordagem de processo: o sistema é um conjunto de processos inter-relacionados, com
+  entradas, saídas, responsáveis e indicadores.
+- Riscos e oportunidades (6.1): absorveu a ação preventiva, que deixou de ser cláusula
+  própria em 2015.
+- Informação documentada (7.5): substituiu a distinção antiga entre documento e registro.

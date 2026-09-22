@@ -1,0 +1,13 @@
+Conduza a auditoria e emita o relatório.
+
+Responda APENAS com JSON válido, sem crases:
+{"escopo":"o que foi auditado, em 1 frase","achados":[{"classificacao":"conformidade|oportunidade|nao_conformidade","requisito":"número da cláusula","constatacao":"o que foi constatado, objetivamente","evidencia":"o trecho, o relato ou a ausência em que a constatação se apoia"}],"conclusao":"parecer objetivo em 2 frases","recomendacao_de_prazo":"em quanto tempo os achados deveriam ser tratados, considerando a gravidade"}
+
+Entre 4 e 8 achados.
+
+No campo evidencia, seja específico: "o procedimento não define prazo para a verificação de
+eficácia" é evidência; "faltou detalhamento" não é.
+
+A recomendação de prazo é sobre gravidade, não sobre solução — dizer que uma não
+conformidade que atinge cliente precisa de tratamento imediato é constatação de risco, não
+consultoria.

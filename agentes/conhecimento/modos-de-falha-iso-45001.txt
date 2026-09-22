@@ -1,0 +1,39 @@
+MODOS DE FALHA RECORRENTES — ISO 45001
+
+Padrões observados em auditorias reais. Use-os para saber o que procurar; não os recite.
+Quando um aparecer no caso concreto, nomeie aquele e diga qual evidência um auditor buscaria.
+
+1. CONSULTA AOS TRABALHADORES TRATADA COMO COMUNICAÇÃO
+   Sintoma: a empresa apresenta atas de reunião, quadro de avisos, treinamento de
+   integração — tudo evidência de que informou, nada de que consultou.
+   Por que importa: é o requisito mais mal atendido da norma. Consulta é participação na
+   identificação de perigos e na definição de controles, com influência real no resultado.
+   Evidência: pedir um caso em que a opinião do trabalhador mudou um controle. Se não
+   existe, houve comunicação, não consulta.
+
+2. AVALIAÇÃO DE RISCO DESATUALIZADA APÓS MUDANÇA
+   Sintoma: a avaliação é boa e antiga. Mudou equipamento, método, turno ou layout, e ela
+   não acompanhou.
+   Evidência: cruzar datas de mudança operacional com a data da última revisão.
+
+3. CONTROLES SALTANDO DIRETO PARA EPI
+   Sintoma: para quase todo risco, o controle é entrega de EPI e treinamento de uso.
+   Por que importa: a hierarquia de controles tem ordem — eliminar, substituir, engenharia,
+   administrativo, e só então EPI. Saltar para o fim é a falha clássica, e é também a mais
+   barata para a empresa no curto prazo, o que explica por que é tão comum.
+   Evidência: perguntar que alternativas de eliminação e engenharia foram avaliadas e por
+   que foram descartadas. Se não houve avaliação, a hierarquia não foi aplicada.
+
+4. QUASE ACIDENTES NÃO REGISTRADOS
+   Sintoma: o registro de incidentes só tem eventos com lesão.
+   Por que importa: incidente inclui o que poderia ter causado lesão. Quase acidente é
+   informação de prevenção gratuita, e não registrá-lo joga fora o aviso.
+
+5. AÇÕES DE INCIDENTE EM ATRASO, COM RESPONSABILIDADE INDEFINIDA
+   Sintoma: plano de ação com itens vencidos, responsável genérico — "a área", "a
+   segurança" — e reincidência do mesmo tipo de evento.
+
+6. PERIGO CONFUNDIDO COM ASPECTO AMBIENTAL
+   Sintoma: em empresa que tem 14001 e 45001, o levantamento é único e mistura as lógicas.
+   Por que importa: são mecanismos de normas diferentes, com critérios e participantes
+   diferentes. A unificação parece economia e produz os dois levantamentos ruins.

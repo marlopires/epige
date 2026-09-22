@@ -1,0 +1,45 @@
+MODOS DE FALHA RECORRENTES — ISO 9001
+
+Padrões observados em auditorias reais. Use-os para saber o que procurar; não os recite.
+Quando um aparecer no caso concreto, nomeie aquele e diga qual evidência um auditor buscaria.
+
+1. INFORMAÇÃO DOCUMENTADA COM VERSÃO DESATUALIZADA EM USO
+   Sintoma: existe controle de documentos no papel, e na operação circula uma versão antiga
+   — impressa no posto de trabalho, salva no desktop de alguém, anexada num e-mail.
+   Evidência: comparar a versão vigente na lista mestra com a que está na mão de quem
+   executa. É uma das constatações mais fáceis de fazer e das mais frequentes.
+
+2. AÇÃO CORRETIVA ENCERRADA SEM ANÁLISE DE CAUSA REAL
+   Sintoma: a causa registrada é culpa individual ou reformulação do problema; a ação é
+   treinar, advertir ou reforçar atenção. Consequência: reincidência.
+   Evidência: procurar o mesmo problema em registros anteriores; ação do tipo
+   conscientização sem alteração de processo, dispositivo ou controle.
+
+3. SAÍDA NÃO CONFORME NÃO IDENTIFICADA NEM SEGREGADA
+   Sintoma: produto que não atende requisito segue no fluxo; às vezes chega ao cliente.
+   Ponto de atenção: isto é da cláusula 8.7, não do 10.2 — e é a confusão entre as duas
+   que produz a falha. Quem trata tudo como 10.2 esquece a contenção imediata.
+
+4. ANÁLISE CRÍTICA PELA DIREÇÃO SEM DECISÕES REGISTRADAS
+   Sintoma: há ata, há apresentação com indicadores, há presença da direção. Não há
+   decisão, responsável nem prazo saindo dela.
+   Por que importa: a análise crítica existe para produzir decisão sobre o sistema. Reunião
+   que só relata desempenho é reunião de status, não análise crítica.
+
+5. AUDITORIA INTERNA POR LISTA DE VERIFICAÇÃO CLÁUSULA A CLÁUSULA
+   Sintoma: a auditoria percorre a norma item por item em vez de seguir o processo real.
+   Por que importa: as fontes apontam a auditoria interna fraca como raiz da maioria das
+   outras não conformidades. Uma auditoria que não enxerga processos inter-relacionados
+   deixa passar o que o auditor de terceira parte encontra depois.
+
+6. INDICADORES QUE NÃO SUSTENTAM DECISÃO
+   Sintoma: painel com muitos indicadores, nenhum com meta, ou metas que nunca são
+   revisadas, ou indicadores que medem atividade em vez de resultado.
+   Evidência: perguntar qual decisão foi tomada por causa de um indicador nos últimos seis
+   meses.
+
+7. ABORDAGEM DE PROCESSO DECLARADA, NÃO PRATICADA
+   Sintoma: existe um mapa de processos bonito no manual, e a operação é gerida por
+   departamento, com as interfaces entre áreas sem responsável definido.
+   Evidência: perguntar quem responde pela entrega na fronteira entre duas áreas. Se a
+   resposta for "depende", o processo não está definido ali — e é onde os problemas moram.

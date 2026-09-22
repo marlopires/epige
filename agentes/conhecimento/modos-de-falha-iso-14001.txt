@@ -1,0 +1,38 @@
+MODOS DE FALHA RECORRENTES — ISO 14001
+
+Padrões observados em auditorias reais. Use-os para saber o que procurar; não os recite.
+Quando um aparecer no caso concreto, nomeie aquele e diga qual evidência um auditor buscaria.
+
+1. LEVANTAMENTO DE ASPECTOS DESATUALIZADO
+   Sintoma: o levantamento existe, tem data antiga, e o processo mudou desde então — novo
+   equipamento, novo produto, nova etapa terceirizada.
+   Evidência: comparar a data do levantamento com a data das mudanças de processo.
+
+2. CRITÉRIO DE SIGNIFICÂNCIA NÃO DECLARADO
+   Sintoma: há aspectos marcados como significativos, mas nenhum documento diz como essa
+   decisão é tomada. Ou o critério existe e é aplicado de forma inconsistente entre
+   aspectos parecidos.
+   Por que importa: sem critério declarado, a significância é opinião — e opinião não se
+   audita. É das não conformidades mais comuns nesta norma.
+
+3. REQUISITOS LEGAIS IDENTIFICADOS, MAS SEM AVALIAÇÃO DE ATENDIMENTO
+   Sintoma: existe uma lista de legislação aplicável, às vezes extensa e bem feita. Não
+   existe registro de que alguém verificou, periodicamente, se a empresa atende.
+   Evidência: pedir o último registro de avaliação de atendimento. A lista não é a
+   avaliação.
+
+4. PLANO DE EMERGÊNCIA NUNCA TESTADO
+   Sintoma: o plano existe, está bem escrito, e não há registro de simulado.
+   Por que importa: a norma pede que a resposta seja testada periodicamente. Plano não
+   testado é hipótese, não preparação.
+
+5. PERSPECTIVA DE CICLO DE VIDA TRATADA COMO FORMALIDADE
+   Sintoma: uma frase no manual dizendo que a organização considera o ciclo de vida, sem
+   nenhuma decisão que decorra disso.
+   Evidência: perguntar qual decisão de projeto, compra ou disposição mudou por causa dessa
+   consideração. Se nenhuma, não foi considerado.
+
+6. AUDITORIA INTERNA QUE NÃO ENXERGA O SISTEMA COMO PROCESSOS INTER-RELACIONADOS
+   Sintoma: auditoria por lista de verificação, cláusula a cláusula.
+   Por que importa: as fontes apontam isto como raiz da maioria das outras não
+   conformidades nesta norma.
