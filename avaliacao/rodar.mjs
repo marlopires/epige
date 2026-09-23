@@ -7,8 +7,10 @@
  * Sem argumento, roda todos. Precisa de ANTHROPIC_API_KEY no ambiente.
  * Sem dependências: só Node 18+ (fetch nativo) e a biblioteca padrão.
  *
- * Como funciona: monta o prompt de sistema a partir de agentes/, faz a pergunta,
- * e submete a resposta a um segundo modelo que julga contra os critérios do caso.
+ * Como funciona: monta o prompt de sistema com o MESMO motor da aplicação publicada
+ * (web/functions/api/_motor.js), no mesmo modelo que o agente usa em produção, faz a
+ * pergunta, e submete a resposta a um segundo modelo que julga contra os critérios do
+ * caso. Testar outra montagem seria testar um produto que não está no ar.
  * O juiz nunca vê a resposta esperada como texto a comparar — vê os critérios,
  * para não premiar coincidência de redação.
  */
@@ -20,7 +22,11 @@ import { fileURLToPath } from 'node:url';
 const AQUI = dirname(fileURLToPath(import.meta.url));
 const RAIZ = join(AQUI, '..');
 
-const MODELO_AGENTE = 'claude-sonnet-5';
+// Regenera os prompts antes de importar o motor: avaliar agentes/ desatualizado
+// em relação ao módulo gerado daria resultado que não corresponde a nada.
+await import('../web/build-prompts.mjs');
+const { montarSistema, modeloDe } = await import('../web/functions/api/_motor.js');
+
 const MODELO_JUIZ = 'claude-sonnet-5';
 const CONCORRENCIA = 4;
 
@@ -33,8 +39,6 @@ if (!chave) {
 
 /* ---------- prompts ---------- */
 
-const prompt = (caminho) => readFileSync(join(RAIZ, 'agentes', caminho), 'utf8').trim();
-
 const CONTEXTO_EXEMPLO = {
   nome: 'Metalúrgica Aurora',
   atividade: 'Usinagem de peças para o setor automotivo',
@@ -43,25 +47,36 @@ const CONTEXTO_EXEMPLO = {
   situacao: 'Registramos os problemas em uma planilha compartilhada. Não há análise de causa estruturada e ninguém confere se a ação resolveu de verdade.',
 };
 
-const interpolar = (texto, valores) =>
-  texto.replace(/\{\{(\w+)\}\}/g, (_, chave) => valores[chave] ?? `{{${chave}}}`);
+/**
+ * Qual agente, em qual norma, com qual escopo. Os casos antigos não declaram nada e
+ * foram escritos para a demo do 10.2 — daí o padrão. Casos de outras normas declaram
+ * `norma` e `escopo: null`; os de sessão combinada, `adicionais`.
+ */
+function sessaoPara(caso) {
+  const agente = caso.agente ?? (caso.contexto_agente === 'auditor' ? 'auditor_base' : 'consultor');
+  return {
+    agente,
+    norma: caso.norma ?? 'iso-9001',
+    adicionais: caso.adicionais ?? [],
+    escopo: 'escopo' in caso ? caso.escopo : '10.2',
+  };
+}
 
-/** O prompt de sistema muda conforme o agente que o caso exercita. */
 function sistemaPara(caso) {
-  const base = interpolar(prompt('demo-10.2/00-regras-base.txt'), CONTEXTO_EXEMPLO);
-  if (caso.contexto_agente === 'auditor') {
-    return [base, prompt('demo-10.2/04-auditor-base.txt')].join('\n\n');
-  }
-  return [base, prompt('demo-10.2/01-consultor.txt')].join('\n\n');
+  const sistema = montarSistema({ ...sessaoPara(caso), contexto: caso.contexto ?? CONTEXTO_EXEMPLO });
+  if (!sistema) throw new Error(`Caso ${caso.id}: agente ou norma inválidos.`);
+  return sistema;
 }
 
 /** O auditor precisa de um documento auditado antes de receber pedidos. */
 function mensagensPara(caso) {
-  if (caso.contexto_agente !== 'auditor') {
+  const auditor = sessaoPara(caso).agente.startsWith('auditor');
+  if (!auditor) {
     return [{ role: 'user', content: caso.pergunta }];
   }
+  const documento = caso.documento ?? '[procedimento de tratamento de não conformidade do cliente]';
   return [
-    { role: 'user', content: 'Documento auditado:\n\n[procedimento de tratamento de não conformidade do cliente]' },
+    { role: 'user', content: `Documento auditado:\n\n${documento}` },
     { role: 'assistant', content: 'Auditoria concluída. Achados registrados no relatório.' },
     { role: 'user', content: caso.pergunta },
   ];
@@ -136,10 +151,11 @@ async function julgar(caso, resposta) {
 
 async function rodarCaso(caso) {
   try {
-    const { texto, uso } = await chamar(sistemaPara(caso), mensagensPara(caso), MODELO_AGENTE);
+    const { texto, uso } = await chamar(sistemaPara(caso), mensagensPara(caso), modeloDe(sessaoPara(caso).agente));
     const { veredito, uso: usoJuiz } = await julgar(caso, texto);
     const passou = veredito.passou && veredito.comportamento_ok;
-    return { id: caso.id, categoria: caso.categoria ?? caso.regra, peso: caso.peso, passou, veredito, resposta: texto, uso: { agente: uso, juiz: usoJuiz } };
+    const sessao = sessaoPara(caso);
+    return { id: caso.id, categoria: caso.categoria ?? caso.regra, peso: caso.peso, passou, veredito, resposta: texto, sessao, modelo: modeloDe(sessao.agente), uso: { agente: uso, juiz: usoJuiz } };
   } catch (erro) {
     return { id: caso.id, categoria: caso.categoria ?? caso.regra, peso: caso.peso, passou: false, erro: String(erro.message ?? erro) };
   }
@@ -186,7 +202,8 @@ function placar(nome, resultados) {
 const main = async () => {
   const pedidos = process.argv.slice(2);
   const conjuntos = pedidos.length ? pedidos : ['guardrails', 'iso-9001-10.2'];
-  const saida = { rodado_em: new Date().toISOString(), modelo_agente: MODELO_AGENTE, modelo_juiz: MODELO_JUIZ, conjuntos: {} };
+  // O modelo do agente é o de produção, por agente; fica registrado em cada resultado.
+  const saida = { rodado_em: new Date().toISOString(), modelo_agente: 'o de produção, por agente', modelo_juiz: MODELO_JUIZ, conjuntos: {} };
 
   for (const nome of conjuntos) {
     const arquivo = join(AQUI, `${nome}.json`);

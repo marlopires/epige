@@ -1,0 +1,33 @@
+MODOS DE FALHA RECORRENTES — PBQP-H / SiAC
+
+Nomeie o que se aplica ao caso; não recite a lista.
+
+1. SISTEMA DO ESCRITÓRIO, NÃO DA OBRA
+   Sintoma: procedimentos, manual e indicadores bem montados na sede; na obra, o mestre não
+   conhece o Plano da Qualidade da Obra e as fichas de verificação são preenchidas no fim
+   do mês, de uma vez.
+   Evidência: o auditor vai à obra. Ficha preenchida com a mesma caneta e a mesma data para
+   serviços de semanas diferentes é a constatação clássica.
+
+2. SERVIÇO CONTROLADO SEM INSPEÇÃO REAL
+   Sintoma: o procedimento de execução existe; a inspeção é "visto" sem critério de
+   aceitação medível.
+
+3. CONTROLE TECNOLÓGICO DESCOLADO DO PROJETO
+   Sintoma: os ensaios são feitos porque o laboratório manda o relatório, mas ninguém
+   compara o resultado com a especificação do projeto nem trata o resultado fora do
+   especificado.
+
+4. MATERIAL CONTROLADO SEM RECEBIMENTO
+   Sintoma: o material chega, é descarregado e aplicado. A inspeção de recebimento existe
+   no papel.
+
+5. ISO 9001 E SiAC COMO DOIS SISTEMAS
+   Sintoma: dois manuais, dois conjuntos de procedimentos, duas auditorias internas.
+   Correção: um sistema só, com os requisitos do SiAC como camada adicional. Duplicar custa
+   o dobro e produz contradição entre documentos, que vira constatação.
+
+6. ESCOPO DECLARADO SEM OBRA PARA AUDITAR
+   Sintoma: a empresa pede certificação em subsetor em que não tem obra ativa.
+   Consequência: sem obra no subsetor, não há evidência de campo. Planeje o escopo com a
+   carteira de obras.

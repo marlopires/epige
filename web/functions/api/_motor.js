@@ -7,6 +7,10 @@
  * Um agente é a composição de quatro camadas, nesta ordem:
  *   base (identidade + regras invioláveis) → norma → conhecimento → papel → contexto
  *
+ * O auditor e o especialista em SGI aceitam sessão combinada: uma norma principal
+ * e até três adicionais. Nesse caso a camada de norma e a de conhecimento se
+ * repetem para cada uma, e entra o bloco de integração entre normas.
+ *
  * A ordem não é arbitrária. As regras invioláveis vêm antes de tudo porque prompt
  * é lido em sequência e o que vem depois não deve poder relaxar o que veio antes.
  * O contexto do cliente vai no fim porque é a parte que muda a cada sessão — o
@@ -53,9 +57,24 @@ export const NORMAS = {
   'iso-37301': { arquivo: 'normas/iso-37301', conhecimento: 'conhecimento/modos-de-falha-compliance', rotulo: 'ISO 37301', tema: 'Compliance', confianca: 'alta' },
   'iso-39001': { arquivo: 'normas/iso-39001', conhecimento: 'conhecimento/modos-de-falha-iso-39001', rotulo: 'ISO 39001', tema: 'Segurança viária', confianca: 'media' },
   'iso-42001': { arquivo: 'normas/iso-42001', conhecimento: 'conhecimento/modos-de-falha-iso-42001', rotulo: 'ISO/IEC 42001', tema: 'Inteligência artificial', confianca: 'media' },
+  'iso-50001': { arquivo: 'normas/iso-50001', conhecimento: 'conhecimento/modos-de-falha-iso-50001', rotulo: 'ISO 50001', tema: 'Gestão de energia', confianca: 'media' },
+  'pbqp-h': { arquivo: 'normas/pbqp-h-siac', conhecimento: 'conhecimento/modos-de-falha-pbqp-h', rotulo: 'PBQP-H / SiAC', tema: 'Construção civil', confianca: 'media' },
+  // Prática recomendada, não certificável: o auditor avalia maturidade, não conformidade.
+  'pr-2030': { arquivo: 'normas/abnt-pr-2030', conhecimento: 'conhecimento/modos-de-falha-pr-2030', rotulo: 'ABNT PR 2030', tema: 'ESG', confianca: 'media', maturidade: true },
 };
 
+/** Quantas normas, além da principal, uma sessão combinada aceita. */
+export const MAX_ADICIONAIS = 3;
+
 /** Instrução extra para as normas ainda não conferidas contra exemplar. */
+const CAUTELA_CONFIANCA_MEDIA_COMBINADA = (rotulos) =>
+  `CAUTELA ADICIONAL NESTA SESSÃO, para: ${rotulos.join(', ')}. O conteúdo normativo destes ` +
+  'referenciais foi apurado em fontes secundárias e no conhecimento do modelo, sem conferência ' +
+  'contra exemplar. Para eles: não afirme número de cláusula como se tivesse certeza — diga a ' +
+  'que se refere e sinalize que convém conferir no texto; não cite quantidade de controles, ' +
+  'anexos ou itens de lista; e ao falar de edição, pergunte qual exemplar o cliente tem em mãos. ' +
+  'Explicar o mecanismo e o propósito do requisito continua seguro; precisar a referência não.';
+
 const CAUTELA_CONFIANCA_MEDIA =
   'CAUTELA ADICIONAL NESTA SESSÃO. O conteúdo normativo desta norma foi apurado em fontes ' +
   'secundárias e no conhecimento do modelo, sem conferência contra exemplar da norma. ' +
@@ -80,14 +99,14 @@ export const AGENTES = {
   diagnostico: { papeis: ['papeis/diagnostico'], modelo: 'sonnet', conhecimento: true, max: 2000 },
   consultor: { papeis: ['papeis/consultor'], modelo: 'sonnet', conhecimento: true, max: 1500 },
   analista: { papeis: ['papeis/analista-documentos'], modelo: 'sonnet', conhecimento: true, max: 2500 },
-  auditor: { papeis: ['papeis/auditor', 'papeis/auditor-relatorio'], modelo: 'opus', conhecimento: true, auditoria: true, max: 2500 },
+  auditor: { papeis: ['papeis/auditor', 'papeis/auditor-relatorio'], modelo: 'opus', conhecimento: true, auditoria: true, combinada: true, max: 3500 },
   auditor_base: { papeis: ['papeis/auditor'], modelo: 'opus', auditoria: true, max: 800 },
   causa: { papeis: ['papeis/analise-causa'], modelo: 'sonnet', conhecimento: true, max: 1200 },
   plano: { papeis: ['papeis/plano-de-acao'], modelo: 'sonnet', conhecimento: true, max: 2500 },
   redator: { papeis: ['papeis/redator'], modelo: 'sonnet', conhecimento: true, max: 2500 },
   formulario: { papeis: ['papeis/formulario'], modelo: 'sonnet', max: 2000 },
   legal: { papeis: ['papeis/legal-regulatorio'], modelo: 'sonnet', max: 2000 },
-  sgi: { papeis: ['papeis/especialista-sgi'], modelo: 'sonnet', norma: false, max: 2000 },
+  sgi: { papeis: ['papeis/especialista-sgi'], modelo: 'sonnet', combinada: true, max: 2000 },
   lacuna: { papeis: ['papeis/lacuna-edicoes'], modelo: 'sonnet', max: 2000 },
   vigilancia: { papeis: ['papeis/vigilancia'], modelo: 'sonnet', busca: true, max: 2000 },
 };
@@ -104,10 +123,36 @@ const LIMITE_CAMPO = 600;
 const limpar = (v, max) => String(v ?? '').slice(0, max).trim();
 
 /**
+ * As normas da sessão: a principal primeiro, depois as adicionais — só para agente
+ * que aceita sessão combinada, sem repetição e sem id desconhecido.
+ */
+export function normasDaSessao(agente, norma, adicionais) {
+  const cfg = AGENTES[agente];
+  if (!cfg || cfg.norma === false) return [];
+  const extras = cfg.combinada && Array.isArray(adicionais) ? adicionais : [];
+  return [...new Set([norma, ...extras.map(String)])]
+    .filter((id) => NORMAS[id])
+    .slice(0, 1 + MAX_ADICIONAIS);
+}
+
+/** Bloco que só existe quando a sessão combina mais de um referencial. */
+function blocoCombinado(ids) {
+  const [principal, ...demais] = ids.map((id) => NORMAS[id].rotulo);
+  return (
+    `SESSÃO COMBINADA: ${principal} (referencial principal), com ${demais.join(', ')}. ` +
+    'Cubra os elementos de cada referencial — o requisito específico não pode se perder dentro ' +
+    'do comum. Toda constatação identifica o referencial no campo de requisito (por exemplo, ' +
+    `"${principal} · tema"), e a classificação é por referencial. Aponte as interações entre ` +
+    'processos e os objetivos que competem entre os sistemas, citando os critérios envolvidos. ' +
+    'Nesta sessão, o relatório pode ter até 12 achados, com pelo menos um por referencial.'
+  );
+}
+
+/**
  * Monta o prompt de sistema.
  * Devolve null quando o agente não existe — quem chama traduz em 400.
  */
-export function montarSistema({ agente, norma, escopo, contexto }) {
+export function montarSistema({ agente, norma, adicionais, escopo, contexto }) {
   const cfg = AGENTES[agente];
   if (!cfg) return null;
 
@@ -120,19 +165,34 @@ export function montarSistema({ agente, norma, escopo, contexto }) {
   // A norma é obrigatória para quase todo agente: sem ela, o agente responderia
   // "sobre ISO" em geral, que é o jeito mais fácil de dar orientação errada.
   const usaNorma = cfg.norma !== false;
+  const ids = usaNorma ? normasDaSessao(agente, norma, adicionais) : [];
   if (usaNorma) {
-    const n = NORMAS[norma];
-    if (!n) return null;
-    partes.push(PROMPTS[n.arquivo]);
-    if (n.confianca !== 'alta') partes.push(CAUTELA_CONFIANCA_MEDIA);
+    if (!NORMAS[norma]) return null;
+    const ns = ids.map((id) => NORMAS[id]);
+    partes.push(...ns.map((n) => PROMPTS[n.arquivo]));
+
+    const medias = ns.filter((n) => n.confianca !== 'alta');
+    if (medias.length) {
+      partes.push(
+        ns.length === 1
+          ? CAUTELA_CONFIANCA_MEDIA
+          : CAUTELA_CONFIANCA_MEDIA_COMBINADA(medias.map((n) => n.rotulo)),
+      );
+    }
+
     if (cfg.conhecimento) {
-      const especifico = escopo && CONHECIMENTO_POR_ESCOPO[escopo];
-      partes.push(PROMPTS[especifico] ?? PROMPTS[n.conhecimento]);
+      const especifico = ns.length === 1 && escopo && CONHECIMENTO_POR_ESCOPO[escopo];
+      // 37001 e 37301 compartilham o arquivo de compliance: não carregar duas vezes.
+      const arquivos = especifico ? [especifico] : [...new Set(ns.map((n) => n.conhecimento))];
+      partes.push(...arquivos.map((a) => PROMPTS[a]));
     }
   }
 
   // Os princípios da ISO 19011 valem para qualquer norma auditada.
   if (cfg.auditoria) partes.push(PROMPTS['conhecimento/principios-de-auditoria']);
+
+  // Quem trabalha com mais de um referencial precisa saber o que integra e o que não.
+  if (cfg.combinada) partes.push(PROMPTS['conhecimento/integracao-entre-normas']);
 
   if (escopo) {
     partes.push(
@@ -142,6 +202,12 @@ export function montarSistema({ agente, norma, escopo, contexto }) {
   }
 
   partes.push(...cfg.papeis.map((p) => PROMPTS[p]));
+
+  // Os dois blocos abaixo ajustam o papel para esta sessão, por isso vêm depois dele.
+  if (ids.length > 1) partes.push(blocoCombinado(ids));
+  if (cfg.auditoria && ids.some((id) => NORMAS[id].maturidade)) {
+    partes.push(PROMPTS['conhecimento/avaliacao-de-maturidade']);
+  }
 
   if (cfg.base !== false) {
     const valores = Object.fromEntries(

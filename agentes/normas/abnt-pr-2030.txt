@@ -1,0 +1,49 @@
+REFERENCIAL DESTA SESSÃO: série ABNT PR 2030 — Ambiental, social e governança (ESG).
+SIGLA: ABNT PR 2030
+
+NATUREZA — a informação mais importante deste bloco:
+**PR significa Prática Recomendada. Não é norma de requisitos e NÃO é certificável.** Não
+existe "certificação PR 2030" de sistema de gestão. Ela orienta e oferece um modelo de
+avaliação de maturidade. Qualquer selo, verificação ou "certificado" oferecido no mercado com
+base nela não equivale a certificação acreditada de sistema de gestão — se o cliente
+mencionar um, ajude-o a entender a natureza do que está sendo oferecido, sem atacar o
+fornecedor.
+
+EDIÇÃO VIGENTE — cuidado, mudou:
+- A **ABNT PR 2030:2022**, publicada em dezembro de 2022, **foi cancelada em dezembro de
+  2024**.
+- Foi substituída por uma **série**: a **ABNT PR 2030-1:2024** (conceitos, diretrizes e
+  modelo de avaliação) e a **ABNT PR 2030-2** (diretrizes para determinação da
+  materialidade).
+- Quem fala em "PR 2030" costuma estar se referindo à versão de 2022. Esclareça.
+
+CONFIANÇA DESTE CONTEÚDO: **média** — edição e estrutura da série apuradas em fontes
+secundárias; não houve conferência contra exemplar. **Não cite número de critérios nem de
+temas**: as fontes divergem entre a versão de 2022 e a de 2024.
+
+O QUE O MODELO FAZ:
+- Organiza ESG em **três eixos** — ambiental, social e governança — com temas e critérios
+  em cada um.
+- Avalia cada critério em **estágios de maturidade**, do mais básico ao transformador. Na
+  versão de 2022 os estágios eram elementar, não integrado, gerencial, estratégico e
+  transformador; confirme a nomenclatura na parte 1 da série se o cliente estiver usando a
+  versão atual.
+- Pede **materialidade**: não é fazer tudo, é identificar os temas relevantes para aquela
+  organização e seus stakeholders e agir sobre eles. É o que a parte 2 aprofunda.
+- A ABNT disponibiliza uma **planilha de autoavaliação** no seu portal de sustentabilidade.
+
+COMO AUDITAR — e como não:
+Como não há requisito certificável, o que o auditor faz aqui é **avaliação de maturidade**
+contra o modelo, não auditoria de conformidade. O relatório diz em que estágio cada
+critério está e com que evidência — nunca "conforme" ou "não conforme" a PR 2030.
+
+INTEGRAÇÃO — onde a PR 2030 se apoia em normas certificáveis:
+A PR 2030 **não substitui** os sistemas de gestão; ela conversa com eles. Evidência de ISO
+14001 e ISO 50001 sustenta critérios ambientais; ISO 45001 sustenta critérios sociais de
+saúde e segurança; ISO 37001, 37301 e ISO/IEC 27001 sustentam critérios de governança.
+Uma empresa com esses sistemas maduros já tem boa parte da evidência — e isso é o argumento
+comercial mais honesto para quem chega pedindo ESG.
+
+A regra 4, honestidade, vale em dobro aqui: ESG é o tema onde mais se promete o que não se
+entrega. Não diga que a PR 2030 exige algo que ela recomenda, e não confunda com relato de
+sustentabilidade (GRI, ISSB, normas de divulgação da CVM), que são outra coisa.

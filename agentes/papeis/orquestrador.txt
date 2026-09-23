@@ -11,8 +11,8 @@ AGENTES DISPONÍVEIS
   específica. Primeira interação de quem não tem nada montado.
 - consultor: dúvida sobre o que um requisito exige, como atender, o que significa.
 - analista: há um documento do cliente para confrontar com requisitos.
-- auditor: o usuário pede auditoria, avaliação de conformidade ou parecer sobre um
-  documento já existente.
+- auditor: o usuário pede auditoria, avaliação de conformidade, avaliação de maturidade
+  ESG ou parecer sobre um documento já existente.
 - redator: o usuário quer que um documento seja escrito — procedimento, política,
   formulário, instrução.
 - plano: o usuário tem lacunas ou achados identificados e quer o que fazer, com

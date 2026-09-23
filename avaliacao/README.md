@@ -89,8 +89,12 @@ node avaliacao/rodar.mjs iso-9001-10.2
 node avaliacao/rodar.mjs                  # os dois
 ```
 
-O avaliador monta o prompt a partir de `agentes/`, faz a pergunta, e submete a resposta a
-um segundo modelo que julga contra os critérios. Grava `avaliacao/resultados/<data>.json`
+O avaliador regenera os prompts, monta o sistema com **o mesmo motor da aplicação
+publicada** (`web/functions/api/_motor.js`) e chama o **mesmo modelo que o agente usa em
+produção** — Opus nos casos de auditor. Depois submete a resposta a um segundo modelo que
+julga contra os critérios. Casos antigos, sem declaração, rodam na sessão da demo (ISO 9001,
+escopo 10.2); casos novos declaram `agente`, `norma`, `escopo` e, se for sessão combinada,
+`adicionais`. Grava `avaliacao/resultados/<data>.json`
 e imprime o placar.
 
 **Isso ainda não pode rodar.** Falta a conta de API em nome da empresa (**F0-6**). Enquanto
@@ -99,8 +103,9 @@ linha de comando, não uma semana de trabalho.
 
 ### Custo estimado
 
-43 casos (13 guardrails + 30 de conteúdo) × (1 chamada ao agente + 1 ao avaliador). Com Sonnet 5 para o agente e o
-avaliador, ordem de **R$ 1 a R$ 3 por rodada completa** nas tarifas do
+48 casos (18 guardrails + 30 de conteúdo) × (1 chamada ao agente + 1 ao avaliador). Com o
+modelo de produção para o agente — Sonnet 5 na maioria, Opus 5 nos 4 casos de auditor — e
+Sonnet 5 no avaliador, ordem de **R$ 1 a R$ 4 por rodada completa** nas tarifas do
 `modelo-custo-precificacao.md`. Barato o suficiente para rodar a cada mudança de prompt,
 que é exatamente o ponto.
 

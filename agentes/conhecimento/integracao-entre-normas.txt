@@ -1,0 +1,124 @@
+INTEGRAÇÃO ENTRE NORMAS — quando unificar, quando separar, e como auditar combinado
+
+Este bloco vale para qualquer sessão que envolva mais de um referencial, e também para a
+sessão de uma norma só quando o cliente tem ou pretende ter outros sistemas. A regra 5 —
+não generalizar entre normas — continua valendo: integrar é organizar o que é comum sem
+apagar o que é próprio.
+
+A BASE COMUM
+ISO 9001, 14001, 45001, ISO/IEC 27001, 37001, 37301, 39001, ISO/IEC 42001 e 50001 seguem a
+**estrutura harmonizada** das normas de sistema de gestão: mesmas seções principais, mesma
+lógica de contexto, liderança, planejamento, apoio, operação, avaliação e melhoria. É isso
+que torna a integração possível. Dois referenciais do conjunto **não** são desse tipo:
+- **PBQP-H/SiAC** é programa federal cujo referencial se apoia na ISO 9001 e acrescenta
+  requisitos de obra. Integra com a 9001 como **camada sobre ela**, não como sistema paralelo.
+- **ABNT PR 2030** é prática recomendada, com modelo de maturidade. Não tem requisitos
+  certificáveis e **nunca se funde como requisito** com as normas acima: ela se alimenta da
+  evidência delas.
+
+O QUE UNIFICA BEM — um processo, com as exigências de cada norma preservadas dentro dele:
+- **Controle de informação documentada.** Um procedimento só.
+- **Auditoria interna.** Um programa só, com auditores competentes em cada disciplina. Um
+  auditor de qualidade não audita segurança da informação ou antissuborno só porque o
+  programa é integrado.
+- **Análise crítica pela direção.** Uma reunião só, desde que cada entrada que cada norma
+  exige apareça registrada. Ata integrada que esquece a entrada de uma norma é a
+  constatação mais comum em SGI.
+- **Não conformidade e ação corretiva.** Um fluxo só — com as exceções abaixo.
+- **Competência e conscientização.** Uma matriz só; o conteúdo continua específico.
+- **Objetivos.** Um conjunto só, mas os conflitos entre eles precisam ficar visíveis.
+- **Contexto e partes interessadas.** Uma análise só, olhada pela lente de cada norma.
+- **Política.** Pode ser única, desde que carregue os compromissos que cada norma exige
+  dela — política integrada que dilui compromisso específico perde a conformidade das
+  normas que o exigiam.
+
+O QUE TEM LÓGICA PRÓPRIA E NÃO DEVE SER FUNDIDO — pode morar no mesmo registro, mas o
+método e os critérios são de cada norma:
+- 14001: **aspectos e impactos ambientais**, com perspectiva de ciclo de vida.
+- 45001: **perigos e riscos de SSO**, **hierarquia de controles** e **consulta e
+  participação dos trabalhadores** — este último sem equivalente nas outras normas.
+- ISO/IEC 27001: **avaliação e tratamento de riscos de segurança da informação** e
+  **Declaração de Aplicabilidade**.
+- 37001: **avaliação de risco de suborno**, **due diligence** e **função de compliance
+  antissuborno** com independência e acesso à alta direção.
+- 37301: **obrigações de compliance** e o risco de compliance definido a partir delas.
+- ISO/IEC 42001: **avaliação de impacto de sistemas de IA** sobre pessoas e sociedade — não
+  é o mesmo que risco de segurança da informação, mesmo quando as duas convivem.
+- 39001: **fatores de desempenho em segurança viária**.
+- 50001: **revisão energética**, **linha de base**, **indicadores normalizados** e **uso
+  significativo de energia**. Exige melhoria de desempenho medida; nenhuma outra norma do
+  conjunto cobra número assim.
+- PBQP-H/SiAC: controles **de obra** — serviços e materiais controlados, plano da qualidade
+  da obra, controle tecnológico.
+- Requisitos legais: fontes, órgãos e periodicidade diferentes em cada disciplina. Uma
+  sistemática de avaliação pode ser comum; o levantamento não.
+
+**Um registro, vários métodos, está certo. Um método para tudo, está errado.** Planilha de
+riscos com a mesma escala de probabilidade e severidade para perigo ocupacional, aspecto
+ambiental, risco de suborno e risco de SI parece integração e é perda de critério.
+
+EXCEÇÕES DENTRO DO QUE UNIFICA:
+- **Incidente de SSO** exige investigação com participação dos trabalhadores.
+- **Incidente de segurança da informação** tem tratamento próprio, com seus controles.
+- **Denúncia e investigação de suborno ou de compliance** exigem confidencialidade e
+  proteção contra retaliação que o fluxo comum de não conformidade não garante.
+Um fluxo único de NC que trata esses casos como reclamação qualquer quebra três normas ao
+mesmo tempo.
+
+PARES — onde a integração rende mais, e onde ela tropeça:
+- **9001 + PBQP-H/SiAC**: a integração mais natural do conjunto. Um sistema, com o SiAC como
+  camada de obra. Auditoria integrada é comum; os certificados continuam distintos, e um não
+  substitui o outro.
+- **9001 + 14001 + 45001**: o SGI clássico. Tropeça quando funde aspectos com perigos.
+- **14001 + 50001**: a revisão energética alimenta o levantamento de aspectos. Tropeça
+  quando o indicador ambiental de energia substitui o indicador energético normalizado.
+- **14001 + 45001**: preparação e resposta a emergências pode ser um plano só, com os
+  cenários avaliados pelas duas lentes; o mesmo para controle de terceiros e produtos
+  químicos.
+- **45001 + 39001**: sobrepõem-se no trabalhador que dirige. A 39001 vai além — alcança os
+  demais usuários da via, que a 45001 não cobre.
+- **ISO/IEC 27001 + ISO/IEC 42001**: sinergia alta — mesma família, mesmo estilo de
+  controles, governança de dados em comum. Tropeça quando a avaliação de impacto de IA vira
+  capítulo da análise de risco de SI.
+- **37001 + 37301**: sinergia muito alta; a 37301 é mais ampla. Uma função de compliance
+  pode atender as duas se tiver independência e autoridade — mas due diligence e controles
+  específicos de suborno precisam continuar visíveis.
+- **ISO/IEC 27001 + 37301**: proteção de dados pessoais entra como obrigação de compliance.
+- **PR 2030 + qualquer outra**: a 14001 e a 50001 sustentam o eixo ambiental; a 45001, parte
+  do social; a 37001, a 37301 e a 27001, a governança. É sobreposição de evidência, não de
+  requisito.
+
+QUANDO NÃO INTEGRAR — ou não agora:
+- Um sistema maduro e outro começando do zero, sem gente para os dois: sequencie.
+- **Escopos diferentes.** O SiAC cobre obras; a 27001 pode cobrir só um serviço ou uma
+  plataforma; a 42001, sistemas de IA específicos. Sistema integrado com escopos distintos
+  precisa declarar as fronteiras, ou o auditor vai achar a lacuna nelas.
+- Norma em transição de edição: decida se integra antes ou depois da transição, porque
+  fazer as duas coisas ao mesmo tempo dobra o retrabalho.
+
+OBJETIVOS QUE COMPETEM — o que a auditoria combinada existe para enxergar
+Numa auditoria combinada, a atenção vai para as **interações entre os processos** e para
+os **objetivos e prioridades que competem** entre os sistemas. É onde está o risco real, e
+é o que uma auditoria de cada norma em separado não vê:
+- meta de produção que empurra atalho de segurança;
+- redução de consumo de energia obtida mexendo em parâmetro que afeta o produto;
+- compra pelo menor preço sem due diligence do fornecedor, ou sem critério energético;
+- prazo de obra que leva a concretar antes do resultado do controle tecnológico;
+- meta de entrega que induz excesso de velocidade ou de jornada ao volante;
+- pressa para colocar sistema de IA em produção antes da avaliação de impacto.
+Quando encontrar um desses, a constatação cita **os dois critérios** envolvidos. É a
+constatação mais valiosa que um relatório combinado pode entregar.
+
+COMO CONDUZIR UMA AUDITORIA COMBINADA:
+- **Combinada** é um auditado com dois ou mais sistemas auditados juntos. **Conjunta** é
+  duas ou mais organizações auditoras auditando o mesmo auditado. Não confunda.
+- Agrupe requisitos semelhantes e coordene as listas de verificação para não perguntar duas
+  vezes a mesma coisa — **mas garanta que todo elemento de cada norma seja coberto.** O risco
+  da auditoria combinada é o requisito específico se perder dentro do comum.
+- Toda constatação identifica **a norma** e o requisito. Uma mesma evidência pode sustentar
+  constatações em mais de uma norma, e a classificação é **por norma**: o mesmo fato pode
+  ser conformidade na 9001 e não conformidade na 45001.
+- Declare os limites de competência. Integridade, na ISO 19011, é auditar só o que se é
+  competente para auditar.
+- Auditoria integrada não funde certificados. Regras de tempo de auditoria e de redução por
+  integração são do organismo certificador e da acreditação — não prometa redução nenhuma.

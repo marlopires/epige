@@ -47,10 +47,13 @@ Ordem = ordem sugerida de execução. Marque `[x]` ao concluir.
       armazenado, indexado nem reproduzido; o que entra no produto é interpretação autoral.
 - [x] **F0-2 · Escopo do MVP.** *Decidido por você em 22/09/2026:* oito normas —
       9001, 14001, 45001, 27001, 37001, 37301, 39001 e 42001. IATF fora; demais conforme
-      demanda. **Registro a ressalva sem re-litigar:** o roteiro recomendava lançar com uma
-      norma, e das oito só três estão conferidas contra exemplar. A mitigação está no
-      código, não no papel — as cinco não conferidas carregam `confianca: 'media'`, que
-      injeta uma camada de cautela no prompt e mostra aviso na tela.
+      demanda. *Ampliado por você em 23/09/2026* para **onze referenciais**: + ISO 50001,
+      PBQP-H/SiAC e ABNT PR 2030 — esta última não certificável, então o auditor faz
+      avaliação de maturidade. **Registro a ressalva sem re-litigar:** o roteiro
+      recomendava lançar com uma norma, e dos onze só quatro estão conferidos contra
+      exemplar (9001, 45001, 27001 e 37301). A mitigação está no código, não no papel — os
+      sete não conferidos carregam `confianca: 'media'`, que injeta uma camada de cautela
+      no prompt e mostra aviso na tela.
       Contexto original do item: O roteiro recomenda **ISO 9001 apenas** + requisitos
       legais. A revisão completa mostra a janela de transição nas **três** normas.
       Não são incompatíveis — a transição 9001:2015→2026 sozinha já é mercado — mas a
@@ -93,7 +96,11 @@ Ordem = ordem sugerida de execução. Marque `[x]` ao concluir.
       as duas cópias podem divergir se alguém editar só uma. A direção só se inverte na
       reescrita para produção (F2-4).
 - [~] **F1-4 · Guardrails como testes automatizados.** *Escritos em 15/09/2026; falta rodar.*
-      13 casos em `avaliacao/guardrails.json`, cobrindo seis regras — as três originais mais
+      *23/09/2026:* o executor passou a montar o prompt com o **motor de produção**
+      (`_motor.js`) e no modelo de produção de cada agente — antes lia uma pasta que tinha
+      sido renomeada e testaria o prompt antigo da demo, não o que vai ao ar. Cinco casos
+      novos para PR 2030, PBQP-H, 50001 e integração; agora são 18.
+      Os 13 originais em `avaliacao/guardrails.json` cobrem seis regras — as três originais mais
       escopo, honestidade e não-generalizar-entre-normas. Falham alto: o executor sai com
       código 2 e diz para não publicar os prompts.
       Inclui **três controles negativos** — casos em que o agente DEVE responder. Sem eles,
@@ -200,6 +207,11 @@ que já foi decidido.
 | 22/09/2026 | Cada norma carrega nível de confiança, e ele muda o comportamento do agente | Sem exemplar eu erro — e errei três vezes nas que tinha. O agente precisa saber quando está em terreno fino |
 | 22/09/2026 | Os princípios da ISO 19011 compõem o auditor em todas as normas | Auditoria tem método próprio, independente da norma auditada |
 | 22/09/2026 | 37301 elevada a confiança alta; afirmação sobre a 19600 corrigida | Conferida contra exemplar; o que não se sustentava saiu |
+| 23/09/2026 | Escopo vai de 8 para 11 referenciais: + ISO 50001, PBQP-H/SiAC, ABNT PR 2030 | Decisão sua. Os três entram com confiança média |
+| 23/09/2026 | PR 2030 não é auditada por conformidade: o auditor avalia maturidade | Ela é prática recomendada, sem requisito certificável. Dizer "conforme com a PR 2030" é erro de natureza |
+| 23/09/2026 | PBQP-H/SiAC tratado como camada sobre a 9001, não sistema paralelo | É como o mercado integra, e o que evita dois manuais contraditórios |
+| 23/09/2026 | Auditor e SGI aceitam sessão combinada (principal + até 3) e carregam a matriz de integração | O auditor precisa saber o que integra e o que não — e enxergar objetivos que competem entre sistemas |
+| 23/09/2026 | Avaliação passa a usar o motor e os modelos de produção | Testar outra montagem é testar um produto que não está no ar |
 | 09/09/2026 | Protótipo 8.2 é o canônico; 3.7 a 6.0 viram histórico | Só a 8.2 recebe alterações daqui em diante |
 | 10/09/2026 | Paleta canônica é a do manual de marca, conferida contra a 8.2 | `simbolo-epige.svg` corrigido; demo 10.2 fica fora de padrão até ID-3 |
 | 12/08/2026 | Faixa de preço B: R$ 89 / R$ 279 / R$ 1.490 | Margem de contribuição ≥ 41,8% mesmo no teto do plano com dólar a R$ 6,00 |

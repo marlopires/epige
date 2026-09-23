@@ -1,4 +1,4 @@
-# Situação normativa das três ISO
+# Situação normativa dos referenciais
 
 Pesquisa de 10/09/2026. Este documento existe porque o produto inteiro depende de estar
 certo sobre qual edição de cada norma está vigente — errar isso é dar orientação errada
@@ -57,6 +57,34 @@ a ABNT NBR ISO 19600** — eu afirmava isso. Corrigido para o que se sustenta: a
 de diretrizes e não certificável; a 37301 traz requisitos e é certificável. A 37301 subiu
 para confiança alta.
 
+### Terceira rodada — 23/09/2026: três referenciais novos
+
+O escopo foi de oito para onze. Os três entram com **confiança média**, e cada um por um
+motivo diferente:
+
+**ISO 50001 — o exemplar era da edição cancelada.** O exemplar disponível é a ABNT NBR ISO
+50001:2011, digitalizado em imagem; o texto foi extraído por reconhecimento óptico só para
+leitura. A vigente é a **ABNT NBR ISO 50001:2018**. Os mecanismos centrais — revisão
+energética apoiada em medição, uso significativo de energia, linha de base, indicadores de
+desempenho — se confirmaram no exemplar e são estáveis entre as edições. O que a 2018 mudou
+(estrutura harmonizada, normalização de indicadores e linha de base, fim da figura
+obrigatória do representante da direção) vem de fonte secundária. A numeração de cláusula
+**mudou** entre as edições, e o agente foi instruído a não citá-la.
+
+**PBQP-H/SiAC — o documento disponível não é o público.** O material consultado foi uma
+instrução interna de organismo de certificação, útil para entender como a auditoria acontece
+na prática, mas não é o **Regimento Geral do SiAC**, que é público e está no portal do
+governo federal. A base é a Portaria nº 75/2021, com anexos alterados pela Portaria nº 577,
+de 30/03/2021; o regimento é exclusivo desde 15/01/2022, com níveis B e A. **Conferir contra
+o regimento público eleva o PBQP-H para confiança alta** — é o próximo passo barato.
+
+**ABNT PR 2030 — a versão que todo mundo cita foi cancelada.** A PR 2030:2022 foi
+**cancelada em dezembro de 2024** e substituída pela série **PR 2030-1:2024** (conceitos,
+diretrizes e modelo de avaliação) e **PR 2030-2** (materialidade). É prática recomendada,
+**não certificável**: o auditor da EPIGE faz avaliação de maturidade para ela, nunca
+conformidade. Número de critérios e de temas diverge entre as versões nas fontes, e o
+agente foi instruído a não citar.
+
 ### O que continua sem confirmação
 
 **A adoção brasileira da ISO 14001:2026.** O exemplar disponível da 14001 é digitalizado em
@@ -73,12 +101,20 @@ apoiadas só em fontes secundárias.
 | ISO 9001 | **ABNT NBR ISO 9001:2015 + Em1:2024** | 2026 | Publicada pela ISO em **16/09/2026**; transição de três anos |
 | ISO 14001 | 2015 → 2026 *(adoção ABNT não confirmada)* | — | ISO publicada em **15/04/2026**, transição em curso |
 | ISO 45001 | **ABNT NBR ISO 45001:2024 + Em1:2025** | 2027 | Revisão ISO em curso, sem texto final |
+| ISO/IEC 27001 | **ABNT NBR ISO/IEC 27001:2022, Versão Corrigida 2023 + Em1:2024** | — | Vigente |
+| ISO 37001 | **ABNT NBR ISO 37001:2025** | — | Transição da 2017 até **28/02/2027** |
+| ISO 37301 | **ABNT NBR ISO 37301:2021** | — | Vigente |
+| ISO 39001 | **ABNT NBR ISO 39001:2015** *(ISO 2012)* | — | Sem revisão confiável identificada |
+| ISO/IEC 42001 | **ABNT NBR ISO/IEC 42001:2024** *(ISO dez/2023)* | — | Vigente |
+| ISO 50001 | **ABNT NBR ISO 50001:2018** | — | A 2011 foi substituída; Emenda Climática da ISO sem adoção ABNT confirmada |
+| PBQP-H / SiAC | **Regimento Geral do SiAC** — Portaria 75/2021, anexos pela 577/2021 | — | Exclusivo desde 15/01/2022; níveis B e A |
+| ABNT PR 2030 | **PR 2030-1:2024 + PR 2030-2** | — | A 2022 foi cancelada em dez/2024. **Não certificável** |
 
 > A coluna diz **referência brasileira**, não ano da ISO. São coisas diferentes e confundi-las
 > foi um dos erros corrigidos em 22/09 — a 45001 é ISO 2018 e ABNT 2024.
 
-**As três estão em transição ao mesmo tempo.** É a circunstância que define a
-oportunidade comercial da EPIGE, e ela tem prazo.
+**As três primeiras estão em transição ao mesmo tempo**, e a 37001 também. É a
+circunstância que define a oportunidade comercial da EPIGE, e ela tem prazo.
 
 ---
 

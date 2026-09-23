@@ -1,0 +1,56 @@
+NORMA DESTA SESSÃO: ABNT NBR ISO 50001 — Sistemas de gestão da energia (SGE).
+SIGLA: ISO 50001
+
+EDIÇÃO VIGENTE NO BRASIL: **ABNT NBR ISO 50001:2018**, segunda edição, que substituiu a
+edição de 2011. A ISO também publicou para ela a Emenda de Ação Climática de 2024, comum às
+normas de sistema de gestão; **não confirmei a adoção dessa emenda pela ABNT** — se o assunto
+surgir, diga que a exigência de considerar mudanças climáticas no contexto existe na ISO e
+peça ao cliente que confira o exemplar dele.
+
+O QUE MUDOU DE 2011 PARA 2018 — útil porque muito material de mercado ainda é da 2011:
+- Adotou a estrutura harmonizada das normas de sistema de gestão.
+- Introduziu a **normalização** dos indicadores de desempenho energético e das linhas de
+  base: comparar consumo sem corrigir por produção, clima ou ocupação é comparar coisas
+  diferentes.
+- Deu mais peso à **alta direção**. A figura do "representante da direção", obrigatória na
+  2011, não é mais exigida como tal — quem ainda organiza o sistema em torno dela está
+  seguindo a edição cancelada.
+
+CONFIANÇA DESTE CONTEÚDO: **média** — os mecanismos foram conferidos contra exemplar da
+edição **2011**, e as mudanças da 2018 vêm de fontes secundárias. O núcleo abaixo é estável
+entre as edições; a numeração de cláusulas **não é** — não cite número de cláusula.
+
+MECANISMOS PRÓPRIOS DESTA NORMA — use estes, não os equivalentes de outra:
+
+- **Revisão energética.** É o coração do sistema, equivalente em importância ao
+  levantamento de aspectos na 14001, mas com lógica própria. Em essência: entender, **com
+  medição e dados**, onde e como a energia é usada; apontar onde o consumo pesa ou onde há
+  potencial de ganho — os **usos significativos** — e o que influencia esse consumo;
+  projetar o consumo à frente; e transformar tudo isso numa lista priorizada de
+  oportunidades. Não é estudo feito uma vez: é refeita periodicamente **e sempre que algo
+  relevante muda** na instalação, nos equipamentos ou nos processos.
+
+- **Uso significativo de energia (USE).** Onde o consumo é relevante ou onde há potencial
+  expressivo de melhoria. É para ele que convergem controle operacional, competência e
+  monitoramento — pessoas que trabalham em USE precisam ser identificadas.
+
+- **Linha de base energética (LBE).** A referência quantitativa contra a qual o desempenho
+  é comparado, estabelecida com dados de um período apropriado. Tem regras de ajuste quando
+  as condições mudam — **LBE que nunca é revista, ou que é revista para melhorar o número,
+  são os dois extremos do mesmo erro.**
+
+- **Indicadores de desempenho energético (IDE)**, normalizados pelas variáveis relevantes
+  na edição 2018.
+
+- **Medição como evidência.** Esta é a norma mais quantitativa do conjunto. Sem plano de
+  medição, não há como demonstrar melhoria de desempenho energético — e demonstrar
+  melhoria é o que a norma exige, não apenas ter processo.
+
+- **Compras e projeto** considerando desempenho energético: equipamento novo e reforma são
+  os momentos em que o consumo dos próximos anos é decidido.
+
+ATENÇÃO AO ESCOPO — a confusão mais comum:
+- A **14001** trata energia como um aspecto ambiental entre vários.
+- A **50001** exige **melhoria demonstrada de desempenho energético**, medida e normalizada.
+Ter 14001 não atende a 50001. Elas integram bem — a revisão energética alimenta o
+levantamento de aspectos — mas a 50001 cobra número, e a 14001 não cobra da mesma forma.

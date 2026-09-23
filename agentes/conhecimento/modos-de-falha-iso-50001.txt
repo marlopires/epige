@@ -1,0 +1,36 @@
+MODOS DE FALHA RECORRENTES — ISO 50001
+
+Nomeie o que se aplica ao caso; não recite a lista.
+
+1. REVISÃO ENERGÉTICA SEM MEDIÇÃO
+   Sintoma: a revisão é feita com base na conta de energia total e em estimativa de
+   potência nominal dos equipamentos.
+   Por que é frágil: a norma pede análise com base em medição e dados. Sem submedição, o
+   uso significativo é palpite, e o plano de ação ataca o que parece grande, não o que é.
+
+2. LINHA DE BASE CONGELADA OU MANIPULADA
+   Sintoma: a LBE é de anos atrás e nunca foi ajustada apesar de mudança de produção,
+   produto ou turno — ou foi ajustada sem critério, e sempre no sentido que melhora o
+   resultado.
+   Evidência: pedir o registro dos ajustes e o critério usado em cada um.
+
+3. INDICADOR NÃO NORMALIZADO
+   Sintoma: o IDE é consumo absoluto em kWh. A produção caiu, o consumo caiu, e isso é
+   apresentado como melhoria de desempenho.
+   Correção: consumo por unidade produzida, ou corrigido pelas variáveis relevantes. É o
+   ponto que a edição 2018 reforçou.
+
+4. SISTEMA CONSTRUÍDO NA EDIÇÃO 2011
+   Sintoma: manual organizado em torno do representante da direção, sem estrutura
+   harmonizada, sem normalização de indicadores.
+   Leitura: a edição 2011 foi substituída. Isso é lacuna de transição, não detalhe.
+
+5. MELHORIA NÃO DEMONSTRADA
+   Sintoma: há política, equipe, plano e registros — e o desempenho energético não
+   melhorou, ou não há como saber se melhorou.
+   Por que importa: a 50001 cobra resultado demonstrado. Sistema bem documentado sem
+   melhoria mensurável não atende o propósito dela.
+
+6. COMPRA DE EQUIPAMENTO SEM CRITÉRIO ENERGÉTICO
+   Sintoma: o setor de compras escolhe pelo menor preço de aquisição, e o custo de energia
+   ao longo da vida útil não entra na decisão.

@@ -113,7 +113,13 @@ export async function onRequestPost({ request, env }) {
     return json({ erro: `O agente ${agente} precisa de uma norma válida.` }, 400);
   }
 
-  const sistema = montarSistema({ agente, norma, escopo: limpar(escopo, 20) || null, contexto: corpo.contexto });
+  // Normas adicionais só valem para agente que aceita sessão combinada; o motor
+  // descarta id desconhecido, repetido ou excedente.
+  const adicionais = Array.isArray(corpo.adicionais) ? corpo.adicionais.slice(0, 8) : [];
+
+  const sistema = montarSistema({
+    agente, norma, adicionais, escopo: limpar(escopo, 20) || null, contexto: corpo.contexto,
+  });
   if (!sistema) {
     return json({ erro: 'Não foi possível montar o agente com os parâmetros enviados.' }, 400);
   }
@@ -217,13 +223,21 @@ export async function onRequestGet({ request, env }) {
       ? Object.fromEntries(
           Object.entries(AGENTES).map(([nome, cfg]) => [
             nome,
-            { modelo: modeloDe(nome), precisa_norma: cfg.norma !== false, json: DEVOLVE_JSON.has(nome) },
+            {
+              modelo: modeloDe(nome),
+              precisa_norma: cfg.norma !== false,
+              combinada: Boolean(cfg.combinada),
+              json: DEVOLVE_JSON.has(nome),
+            },
           ]),
         )
       : undefined,
     normas: autorizado
       ? Object.fromEntries(
-          Object.entries(NORMAS).map(([k, v]) => [k, { rotulo: v.rotulo, tema: v.tema, confianca: v.confianca }]),
+          Object.entries(NORMAS).map(([k, v]) => [
+            k,
+            { rotulo: v.rotulo, tema: v.tema, confianca: v.confianca, maturidade: Boolean(v.maturidade) },
+          ]),
         )
       : undefined,
   });

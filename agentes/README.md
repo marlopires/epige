@@ -23,6 +23,11 @@ cliente vai no fim porque é a única parte que muda a cada sessão — todo o r
 estável, que é exatamente o que o cache de prompt sabe aproveitar. Essa escolha é o que
 torna realizável a premissa de 85% de aproveitamento de cache do modelo de custo.
 
+**Sessão combinada.** O auditor e o especialista em SGI aceitam uma norma principal e até
+três adicionais. As camadas de norma e de conhecimento se repetem para cada uma, e entra
+`conhecimento/integracao-entre-normas.txt`. Um bloco final, gerado pelo motor, diz ao
+agente quais referenciais estão combinados e que a classificação é por referencial.
+
 ## Estrutura
 
 ### `base/` — vale para todo agente que fala com o usuário
@@ -36,10 +41,15 @@ torna realizável a premissa de 85% de aproveitamento de cache do modelo de cust
 O orquestrador é o único que **não** carrega a base: ele não fala com o usuário, então
 pagar token por identidade e conduta nele seria desperdício.
 
-### `normas/` — o que muda entre 9001, 14001 e 45001
+### `normas/` — onze referenciais
+
+ISO 9001, 14001, 45001, ISO/IEC 27001, 37001, 37301, 39001, ISO/IEC 42001 e 50001, mais
+**PBQP-H/SiAC** (`pbqp-h-siac.txt`, programa federal que se apoia na 9001) e **ABNT PR
+2030** (`abnt-pr-2030.txt`, prática recomendada de ESG, **não certificável**).
 
 Cada arquivo traz sigla, **edição vigente**, situação da revisão com prazos, o que muda na
-próxima edição, e os **mecanismos próprios** da norma.
+próxima edição, e os **mecanismos próprios** da norma. O nível de confiança de cada um —
+conferido contra exemplar ou não — fica em `web/functions/api/_motor.js`.
 
 Os mecanismos próprios existem por causa da regra 5. Aspecto e impacto é da 14001; perigo e
 risco ocupacional é da 45001; saída não conforme é da 9001. Um agente que mistura parece
@@ -59,6 +69,14 @@ requisito 10.2. Cada modo tem sintoma, consequência e **a evidência que um aud
 Quando a sessão tem escopo estreito (`escopo: "10.2"`), o conhecimento específico
 substitui o geral da norma.
 
+Três arquivos não são de modos de falha:
+
+| Arquivo | Quem carrega |
+|---|---|
+| `principios-de-auditoria.txt` | Todo auditor, em qualquer norma — é a ISO 19011. |
+| `integracao-entre-normas.txt` | Auditor e SGI. O que unifica, o que tem lógica própria e não deve ser fundido, os pares de normas, objetivos que competem e como conduzir auditoria combinada. |
+| `avaliacao-de-maturidade.txt` | Auditor, quando a sessão inclui a PR 2030. Troca conformidade por estágio de maturidade, **só para ela**. |
+
 Os prompts mandam **não recitar a lista**: nomear o padrão quando ele aparece no caso
 concreto. Agente que despeja checklist parece competente e não ajuda ninguém.
 
@@ -70,13 +88,13 @@ concreto. Agente que despeja checklist parece competente e não ajuda ninguém.
 | `diagnostico` | Sonnet 5 | Onde este cliente está e qual o primeiro passo. |
 | `consultor` | Sonnet 5 | Entender e aplicar requisito. |
 | `analista-documentos` | Sonnet 5 | Confronta documento do cliente com requisitos. |
-| `auditor` + `auditor-relatorio` | **Opus 5** | Audita e emite relatório. Constata, não resolve. |
+| `auditor` + `auditor-relatorio` | **Opus 5** | Audita e emite relatório — uma norma ou combinada. Constata, não resolve. |
 | `analise-causa` | Sonnet 5 | Conduz até a causa real, por perguntas encadeadas. |
 | `plano-de-acao` | Sonnet 5 | Lacunas viram ações com responsável, prazo e verificação. |
 | `redator` | Sonnet 5 | Redige o documento. |
 | `formulario` | Sonnet 5 | Define os campos do registro. |
 | `legal-regulatorio` | Sonnet 5 | Requisitos legais aplicáveis. |
-| `especialista-sgi` | Sonnet 5 | Integração entre as três normas. |
+| `especialista-sgi` | Sonnet 5 | Integração entre qualquer combinação dos onze referenciais. |
 | `lacuna-edicoes` | Sonnet 5 | O que muda na transição de edição. |
 | `vigilancia` | Sonnet 5 + busca | Monitora revisões e novidades. |
 

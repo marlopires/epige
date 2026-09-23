@@ -98,6 +98,10 @@ textarea.doc{min-height:200px; font-family:var(--mono); font-size:var(--t-12)}
 .suggest{display:flex; gap:var(--e-8); flex-wrap:wrap; margin-bottom:var(--e-13)}
 .chip{background:#fff; border:1px solid var(--line-strong); border-radius:99px; padding:var(--e-5) var(--e-13); font-size:var(--t-12); color:#2C3347}
 .chip:hover{border-color:var(--blue); color:var(--blue)}
+.chip.on{background:var(--blue); border-color:var(--blue); color:#fff}
+.chip:disabled{opacity:.45; cursor:not-allowed}
+.combo{margin-bottom:var(--e-13)}
+.combo-t{font-size:var(--t-12); font-weight:600; color:#2C3347; margin-bottom:var(--e-8)}
 
 .doc-out{background:#fff; border:1px solid var(--line); border-radius:var(--e-13); padding:var(--e-21); font-size:var(--t-15); line-height:1.72; max-height:520px; overflow:auto}
 .doc-out h3{font-size:var(--t-19); margin:var(--e-21) 0 var(--e-5)}
@@ -113,11 +117,17 @@ textarea.doc{min-height:200px; font-family:var(--mono); font-size:var(--t-12)}
 .finding.ok,.finding.conformidade,.finding.baixo,.finding.atende{border-left-color:var(--teal)}
 .finding.media,.finding.oportunidade,.finding.medio,.finding.parcial{border-left-color:var(--amber)}
 .finding.alta,.finding.nao_conformidade,.finding.alto,.finding.ausente{border-left-color:var(--rose)}
+.finding.mat1,.finding.mat2{border-left-color:var(--rose)}
+.finding.mat3{border-left-color:var(--amber)}
+.finding.mat4,.finding.mat5{border-left-color:var(--teal)}
 .f-top{display:flex; gap:var(--e-8); align-items:center; margin-bottom:var(--e-5); flex-wrap:wrap}
 .tag{font-family:var(--mono); font-size:var(--t-9); font-weight:600; letter-spacing:.06em; text-transform:uppercase; padding:var(--e-3) var(--e-8); border-radius:var(--e-5)}
 .tag.ok,.tag.conformidade,.tag.baixo,.tag.baixa,.tag.atende{background:#E4F3F0; color:#1F6B60}
 .tag.media,.tag.oportunidade,.tag.medio,.tag.parcial{background:#FBF0DC; color:#8A5B06}
 .tag.alta,.tag.nao_conformidade,.tag.alto,.tag.ausente{background:#FAE7E4; color:#8F2A21}
+.tag.mat1,.tag.mat2{background:#FAE7E4; color:#8F2A21}
+.tag.mat3{background:#FBF0DC; color:#8A5B06}
+.tag.mat4,.tag.mat5{background:#E4F3F0; color:#1F6B60}
 .f-req{font-family:var(--mono); font-size:var(--t-12); color:var(--muted)}
 .f-ev{font-size:var(--t-12); color:var(--muted); margin-top:var(--e-5); padding-left:var(--e-8); border-left:2px solid var(--line-strong)}
 
@@ -204,7 +214,7 @@ ul.plain{margin:0;padding-left:var(--e-21);font-size:var(--t-12);line-height:1.6
 <script>
 /* ---------- estado ---------- */
 const S = {
-  codigo:'', norma:'iso-9001', normas:{}, agentes:{}, ferramenta:'contexto',
+  codigo:'', norma:'iso-9001', adicionais:[], normas:{}, agentes:{}, ferramenta:'contexto',
   custo:0, chamadas:[], historico:{},
   perfil:{nome:'', atividade:'', porte:'Pequena empresa (10 a 49 pessoas)',
           nivel:'Iniciante — explique com calma', situacao:''},
@@ -240,7 +250,7 @@ const FERRAMENTAS = [
   {id:'causa', grupo:'Executar', n:'09', t:'Análise de causa', d:'Chegar à causa real, não à aparente', agente:'causa', chat:true},
   {id:'plano', grupo:'Executar', n:'10', t:'Plano de ação', d:'Lacunas viram ações com prazo', agente:'plano', doc:true},
   {id:'analista', grupo:'Verificar', n:'11', t:'Analisar documento', d:'Confronta o seu documento com a norma', agente:'analista', doc:true},
-  {id:'auditor', grupo:'Verificar', n:'12', t:'Auditoria simulada', d:'Auditor independente, em Opus', agente:'auditor', doc:true},
+  {id:'auditor', grupo:'Verificar', n:'12', t:'Auditoria simulada', d:'Uma norma ou combinada, em Opus', agente:'auditor', doc:true},
   {id:'vigilancia', grupo:'Acompanhar', n:'13', t:'Vigilância normativa', d:'Revisões e novidades, com busca', agente:'vigilancia'},
 ];
 
@@ -261,18 +271,61 @@ function montarNormas(){
     '<option value="'+esc(k)+'"'+(S.norma===k?' selected':'')+'>'+esc(v.rotulo||v)+' · '+esc(v.tema||'')+'</option>').join('');
 }
 
+/** Auditor e SGI aceitam sessão combinada: a norma principal e até três adicionais. */
+const MAX_ADICIONAIS = 3;
+const combina = f => !!(f && f.agente && (S.agentes[f.agente]||{}).combinada);
+const normasDaTela = f => [S.norma, ...(combina(f) ? S.adicionais : [])].filter(k => S.normas[k]);
+const rotuloNormas = f => normasDaTela(f).map(k => S.normas[k].rotulo).join(' + ');
+
 /** Normas ainda não conferidas contra exemplar avisam na tela, não só no prompt. */
-function avisoConfianca(){
-  const n = S.normas[S.norma];
-  if(!n || n.confianca === 'alta') return '';
-  return '<div class="aviso-conf"><b>Conteúdo não conferido contra exemplar da norma.</b> '
-    + 'A edição foi apurada em fonte secundária e os mecanismos vêm do conhecimento do modelo. '
-    + 'O agente vai evitar precisar número de cláusula — confira no texto antes de usar em auditoria.</div>';
+function avisoConfianca(f){
+  const ids = normasDaTela(f);
+  const medias = ids.filter(k => S.normas[k].confianca !== 'alta');
+  let h = '';
+  if(medias.length){
+    h += '<div class="aviso-conf"><b>Conteúdo não conferido contra exemplar'
+      + (ids.length > 1 ? ' para: '+esc(medias.map(k => S.normas[k].rotulo).join(', '))+'.' : ' da norma.')+'</b> '
+      + 'A edição foi apurada em fonte secundária e os mecanismos vêm do conhecimento do modelo. '
+      + 'O agente vai evitar precisar número de cláusula — confira no texto antes de usar em auditoria.</div>';
+  }
+  if(f && f.id === 'auditor' && ids.some(k => S.normas[k].maturidade)){
+    h += '<div class="alert alert-info"><b>A ABNT PR 2030 não é certificável.</b> '
+      + 'Para ela, o auditor avalia estágio de maturidade — não conformidade.</div>';
+  }
+  return h;
+}
+
+function seletorCombinado(f){
+  if(!combina(f)) return '';
+  const cheio = S.adicionais.length >= MAX_ADICIONAIS;
+  const titulo = f.id === 'auditor'
+    ? 'Auditoria combinada — até '+MAX_ADICIONAIS+' referenciais além de '+S.normas[S.norma].rotulo
+    : 'Integrar '+S.normas[S.norma].rotulo+' com';
+  return '<div class="combo"><div class="combo-t">'+esc(titulo)+'</div><div class="suggest" style="margin:0">'
+    + Object.entries(S.normas).filter(([k]) => k !== S.norma).map(([k,v]) => {
+        const on = S.adicionais.includes(k);
+        return '<button type="button" class="chip'+(on?' on':'')+'" aria-pressed="'+on+'"'
+          + (!on && cheio ? ' disabled' : '')
+          + ' onclick="alternarAdicional(\''+esc(k)+'\')">'+esc(v.rotulo)+'</button>';
+      }).join('')
+    + '</div></div>';
+}
+
+/** Atualiza só o que depende da seleção — a entrada digitada pelo usuário fica intacta. */
+function alternarAdicional(k){
+  const i = S.adicionais.indexOf(k);
+  if(i >= 0) S.adicionais.splice(i, 1);
+  else if(S.adicionais.length < MAX_ADICIONAIS) S.adicionais.push(k);
+  const f = FERRAMENTAS.find(x => x.id === S.ferramenta);
+  $('combo').innerHTML = seletorCombinado(f);
+  $('avisoBox').innerHTML = avisoConfianca(f);
+  $('eyebrow').textContent = 'Passo '+f.n+' · '+rotuloNormas(f);
 }
 
 function trocarNorma(k){
   if(k===S.norma) return;
   S.norma = k;
+  S.adicionais = S.adicionais.filter(x => x !== k);
   S.historico = {};   // conversa de uma norma não vale para outra
   montarNormas();
   abrir(S.ferramenta);
@@ -283,7 +336,8 @@ async function chamar(agente, mensagens, rotulo){
   const r = await fetch('/api/chat', {
     method:'POST',
     headers:{'Content-Type':'application/json','x-epige-codigo':S.codigo},
-    body: JSON.stringify({agente, norma:S.norma, mensagens, contexto:S.perfil}),
+    body: JSON.stringify({agente, norma:S.norma, mensagens, contexto:S.perfil,
+      adicionais: (S.agentes[agente]||{}).combinada ? S.adicionais : undefined}),
   });
   const d = await r.json().catch(()=>({erro:'Resposta ilegível do servidor.'}));
   if(!r.ok) throw new Error(d.erro || ('O servidor respondeu com status '+r.status+'.'));
@@ -323,6 +377,15 @@ const achado = (grau,titulo,corpo,evid) =>
   + '<div>'+esc(corpo)+'</div>'
   + (evid?'<div class="f-ev">'+esc(evid)+'</div>':'') + '</div>';
 
+/** PR 2030 não tem conformidade: o achado mostra o estágio, colorido pela posição na escala. */
+function achadoMaturidade(f){
+  const n = Math.min(5, Math.max(1, parseInt(f.nivel, 10) || 1));
+  return '<div class="finding mat'+n+'"><div class="f-top"><span class="tag mat'+n+'">'+esc(f.estagio || ('estágio '+n))+'</span>'
+    + '<span class="f-req">'+esc(f.requisito||'—')+'</span></div>'
+    + '<div>'+esc(f.constatacao)+'</div>'
+    + '<div class="f-ev">Evidência: '+esc(f.evidencia||'—')+'</div></div>';
+}
+
 const RENDER = {
   diagnostico: a =>
     '<div class="alert alert-info"><b>Maturidade: '+esc(a.maturidade)+'.</b> '+esc(a.veredito)+'</div>'
@@ -339,11 +402,14 @@ const RENDER = {
     + listaSimples(a.prioridade,'Corrigir nesta ordem'),
 
   auditor: a =>
-    '<div class="doc-head"><div><h3 style="margin:0">Relatório de auditoria interna</h3>'
+    '<div class="doc-head"><div><h3 style="margin:0">'
+    + (a.natureza==='avaliacao_de_maturidade' ? 'Avaliação de maturidade ESG' : 'Relatório de auditoria interna')+'</h3>'
     + '<div class="doc-code">'+esc(a.escopo||'')+'</div></div></div>'
-    + (a.achados||[]).map(f => achado(f.classificacao, 'requisito '+(f.requisito||'—'), f.constatacao, 'Evidência: '+(f.evidencia||'—'))).join('')
+    + (a.achados||[]).map(f => f.classificacao==='maturidade'
+        ? achadoMaturidade(f)
+        : achado(f.classificacao, 'requisito '+(f.requisito||'—'), f.constatacao, 'Evidência: '+(f.evidencia||'—'))).join('')
     + '<div class="card"><div class="card-t">Conclusão do auditor</div><div style="font-size:var(--t-15)">'+esc(a.conclusao)+'</div></div>'
-    + '<div class="note">Prazo recomendado: '+esc(a.recomendacao_de_prazo||'—')+'</div>',
+    + (a.recomendacao_de_prazo ? '<div class="note">Prazo recomendado: '+esc(a.recomendacao_de_prazo)+'</div>' : ''),
 
   plano: a =>
     '<div class="alert alert-info"><b>Estratégia.</b> '+esc(a.estrategia)+'</div>'
@@ -460,9 +526,10 @@ function resumoContexto(){
 }
 
 function telaSimples(f){
-  $('main').innerHTML = '<div class="eyebrow">Passo '+f.n+' · '+esc((S.normas[S.norma]||{}).rotulo||'')+'</div>'
+  $('main').innerHTML = '<div class="eyebrow" id="eyebrow">Passo '+f.n+' · '+esc(rotuloNormas(f))+'</div>'
     + '<h2>'+esc(f.t)+'</h2><p class="lede">'+esc(f.d)+'</p>'
-    + avisoConfianca()
+    + '<div id="avisoBox">'+avisoConfianca(f)+'</div>'
+    + '<div id="combo">'+seletorCombinado(f)+'</div>'
     + '<div class="panel"><div class="btn-row">'
     + '<button class="btn btn-primary" id="btnGo" onclick="rodar(\''+f.id+'\')">Executar</button>'
     + '<span class="note" style="margin:0">Modelo: '+esc((S.agentes[f.agente]||{}).modelo||'—')+'</span></div>'
@@ -477,9 +544,10 @@ function telaDocumento(f){
     analista:['Cole o documento a analisar',''],
     auditor:['Cole o documento ou descreva a prática a auditar',''],
   }[f.id] || ['Entrada',''];
-  $('main').innerHTML = '<div class="eyebrow">Passo '+f.n+' · '+esc((S.normas[S.norma]||{}).rotulo||'')+'</div>'
+  $('main').innerHTML = '<div class="eyebrow" id="eyebrow">Passo '+f.n+' · '+esc(rotuloNormas(f))+'</div>'
     + '<h2>'+esc(f.t)+'</h2><p class="lede">'+esc(f.d)+'</p>'
-    + avisoConfianca()
+    + '<div id="avisoBox">'+avisoConfianca(f)+'</div>'
+    + '<div id="combo">'+seletorCombinado(f)+'</div>'
     + '<div class="panel"><div class="field"><label for="entrada">'+esc(rotulos[0])+'</label>'
     + '<textarea id="entrada" class="doc" placeholder="'+esc(rotulos[1])+'"></textarea></div>'
     + '<div class="btn-row"><button class="btn btn-primary" id="btnGo" onclick="rodar(\''+f.id+'\')">Executar</button>'
@@ -493,9 +561,10 @@ function telaChat(f){
     consultor:['O que a cláusula 10.2 exige na prática?','Qual a diferença entre correção e ação corretiva?','Transcreva o texto literal da norma','Contratando a EPIGE eu garanto a certificação?'],
     causa:['A peça saiu fora de tolerância e o operador não percebeu','Reclamação de cliente sobre prazo de entrega'],
   }[f.id] || [];
-  $('main').innerHTML = '<div class="eyebrow">Passo '+f.n+' · '+esc((S.normas[S.norma]||{}).rotulo||'')+'</div>'
+  $('main').innerHTML = '<div class="eyebrow" id="eyebrow">Passo '+f.n+' · '+esc(rotuloNormas(f))+'</div>'
     + '<h2>'+esc(f.t)+'</h2><p class="lede">'+esc(f.d)+'</p>'
-    + avisoConfianca()
+    + '<div id="avisoBox">'+avisoConfianca(f)+'</div>'
+    + '<div id="combo">'+seletorCombinado(f)+'</div>'
     + '<div class="panel"><div class="thread" id="thread">'
     + hist.map(m => m.role==='user'
         ? '<div class="msg user">'+esc(m.content)+'</div>'

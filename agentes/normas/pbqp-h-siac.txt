@@ -1,0 +1,55 @@
+REFERENCIAL DESTA SESSÃO: PBQP-H / SiAC — Programa Brasileiro da Qualidade e Produtividade
+do Habitat / Sistema de Avaliação da Conformidade de Empresas de Serviços e Obras da
+Construção Civil.
+SIGLA: PBQP-H / SiAC
+
+NATUREZA — diga isto sempre que houver dúvida, porque é o que mais confunde:
+**Não é norma ISO.** É programa do governo federal, hoje sob o Ministério das Cidades, com
+regimento próprio publicado em portaria. A certificação é emitida por organismo de avaliação
+da conformidade acreditado pelo Inmetro para esse esquema, com ciclo de três anos e
+auditorias de supervisão.
+
+BASE VIGENTE: Regimento Geral do SiAC restabelecido pela **Portaria nº 75, de 14/01/2021**,
+com os anexos alterados pela **Portaria nº 577, de 30/03/2021** (correções redacionais e
+novo regime de transição). Desde 15/01/2022, certificação inicial, supervisão e
+recertificação seguem exclusivamente esse regimento.
+
+CONFIANÇA DESTE CONTEÚDO: **média** — o regimento não foi lido diretamente; o entendimento
+vem de instrução de organismo certificador, da portaria e de fontes secundárias. Não cite
+número de artigo, anexo ou quantidade mínima de obras como certeza.
+
+ESTRUTURA QUE VOCÊ PRECISA DOMINAR:
+- **Níveis**: o regimento vigente trabalha com **Nível B** e **Nível A**, sendo o A o
+  completo. Cada nível tem seu referencial normativo. Subir de B para A exige **nova
+  auditoria inicial** no nível requerido; o certificado é revisado e começa novo ciclo.
+- **Especialidade técnica e subsetores**: a especialidade mais comum é Execução de Obras,
+  com subsetores como obras de edificações, obras viárias e obras de saneamento básico. O
+  certificado vale para a especialidade e os subsetores declarados — não para "construção"
+  em geral.
+- **Auditoria em obra**: parte da evidência vem de obras em andamento, amostradas por
+  subsetor. Empresa sem obra ativa no subsetor tem dificuldade real de ser auditada nele.
+
+O QUE O SiAC PEDE ALÉM DA ISO 9001 — é onde mora o valor do especialista:
+- **Serviços controlados e materiais controlados**: listas definidas por subsetor, que a
+  empresa precisa controlar com procedimento, inspeção e registro.
+- **Plano da Qualidade da Obra (PQO)**: o planejamento da qualidade por obra, não só da
+  empresa.
+- **Plano de Controle Tecnológico**: meios, frequências e responsáveis pelos ensaios dos
+  materiais e serviços controlados, demonstrando atendimento às normas técnicas e ao
+  projeto. Em edificação habitacional, inclui os requisitos de desempenho da
+  ABNT NBR 15575.
+- **Qualificação de fornecedores** que inclui critérios para laboratórios de controle
+  tecnológico, e requisitos reforçados de projeto (entradas, controles e saídas).
+
+INTEGRAÇÃO COM A ISO 9001 — a regra que o cliente precisa ouvir:
+- O referencial do SiAC segue a estrutura da ISO 9001, e **auditoria integrada 9001 +
+  SiAC é prática corrente** — um único sistema de gestão, uma auditoria combinada.
+- Mas **um certificado não substitui o outro.** ISO 9001 certificada não atende o SiAC,
+  porque faltam os requisitos específicos da construção; SiAC certificado não é
+  certificado ISO 9001.
+- Empresa com os dois deve manter **um único sistema**, com os requisitos do SiAC como
+  camada adicional sobre a base da 9001 — nunca dois manuais paralelos.
+
+CONTEXTO DE MERCADO: a certificação costuma ser exigida em programas habitacionais e em
+contratações públicas de obras. **Confirme a exigência com o contratante ou o edital** —
+não afirme qual programa ou banco exige qual nível.
