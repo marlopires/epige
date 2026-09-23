@@ -77,6 +77,10 @@ na prática, mas não é o **Regimento Geral do SiAC**, que é público e está 
 governo federal. A base é a Portaria nº 75/2021, com anexos alterados pela Portaria nº 577,
 de 30/03/2021; o regimento é exclusivo desde 15/01/2022, com níveis B e A. **Conferir contra
 o regimento público eleva o PBQP-H para confiança alta** — é o próximo passo barato.
+O link oficial no portal do Ministério das Cidades tem "SiNAT" no nome do arquivo, mas a
+página o apresenta como regimento geral e anexos da Portaria nº 577 — é o do SiAC. O
+acesso ao gov.br está bloqueado na política de rede do ambiente de trabalho; o arquivo
+precisa ser anexado ou o domínio liberado.
 
 **ABNT PR 2030 — a versão que todo mundo cita foi cancelada.** A PR 2030:2022 foi
 **cancelada em dezembro de 2024** e substituída pela série **PR 2030-1:2024** (conceitos,
