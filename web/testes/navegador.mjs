@@ -253,7 +253,7 @@ try {
   await esperarTexto(anonimo, 'Como a IA da EPIGE funciona');
   checar('página de transparência da IA mostra o fornecedor e a confiança por norma', (await anonimo.locator('main').innerText()).includes('Anthropic'));
   await anonimo.goto(srv.base + '/privacidade/');
-  checar('política de privacidade avisa que é rascunho em revisão jurídica', (await anonimo.locator('.rascunho').count()) === 1);
+  checar('política de privacidade mostra versão e base legal', (await anonimo.locator('.nota-versao').count()) === 1 && (await anonimo.locator('main').innerText()).includes('Marco Civil'));
 
   /* ---- segurança da página ---- */
   for (const [nome, p] of [['dono', dono], ['leitor', leitor], ['anônimo', anonimo]]) {

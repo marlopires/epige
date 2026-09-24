@@ -49,9 +49,13 @@ Probabilidade estimada sem uso real — revisar com dados do piloto.
 
 O sistema pode ser disponibilizado a clientes quando:
 1. o conjunto de avaliação passar **100% nos bloqueantes** contra o modelo real;
-2. o gabarito de SST (`avaliacao/iso-45001-sst.json`) for conferido por **profissional de
-   segurança do trabalho** — é o que reduz o impacto 1 de médio para baixo;
-3. os termos de uso e a política de privacidade estiverem aprovados pelo advogado.
+2. ~~o gabarito de SST for conferido por profissional de segurança do trabalho~~ —
+   substituído, por decisão da direção de 24/09/2026, pela conferência da ferramenta contra o
+   texto da ISO 45001 (8 de 8 confirmadas; ver `validacao-pela-ferramenta.md`). O impacto 1
+   cai para baixo quando o item 1 também passar;
+3. ~~os termos e a política de privacidade estiverem aprovados pelo advogado~~ — substituído
+   pela conferência contra a LGPD e o Marco Civil, com risco jurídico aceito pela direção.
+   Faltam os dados cadastrais marcados [PREENCHER].
 
 ## 4. Revisão
 

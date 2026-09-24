@@ -248,6 +248,8 @@ que já foi decidido.
 | 24/09/2026 | Auditoria da EPIGE contra a 42001: cinco itens bloqueantes para abrir a cliente | Ver `docs/auditoria-42001-epige.md` |
 | 24/09/2026 | Anthropic aprovada como fornecedor, com condições | Não treina com o dado, apaga em 30 dias; armazenamento só nos EUA exige cláusulas-padrão da ANPD — ponto para o advogado |
 | 24/09/2026 | Aceite de termos obrigatório, versionado e registrado | A cada nova versão, todos aceitam de novo antes de continuar; o aceite vai na exportação |
+| 24/09/2026 | Sem profissionais externos nesta fase: a validação é feita pela ferramenta, contra a fonte primária | Decisão sua. Limite aceito: quem valida é quem escreveu; textos legais sem revisão de advogado. Ver `docs/governanca-ia/validacao-pela-ferramenta.md` |
+| 24/09/2026 | Prazos de guarda da política de privacidade aplicados no código | Política que o sistema não cumpre é declaração falsa |
 | 24/09/2026 | Política de IA (POL-IA-001) e avaliação de impacto (AVI-IA-001) aprovadas pela direção | Dois dos cinco bloqueantes da auditoria 42001 fechados; reapresentar no controle de documentos quando a plataforma estiver no ar |
 | 24/09/2026 | Em SST e segurança viária, o agente diz que o controle é definido por profissional habilitado | O impacto mais grave da avaliação: orientação errada chegando a um trabalhador |
 | 09/09/2026 | Protótipo 8.2 é o canônico; 3.7 a 6.0 viram histórico | Só a 8.2 recebe alterações daqui em diante |

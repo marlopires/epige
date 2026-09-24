@@ -179,6 +179,11 @@ const MIGRACOES = [
     `ALTER TABLE usuarios ADD COLUMN termos_versao TEXT`,
     `ALTER TABLE usuarios ADD COLUMN termos_aceitos_em INTEGER`,
   ],
+  // 5 — data da desativação da empresa, que conta o prazo de exclusão dos dados
+  [
+    `ALTER TABLE organizacoes ADD COLUMN desativada_em INTEGER`,
+    `UPDATE organizacoes SET desativada_em = CAST(strftime('%s','now') AS INTEGER) * 1000 WHERE ativa = 0`,
+  ],
 ];
 
 let pronto = null;

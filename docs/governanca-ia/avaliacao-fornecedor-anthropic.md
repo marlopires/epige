@@ -63,6 +63,10 @@ configurado no console do fornecedor; tetos diários no código.
 
 1. Na criação da conta: registrar aqui a versão dos termos comerciais e do adendo de dados
    aceitos, e confirmar os três pontos marcados (treinamento, retenção, cláusulas-padrão).
+   O adendo é incorporado automaticamente aos termos comerciais. **Se ele contemplar só as
+   cláusulas europeias, pedir ao fornecedor o aditivo com as cláusulas-padrão brasileiras
+   da Resolução CD/ANPD nº 19/2024** — sem isso, a transferência não tem o mecanismo que a
+   política de privacidade declara.
 2. Configurar o limite de gasto mensal no console antes da primeira chamada.
 3. A política de privacidade da EPIGE informa: fornecedor, finalidade, retenção de até 30
    dias, a exceção de até 2 anos e a transferência para os EUA.

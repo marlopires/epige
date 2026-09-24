@@ -174,6 +174,7 @@ diários no código.
 ```bash
 node web/testes/api.mjs          # 135 verificações — não precisa de chave de API
 node web/testes/navegador.mjs    # 38 verificações — precisa do Playwright com Chromium
+node web/testes/retencao.mjs     # prazos de guarda da política de privacidade — sem wrangler
 ```
 
 Os dois sobem a plataforma localmente no **runtime real da Cloudflare** (wrangler), com

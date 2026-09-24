@@ -13,6 +13,7 @@ import { token, sha256 } from './cripto.js';
 import { um, executar, agora } from './banco.js';
 import { HttpErro, ip } from './http.js';
 import { TERMOS_VERSAO } from './termos.js';
+import { aplicarRetencao } from './retencao.js';
 
 export const COOKIE = '__Host-epige';
 const OCIOSA_MS = 12 * 3_600_000;
@@ -51,6 +52,7 @@ export async function criarSessao(env, request, usuarioId) {
   await executar(env.EPIGE_DB, 'UPDATE usuarios SET ultimo_acesso = ? WHERE id = ?', agoraMs, usuarioId);
   // Faxina: sessão vencida não fica guardada à toa.
   await executar(env.EPIGE_DB, 'DELETE FROM sessoes WHERE expira_em < ? OR usada_em < ?', agoraMs, agoraMs - OCIOSA_MS);
+  await aplicarRetencao(env.EPIGE_DB);
   return cookie(t, Math.floor(MAXIMA_MS / 1000));
 }
 

@@ -190,7 +190,15 @@ registrados —, mas sem processo formal. Esperado para o estágio.
 | 4 | Política de IA (2) | `governanca-ia/politica-de-ia.md`, POL-IA-001 v1 — **aprovada em 24/09/2026** | ✅ Fechado |
 | 5 | Avaliação de impacto (4) | `governanca-ia/avaliacao-de-impacto.md`, AVI-IA-001 v1 — **aprovada em 24/09/2026** | ✅ Fechado. Os três impactos com risco residual médio seguem abertos até os itens 1, 2 e 3 |
 
-Dos cinco bloqueantes, dois estão fechados. O que falta é de três pessoas: você
+**Atualização de 24/09/2026 — decisão da direção:** sem profissionais externos nesta fase;
+a validação é feita pela ferramenta (`governanca-ia/validacao-pela-ferramenta.md`). Com isso:
+o gabarito de SST foi conferido contra o texto da ISO 45001 (8/8), o da 9001 contra a ISO
+9001 (2 correções), e termos e privacidade foram conferidos contra a LGPD e o Marco Civil,
+com os prazos de guarda aplicados no código. **Continuam abertos:** a validação de
+comportamento contra o modelo real (item 1) e a confirmação das cláusulas-padrão na conta
+de API (item 3). O item 2 fica fechado com risco aceito — sem revisão de advogado.
+
+Texto anterior: dos cinco bloqueantes, dois estavam fechados. O que faltava era de três pessoas: você
 (criar a conta de API), o advogado (termos, privacidade, transferência internacional) e
 um profissional de segurança do trabalho (gabarito de SST).
 

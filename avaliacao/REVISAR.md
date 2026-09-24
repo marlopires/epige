@@ -1,5 +1,12 @@
 # O que precisa da sua revisão
 
+> **24/09/2026 — decisão da direção:** não haverá revisão humana externa nesta fase. Os
+> gabaritos foram validados pela ferramenta contra o texto das normas — 9001: 28 confirmadas
+> e 2 corrigidas; 45001 (SST): 8 de 8 confirmadas. Método, resultado e limites em
+> `docs/governanca-ia/validacao-pela-ferramenta.md`. O que segue abaixo continua valendo como
+> roteiro, caso um dia haja revisor humano.
+
+
 Em 16/09 você delegou as decisões de conteúdo para destravar a fase de teste. Concordo com
 a decisão — sem publicar e medir, gabarito é teoria. Mas delegação não apaga o risco, então
 este arquivo existe para que ele fique **visível e rastreável** em vez de esquecido.

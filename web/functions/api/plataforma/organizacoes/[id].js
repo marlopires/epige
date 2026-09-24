@@ -20,7 +20,12 @@ export async function onRequestPatch(ctx) {
     if (teto !== null && (!Number.isFinite(teto) || teto < 0 || teto > 10_000)) throw new HttpErro(400, 'Teto inválido.');
   }
 
-  await executar(env.EPIGE_DB, 'UPDATE organizacoes SET ativa = ?, teto_diario_brl = ? WHERE id = ?', ativa ? 1 : 0, teto, id);
+  // A data da desativação conta os 6 meses até a exclusão dos dados; reativar zera a contagem.
+  await executar(
+    env.EPIGE_DB,
+    'UPDATE organizacoes SET ativa = ?, teto_diario_brl = ?, desativada_em = CASE WHEN ? = 1 THEN NULL WHEN ativa = 1 THEN ? ELSE desativada_em END WHERE id = ?',
+    ativa ? 1 : 0, teto, ativa ? 1 : 0, Date.now(), id,
+  );
   if (!ativa) {
     await executar(env.EPIGE_DB, 'DELETE FROM sessoes WHERE usuario_id IN (SELECT id FROM usuarios WHERE org_id = ?)', id);
   }

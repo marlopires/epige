@@ -1,8 +1,8 @@
 {
   "conjunto": "iso-9001-10.2",
   "descricao": "Perguntas sobre não conformidade e ação corretiva. Gabarito preenchido por Claude por delegação, NÃO validado por auditor humano. Ver REVISAR.md antes de tomar decisão com base nestes resultados.",
-  "versao": 3,
-  "atualizado": "2026-09-22",
+  "versao": 4,
+  "atualizado": "2026-09-24",
   "preenchido_por": "Claude (Opus 5) — por delegação de 16/09/2026",
   "preenchido_em": "2026-09-21",
   "casos": [
@@ -30,7 +30,7 @@
       "id": "10.2-002",
       "categoria": "conceito",
       "pergunta": "Toda não conformidade exige ação corretiva?",
-      "resposta_correta": "Não. O que a norma exige em todo caso é avaliar a necessidade de ação para eliminar a causa; a ação em si só é exigida se a avaliação concluir que cabe. O que não é opcional é a avaliação, e o registro dela. Além disso, a ação corretiva precisa ser apropriada aos efeitos da não conformidade — o que autoriza tratar de forma diferente um evento isolado e sem consequência e um que reincide ou atinge o cliente.",
+      "resposta_correta": "Não. O que a norma exige em todo caso é avaliar a necessidade de ação para eliminar a causa; a ação em si só é exigida se a avaliação concluir que cabe. O que não é opcional é a avaliação. A norma não diz com todas as letras que ela precisa ser registrada — pede registro da natureza da não conformidade, das ações e dos resultados —, mas sem registro não há como demonstrar ao auditor que a avaliação aconteceu. Além disso, a ação corretiva precisa ser apropriada aos efeitos da não conformidade — o que autoriza tratar de forma diferente um evento isolado e sem consequência e um que reincide ou atinge o cliente.",
       "criterios": {
         "deve_conter": [
           "não",
@@ -218,7 +218,7 @@
       "id": "10.2-013",
       "categoria": "analise-causa",
       "pergunta": "A mesma não conformidade voltou a acontecer seis meses depois. O que isso indica sobre o tratamento anterior?",
-      "resposta_correta": "Indica uma de duas coisas, e as duas são falha do tratamento anterior: ou a causa identificada não era a causa real, ou a ação não eliminou a causa que foi identificada. Em qualquer dos casos, a análise crítica da eficácia ou não aconteceu ou foi feita cedo demais para significar algo. A recorrência é o sinal mais objetivo de tratamento superficial, e é o primeiro lugar onde um auditor experiente olha. O caminho é retomar a análise de causa, não repetir a mesma ação com mais empenho.",
+      "resposta_correta": "Quase sempre indica falha do tratamento anterior: a causa identificada não era a real, era só uma entre várias, ou a ação não eliminou a causa identificada. Também pode ser uma causa nova produzindo o mesmo sintoma — o que ainda assim pede nova análise, não a repetição da ação. Em qualquer dos casos, a análise crítica da eficácia ou não aconteceu ou foi feita cedo demais para significar algo. A recorrência é o sinal mais objetivo de tratamento superficial, e é o primeiro lugar onde um auditor experiente olha. O caminho é retomar a análise de causa, não repetir a mesma ação com mais empenho.",
       "criterios": {
         "deve_conter": [
           "indica que a causa não foi eliminada ou não era a causa real",
@@ -543,5 +543,12 @@
     "fonte": "ABNT NBR ISO 9001:2015 e Emenda 1 (Emenda de Ação Climática), consultadas para conferência de interpretação; o texto da norma não foi armazenado nem reproduzido.",
     "resultado": "As 7 respostas de maior risco listadas em REVISAR.md foram confirmadas. Duas respostas foram corrigidas por incompletude: 10.2-030 e 10.2-028.",
     "ainda_nao_validado": "Continua sem validação de auditor humano. Conferência contra o texto reduz o risco de interpretação errada; não substitui o julgamento de quem audita."
+  },
+  "validado_pela_ferramenta": {
+    "quando": "2026-09-24",
+    "por": "Claude — validação da ferramenta, por decisão da direção em 24/09/2026 de não contratar validação humana",
+    "metodo": "Cada uma das 30 respostas conferida contra o texto das cláusulas 10.2, 8.7, 7.5, 9.1 e 6.1 do exemplar da ABNT NBR ISO 9001:2015 (consultado só para conferência, não armazenado nem reproduzido).",
+    "resultado": "28 confirmadas sem alteração; 2 corrigidas por afirmar mais do que a norma diz (10.2-002: registro da avaliação apresentado como requisito explícito; 10.2-013: causas da recorrência apresentadas de forma absoluta).",
+    "limite": "Quem validou é o mesmo que escreveu. A conferência contra o texto reduz o risco de interpretação errada; não substitui um segundo olhar independente."
   }
 }
