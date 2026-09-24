@@ -4,7 +4,9 @@
  *
  *   node avaliacao/rodar.mjs [conjunto...]
  *
- * Sem argumento, roda todos. Precisa de ANTHROPIC_API_KEY no ambiente.
+ * Sem argumento, roda todos. A chave vem de ANTHROPIC_API_KEY no ambiente ou, na nuvem
+ * do Claude Code, de uma credencial de API do ambiente, que o proxy injeta na chamada
+ * sem que a sessão veja o valor.
  * Sem dependências: só Node 18+ (fetch nativo) e a biblioteca padrão.
  *
  * Como funciona: monta o prompt de sistema com o MESMO motor da aplicação publicada
@@ -31,10 +33,21 @@ const MODELO_JUIZ = 'claude-sonnet-5';
 const CONCORRENCIA = 4;
 
 const chave = process.env.ANTHROPIC_API_KEY;
+const cabecalhoChave = chave ? { 'x-api-key': chave } : {};
+
+// Sem a variável, a chave pode estar sendo injetada pelo proxy (credencial de API do
+// ambiente de nuvem). Confere antes de gastar tempo montando os casos.
 if (!chave) {
-  console.error('Falta ANTHROPIC_API_KEY no ambiente.');
-  console.error('A conta de API em nome da empresa é o item F0-6 do backlog.');
-  process.exit(1);
+  const r = await fetch('https://api.anthropic.com/v1/models?limit=1', {
+    headers: { 'anthropic-version': '2023-06-01' },
+  }).catch(() => null);
+  if (!r || !r.ok) {
+    console.error(`Sem chave de API (HTTP ${r ? r.status : 'sem resposta'}).`);
+    console.error('Defina ANTHROPIC_API_KEY no ambiente ou, na nuvem do Claude Code,');
+    console.error('cadastre a chave em "Credenciais de API" do ambiente para api.anthropic.com.');
+    process.exit(1);
+  }
+  console.log('Chave de API: credencial injetada pelo ambiente.');
 }
 
 /* ---------- prompts ---------- */
@@ -90,7 +103,7 @@ async function chamar(system, messages, modelo) {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
-        'x-api-key': chave,
+        ...cabecalhoChave,
         'anthropic-version': '2023-06-01',
       },
       body: JSON.stringify({ model: modelo, max_tokens: 2000, system, messages }),

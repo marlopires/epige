@@ -86,8 +86,13 @@ ter, porque o cliente implementa, gasta e depois descobre em auditoria.
 export ANTHROPIC_API_KEY=sk-ant-...
 node avaliacao/rodar.mjs guardrails
 node avaliacao/rodar.mjs iso-9001-10.2
-node avaliacao/rodar.mjs                  # os dois
+node avaliacao/rodar.mjs                  # todos
 ```
+
+Na nuvem do Claude Code, **não** use variável de ambiente para a chave: ali ela fica
+visível para quem usa o ambiente e não chega às sessões. Cadastre-a em **Credenciais de
+API** do ambiente, para `api.anthropic.com`. O proxy injeta a chave na chamada, a sessão
+nunca vê o valor, e o avaliador detecta isso sozinho.
 
 O avaliador regenera os prompts, monta o sistema com **o mesmo motor da aplicação
 publicada** (`web/functions/api/_motor.js`) e chama o **mesmo modelo que o agente usa em
