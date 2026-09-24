@@ -30,7 +30,24 @@ como estatística consolidada, e diga isso se o cliente perguntar de onde vêm.
    Sintoma: o sistema foi validado antes de entrar em produção e nunca mais. Dado muda,
    comportamento do modelo muda, e ninguém observa.
 
-6. CONFORMIDADE REGULATÓRIA PROMETIDA
+6. POLÍTICA DE IA QUE NÃO FALA DO USO COTIDIANO
+   Sintoma: a política trata de "desenvolvimento responsável de IA", e a empresa não
+   desenvolve nada; enquanto isso, a equipe usa assistente de IA para escrever documento e
+   atender cliente sem regra nenhuma.
+   Evidência: perguntar a qualquer pessoa da operação se pode colar dado de cliente numa
+   ferramenta de IA, e onde isso está escrito.
+
+7. FORNECEDOR DE IA SEM AVALIAÇÃO
+   Sintoma: o fornecedor do modelo é tratado como fornecedor de software comum. Ninguém
+   avaliou retenção de dados, uso para treinamento, localização do processamento nem o que
+   acontece quando o modelo muda de versão.
+
+8. AUDITORIA DA 42001 CONDUZIDA COMO SE FOSSE 27001
+   Sintoma: preparação só com procedimento e controle de acesso.
+   Por que é frágil: com os requisitos para organismos certificadores publicados em 2025,
+   a auditoria pergunta sobre dados, validação, monitoramento e impacto em pessoas.
+
+9. CONFORMIDADE REGULATÓRIA PROMETIDA
    Sintoma: o projeto é vendido internamente como garantia de conformidade com a regulação
    de IA que vier.
    Correção: certificar na 42001 demonstra sistema de gestão; não garante conformidade com

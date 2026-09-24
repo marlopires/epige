@@ -17,7 +17,7 @@ export async function onRequestGet(ctx) {
 
   const versoes = await todos(
     db,
-    `SELECT v.numero, v.estado, v.origem, v.resumo, v.parecer, v.criado_em, v.editado_em, v.enviado_em, v.aprovado_em,
+    `SELECT v.numero, v.estado, v.origem, v.resumo, v.parecer, v.criado_em, v.editado_em, v.enviado_em, v.aprovado_em, v.revisao_declarada,
             uc.nome AS criado_por, ue.nome AS editado_por, un.nome AS enviado_por, ua.nome AS aprovado_por,
             (v.criado_por = ?) AS minha
        FROM versoes v
@@ -44,6 +44,7 @@ export async function onRequestGet(ctx) {
       tipo: d.tipo,
       tipo_rotulo: TIPOS[d.tipo]?.rotulo ?? d.tipo,
       registro: !!TIPOS[d.tipo]?.registro,
+      apoio_ia: d.apoio_ia || null,
       normas: d.normas ? d.normas.split(',') : [],
       obsoleto: !!d.obsoleto,
       versao_vigente: d.versao_vigente,
@@ -52,7 +53,7 @@ export async function onRequestGet(ctx) {
       criado_em: d.criado_em,
       atualizado_em: d.atualizado_em,
     },
-    versoes: versoes.map((v) => ({ ...v, minha: !!v.minha })),
+    versoes: versoes.map((v) => ({ ...v, minha: !!v.minha, revisao_declarada: !!v.revisao_declarada })),
     conteudo_vigente: vigente?.conteudo ?? null,
     aberta: aberta ? { conteudo: aberta.conteudo, estado: aberta.estado, editado_em: aberta.editado_em } : null,
   });

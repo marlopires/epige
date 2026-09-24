@@ -5,9 +5,24 @@ SIGLA: ISO/IEC 42001
 EDIÇÃO VIGENTE NO BRASIL: **ABNT NBR ISO/IEC 42001:2024**, publicada em 18 de abril de
 2024, adoção da ISO/IEC 42001:2023, que a ISO publicou em dezembro de 2023.
 
-É a **primeira norma certificável de sistema de gestão de inteligência artificial**, e é
-nova o bastante para que o mercado ainda tenha poucos auditores experientes nela. Diga isso
-quando o cliente perguntar sobre prazo de certificação.
+A ISO **não revisou nem emendou** a 42001 até setembro de 2026: segue a edição 2023.
+
+É a **primeira norma certificável de sistema de gestão de inteligência artificial**. Organismos
+certificadores atuam no Brasil com ela; confirme com o organismo se o escopo dele é
+acreditado, e por quem, antes de o cliente contratar.
+
+A FAMÍLIA QUE CERCA A 42001 — cite pelo nome certo, e não confunda os papéis:
+- **ISO/IEC 42005:2025** — diretrizes para **avaliação de impacto** de sistema de IA.
+  Não é certificável; é o apoio mais direto para fazer bem a avaliação de impacto que a
+  42001 exige.
+- **ISO/IEC 42006:2025** — requisitos para os **organismos que certificam** a 42001:
+  competência dos auditores e forma de auditar. Para o cliente, significa auditoria mais
+  técnica do que a de uma norma de gestão comum — espere perguntas sobre dados, modelo e
+  monitoramento, não só sobre procedimento.
+- **ISO/IEC 23894** — orientação sobre **gestão de risco** de IA.
+- **ISO/IEC 22989** — **terminologia** de IA. Útil quando o cliente discute o que é e o
+  que não é "sistema de IA".
+Só a 42001 é certificável. As outras orientam.
 
 CONFIANÇA DESTE CONTEÚDO: **média** — edição e datas apuradas em fontes secundárias
 convergentes; os mecanismos vêm do meu conhecimento, **sem conferência contra exemplar da
@@ -28,8 +43,15 @@ MECANISMOS PRÓPRIOS DESTA NORMA — use estes, não os equivalentes de outra:
   cada etapa — incluindo dados de treinamento, validação, implantação e monitoramento
   pós-implantação.
 
-- **Anexos estruturantes**: controles de referência, guia de implementação, objetivos e
-  riscos organizacionais relacionados a IA, e orientação de uso por domínio ou setor.
+- **Controles de referência e declaração de aplicabilidade.** Como na 27001, há um anexo
+  de controles de referência, agrupados em objetivos — política de IA, organização interna,
+  recursos, avaliação de impacto, ciclo de vida, dados, informação às partes interessadas,
+  uso do sistema de IA e relação com terceiros. A organização declara quais aplica e
+  justifica os que exclui. Não é lista para cumprir de cima a baixo: a seleção sai da
+  avaliação de risco e de impacto. Não cite o número de controles.
+
+- **Anexos estruturantes** além dos controles: guia de implementação, objetivos e riscos
+  organizacionais relacionados a IA, e orientação de uso por domínio ou setor.
 
 - Temas que a norma trata explicitamente e que o cliente espera: transparência,
   explicabilidade, justiça, qualidade dos dados, supervisão humana e segurança.
@@ -40,7 +62,20 @@ ATENÇÃO AO ESCOPO — a confusão mais provável:
 Um sistema de IA pode estar perfeitamente seguro do ponto de vista de segurança da
 informação e ser inaceitável do ponto de vista de impacto. São perguntas diferentes.
 
-CONTEXTO BRASILEIRO: a regulação de IA no Brasil está em construção. **Não afirme o
-conteúdo, o número nem o estágio de projeto de lei**, e não diga que a certificação na
-42001 garante conformidade regulatória futura — não garante, e prometer isso é o tipo de
-invenção que a regra de honestidade proíbe.
+A 42001 E A EMPRESA QUE SÓ USA IA GENERATIVA — a pergunta mais frequente agora:
+A maioria dos clientes não desenvolve IA; usa ferramenta de terceiros para escrever
+documento, resumir, responder cliente. Para essa empresa:
+- A **certificação na 42001 raramente é o primeiro passo.** O que a auditoria da norma que
+  ela já tem (9001, 14001, 45001, 27001) vai cobrar é controle sobre o uso: revisão humana,
+  competência, confidencialidade e fornecedor — o bloco de conteúdo gerado por IA cobre isso.
+- A 42001 passa a fazer sentido quando a IA **decide ou influencia** resultado entregue a
+  cliente, trata dado pessoal em escala, ou quando a empresa **fornece** produto ou serviço
+  com IA — como a própria EPIGE.
+Diga isso com franqueza: vender 42001 para quem só usa um assistente de texto é empurrar
+certificação que o cliente não precisa.
+
+CONTEXTO BRASILEIRO: a regulação de IA no Brasil está em construção. O projeto de lei geral
+de IA passou pelo Senado em 2024 e seguia na Câmara em 2026; **não confirmei se virou lei.**
+Não afirme que há lei de IA em vigor, nem o conteúdo final, nem prazos. A LGPD já vale para
+IA que trata dado pessoal — isso sim pode ser afirmado. E não diga que certificar na 42001
+garante conformidade com regulação futura: não garante.

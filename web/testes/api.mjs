@@ -155,7 +155,11 @@ try {
   status('editor salva o rascunho', salvo, 200);
   status('salvar sobre versão desatualizada é recusado', await editor.put(`/api/documentos/${id}/rascunho`, { conteudo: 'atropelo', editado_em: aberto.dados.aberta.editado_em }), 409);
   await editor.post(`/api/documentos/${id}/acao`, { acao: 'enviar' });
-  status('admin aprova', await adminB.post(`/api/documentos/${id}/acao`, { acao: 'aprovar' }), 200);
+  status('documento feito com IA não é aprovado sem declaração de revisão', await adminB.post(`/api/documentos/${id}/acao`, { acao: 'aprovar' }), 400);
+  status('admin aprova com a declaração de revisão', await adminB.post(`/api/documentos/${id}/acao`, { acao: 'aprovar', revisao_confirmada: true }), 200);
+  const comIA = await adminB.get(`/api/documentos/${id}`);
+  checar('documento guarda a origem em IA e a declaração de revisão', comIA.dados?.documento?.apoio_ia === 'redator' && comIA.dados?.versoes?.[0]?.revisao_declarada === true, comIA.dados?.documento);
+  checar('lista marca o documento feito com IA', (await adminB.get('/api/documentos')).dados.documentos.find((x) => x.id === id)?.apoio_ia === 'redator');
   status('aprovar de novo não faz nada', await adminB.post(`/api/documentos/${id}/acao`, { acao: 'aprovar' }), 409);
 
   const vistoLeitor = await leitor.get(`/api/documentos/${id}`);
@@ -168,7 +172,7 @@ try {
   checar('durante a revisão o leitor segue vendo só a vigente', leitorDurante.dados.conteudo_vigente.endsWith('v1 corrigida') && leitorDurante.dados.aberta === null && leitorDurante.dados.versoes.length === 1, leitorDurante.dados);
   status('leitor não acessa o rascunho pelo histórico', await leitor.get(`/api/documentos/${id}/versoes/2`), 404);
   await editor.post(`/api/documentos/${id}/acao`, { acao: 'enviar' });
-  await adminB.post(`/api/documentos/${id}/acao`, { acao: 'aprovar', motivo: 'ok' });
+  await adminB.post(`/api/documentos/${id}/acao`, { acao: 'aprovar', motivo: 'ok', revisao_confirmada: true });
   const hist = await adminB.get(`/api/documentos/${id}`);
   checar('v2 vigente e v1 substituída, retida no histórico',
     hist.dados.documento.versao_vigente === 2 && hist.dados.versoes.find((v) => v.numero === 1)?.estado === 'substituida' && hist.dados.versoes.find((v) => v.numero === 2)?.estado === 'vigente', hist.dados.versoes);
@@ -214,6 +218,14 @@ try {
     contexto: { nome: 'Metalúrgica Aurora' }, mensagens: [{ role: 'user', content: 'oi' }],
   });
   checar('a demonstração guiada usa a empresa-exemplo da página', (ultimaRequisicaoIA()?.system?.[0]?.text ?? '').includes('Metalúrgica Aurora'));
+  status('editor sinaliza resposta com problema', await editor.post('/api/sinalizacoes', { agente: 'consultor', norma: 'iso-9001', motivo: 'referencia_legal', comentario: 'Citou uma NR que não existe.', trecho: 'NR-99' }), 201);
+  status('motivo de sinalização precisa ser válido', await editor.post('/api/sinalizacoes', { agente: 'consultor', motivo: 'qualquer' }), 400);
+  status('leitor não sinaliza (não usa a IA)', await leitor.post('/api/sinalizacoes', { agente: 'consultor', motivo: 'outro' }), 403);
+  status('admin de empresa não vê a fila de sinalizações', await adminB.get('/api/plataforma/sinalizacoes'), 403);
+  const fila = await dono.get('/api/plataforma/sinalizacoes');
+  checar('plataforma recebe a sinalização com empresa e trecho', fila.dados?.sinalizacoes?.[0]?.empresa === 'Construtora Beta' && fila.dados.sinalizacoes[0].trecho === 'NR-99', fila.dados);
+  status('tratamento exige descrição', await dono.patch(`/api/plataforma/sinalizacoes/${fila.dados.sinalizacoes[0].id}`, {}), 400);
+  status('plataforma registra o tratamento', await dono.patch(`/api/plataforma/sinalizacoes/${fila.dados.sinalizacoes[0].id}`, { tratamento: 'Incluída regra de conferir NR na fonte oficial.' }), 200);
   const uso = await adminB.get('/api/organizacao/uso');
   checar('uso da empresa aparece no painel', uso.dados?.por_agente?.[0]?.agente === 'consultor', uso.dados);
   const orgB = novaEmpresa.dados.id;

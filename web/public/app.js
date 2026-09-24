@@ -607,6 +607,7 @@ function telaEntrada(f) {
 
 function telaChat(f) {
   const hist = S.historico[f.id + ':' + S.norma] || [];
+  if (hist.length) S.ultima = { f, chat: hist.slice(), normas: normasDaTela(f) };
   const sugestoes = {
     consultor: ['O que a cláusula 10.2 exige na prática?', 'Qual a diferença entre correção e ação corretiva?', 'Transcreva o texto literal da norma', 'Contratando a EPIGE eu garanto a certificação?'],
     causa: ['A peça saiu fora de tolerância e o operador não percebeu', 'Reclamação de cliente sobre prazo de entrega'],
@@ -675,8 +676,38 @@ ACOES.perguntar = async (el) => {
 
 /* ---------- da IA para o controle de documentos ---------- */
 
-const botaoSalvar = (rotulo) => '<div class="salvar-doc"><button class="btn btn-ghost" data-acao="abrirSalvar">' + esc(rotulo) + '</button>'
-  + '<span class="note" style="margin-left:var(--e-8)">Entra como rascunho, para revisão e aprovação.</span></div>';
+const botaoSalvar = (rotulo) => '<div class="salvar-doc"><div class="btn-row" style="margin:0"><button class="btn btn-ghost" data-acao="abrirSalvar">' + esc(rotulo) + '</button>'
+  + '<span class="note" style="margin:0">Entra como rascunho, para revisão e aprovação.</span>'
+  + '<button class="linkish" data-acao="abrirSinalizar" style="margin-left:auto">Sinalizar problema nesta resposta</button></div></div>';
+
+const MOTIVOS_SINAL = {
+  incorreta: 'Informação incorreta', requisito_inexistente: 'Requisito que a norma não tem',
+  referencia_legal: 'Referência legal errada ou inexistente', texto_da_norma: 'Reproduziu texto da norma',
+  promessa: 'Prometeu certificação ou resultado', inadequada: 'Não serve para o porte ou a atividade', outro: 'Outro',
+};
+
+/** O canal para quem usa a IA dizer que ela errou — monitoramento do sistema de IA depois de publicado. */
+ACOES.abrirSinalizar = () => {
+  if (!S.ultima) return;
+  $('salvarDoc').innerHTML = '<form data-form="sinalizar" class="salvar-doc"><div class="card-t">Sinalizar problema</div>'
+    + '<div class="field"><label for="sn_motivo">O que está errado?</label><select id="sn_motivo" name="motivo">'
+    + Object.entries(MOTIVOS_SINAL).map(([k, v]) => '<option value="' + k + '">' + esc(v) + '</option>').join('') + '</select></div>'
+    + '<div class="field"><label for="sn_comentario">Comentário (opcional)</label><textarea id="sn_comentario" name="comentario" maxlength="1000" placeholder="ex.: a cláusula citada não trata disso"></textarea></div>'
+    + '<p class="note">A resposta sinalizada é enviada à equipe da EPIGE para correção do agente. Conversas não são guardadas — só o que você enviar aqui.</p>'
+    + '<div class="btn-row"><button class="btn btn-primary" type="submit">Enviar sinalização</button></div><div id="snMsg"></div></form>';
+};
+
+FORMS.sinalizar = async (f) => {
+  const u = S.ultima;
+  const c = campos(f);
+  const trecho = u.chat ? (u.chat.filter((m) => m.role === 'assistant').slice(-1)[0] || {}).content : u.texto;
+  const btn = f.querySelector('button[type=submit]');
+  ocupado(btn, true);
+  try {
+    await api('POST', '/api/sinalizacoes', { agente: u.f.agente, norma: u.normas.join(','), motivo: c.motivo, comentario: c.comentario, trecho: String(trecho || '').slice(0, 4000) });
+    $('salvarDoc').innerHTML = '<div class="alert alert-info">Obrigado. A sinalização foi registrada e será tratada.</div>';
+  } catch (e) { erroBox($('snMsg'), e); ocupado(btn, false); }
+};
 
 const rotuloCampo = (k) => k.replace(/_/g, ' ').replace(/^./, (c) => c.toUpperCase());
 
@@ -765,6 +796,8 @@ const SITUACAO = {
 };
 const ESTADO = { rascunho: 'Rascunho', em_revisao: 'Em aprovação', vigente: 'Vigente', substituida: 'Substituída', obsoleta: 'Obsoleta', cancelada: 'Cancelada' };
 const badge = (k, rotulo) => '<span class="badge ' + cls(k) + '">' + esc(rotulo || k) + '</span>';
+const nomeAgente = (id) => (FERRAMENTAS.find((f) => f.agente === id) || {}).t || id;
+const DECLARACAO_IA = 'Revisei o conteúdo elaborado com apoio de IA e confirmo que ele reflete a prática da empresa.';
 
 TELAS.documentos = async () => {
   const pode = podeIA();
@@ -801,7 +834,7 @@ function desenharListaDocs() {
   }
   box.innerHTML = '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Código</th><th>Título</th><th class="opc">Tipo</th><th>Situação</th><th class="opc">Versão</th><th class="opc">Atualizado</th></tr></thead><tbody>'
     + lista.map((d) => '<tr class="clicavel" data-acao="abrirDoc" data-id="' + esc(d.id) + '"><td class="mono">' + esc(d.codigo) + '</td><td>' + esc(d.titulo)
-      + '</td><td class="opc">' + esc(S.tipos[d.tipo] || d.tipo) + '</td><td>' + badge(d.situacao, SITUACAO[d.situacao]) + '</td><td class="mono opc">'
+      + (d.apoio_ia ? ' ' + badge('ia', 'IA') : '') + '</td><td class="opc">' + esc(S.tipos[d.tipo] || d.tipo) + '</td><td>' + badge(d.situacao, SITUACAO[d.situacao]) + '</td><td class="mono opc">'
       + (d.versao_vigente ? 'v' + d.versao_vigente : '—') + (d.versao_aberta ? ' · v' + d.versao_aberta + ' aberta' : '') + '</td><td class="opc">' + data(d.atualizado_em) + '</td></tr>').join('')
     + '</tbody></table></div>';
 }
@@ -857,7 +890,10 @@ function desenharDoc() {
     + '<div class="btn-row">' + badge(d.situacao, SITUACAO[d.situacao]) + '</div>'
     + '<dl class="kv"><dt>Normas</dt><dd>' + esc(normas) + '</dd>'
     + '<dt>Versão vigente</dt><dd>' + (vv ? 'v' + vv.numero + ', aprovada por ' + esc(vv.aprovado_por || '—') + ' em ' + dataHora(vv.aprovado_em) : 'nenhuma ainda') + '</dd>'
-    + '<dt>Criado em</dt><dd>' + dataHora(d.criado_em) + '</dd></dl>';
+    + '<dt>Criado em</dt><dd>' + dataHora(d.criado_em) + '</dd>'
+    + (d.apoio_ia ? '<dt>Origem</dt><dd>Elaborado com apoio de IA (agente ' + esc(nomeAgente(d.apoio_ia)) + ')'
+      + (vv && vv.revisao_declarada ? ' · revisão humana declarada na aprovação da v' + vv.numero : '') + '</dd>' : '')
+    + '</dl>';
 
   const botoes = [];
   if (vigente) {
@@ -889,6 +925,8 @@ function desenharDoc() {
       if (aberta.estado === 'em_revisao') {
         h += admin
           ? '<form data-form="decidir" style="margin-top:var(--e-13)"><div class="field"><label for="dc_motivo">Parecer (obrigatório para devolver)</label><textarea id="dc_motivo" name="motivo" maxlength="1000"></textarea></div>'
+            + (d.apoio_ia ? '<div class="alert alert-info"><b>Elaborado com apoio de IA.</b> Auditorias de certificação cobram evidência de revisão humana competente antes da emissão. Leia o conteúdo inteiro, ajuste o que não corresponde à prática e só então aprove.'
+              + '<label style="display:flex;gap:var(--e-8);align-items:flex-start;margin-top:var(--e-8);font-weight:600"><input type="checkbox" id="dc_revisao"> ' + esc(DECLARACAO_IA) + '</label></div>' : '')
             + '<div class="btn-row"><button class="btn btn-primary" type="button" data-acao="decidir" data-a="aprovar">Aprovar e tornar vigente</button>'
             + '<button class="btn btn-ghost" type="button" data-acao="decidir" data-a="devolver">Devolver para ajuste</button></div>'
             + (va.minha ? '<p class="note">Você elaborou esta versão. A aprovação fica registrada como feita por quem elaborou.</p>' : '') + '</form>'
@@ -904,7 +942,7 @@ function desenharDoc() {
   h += '<div class="panel"><div class="card-t">Histórico de versões</div><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Versão</th><th>Estado</th><th>O que mudou</th><th>Elaborada</th><th>Aprovada</th><th></th></tr></thead><tbody>'
     + versoes.map((v) => '<tr><td class="mono">v' + v.numero + '</td><td>' + badge(v.estado, ESTADO[v.estado]) + '</td><td>' + esc(v.resumo)
       + (v.parecer ? '<div class="note">Parecer: ' + esc(v.parecer) + '</div>' : '') + '</td><td>' + esc(v.criado_por || '—') + '<div class="note">' + dataHora(v.criado_em) + '</div></td>'
-      + '<td>' + (v.aprovado_em ? esc(v.aprovado_por || '—') + '<div class="note">' + dataHora(v.aprovado_em) + '</div>' : '—') + '</td>'
+      + '<td>' + (v.aprovado_em ? esc(v.aprovado_por || '—') + '<div class="note">' + dataHora(v.aprovado_em) + (v.revisao_declarada ? ' · revisão de IA declarada' : '') + '</div>' : '—') + '</td>'
       + '<td><button class="btn btn-ghost btn-sm" data-acao="verVersao" data-n="' + v.numero + '">Ver</button></td></tr>').join('')
     + '</tbody></table></div><div id="versaoVista"></div></div>';
 
@@ -954,9 +992,14 @@ ACOES.docAcao = async (el) => {
 ACOES.decidir = async (el) => {
   const motivo = $('dc_motivo').value.trim();
   if (el.dataset.a === 'devolver' && !motivo) { erroBox($('docMsg'), new Error('Escreva o parecer: quem elaborou precisa saber o que ajustar.')); return; }
+  const declarou = !!($('dc_revisao') && $('dc_revisao').checked);
+  if (el.dataset.a === 'aprovar' && S.doc.documento.apoio_ia && !declarou) {
+    erroBox($('docMsg'), new Error('Marque a declaração de revisão: o documento foi elaborado com apoio de IA.'));
+    return;
+  }
   ocupado(el, true);
   try {
-    await api('POST', '/api/documentos/' + idDoc() + '/acao', { acao: el.dataset.a, motivo });
+    await api('POST', '/api/documentos/' + idDoc() + '/acao', { acao: el.dataset.a, motivo, revisao_confirmada: declarou });
     abrirDoc(S.doc.documento.id);
   } catch (e) { erroBox($('docMsg'), e); ocupado(el, false); }
 };
@@ -1021,7 +1064,9 @@ ACOES.imprimirDoc = () => {
   $('impressao').innerHTML = '<div class="imp-cab"><h1>' + esc(d.codigo) + ' — ' + esc(d.titulo) + '</h1>'
     + '<div><b>Empresa:</b> ' + esc(S.org.nome) + '</div><div><b>Tipo:</b> ' + esc(d.tipo_rotulo) + '</div>'
     + '<div><b>Versão:</b> ' + esc(vv.numero || '—') + '</div><div><b>Aprovada por:</b> ' + esc(vv.aprovado_por || '—') + ' em ' + dataHora(vv.aprovado_em) + '</div>'
-    + '<div><b>Normas:</b> ' + esc(d.normas.map((k) => (S.normas[k] || {}).rotulo || k).join(', ') || '—') + '</div></div>'
+    + '<div><b>Normas:</b> ' + esc(d.normas.map((k) => (S.normas[k] || {}).rotulo || k).join(', ') || '—') + '</div>'
+    + (d.apoio_ia ? '<div style="grid-column:1/-1"><b>Origem:</b> elaborado com apoio de IA; conteúdo revisado e aprovado por ' + esc(vv.aprovado_por || '—') + (vv.revisao_declarada ? ', com declaração de revisão registrada' : '') + '.</div>' : '')
+    + '</div>'
     + '<div class="doc-view">' + md(S.doc.conteudo_vigente) + '</div>'
     + '<div class="imp-rodape">Cópia impressa em ' + esc(new Date().toLocaleString('pt-BR')) + ' por ' + esc(S.usuario.nome)
     + '. Cópia não controlada: a versão válida é a vigente no sistema EPIGE — confira antes de usar.</div>';
@@ -1171,7 +1216,7 @@ const ACAO_LOG = {
   convite_criado: 'Convidou', convite_revogado: 'Revogou convite', acesso_alterado: 'Alterou acesso', redefinicao_gerada: 'Gerou link de nova senha',
   senha_alterada: 'Trocou a senha', senha_redefinida: 'Redefiniu a senha', '2fa_ativado': 'Ativou 2FA', '2fa_desativado': 'Desativou 2FA',
   '2fa_removido_pelo_admin': 'Removeu 2FA de alguém', sessoes_encerradas: 'Encerrou outras sessões', contexto_alterado: 'Alterou o contexto',
-  documento_criado: 'Criou documento', revisao_aberta: 'Abriu revisão', enviado_para_aprovacao: 'Enviou para aprovação',
+  documento_criado: 'Criou documento', resposta_sinalizada: 'Sinalizou resposta da IA', login_email_desconhecido: 'Tentou entrar com e-mail inexistente', revisao_aberta: 'Abriu revisão', enviado_para_aprovacao: 'Enviou para aprovação',
   devolvido_para_ajuste: 'Devolveu para ajuste', documento_aprovado: 'Aprovou documento', documento_obsoleto: 'Tornou obsoleto',
   revisao_descartada: 'Descartou revisão', documento_descartado: 'Descartou documento', dados_exportados: 'Exportou os dados',
   empresa_criada: 'Empresa criada', empresa_alterada: 'Empresa alterada', plataforma_configurada: 'Plataforma configurada',
@@ -1292,7 +1337,7 @@ ACOES.exportar = async (el) => {
 
 TELAS.plataforma = async () => {
   $('main').innerHTML = cabecalho('Administração da plataforma', 'Plataforma', 'Empresas atendidas, solicitações de acesso e tetos de gasto.')
-    + '<div id="platSol"></div>'
+    + '<div id="platSol"></div><div id="platSinal"></div>'
     + '<form data-form="novaEmpresa" class="panel"><div class="card-t">Nova empresa</div><div class="grid2">'
     + '<div class="field"><label for="ne_empresa">Empresa</label><input type="text" id="ne_empresa" name="empresa" required maxlength="120"></div>'
     + '<div class="field"><label for="ne_email">E-mail do administrador dela</label><input type="email" id="ne_email" name="email" required maxlength="254"></div></div>'
@@ -1301,7 +1346,31 @@ TELAS.plataforma = async () => {
   carregarPlataforma();
 };
 
+async function carregarSinalizacoes() {
+  try {
+    const d = await api('GET', '/api/plataforma/sinalizacoes');
+    const abertas = d.sinalizacoes.filter((x) => x.situacao === 'aberta').length;
+    $('platSinal').innerHTML = !d.sinalizacoes.length ? '' : '<div class="panel"><div class="card-t">Respostas de IA sinalizadas · ' + abertas + ' abertas</div>'
+      + d.sinalizacoes.map((x) => '<div class="finding ' + (x.situacao === 'aberta' ? 'alta' : 'ok') + '"><div class="f-top"><span class="tag ' + (x.situacao === 'aberta' ? 'alta' : 'ok') + '">' + esc(x.situacao) + '</span>'
+        + '<span class="f-req">' + esc(nomeAgente(x.agente)) + ' · ' + esc(x.norma) + ' · ' + esc(x.empresa || '') + ' · ' + dataHora(x.em) + '</span></div>'
+        + '<div><b>' + esc(x.motivo_rotulo) + '.</b> ' + esc(x.comentario) + '</div>'
+        + (x.trecho ? '<div class="f-ev">' + esc(x.trecho.slice(0, 600)) + (x.trecho.length > 600 ? '…' : '') + '</div>' : '')
+        + (x.situacao === 'aberta'
+          ? '<form data-form="tratarSinal" data-id="' + esc(x.id) + '" class="btn-row" style="margin-top:var(--e-8)"><input type="text" name="tratamento" required maxlength="1000" placeholder="O que foi corrigido no agente, ou por que não procede" style="flex:1"><button class="btn btn-ghost btn-sm" type="submit">Registrar tratamento</button></form>'
+          : '<div class="note">Tratamento: ' + esc(x.tratamento) + ' (' + dataHora(x.tratada_em) + ')</div>') + '</div>').join('')
+      + '</div>';
+  } catch (e) { erroBox($('platSinal'), e); }
+}
+
+FORMS.tratarSinal = async (f) => {
+  try {
+    await api('PATCH', '/api/plataforma/sinalizacoes/' + encodeURIComponent(f.dataset.id), { tratamento: campos(f).tratamento });
+    carregarSinalizacoes();
+  } catch (e) { erroBox($('platSinal'), e); }
+};
+
 async function carregarPlataforma() {
+  carregarSinalizacoes();
   try {
     const d = await api('GET', '/api/plataforma/organizacoes');
     $('platSol').innerHTML = d.solicitacoes.length ? '<div class="panel"><div class="card-t">Solicitações de acesso</div><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Quem</th><th>Empresa</th><th>Mensagem</th><th>Quando</th><th></th></tr></thead><tbody>'

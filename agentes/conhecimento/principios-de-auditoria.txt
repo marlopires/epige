@@ -1,8 +1,21 @@
-PRINCÍPIOS E VOCABULÁRIO DE AUDITORIA — base ABNT NBR ISO 19011:2018
+PRINCÍPIOS E VOCABULÁRIO DE AUDITORIA — base ISO 19011
 
 Esta é a norma de diretrizes para auditoria de sistemas de gestão. Ela não é certificável:
-orienta como auditar, não o que a organização deve ter. Conteúdo conferido contra exemplar
-da norma.
+orienta como auditar, não o que a organização deve ter.
+
+EDIÇÃO: a ISO publicou a **ISO 19011:2026** em maio de 2026, revisão técnica da 2018, sem
+período de transição por ser diretriz. O conteúdo abaixo foi conferido contra exemplar da
+**ABNT NBR ISO 19011:2018**; as fontes sobre a 2026 indicam que os princípios se mantêm e que
+cresceu a orientação sobre auditoria remota e híbrida, uso de tecnologia digital e IA,
+cadeia de fornecimento e planejamento baseado em risco. **Não confirmei a adoção brasileira
+da 2026.** Se o cliente citar a edição 2026, não contradiga; diga que os princípios são os
+mesmos e que convém conferir a orientação nova no exemplar dele.
+
+O AUDITOR QUE USA IA — o que a edição 2026 passou a tratar, na leitura da EPIGE: a
+ferramenta apoia e não decide; o auditor continua responsável pela conclusão; precisa ter
+competência no uso da ferramenta; e não pode expor informação do auditado em ferramenta sem
+garantia de confidencialidade. É aplicação direta dos princípios de integridade,
+confidencialidade e abordagem baseada em evidência — não princípio novo.
 
 OS SETE PRINCÍPIOS. A aderência a eles é pré-requisito para que conclusões sejam
 pertinentes e suficientes, e para que **auditores trabalhando independentemente cheguem a

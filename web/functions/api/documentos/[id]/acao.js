@@ -76,11 +76,17 @@ export async function onRequestPost(ctx) {
 
   if (acao === 'aprovar') {
     if (v.estado !== 'em_revisao') throw new HttpErro(409, 'Só versão enviada para aprovação pode ser aprovada.');
+    // O que a auditoria cobra de conteúdo feito com IA: evidência de revisão humana
+    // competente antes da emissão. Sem a declaração, não há aprovação.
+    const declarou = c.revisao_confirmada === true;
+    if (d.apoio_ia && !declarou) {
+      throw new HttpErro(400, 'Este documento foi elaborado com apoio de IA. Para aprovar, declare que o conteúdo foi revisado e reflete a prática da empresa.');
+    }
     // A primeira instrução só muda algo se a versão ainda estiver em revisão; as
     // demais dependem dela pelo número, dentro da mesma transação.
     const [r] = await db.batch([
-      db.prepare("UPDATE versoes SET estado = 'vigente', aprovado_por = ?, aprovado_em = ?, parecer = ? WHERE documento_id = ? AND numero = ? AND estado = 'em_revisao'")
-        .bind(s.usuario.id, t, motivo, ...onde),
+      db.prepare("UPDATE versoes SET estado = 'vigente', aprovado_por = ?, aprovado_em = ?, parecer = ?, revisao_declarada = ? WHERE documento_id = ? AND numero = ? AND estado = 'em_revisao'")
+        .bind(s.usuario.id, t, motivo, declarou ? 1 : 0, ...onde),
       db.prepare("UPDATE versoes SET estado = 'substituida' WHERE documento_id = ? AND estado = 'vigente' AND numero != ? AND EXISTS (SELECT 1 FROM versoes WHERE documento_id = ? AND numero = ? AND estado = 'vigente')")
         .bind(d.id, v.numero, d.id, v.numero),
       db.prepare("UPDATE documentos SET versao_vigente = ?, versao_aberta = NULL, atualizado_em = ? WHERE id = ? AND EXISTS (SELECT 1 FROM versoes WHERE documento_id = ? AND numero = ? AND estado = 'vigente')")
@@ -88,7 +94,8 @@ export async function onRequestPost(ctx) {
     ]);
     if (!r.meta?.changes) throw new HttpErro(409, 'Esta versão acabou de mudar de estado. Recarregue.');
     const propria = v.criado_por === s.usuario.id ? ' (aprovada por quem elaborou)' : '';
-    await evento('documento_aprovado', `versão ${v.numero}${propria}`);
+    const ia = d.apoio_ia ? `; apoio de IA (${d.apoio_ia}), revisão humana declarada` : '';
+    await evento('documento_aprovado', `versão ${v.numero}${propria}${ia}`);
     return json({ ok: true });
   }
 

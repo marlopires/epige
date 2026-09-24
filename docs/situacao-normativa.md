@@ -89,6 +89,28 @@ diretrizes e modelo de avaliação) e **PR 2030-2** (materialidade). É prática
 conformidade. Número de critérios e de temas diverge entre as versões nas fontes, e o
 agente foi instruído a não citar.
 
+### Quarta rodada — 24/09/2026: IA na auditoria
+
+**ISO 19011:2026 publicada em 27/05/2026.** Revisão técnica da 2018, sem transição por ser
+diretriz. Segundo as fontes, os sete princípios se mantêm; cresceu a orientação sobre
+auditoria remota e híbrida, tecnologia digital e IA, cadeia de fornecimento e planejamento
+por risco. O conteúdo dos agentes segue conferido contra a ABNT NBR ISO 19011:2018 e agora
+avisa da edição nova. Adoção brasileira da 2026 **não confirmada**.
+
+**Guia do APG sobre IA, 29/05/2026.** O grupo de práticas de auditoria da ISO 9001 (TC 176 +
+IAF) publicou "Auditing a Quality Management System that uses Artificial Intelligence (AI)
+systems", o primeiro dedicado ao tema. **Não consegui ler o documento** — o domínio da ISO está
+bloqueado neste ambiente —, só o que fontes secundárias relatam. O conteúdo dos agentes trata
+o tema como leitura da EPIGE sobre a prática de auditoria, e não cita item do guia.
+
+**Família da 42001.** A ISO/IEC 42001 segue na edição 2023 (ABNT 2024), sem emenda.
+Publicadas em 2025: **ISO/IEC 42005** (diretrizes de avaliação de impacto, não certificável) e
+**ISO/IEC 42006** (requisitos para organismos que certificam a 42001).
+
+**Marco legal de IA no Brasil.** O PL 2338/2023 passou pelo Senado em 10/12/2024 e seguia na
+Câmara em 2026, com votação anunciada para maio. **Não confirmei o desfecho.** Os agentes
+estão instruídos a não afirmar que há lei geral de IA em vigor.
+
 ### O que continua sem confirmação
 
 **A adoção brasileira da ISO 14001:2026.** O exemplar disponível da 14001 é digitalizado em
@@ -113,6 +135,7 @@ apoiadas só em fontes secundárias.
 | ISO 50001 | **ABNT NBR ISO 50001:2018** | — | A 2011 foi substituída; Emenda Climática da ISO sem adoção ABNT confirmada |
 | PBQP-H / SiAC | **Regimento Geral do SiAC** — Portaria 75/2021, anexos pela 577/2021 | — | Exclusivo desde 15/01/2022; níveis B e A |
 | ABNT PR 2030 | **PR 2030-1:2024 + PR 2030-2** | — | A 2022 foi cancelada em dez/2024. **Não certificável** |
+| ISO 19011 (diretriz) | ABNT NBR ISO 19011:2018 *(ISO 2026 publicada em 27/05/2026)* | — | Adoção ABNT da 2026 não confirmada |
 
 > A coluna diz **referência brasileira**, não ano da ISO. São coisas diferentes e confundi-las
 > foi um dos erros corrigidos em 22/09 — a 45001 é ISO 2018 e ABNT 2024.

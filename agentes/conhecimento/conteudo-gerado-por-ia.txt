@@ -1,0 +1,91 @@
+CONTEÚDO GERADO POR IA NO SISTEMA DE GESTÃO — o que a auditoria de certificação olha
+
+Vale para qualquer norma. Use quando o cliente usar IA — inclusive esta plataforma — para
+produzir documento, registro, análise ou decisão do sistema de gestão.
+
+DE ONDE VEM ESTE BLOCO: em maio de 2026 o grupo de práticas de auditoria da ISO 9001 (APG,
+formado por gente do comitê ISO/TC 176 e do IAF) publicou o primeiro guia para auditar
+sistema de gestão que usa IA, e a ISO 19011 ganhou a edição 2026, que passou a tratar de
+tecnologia digital e IA na auditoria. Nenhum dos dois cria requisito novo: **a norma de
+certificação continua a mesma; o que mudou é para onde o auditor olha.** Não diga que existe
+"requisito de IA" na ISO 9001 — a edição 2026 não trouxe. Não cite número de item desses
+guias: o que segue é a leitura da EPIGE sobre eles e sobre a prática de auditoria.
+
+A IDEIA CENTRAL — diga assim ao cliente:
+**A IA pode escrever. Quem responde é a empresa.** O auditor não pergunta se o texto foi
+escrito por IA; pergunta se a empresa sabe o que está escrito, se faz o que está escrito e
+se alguém competente conferiu antes de aprovar. Documento de IA sem essas três coisas é
+documento de ninguém.
+
+O QUE O AUDITOR VERIFICA, pelos requisitos que qualquer norma de sistema de gestão tem:
+
+1. **Documento que não reflete a prática.** É a constatação mais comum, e não é nova — a IA
+   só a tornou mais frequente. Procedimento genérico, com cargos que a empresa não tem,
+   etapas que ninguém executa e registros que ninguém preenche, vira não conformidade de
+   implementação na primeira entrevista. O auditor pergunta ao executor, não ao documento.
+
+2. **Controle de informação documentada.** Análise crítica e aprovação quanto à adequação
+   **antes** de emitir continuam obrigatórias. O que o auditor quer ver: quem revisou, quando,
+   e que a revisão foi de verdade — alteração feita, parecer registrado. Aprovação em lote
+   de dezenas de documentos no mesmo minuto é sinal de que ninguém leu.
+
+3. **Competência de quem usa e de quem revisa.** Revisar saída de IA exige saber o assunto.
+   Quem aprova um procedimento de calibração gerado por IA precisa entender de calibração.
+   A pergunta do auditor: "como a senhora sabe que isto está certo?".
+
+4. **Conhecimento organizacional.** O conhecimento precisa estar na empresa — nas pessoas e
+   nos registros —, não só na ferramenta. Se a única forma de responder como o processo
+   funciona é perguntar de novo à IA, o conhecimento não foi incorporado.
+
+5. **IA de terceiros é provedor externo.** Serviço de IA usado em processo do sistema de
+   gestão é produto ou serviço provido externamente: precisa de critério de escolha, de
+   controle proporcional ao efeito sobre o resultado e de acompanhamento. Isso vale para a
+   própria EPIGE, do ponto de vista do cliente.
+
+6. **Risco e contexto.** Uso relevante de IA é questão interna e fonte de risco e de
+   oportunidade: erro plausível ("alucinação"), dependência de fornecedor, vazamento de
+   informação, mudança de comportamento do modelo. O auditor espera ver o tema tratado no
+   planejamento, não descoberto na auditoria.
+
+7. **Confidencialidade.** Colar dado de cliente, dado pessoal ou informação sigilosa em
+   ferramenta de IA sem regra é problema de segurança da informação e de proteção de dados
+   (LGPD), qualquer que seja a norma certificada.
+
+8. **Requisito legal inventado.** Levantamento de legislação feito por IA com norma,
+   artigo ou prazo que não existem é o erro mais perigoso do tema — em 14001 e 45001 vira
+   não conformidade grave, porque a empresa passa a controlar a obrigação errada e deixa
+   de controlar a certa. Todo requisito legal precisa ter fonte oficial conferida.
+
+9. **Evidência fabricada — a linha vermelha.** Registro de algo que não aconteceu
+   (treinamento, inspeção, análise crítica, calibração) gerado para "fechar" auditoria não é
+   falha de documentação: é fraude, e pode levar à suspensão ou ao cancelamento do
+   certificado. A plataforma nunca produz isso.
+
+10. **Uso de IA em processo que decide.** Quando a IA influencia diretamente resultado
+    entregue ao cliente — aprova, classifica, calcula, inspeciona —, o auditor trata como
+    processo cuja saída precisa ser verificada ou validada, com supervisão humana capaz de
+    reverter a decisão. Aí a ISO/IEC 42001 deixa de ser curiosidade e vira referência útil.
+
+E DO LADO DO AUDITOR: a ISO 19011:2026 trata o auditor que usa IA. Ele continua responsável
+pela conclusão, precisa de competência na ferramenta e **não pode expor informação do
+auditado** colocando-a em ferramenta sem garantia de confidencialidade. Se o cliente
+perguntar se o auditor pode usar IA no relatório: pode apoiar, não pode decidir.
+
+COMO A EPIGE ORIENTA O CLIENTE — oito regras de uso, para dizer com estas palavras ou
+equivalentes:
+1. Tudo que a IA gera entra como **rascunho**. Nada vai para uso sem revisão e aprovação de
+   alguém competente no assunto.
+2. **Adapte à prática antes de aprovar.** Cargo, prazo, formulário e sistema citados no
+   documento têm de existir na empresa. Se não existem, mude o documento ou mude a prática —
+   conscientemente.
+3. **Registre a revisão.** Na EPIGE, a aprovação de documento feito com IA exige a
+   declaração de que o conteúdo foi revisado e reflete a prática, e fica no histórico.
+4. **Mantenha a origem visível.** O documento indica que foi elaborado com apoio de IA e
+   quem revisou e aprovou. Esconder a origem não protege ninguém; mostrar a revisão protege.
+5. **Confira toda referência legal e normativa** na fonte oficial antes de usar.
+6. **Não cole dado sigiloso ou pessoal** além do necessário. Descreva a situação; não
+   anexe o cadastro inteiro.
+7. **Nunca gere registro de atividade que não aconteceu.** Formulário em branco, sim;
+   formulário preenchido com dado inventado, jamais.
+8. **Trate a ferramenta de IA como fornecedor** do sistema de gestão: critério de escolha,
+   regra de uso escrita e reavaliação periódica.

@@ -83,6 +83,14 @@ try {
   await esperarTexto(dono, 'Salvar a conversa como registro');
   checar('custo da chamada aparece no medidor', (await dono.locator('#mCusto').innerText()) !== '0,0000');
   checar('medidor mostra o teto da empresa', (await dono.locator('#meterSub').innerText()).includes('teto diário'));
+  await dono.click('button:has-text("Sinalizar problema nesta resposta")');
+  await dono.selectOption('#sn_motivo', 'requisito_inexistente');
+  await dono.fill('#sn_comentario', 'Teste de sinalização.');
+  await dono.click('button:has-text("Enviar sinalização")');
+  await esperarTexto(dono, 'A sinalização foi registrada');
+  await dono.fill('#pergunta', 'E a ação corretiva?');
+  await dono.click('#btnGo');
+  await esperarTexto(dono, 'Salvar a conversa como registro');
   await dono.click('button:has-text("Salvar a conversa como registro")');
   await dono.click('button:has-text("Salvar como rascunho")');
   await esperarTexto(dono, 'Salvo como');
@@ -107,13 +115,19 @@ try {
   await dono.click('button:has-text("Salvar e enviar para aprovação")');
   await esperarTexto(dono, 'Aprovar e tornar vigente');
   checar('aviso de que quem aprova também elaborou', (await dono.locator('main').innerText()).includes('Você elaborou esta versão'));
+  checar('aprovação de documento feito com IA mostra a declaração de revisão', await dono.locator('#dc_revisao').isVisible());
+  await dono.click('button:has-text("Aprovar e tornar vigente")');
+  await esperarTexto(dono, 'Marque a declaração de revisão');
+  await dono.check('#dc_revisao');
   await dono.click('button:has-text("Aprovar e tornar vigente")');
   await esperarTexto(dono, 'Imprimir vigente');
   checar('documento vira vigente', (await dono.locator('main .badge').first().innerText()).toLowerCase().includes('vigente'));
   checar('relatório não oferece revisão (é registro)', !(await dono.locator('button:has-text("Abrir revisão")').count()));
+  checar('documento mostra a origem em IA e a revisão declarada', (await dono.locator('main dl').innerText()).includes('revisão humana declarada'));
   await dono.click('button:has-text("Imprimir vigente")');
   checar('impressão sai com identificação e aviso de cópia não controlada',
     (await dono.evaluate(() => window.__impresso === true)) && (await dono.locator('#impressao').innerText()).includes('Cópia não controlada'));
+  checar('impressão declara o apoio de IA e quem revisou', (await dono.locator('#impressao').innerText()).includes('elaborado com apoio de IA'));
   await dono.evaluate(() => document.body.classList.remove('imprimindo'));
   await tela(dono, '02-documento-vigente');
 
@@ -208,6 +222,8 @@ try {
   checar('log mostra aprovação e 2FA', (await dono.locator('#evBox').innerText()).includes('Ativou 2FA'));
   await dono.click('#rail button:has-text("Plataforma")');
   await dono.locator('#platEmp table').waitFor({ timeout: 10_000 });
+  await dono.locator('#platSinal .finding').first().waitFor({ timeout: 10_000 });
+  checar('plataforma mostra a resposta sinalizada', (await dono.locator('#platSinal').innerText()).toLowerCase().includes('1 abertas'));
   checar('plataforma lista a empresa', (await dono.locator('#platEmp').innerText()).includes('Metalúrgica Aurora'));
 
   /* ---- demonstração ---- */

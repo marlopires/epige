@@ -97,14 +97,14 @@ const CONHECIMENTO_POR_ESCOPO = {
 export const AGENTES = {
   orquestrador: { papeis: ['papeis/orquestrador'], modelo: 'haiku', base: false, norma: false, max: 300 },
   diagnostico: { papeis: ['papeis/diagnostico'], modelo: 'sonnet', conhecimento: true, max: 2000 },
-  consultor: { papeis: ['papeis/consultor'], modelo: 'sonnet', conhecimento: true, max: 1500 },
-  analista: { papeis: ['papeis/analista-documentos'], modelo: 'sonnet', conhecimento: true, max: 2500 },
-  auditor: { papeis: ['papeis/auditor', 'papeis/auditor-relatorio'], modelo: 'opus', conhecimento: true, auditoria: true, combinada: true, max: 3500 },
+  consultor: { papeis: ['papeis/consultor'], modelo: 'sonnet', conhecimento: true, ia: true, max: 1500 },
+  analista: { papeis: ['papeis/analista-documentos'], modelo: 'sonnet', conhecimento: true, ia: true, max: 2500 },
+  auditor: { papeis: ['papeis/auditor', 'papeis/auditor-relatorio'], modelo: 'opus', conhecimento: true, auditoria: true, combinada: true, ia: true, max: 3500 },
   auditor_base: { papeis: ['papeis/auditor'], modelo: 'opus', auditoria: true, max: 800 },
   causa: { papeis: ['papeis/analise-causa'], modelo: 'sonnet', conhecimento: true, max: 1200 },
   plano: { papeis: ['papeis/plano-de-acao'], modelo: 'sonnet', conhecimento: true, max: 2500 },
-  redator: { papeis: ['papeis/redator'], modelo: 'sonnet', conhecimento: true, max: 2500 },
-  formulario: { papeis: ['papeis/formulario'], modelo: 'sonnet', max: 2000 },
+  redator: { papeis: ['papeis/redator'], modelo: 'sonnet', conhecimento: true, ia: true, max: 2500 },
+  formulario: { papeis: ['papeis/formulario'], modelo: 'sonnet', ia: true, max: 2000 },
   legal: { papeis: ['papeis/legal-regulatorio'], modelo: 'sonnet', max: 2000 },
   sgi: { papeis: ['papeis/especialista-sgi'], modelo: 'sonnet', combinada: true, max: 2000 },
   lacuna: { papeis: ['papeis/lacuna-edicoes'], modelo: 'sonnet', max: 2000 },
@@ -193,6 +193,9 @@ export function montarSistema({ agente, norma, adicionais, escopo, contexto }) {
 
   // Quem trabalha com mais de um referencial precisa saber o que integra e o que não.
   if (cfg.combinada) partes.push(PROMPTS['conhecimento/integracao-entre-normas']);
+
+  // Quem produz ou avalia documento precisa saber o que a auditoria cobra de conteúdo feito com IA.
+  if (cfg.ia) partes.push(PROMPTS['conhecimento/conteudo-gerado-por-ia']);
 
   if (escopo) {
     partes.push(

@@ -76,6 +76,7 @@ Três arquivos não são de modos de falha:
 | `principios-de-auditoria.txt` | Todo auditor, em qualquer norma — é a ISO 19011. |
 | `integracao-entre-normas.txt` | Auditor e SGI. O que unifica, o que tem lógica própria e não deve ser fundido, os pares de normas, objetivos que competem e como conduzir auditoria combinada. |
 | `avaliacao-de-maturidade.txt` | Auditor, quando a sessão inclui a PR 2030. Troca conformidade por estágio de maturidade, **só para ela**. |
+| `conteudo-gerado-por-ia.txt` | Consultor, redator, formulário, analista e auditor, em todas as normas. O que a auditoria de certificação olha quando a empresa usa IA, e as oito regras de uso que a EPIGE orienta. |
 
 Os prompts mandam **não recitar a lista**: nomear o padrão quando ele aparece no caso
 concreto. Agente que despeja checklist parece competente e não ajuda ninguém.

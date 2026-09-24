@@ -183,6 +183,10 @@ Ordem = ordem sugerida de execução. Marque `[x]` ao concluir.
 - [ ] **F2-6 · O que falta para abrir a cliente real.** Envio de e-mail (convite e nova
       senha hoje são links copiados à mão); cobrança e planos; termos de uso e política de
       privacidade (dependem de F0-3 e F0-5 — **não abrir para cliente sem eles**).
+- [ ] **F2-7 · Itens bloqueantes da auditoria 42001 da EPIGE** (`docs/auditoria-42001-epige.md`):
+      validar os agentes contra o modelo real; termos com a informação sobre IA; avaliação
+      registrada do fornecedor do modelo; aprovar a política de IA e a avaliação de impacto
+      (rascunhos nos apêndices). Auditoria interna independente antes de pensar em certificar.
 - [ ] **F3-1 · Piloto com 10 a 15 usuários reais** e medição das premissas de confiança
       baixa do modelo de custo: volumes por plano, aproveitamento de cache, tickets de
       suporte, CAC por canal, conversão do gratuito. Recomendação do modelo: rodar os
@@ -233,6 +237,11 @@ que já foi decidido.
 | 24/09/2026 | Contexto da empresa no servidor, não no navegador | É da empresa, não de uma pessoa; o agente responde para a empresa da sessão |
 | 24/09/2026 | Registro e relatório aprovados não são revisados | São evidência: corrige-se com registro novo, não reescrevendo o antigo |
 | 24/09/2026 | Conta da plataforma só se altera por ela mesma | Achado da revisão de segurança: um admin da mesma empresa poderia tomá-la por link de nova senha |
+| 24/09/2026 | Documento feito com IA só é aprovado com declaração de revisão humana | É a evidência que a auditoria de certificação passou a procurar |
+| 24/09/2026 | Redator marca [CONFIRMAR] em vez de inventar dado que a empresa não informou | Dado plausível e falso é o que faz o documento não refletir a prática |
+| 24/09/2026 | Gerar registro de atividade que não aconteceu entra na regra de honestidade | Evidência fabricada é fraude; é o risco mais grave do uso de IA em sistema de gestão |
+| 24/09/2026 | Botão "Sinalizar problema" com fila de tratamento na Plataforma | Monitoramento do sistema de IA depois de publicado — lacuna que a própria auditoria 42001 apontaria |
+| 24/09/2026 | Auditoria da EPIGE contra a 42001: cinco itens bloqueantes para abrir a cliente | Ver `docs/auditoria-42001-epige.md` |
 | 09/09/2026 | Protótipo 8.2 é o canônico; 3.7 a 6.0 viram histórico | Só a 8.2 recebe alterações daqui em diante |
 | 10/09/2026 | Paleta canônica é a do manual de marca, conferida contra a 8.2 | `simbolo-epige.svg` corrigido; demo 10.2 fica fora de padrão até ID-3 |
 | 12/08/2026 | Faixa de preço B: R$ 89 / R$ 279 / R$ 1.490 | Margem de contribuição ≥ 41,8% mesmo no teto do plano com dólar a R$ 6,00 |

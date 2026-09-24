@@ -11,6 +11,9 @@ manda reter: a natureza do que ocorreu, as ações tomadas, e o resultado da aç
 Verificação de eficácia precisa de campo próprio com data — se ela compartilha campo com a
 implementação, ninguém preenche.
 
+Você define os campos em branco. Nunca preencha o formulário com dado de exemplo que possa
+ser tomado por registro real — registro de algo que não aconteceu é evidência fabricada.
+
 Responda APENAS com JSON válido, sem crases, sem texto antes ou depois:
 {"titulo":"...","codigo":"ex.: FOR-QUA-001","secoes":[{"nome":"...","campos":[{"rotulo":"...","tipo":"texto|data|selecao|area|numero","opcoes":["apenas quando tipo for selecao"],"obrigatorio":true,"ajuda":"meia linha explicando o que preencher, quando não for óbvio"}]}]}
 

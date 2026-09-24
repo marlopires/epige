@@ -11,7 +11,7 @@ export async function onRequestGet(ctx) {
   const linhas = await todos(
     ctx.env.EPIGE_DB,
     `SELECT d.id, d.codigo, d.titulo, d.tipo, d.normas, d.versao_vigente, d.versao_aberta, d.obsoleto, d.atualizado_em,
-            va.estado AS estado_aberta, vv.aprovado_em
+            d.apoio_ia, va.estado AS estado_aberta, vv.aprovado_em
        FROM documentos d
        LEFT JOIN versoes va ON va.documento_id = d.id AND va.numero = d.versao_aberta
        LEFT JOIN versoes vv ON vv.documento_id = d.id AND vv.numero = d.versao_vigente
@@ -40,6 +40,8 @@ export async function onRequestPost(ctx) {
   const corpo = lerConteudo(c.conteudo);
   const listaNormas = lerNormas(c.normas);
   const origem = texto(c.origem, 40) || 'manual';
+  // Documento feito com IA fica marcado para sempre: a aprovação vai exigir declaração de revisão.
+  const agenteIA = /^agente:[a-z_]{2,20}$/.test(origem) ? origem.slice(7) : '';
   const informado = c.codigo ? codigoValido(c.codigo) : null;
   const id = crypto.randomUUID();
   const t0 = agora();
@@ -49,9 +51,9 @@ export async function onRequestPost(ctx) {
     try {
       await env.EPIGE_DB.batch([
         env.EPIGE_DB.prepare(
-          `INSERT INTO documentos (id, org_id, codigo, titulo, tipo, normas, versao_aberta, criado_por, criado_em, atualizado_em)
-           VALUES (?, ?, ?, ?, ?, ?, 1, ?, ?, ?)`,
-        ).bind(id, s.org.id, codigo, titulo, t, listaNormas, s.usuario.id, t0, t0),
+          `INSERT INTO documentos (id, org_id, codigo, titulo, tipo, normas, apoio_ia, versao_aberta, criado_por, criado_em, atualizado_em)
+           VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?)`,
+        ).bind(id, s.org.id, codigo, titulo, t, listaNormas, agenteIA, s.usuario.id, t0, t0),
         env.EPIGE_DB.prepare(
           `INSERT INTO versoes (documento_id, numero, estado, conteudo, origem, resumo, criado_por, criado_em, editado_por, editado_em)
            VALUES (?, 1, 'rascunho', ?, ?, 'Emissão inicial', ?, ?, ?, ?)`,

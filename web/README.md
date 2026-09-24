@@ -27,8 +27,8 @@ web/
 │       ├── _motor.js           composição dos agentes e escolha de modelo
 │       └── _prompts.js         GERADO — não editar à mão
 └── testes/
-    ├── api.mjs                 119 verificações da API no runtime real
-    └── navegador.mjs           31 verificações clicando na interface
+    ├── api.mjs                 129 verificações da API no runtime real
+    └── navegador.mjs           35 verificações clicando na interface
 ```
 
 **Duas páginas.** `/` é a área de trabalho. `/demo/` é o percurso narrado do 10.2 — usa a
@@ -161,7 +161,7 @@ você é administrador da sua empresa e da plataforma.
 | Páginas | CSP sem script inline nem de terceiros, HSTS, bloqueio de moldura (clickjacking). |
 | Tokens de link | Convite e nova senha vão no fragmento da URL (`#`), que não chega a log de servidor; uso único; guardados só como hash. |
 | Conta da plataforma | Só ela mesma se altera. Admin da sua empresa não consegue gerar nova senha para você. |
-| IA | Chave e prompts no servidor. Limite de 60 chamadas/hora por pessoa, teto diário por empresa e teto diário global. |
+| IA | Chave e prompts no servidor. Limite de 60 chamadas/hora por pessoa, teto diário por empresa e teto diário global. Documento feito com IA fica marcado e só é aprovado com declaração de revisão humana. Resposta errada pode ser sinalizada, e a sinalização tem fila de tratamento. |
 | Auditoria | Log de login, falhas, convites, mudanças de acesso, aprovações e exportações. |
 | LGPD | Conversas com a IA não são guardadas — só o que a pessoa salva como documento. Exportação completa dos dados da empresa em JSON. |
 
@@ -172,8 +172,8 @@ diários no código.
 ## Testes
 
 ```bash
-node web/testes/api.mjs          # 119 verificações — não precisa de chave de API
-node web/testes/navegador.mjs    # 31 verificações — precisa do Playwright com Chromium
+node web/testes/api.mjs          # 129 verificações — não precisa de chave de API
+node web/testes/navegador.mjs    # 35 verificações — precisa do Playwright com Chromium
 ```
 
 Os dois sobem a plataforma localmente no **runtime real da Cloudflare** (wrangler), com

@@ -147,6 +147,33 @@ const MIGRACOES = [
     `CREATE INDEX IF NOT EXISTS chamadas_dia ON chamadas(dia)`,
     `CREATE INDEX IF NOT EXISTS chamadas_usuario ON chamadas(usuario_id, em)`,
   ],
+  // 2 — documento elaborado com apoio de IA e declaração de revisão humana na aprovação
+  [
+    `ALTER TABLE documentos ADD COLUMN apoio_ia TEXT NOT NULL DEFAULT ''`,
+    `ALTER TABLE versoes ADD COLUMN revisao_declarada INTEGER NOT NULL DEFAULT 0`,
+    `UPDATE documentos SET apoio_ia = (
+       SELECT SUBSTR(v.origem, 8) FROM versoes v
+        WHERE v.documento_id = documentos.id AND v.origem LIKE 'agente:%' ORDER BY v.numero LIMIT 1)
+     WHERE EXISTS (SELECT 1 FROM versoes v WHERE v.documento_id = documentos.id AND v.origem LIKE 'agente:%')`,
+  ],
+  // 3 — sinalização de resposta de IA com problema (monitoramento pós-implantação)
+  [
+    `CREATE TABLE IF NOT EXISTS sinalizacoes (
+      id TEXT PRIMARY KEY,
+      org_id TEXT NOT NULL,
+      usuario_id TEXT NOT NULL,
+      agente TEXT NOT NULL,
+      norma TEXT NOT NULL DEFAULT '',
+      motivo TEXT NOT NULL,
+      comentario TEXT NOT NULL DEFAULT '',
+      trecho TEXT NOT NULL DEFAULT '',
+      situacao TEXT NOT NULL DEFAULT 'aberta',
+      tratamento TEXT NOT NULL DEFAULT '',
+      em INTEGER NOT NULL,
+      tratada_em INTEGER
+    )`,
+    `CREATE INDEX IF NOT EXISTS sinalizacoes_situacao ON sinalizacoes(situacao, em)`,
+  ],
 ];
 
 let pronto = null;
