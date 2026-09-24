@@ -5,8 +5,8 @@ Nasceram da auditoria de 24/09/2026 (`../auditoria-42001-epige.md`).
 
 | Documento | O que é | Situação |
 |---|---|---|
-| [`politica-de-ia.md`](politica-de-ia.md) | POL-IA-001 — dez compromissos da EPIGE no uso de IA | **Aguardando sua aprovação** |
-| [`avaliacao-de-impacto.md`](avaliacao-de-impacto.md) | AVI-IA-001 — quem pode ser afetado, gravidade, controles, impacto residual | **Aguardando sua aprovação** |
+| [`politica-de-ia.md`](politica-de-ia.md) | POL-IA-001 — dez compromissos da EPIGE no uso de IA | **Vigente** — aprovada em 24/09/2026 |
+| [`avaliacao-de-impacto.md`](avaliacao-de-impacto.md) | AVI-IA-001 — quem pode ser afetado, gravidade, controles, impacto residual | **Vigente** — aprovada em 24/09/2026 |
 | [`avaliacao-fornecedor-anthropic.md`](avaliacao-fornecedor-anthropic.md) | Avaliação do fornecedor do modelo | Aprovado com condições; confirmar na conta de API |
 | [`/termos/`](../../web/public/termos/index.html) | Termos de uso (página pública) | Rascunho em revisão jurídica |
 | [`/privacidade/`](../../web/public/privacidade/index.html) | Política de privacidade (página pública) | Rascunho em revisão jurídica |

@@ -187,11 +187,11 @@ registrados —, mas sem processo formal. Esperado para o estágio.
 | 1 | Validar contra o modelo real (constatação 6) | Conjunto de avaliação pronto: 22 guardrails, 30 casos de 10.2 e **8 novos de saúde e segurança do trabalho**. Agentes de 45001 e 39001 passam a dizer que a definição do controle cabe a profissional habilitado. | **Chave de API** para rodar; você conferir o gabarito; profissional de SST conferir `avaliacao/iso-45001-sst.json` |
 | 2 | Termos e privacidade com informação sobre IA (10) | Rascunhos publicados em `/termos/` e `/privacidade/`, com pontos jurídicos marcados; página `/ia/` de transparência; **aceite obrigatório e registrado** no cadastro, com novo aceite a cada versão | **Advogado** revisar os pontos marcados; mudar `TERMOS_VERSAO` quando aprovar |
 | 3 | Avaliação do fornecedor (12) | `governanca-ia/avaliacao-fornecedor-anthropic.md`: aprovado com condições, com base na documentação pública | Confirmar os termos na **conta de API**; advogado confirmar cláusulas-padrão da ANPD |
-| 4 | Política de IA (2) | `governanca-ia/politica-de-ia.md`, POL-IA-001 v1 | **Sua aprovação** |
-| 5 | Avaliação de impacto (4) | `governanca-ia/avaliacao-de-impacto.md`, AVI-IA-001 v1, oito impactos | **Sua aprovação** |
+| 4 | Política de IA (2) | `governanca-ia/politica-de-ia.md`, POL-IA-001 v1 — **aprovada em 24/09/2026** | ✅ Fechado |
+| 5 | Avaliação de impacto (4) | `governanca-ia/avaliacao-de-impacto.md`, AVI-IA-001 v1 — **aprovada em 24/09/2026** | ✅ Fechado. Os três impactos com risco residual médio seguem abertos até os itens 1, 2 e 3 |
 
-O que dependia só da EPIGE-plataforma está feito. O que falta é de três pessoas: você
-(aprovar e criar a conta), o advogado (termos, privacidade, transferência internacional) e
+Dos cinco bloqueantes, dois estão fechados. O que falta é de três pessoas: você
+(criar a conta de API), o advogado (termos, privacidade, transferência internacional) e
 um profissional de segurança do trabalho (gabarito de SST).
 
 ## Apêndice A — Política de IA da EPIGE (rascunho para aprovação)

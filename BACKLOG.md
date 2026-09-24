@@ -187,7 +187,7 @@ Ordem = ordem sugerida de execução. Marque `[x]` ao concluir.
       *24/09/2026 — o que cabia à plataforma está feito:* política e avaliação de impacto
       redigidas (`docs/governanca-ia/`), fornecedor avaliado, termos e privacidade em
       rascunho com aceite registrado, página de transparência `/ia/`, 8 casos de avaliação
-      de SST. **Falta:** sua aprovação da política e da avaliação de impacto; advogado nos
+      de SST. *Política e avaliação de impacto aprovadas por você em 24/09/2026.* **Falta:** advogado nos
       termos, na privacidade e na transferência internacional; conta de API para validar;
       profissional de SST para conferir o gabarito. Auditoria interna independente antes
       de pensar em certificar.
@@ -248,6 +248,7 @@ que já foi decidido.
 | 24/09/2026 | Auditoria da EPIGE contra a 42001: cinco itens bloqueantes para abrir a cliente | Ver `docs/auditoria-42001-epige.md` |
 | 24/09/2026 | Anthropic aprovada como fornecedor, com condições | Não treina com o dado, apaga em 30 dias; armazenamento só nos EUA exige cláusulas-padrão da ANPD — ponto para o advogado |
 | 24/09/2026 | Aceite de termos obrigatório, versionado e registrado | A cada nova versão, todos aceitam de novo antes de continuar; o aceite vai na exportação |
+| 24/09/2026 | Política de IA (POL-IA-001) e avaliação de impacto (AVI-IA-001) aprovadas pela direção | Dois dos cinco bloqueantes da auditoria 42001 fechados; reapresentar no controle de documentos quando a plataforma estiver no ar |
 | 24/09/2026 | Em SST e segurança viária, o agente diz que o controle é definido por profissional habilitado | O impacto mais grave da avaliação: orientação errada chegando a um trabalhador |
 | 09/09/2026 | Protótipo 8.2 é o canônico; 3.7 a 6.0 viram histórico | Só a 8.2 recebe alterações daqui em diante |
 | 10/09/2026 | Paleta canônica é a do manual de marca, conferida contra a 8.2 | `simbolo-epige.svg` corrigido; demo 10.2 fica fora de padrão até ID-3 |

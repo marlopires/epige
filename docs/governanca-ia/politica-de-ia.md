@@ -1,6 +1,6 @@
 # Política de Inteligência Artificial da EPIGE
 
-**Código:** POL-IA-001 · **Versão:** 1 · **Situação:** aguardando aprovação da direção
+**Código:** POL-IA-001 · **Versão:** 1 · **Situação:** **vigente** — aprovada pela direção em 24/09/2026
 
 ---
 
@@ -64,4 +64,4 @@ regulação aplicável.
 
 | Versão | Data | Aprovado por | Assinatura |
 |---|---|---|---|
-| 1 | | Marlo Pires — direção | |
+| 1 | 24/09/2026 | Marlo Pires — direção | Aprovação dada por escrito na sessão de trabalho com Claude; reapresentar no controle de documentos da plataforma quando ela estiver no ar |

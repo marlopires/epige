@@ -1,6 +1,6 @@
 # Avaliação de impacto do sistema de IA da EPIGE
 
-**Código:** AVI-IA-001 · **Versão:** 1 · **Situação:** aguardando aprovação da direção
+**Código:** AVI-IA-001 · **Versão:** 1 · **Situação:** **vigente** — aprovada pela direção em 24/09/2026
 **Método:** estrutura inspirada nas diretrizes da ISO/IEC 42005:2025 para avaliação de
 impacto — descrição do sistema, uso pretendido, uso indevido previsível, partes afetadas,
 impactos, controles e impacto residual. Redação própria da EPIGE.
@@ -61,4 +61,4 @@ impacto não previsto aqui.
 
 | Versão | Data | Aprovado por | Assinatura |
 |---|---|---|---|
-| 1 | | Marlo Pires — direção | |
+| 1 | 24/09/2026 | Marlo Pires — direção | Aprovação dada por escrito na sessão de trabalho com Claude; reapresentar no controle de documentos da plataforma quando ela estiver no ar |
