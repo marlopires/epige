@@ -174,6 +174,11 @@ const MIGRACOES = [
     )`,
     `CREATE INDEX IF NOT EXISTS sinalizacoes_situacao ON sinalizacoes(situacao, em)`,
   ],
+  // 4 — aceite dos termos de uso e da política de privacidade, com versão e data
+  [
+    `ALTER TABLE usuarios ADD COLUMN termos_versao TEXT`,
+    `ALTER TABLE usuarios ADD COLUMN termos_aceitos_em INTEGER`,
+  ],
 ];
 
 let pronto = null;

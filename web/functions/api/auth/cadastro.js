@@ -8,6 +8,7 @@ import { um, executar, agora, registrarEvento, contarTentativas, registrarTentat
 import { hashSenha, validarSenha, sha256 } from '../../_lib/cripto.js';
 import { lerConvite } from '../../_lib/convites.js';
 import { criarSessao, segredo, verificaVazamento, iteracoes } from '../../_lib/sessao.js';
+import { TERMOS_VERSAO } from '../../_lib/termos.js';
 
 export async function onRequestPost({ request, env }) {
   const chave = `convite:${ip(request)}`;
@@ -20,6 +21,7 @@ export async function onRequestPost({ request, env }) {
     await registrarTentativa(env, chave);
     throw new HttpErro(404, 'Convite inválido, expirado ou já usado. Peça um novo ao administrador.');
   }
+  if (c.aceite !== true) throw new HttpErro(400, 'Para criar o acesso, leia e aceite os Termos de uso e a Política de privacidade.');
   const nome = obrigatorio(c.nome, 120, 'Informe o seu nome.');
   const problema = await validarSenha(c.senha, convite.email, verificaVazamento(env));
   if (problema) throw new HttpErro(400, problema);
@@ -41,9 +43,9 @@ export async function onRequestPost({ request, env }) {
   const id = crypto.randomUUID();
   await executar(
     env.EPIGE_DB,
-    `INSERT INTO usuarios (id, org_id, email, nome, senha, papel, criado_em, senha_alterada_em)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-    id, convite.org_id, convite.email, nome, hash, convite.papel, agora(), agora(),
+    `INSERT INTO usuarios (id, org_id, email, nome, senha, papel, criado_em, senha_alterada_em, termos_versao, termos_aceitos_em)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    id, convite.org_id, convite.email, nome, hash, convite.papel, agora(), agora(), TERMOS_VERSAO, agora(),
   );
   await registrarEvento(env, { org: convite.org_id, usuario: id, acao: 'cadastro', detalhe: `papel ${convite.papel}`, ip: ip(request) });
   const setCookie = await criarSessao(env, request, id);

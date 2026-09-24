@@ -64,6 +64,8 @@ try {
   await dono.fill('#f_email', 'marlo@aurora.com');
   await dono.fill('#f_senha', SENHA);
   await dono.fill('#f_senha2', SENHA);
+  checar('primeiro acesso mostra o aceite com links para termos, privacidade e IA', (await dono.locator('.aceite a').count()) === 3);
+  await dono.check('#f_aceite');
   await dono.click('button:has-text("Criar conta")');
   await esperarTexto(dono, 'Quem é a empresa?');
   const rail = await dono.locator('#rail').innerText();
@@ -182,6 +184,7 @@ try {
   await leitor.fill('#f_nome', 'Leitor Aurora');
   await leitor.fill('#f_senha', SENHA);
   await leitor.fill('#f_senha2', SENHA);
+  await leitor.check('#f_aceite');
   await leitor.click('button:has-text("Criar meu acesso")');
   await esperarTexto(leitor, 'Os documentos vigentes');
   const railLeitor = await leitor.locator('#rail').innerText();
@@ -244,6 +247,13 @@ try {
   await anonimo.click('button:has-text("Enviar solicitação")');
   await esperarTexto(anonimo, 'Solicitação enviada');
   await tela(anonimo, '08-solicitacao');
+
+  /* ---- páginas públicas ---- */
+  await anonimo.goto(srv.base + '/ia/');
+  await esperarTexto(anonimo, 'Como a IA da EPIGE funciona');
+  checar('página de transparência da IA mostra o fornecedor e a confiança por norma', (await anonimo.locator('main').innerText()).includes('Anthropic'));
+  await anonimo.goto(srv.base + '/privacidade/');
+  checar('política de privacidade avisa que é rascunho em revisão jurídica', (await anonimo.locator('.rascunho').count()) === 1);
 
   /* ---- segurança da página ---- */
   for (const [nome, p] of [['dono', dono], ['leitor', leitor], ['anônimo', anonimo]]) {

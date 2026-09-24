@@ -1,0 +1,29 @@
+/* Páginas públicas de termos, privacidade e transparência da IA. */
+:root{--tinta:#0B1020; --papel:#F5F8FC; --sup:#FFFFFF; --azul:#2B52DC; --verde:#2F7F82; --ambar:#8A5B06; --ambar-f:#FBF2DF;
+  --suave:#5B6478; --linha:#E1E7F0; --sans:'Inter Tight', -apple-system, 'Segoe UI', Roboto, sans-serif; --mono:'IBM Plex Mono', ui-monospace, Menlo, monospace}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--papel); color:#1F2638; font-family:var(--sans); font-size:16.5px; line-height:1.65; padding-inline:20px; padding-block:0 64px}
+.pag{max-width:760px; margin:0 auto}
+header{display:flex; align-items:center; gap:10px; padding-block:24px; border-bottom:1px solid var(--linha); margin-bottom:32px}
+header a{display:flex; align-items:center; gap:10px; color:var(--tinta); text-decoration:none; font-weight:800; font-size:19px; letter-spacing:-.04em}
+header svg{width:30px; height:30px}
+header nav{margin-left:auto; display:flex; gap:14px; flex-wrap:wrap; font-size:13.5px}
+header nav a{font-weight:500; font-size:13.5px; color:var(--suave); letter-spacing:0}
+h1{font-size:clamp(28px,5vw,40px); letter-spacing:-.035em; line-height:1.15; color:var(--tinta); margin:0 0 10px; text-wrap:balance}
+h2{font-size:21px; letter-spacing:-.02em; color:var(--tinta); margin:36px 0 8px}
+h3{font-size:16.5px; color:var(--tinta); margin:20px 0 4px}
+p,ul,ol{margin:0 0 12px}
+ul,ol{padding-left:22px}
+li{margin-bottom:4px}
+a{color:var(--azul); text-underline-offset:3px}
+.versao{font-family:var(--mono); font-size:12.5px; color:var(--suave); margin-bottom:22px}
+.rascunho{background:var(--ambar-f); color:var(--ambar); border:1px solid #EBD9A8; border-radius:10px; padding:12px 16px; font-size:14.5px; margin-bottom:26px}
+.confirmar{font-family:var(--mono); font-size:13px; background:var(--ambar-f); color:var(--ambar); padding:0 5px; border-radius:4px}
+.tabela{overflow-x:auto; margin-bottom:16px}
+table{border-collapse:collapse; width:100%; font-size:14.5px; background:var(--sup)}
+th,td{text-align:left; padding:8px 10px; border-bottom:1px solid var(--linha); vertical-align:top}
+th{font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:var(--suave)}
+.alta{color:#1F6B60; font-weight:600}
+.media{color:var(--ambar); font-weight:600}
+footer{margin-top:48px; padding-top:16px; border-top:1px solid var(--linha); font-size:13.5px; color:var(--suave)}

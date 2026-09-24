@@ -10,6 +10,7 @@ import { json, lerCorpo, obrigatorio, email as lerEmail, texto, HttpErro, ip } f
 import { um, executar, agora, registrarEvento, contarTentativas, registrarTentativa } from '../../_lib/banco.js';
 import { hashSenha, validarSenha, iguais } from '../../_lib/cripto.js';
 import { criarSessao, segredo, verificaVazamento, iteracoes } from '../../_lib/sessao.js';
+import { TERMOS_VERSAO } from '../../_lib/termos.js';
 
 async function haUsuarios(env) {
   return !!(await um(env.EPIGE_DB, 'SELECT 1 AS x FROM usuarios LIMIT 1'));
@@ -32,6 +33,7 @@ export async function onRequestPost({ request, env }) {
     await registrarTentativa(env, chaveIp);
     throw new HttpErro(401, 'Código de acesso incorreto.');
   }
+  if (c.aceite !== true) throw new HttpErro(400, 'Para criar o acesso, leia e aceite os Termos de uso e a Política de privacidade.');
   const empresa = obrigatorio(c.empresa, 120, 'Informe o nome da empresa.');
   const nome = obrigatorio(c.nome, 120, 'Informe o seu nome.');
   const mail = lerEmail(c.email);
@@ -47,9 +49,9 @@ export async function onRequestPost({ request, env }) {
   // Inserção condicional: se duas pessoas tentarem ao mesmo tempo, só uma leva.
   const r = await executar(
     env.EPIGE_DB,
-    `INSERT INTO usuarios (id, org_id, email, nome, senha, papel, superadmin, criado_em, senha_alterada_em)
-     SELECT ?, ?, ?, ?, ?, 'admin', 1, ?, ? WHERE NOT EXISTS (SELECT 1 FROM usuarios)`,
-    usuarioId, orgId, mail, nome, hash, t, t,
+    `INSERT INTO usuarios (id, org_id, email, nome, senha, papel, superadmin, criado_em, senha_alterada_em, termos_versao, termos_aceitos_em)
+     SELECT ?, ?, ?, ?, ?, 'admin', 1, ?, ?, ?, ? WHERE NOT EXISTS (SELECT 1 FROM usuarios)`,
+    usuarioId, orgId, mail, nome, hash, t, t, TERMOS_VERSAO, t,
   );
   if (!r.meta?.changes) {
     await executar(env.EPIGE_DB, 'DELETE FROM organizacoes WHERE id = ?', orgId);

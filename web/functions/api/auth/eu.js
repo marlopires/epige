@@ -4,7 +4,7 @@ import { json } from '../../_lib/http.js';
 import { exigir } from '../../_lib/sessao.js';
 
 export function onRequestGet(ctx) {
-  const s = exigir(ctx);
+  const s = exigir(ctx, { semAceite: true });
   const { teto_diario_brl, ...org } = s.org;
   return json({ usuario: s.usuario, organizacao: org });
 }

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Como a IA funciona — EPIGE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/legal.css">
+</head>
+<body>
+<div class="pag">
+<header><a href="/"><svg viewBox="0 0 200 200" aria-hidden="true"><defs><linearGradient id="mg" x1="8%" y1="0%" x2="92%" y2="100%"><stop offset="0" stop-color="#2B52DC"/><stop offset=".45" stop-color="#3273EE"/><stop offset=".72" stop-color="#4391C7"/><stop offset="1" stop-color="#439397"/></linearGradient></defs><path d="M98.66,200.03 L87.37,198.47 L79.77,195.30 L24.95,162.55 L15.52,153.74 L11.70,147.21 L9.19,135.49 L9.05,70.99 L11.91,55.90 L16.31,48.97 L24.71,41.21 L89.99,3.04 L99.76,0.25 L105.10,0.08 L111.89,1.57 L126.06,9.51 L128.91,13.70 L129.21,16.98 L128.25,20.86 L124.22,24.98 L50.50,67.83 L46.98,70.81 L43.72,79.14 L43.85,126.38 L46.86,134.28 L82.40,156.48 L89.92,160.56 L95.17,161.81 L100.31,161.57 L105.61,159.82 L150.04,132.84 L172.71,119.74 L177.59,118.13 L180.59,117.82 L185.75,119.43 L188.93,122.74 L190.72,127.17 L190.95,136.46 L187.42,148.53 L182.80,154.83 L179.17,157.83 L116.08,194.87 L107.44,198.53 L98.76,200.02 Z" fill="url(#mg)"/><circle cx="156.86" cy="53.64" r="22.97" fill="#74D4C1"/><path d="M94.10,123.65 L89.64,123.14 L83.17,120.07 L69.05,111.55 L66.06,107.49 L65.71,102.52 L68.16,97.93 L71.96,94.96 L102.82,77.47 L107.93,75.40 L115.42,75.81 L133.46,86.09 L137.36,91.16 L137.13,97.97 L132.88,102.42 L102.71,120.32 L94.21,123.63 Z" fill="#3C8589"/></svg>EPIGE</a>
+<nav><a href="/termos/">Termos de uso</a><a href="/privacidade/">Privacidade</a><a href="/ia/">Como a IA funciona</a></nav></header>
+<main>
+<h1>Como a IA da EPIGE funciona</h1>
+<div class="versao">Nota de transparência · setembro de 2026</div>
+<p>A EPIGE usa inteligência artificial para apoiar — nunca para decidir. Esta página explica o que a IA faz, o que ela não faz, de onde vem e onde pode errar.</p>
+<h2>O que acontece quando você pergunta</h2>
+<ol>
+<li>A plataforma monta as instruções do agente: as regras da EPIGE, o conhecimento sobre a norma escolhida, o papel do agente e o contexto da sua empresa.</li>
+<li>Envia essas instruções e a sua pergunta ao modelo de IA do fornecedor.</li>
+<li>Mostra a resposta, o agente e o modelo que responderam, e o custo.</li>
+<li>A conversa não é guardada. Se você salvar a resposta como documento, ela entra como rascunho, marcada como elaborada com apoio de IA, e só vale depois de revisada e aprovada.</li>
+</ol>
+<h2>Fornecedor e modelos</h2>
+<p>O modelo de IA é da <b>Anthropic</b> (família Claude). A EPIGE usa modelos diferentes conforme o papel: um modelo intermediário para a maioria dos agentes e o modelo mais capaz para a auditoria simulada, onde o custo de errar é maior. O fornecedor não usa o conteúdo enviado para treinar modelos. Mais detalhes na <a href="/privacidade/">política de privacidade</a>.</p>
+<h2>Regras que os agentes seguem</h2>
+<ul>
+<li>Não reproduzem texto de norma — explicam com linguagem própria.</li>
+<li>Não prometem nem estimam certificação.</li>
+<li>Não inventam requisito, prazo, número ou referência legal; marcam o que precisa ser confirmado.</li>
+<li>Não produzem registro de atividade que não aconteceu.</li>
+<li>Usam o mecanismo próprio de cada norma, sem misturar normas.</li>
+<li>Deixam a decisão técnica com a sua empresa. O auditor simulado constata; não presta consultoria.</li>
+<li>Em saúde e segurança do trabalho e segurança viária, dizem que a definição do controle cabe a profissional habilitado.</li>
+</ul>
+<h2>Onde a IA é mais confiável — e onde é menos</h2>
+<p>O conhecimento de cada norma tem nível de confiança. <b>Alta</b>: conferido contra o texto da norma. <b>Média</b>: edição e conteúdo apurados em fontes secundárias — o agente evita citar número de cláusula e a tela avisa.</p>
+<div class="tabela"><table>
+<thead><tr><th>Referencial</th><th>Confiança</th></tr></thead>
+<tbody>
+<tr><td>ISO 9001 · ISO 45001 · ISO/IEC 27001 · ISO 37301</td><td class="alta">Alta</td></tr>
+<tr><td>ISO 14001 · ISO 37001 · ISO 39001 · ISO/IEC 42001 · ISO 50001 · PBQP-H/SiAC · ABNT PR 2030</td><td class="media">Média</td></tr>
+</tbody></table></div>
+<h2>Limites conhecidos</h2>
+<ul>
+<li>A IA pode errar com segurança aparente. Revise sempre.</li>
+<li>O conhecimento tem data. Revisões de norma e mudanças de legislação posteriores podem não estar refletidas.</li>
+<li>A IA não conhece a sua empresa além do que você informa. Documento que não reflete a sua prática é o erro mais comum.</li>
+<li>A auditoria simulada não é auditoria de certificação.</li>
+</ul>
+<h2>Como a qualidade é controlada</h2>
+<ul>
+<li>Antes de publicar qualquer mudança, os agentes passam por um conjunto de testes de comportamento; os casos críticos precisam passar 100%.</li>
+<li>Qualquer usuário pode clicar em <b>Sinalizar problema nesta resposta</b>. Toda sinalização é analisada e o tratamento fica registrado.</li>
+<li>A EPIGE mantém política de IA, avaliação de impacto e avaliação do fornecedor, revisadas periodicamente.</li>
+</ul>
+
+</main>
+<footer>EPIGE — Inteligência para Excelência em Gestão. <span class="confirmar">[CONFIRMAR: razão social e CNPJ]</span></footer>
+</div>
+</body>
+</html>

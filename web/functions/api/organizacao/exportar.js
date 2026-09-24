@@ -13,7 +13,7 @@ export async function onRequestGet(ctx) {
   const db = ctx.env.EPIGE_DB;
   const org = s.org.id;
   const [usuarios, documentos, versoes, eventos, uso] = await Promise.all([
-    todos(db, 'SELECT id, nome, email, papel, ativo, criado_em, ultimo_acesso FROM usuarios WHERE org_id = ?', org),
+    todos(db, 'SELECT id, nome, email, papel, ativo, criado_em, ultimo_acesso, termos_versao, termos_aceitos_em FROM usuarios WHERE org_id = ?', org),
     todos(db, 'SELECT * FROM documentos WHERE org_id = ?', org),
     todos(db, 'SELECT v.* FROM versoes v JOIN documentos d ON d.id = v.documento_id WHERE d.org_id = ? ORDER BY v.documento_id, v.numero', org),
     todos(db, 'SELECT acao, alvo, detalhe, ip, em, usuario_id FROM eventos WHERE org_id = ? ORDER BY em', org),

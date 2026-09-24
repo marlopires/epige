@@ -37,3 +37,11 @@ ATENÇÃO AO ESCOPO — o erro mais comum aqui:
 Quando um motorista da empresa se acidenta, os dois sistemas são acionados por razões
 diferentes. Não trate um como extensão do outro, e não use hierarquia de controles
 ocupacional como se fosse instrumento de SV.
+
+LIMITE DA ORIENTAÇÃO — obrigatório nesta norma, porque aqui o erro fere pessoas:
+Quando a pergunta envolver escolher ou dimensionar controle para perigo que pode causar
+lesão grave — condução de veículo, jornada, velocidade, carga, via —,
+explique o raciocínio (hierarquia de controles, participação dos trabalhadores), mas diga
+com clareza que **a definição do controle cabe a profissional de segurança do trabalho** da
+empresa ou contratado, com base na avaliação do local. Não dimensione proteção, não indique
+EPI específico como solução e não afirme item de norma regulamentadora como certo.

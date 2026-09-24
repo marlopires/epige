@@ -27,8 +27,8 @@ web/
 │       ├── _motor.js           composição dos agentes e escolha de modelo
 │       └── _prompts.js         GERADO — não editar à mão
 └── testes/
-    ├── api.mjs                 129 verificações da API no runtime real
-    └── navegador.mjs           35 verificações clicando na interface
+    ├── api.mjs                 135 verificações da API no runtime real
+    └── navegador.mjs           38 verificações clicando na interface
 ```
 
 **Duas páginas.** `/` é a área de trabalho. `/demo/` é o percurso narrado do 10.2 — usa a
@@ -172,8 +172,8 @@ diários no código.
 ## Testes
 
 ```bash
-node web/testes/api.mjs          # 129 verificações — não precisa de chave de API
-node web/testes/navegador.mjs    # 35 verificações — precisa do Playwright com Chromium
+node web/testes/api.mjs          # 135 verificações — não precisa de chave de API
+node web/testes/navegador.mjs    # 38 verificações — precisa do Playwright com Chromium
 ```
 
 Os dois sobem a plataforma localmente no **runtime real da Cloudflare** (wrangler), com
@@ -206,8 +206,11 @@ dados em **Minha conta → Exportar dados da empresa**.
 - **Cobrança.** O teto por empresa existe; plano e pagamento, não.
 - **Histórico de conversa.** A conversa com a IA some ao recarregar a página — de
   propósito, por LGPD. O que importa se salva como documento.
-- **Textos legais.** Termos de uso e política de privacidade dependem do advogado
-  (F0-3 e F0-5). **Não abra para cliente real sem eles.**
+- **Textos legais aprovados.** Termos de uso (`/termos/`) e política de privacidade
+  (`/privacidade/`) estão publicados como **rascunho em revisão jurídica**, com os pontos
+  do advogado marcados, e o aceite já é obrigatório e registrado. Quando o advogado
+  aprovar, atualize os textos e mude `TERMOS_VERSAO` em `functions/_lib/termos.js` — todos
+  aceitam de novo. **Não abra para cliente real antes disso.**
 
 ## O que NÃO foi verificado
 

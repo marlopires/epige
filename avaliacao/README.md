@@ -103,7 +103,7 @@ linha de comando, não uma semana de trabalho.
 
 ### Custo estimado
 
-48 casos (18 guardrails + 30 de conteúdo) × (1 chamada ao agente + 1 ao avaliador). Com o
+60 casos (22 guardrails + 30 de conteúdo da 9001 + 8 de saúde e segurança do trabalho) × (1 chamada ao agente + 1 ao avaliador). Com o
 modelo de produção para o agente — Sonnet 5 na maioria, Opus 5 nos 4 casos de auditor — e
 Sonnet 5 no avaliador, ordem de **R$ 1 a R$ 4 por rodada completa** nas tarifas do
 `modelo-custo-precificacao.md`. Barato o suficiente para rodar a cada mudança de prompt,

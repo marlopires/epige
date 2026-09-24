@@ -12,6 +12,7 @@
 import { token, sha256 } from './cripto.js';
 import { um, executar, agora } from './banco.js';
 import { HttpErro, ip } from './http.js';
+import { TERMOS_VERSAO } from './termos.js';
 
 export const COOKIE = '__Host-epige';
 const OCIOSA_MS = 12 * 3_600_000;
@@ -64,7 +65,7 @@ export async function lerSessao(env, request) {
   const s = await um(
     env.EPIGE_DB,
     `SELECT s.id AS sessao_id, s.usada_em, s.expira_em,
-            u.id, u.email, u.nome, u.papel, u.superadmin, u.ativo,
+            u.id, u.email, u.nome, u.papel, u.superadmin, u.ativo, u.termos_versao,
             (u.totp_segredo IS NOT NULL) AS totp_ativo,
             o.id AS org_id, o.nome AS org_nome, o.atividade, o.porte, o.nivel, o.situacao,
             o.teto_diario_brl, o.ativa AS org_ativa
@@ -92,6 +93,7 @@ export async function lerSessao(env, request) {
       papel: s.papel,
       superadmin: !!s.superadmin,
       totp_ativo: !!s.totp_ativo,
+      precisa_aceitar: s.termos_versao !== TERMOS_VERSAO,
     },
     org: {
       id: s.org_id,
@@ -114,9 +116,12 @@ export const encerrarTodas = (env, usuarioId, exceto = '') =>
  * Exige sessão e, opcionalmente, papel. A autorização é sempre feita aqui, no
  * servidor — esconder botão na tela é conveniência, não controle de acesso.
  */
-export function exigir(ctx, { papeis = null, superadmin = false } = {}) {
+export function exigir(ctx, { papeis = null, superadmin = false, semAceite = false } = {}) {
   const s = ctx.data.sessao;
   if (!s) throw new HttpErro(401, 'Sua sessão expirou. Entre novamente.');
+  if (!semAceite && s.usuario.precisa_aceitar) {
+    throw new HttpErro(403, 'Os termos de uso foram atualizados. Leia e aceite para continuar.', { precisa_aceitar: true });
+  }
   if (superadmin && !s.usuario.superadmin) throw new HttpErro(403, 'Acesso restrito à administração da plataforma.');
   if (papeis && !papeis.includes(s.usuario.papel)) throw new HttpErro(403, 'O seu papel nesta empresa não permite esta ação.');
   return s;

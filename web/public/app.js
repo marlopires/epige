@@ -70,6 +70,7 @@ async function api(metodo, caminho, corpo) {
   if (r.status === 401 && S.usuario && !caminho.startsWith('/api/auth/entrar')) {
     sessaoExpirou();
   }
+  if (r.status === 403 && d.precisa_aceitar && S.usuario) telaAceite(S.usuario);
   if (!r.ok) {
     const e = new Error(d.erro || 'O servidor respondeu com erro ' + r.status + '.');
     e.status = r.status;
@@ -149,6 +150,9 @@ ACOES.copiar = async (el) => {
 
 /* ============================================================ acesso */
 
+const LINKS_LEGAIS = '<a href="/termos/" target="_blank" rel="noopener">Termos de uso</a>, a <a href="/privacidade/" target="_blank" rel="noopener">Política de privacidade</a> e <a href="/ia/" target="_blank" rel="noopener">como a IA da EPIGE funciona</a>';
+const caixaAceite = () => '<label class="aceite" for="f_aceite"><input type="checkbox" id="f_aceite" name="aceite" required> <span>Li e aceito os ' + LINKS_LEGAIS + '. Entendo que o conteúdo gerado por IA é rascunho e precisa de revisão antes de uso.</span></label>';
+
 const campo = (nome, rotulo, tipo = 'text', extra = '') =>
   '<div class="field"><label for="f_' + nome + '">' + esc(rotulo) + '</label><input type="' + tipo + '" id="f_' + nome + '" name="' + nome + '" ' + extra + '></div>';
 
@@ -202,6 +206,7 @@ function telaAcesso(modo, aviso = '') {
       + campo('nome', 'Seu nome', 'text', 'required maxlength="120" autocomplete="name"')
       + campo('email', 'E-mail', 'email', 'required maxlength="254" autocomplete="username"')
       + senha('senha', 'Senha (mínimo de 10 caracteres)', 'new-password') + senha('senha2', 'Repita a senha', 'new-password')
+      + caixaAceite()
       + '<button class="btn btn-primary" type="submit">Criar conta</button>' + erro + '</form>'
       + '<div class="auth-links"><button class="linkish" data-acao="modoAcesso" data-modo="entrar">Voltar para entrar</button></div>';
   } else if (modo === 'convite') {
@@ -212,12 +217,26 @@ function telaAcesso(modo, aviso = '') {
       + '<form data-form="redefinir" class="panel">' + senha('nova', 'Nova senha', 'new-password') + senha('nova2', 'Repita a nova senha', 'new-password')
       + '<button class="btn btn-primary" type="submit">Salvar nova senha</button>' + erro + '</form>';
   }
-  $('acesso').innerHTML = '<div class="auth">' + h + '</div>';
+  $('acesso').innerHTML = '<div class="auth">' + h + '<p class="note" style="margin-top:var(--e-21)">' + LINKS_LEGAIS.replace(', a ', ' · ').replace(' e ', ' · ') + '</p></div>';
   const primeiro = $('acesso').querySelector('input:not([type=hidden]):not([tabindex="-1"])');
   if (primeiro) primeiro.focus();
 }
 
 ACOES.modoAcesso = (el) => { S.precisaCodigo = false; telaAcesso(el.dataset.modo); };
+
+/** Termos mudaram: ninguém continua sem ler e aceitar a versão nova. */
+function telaAceite(usuario) {
+  telaAcesso('entrar');
+  $('acesso').innerHTML = '<div class="auth"><h2>Termos atualizados</h2>'
+    + '<p class="lede">Olá, ' + esc(usuario.nome) + '. Os termos de uso e a política de privacidade da EPIGE mudaram. Para continuar, leia e aceite a versão nova.</p>'
+    + '<form data-form="aceite" class="panel">' + caixaAceite() + '<button class="btn btn-primary" type="submit">Aceitar e continuar</button><p class="msg-erro" id="msgAcesso" role="alert"></p></form>'
+    + '<div class="auth-links"><button class="linkish" data-acao="sair">Sair</button></div></div>';
+}
+
+FORMS.aceite = (f) => enviarAcesso(f, async (c) => {
+  await api('POST', '/api/auth/aceite', { aceite: c.aceite === 'on' });
+  await entrarNaApp();
+});
 
 const msgAcesso = (t) => { const m = $('msgAcesso'); if (m) m.textContent = t; };
 
@@ -256,7 +275,7 @@ FORMS.solicitar = (f) => enviarAcesso(f, async (c) => {
 FORMS.primeiro = (f) => enviarAcesso(f, async (c) => {
   if (c.senha !== c.senha2) throw new Error('As duas senhas não conferem.');
   delete c.senha2;
-  await api('POST', '/api/auth/primeiro-acesso', c);
+  await api('POST', '/api/auth/primeiro-acesso', { ...c, aceite: c.aceite === 'on' });
   await entrarNaApp();
 });
 
@@ -270,6 +289,7 @@ async function carregarConvite() {
       + campo('nome', 'Seu nome', 'text', 'required maxlength="120" autocomplete="name"')
       + campo('senha', 'Senha (mínimo de 10 caracteres)', 'password', 'required minlength="10" maxlength="128" autocomplete="new-password"')
       + campo('senha2', 'Repita a senha', 'password', 'required minlength="10" maxlength="128" autocomplete="new-password"')
+      + caixaAceite()
       + '<button class="btn btn-primary" type="submit">Criar meu acesso</button><p class="msg-erro" id="msgAcesso" role="alert"></p></form>';
   } catch (e) {
     $('conviteInfo').innerHTML = '<div class="alert alert-err">' + esc(e.message) + '</div>'
@@ -279,7 +299,7 @@ async function carregarConvite() {
 
 FORMS.cadastro = (f) => enviarAcesso(f, async (c) => {
   if (c.senha !== c.senha2) throw new Error('As duas senhas não conferem.');
-  await api('POST', '/api/auth/cadastro', { token: S.tokenConvite, nome: c.nome, senha: c.senha });
+  await api('POST', '/api/auth/cadastro', { token: S.tokenConvite, nome: c.nome, senha: c.senha, aceite: c.aceite === 'on' });
   S.tokenConvite = null;
   await entrarNaApp();
 });
@@ -308,6 +328,7 @@ function sessaoExpirou() {
 
 async function entrarNaApp() {
   const eu = await api('GET', '/api/auth/eu');
+  if (eu.usuario.precisa_aceitar) return telaAceite(eu.usuario);
   S.usuario = eu.usuario;
   S.org = eu.organizacao;
   const cat = await api('GET', '/api/chat');
@@ -1216,7 +1237,7 @@ const ACAO_LOG = {
   convite_criado: 'Convidou', convite_revogado: 'Revogou convite', acesso_alterado: 'Alterou acesso', redefinicao_gerada: 'Gerou link de nova senha',
   senha_alterada: 'Trocou a senha', senha_redefinida: 'Redefiniu a senha', '2fa_ativado': 'Ativou 2FA', '2fa_desativado': 'Desativou 2FA',
   '2fa_removido_pelo_admin': 'Removeu 2FA de alguém', sessoes_encerradas: 'Encerrou outras sessões', contexto_alterado: 'Alterou o contexto',
-  documento_criado: 'Criou documento', resposta_sinalizada: 'Sinalizou resposta da IA', login_email_desconhecido: 'Tentou entrar com e-mail inexistente', revisao_aberta: 'Abriu revisão', enviado_para_aprovacao: 'Enviou para aprovação',
+  documento_criado: 'Criou documento', termos_aceitos: 'Aceitou os termos', resposta_sinalizada: 'Sinalizou resposta da IA', login_email_desconhecido: 'Tentou entrar com e-mail inexistente', revisao_aberta: 'Abriu revisão', enviado_para_aprovacao: 'Enviou para aprovação',
   devolvido_para_ajuste: 'Devolveu para ajuste', documento_aprovado: 'Aprovou documento', documento_obsoleto: 'Tornou obsoleto',
   revisao_descartada: 'Descartou revisão', documento_descartado: 'Descartou documento', dados_exportados: 'Exportou os dados',
   empresa_criada: 'Empresa criada', empresa_alterada: 'Empresa alterada', plataforma_configurada: 'Plataforma configurada',

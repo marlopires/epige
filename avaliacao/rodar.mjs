@@ -201,7 +201,7 @@ function placar(nome, resultados) {
 
 const main = async () => {
   const pedidos = process.argv.slice(2);
-  const conjuntos = pedidos.length ? pedidos : ['guardrails', 'iso-9001-10.2'];
+  const conjuntos = pedidos.length ? pedidos : ['guardrails', 'iso-9001-10.2', 'iso-45001-sst'];
   // O modelo do agente é o de produção, por agente; fica registrado em cada resultado.
   const saida = { rodado_em: new Date().toISOString(), modelo_agente: 'o de produção, por agente', modelo_juiz: MODELO_JUIZ, conjuntos: {} };
 

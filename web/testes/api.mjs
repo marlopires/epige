@@ -72,15 +72,16 @@ try {
   const tipoErrado = await fetch(`${BASE}/api/auth/primeiro-acesso`, { method: 'POST', headers: { origin: BASE, 'content-type': 'text/plain' }, body: '{}' });
   checar('corpo que não é JSON é recusado', tipoErrado.status === 415, tipoErrado.status);
 
-  status('primeiro acesso com código errado', await dono.post('/api/auth/primeiro-acesso', { codigo: 'errado', empresa: 'EPIGE', nome: 'Dono', email: 'dono@epige.com.br', senha: SENHA }), 401);
-  status('senha curta é recusada', await dono.post('/api/auth/primeiro-acesso', { codigo: CODIGO, empresa: 'EPIGE', nome: 'Dono', email: 'dono@epige.com.br', senha: 'curta' }), 400);
-  const boot = await dono.post('/api/auth/primeiro-acesso', { codigo: CODIGO, empresa: 'EPIGE', nome: 'Dono', email: 'Dono@Epige.com.br', senha: SENHA });
+  status('primeiro acesso com código errado', await dono.post('/api/auth/primeiro-acesso', { aceite: true, codigo: 'errado', empresa: 'EPIGE', nome: 'Dono', email: 'dono@epige.com.br', senha: SENHA }), 401);
+  status('senha curta é recusada', await dono.post('/api/auth/primeiro-acesso', { aceite: true, codigo: CODIGO, empresa: 'EPIGE', nome: 'Dono', email: 'dono@epige.com.br', senha: 'curta' }), 400);
+  const boot = await dono.post('/api/auth/primeiro-acesso', { aceite: true, codigo: CODIGO, empresa: 'EPIGE', nome: 'Dono', email: 'Dono@Epige.com.br', senha: SENHA });
   status('primeiro acesso cria a conta', boot, 201);
   checar('cookie de sessão é __Host, HttpOnly, Secure e SameSite=Strict',
     /__Host-epige=.+HttpOnly.*Secure.*SameSite=Strict/i.test(boot.headers.get('set-cookie') ?? ''), boot.headers.get('set-cookie'));
-  status('primeiro acesso não pode ser repetido', await new Cliente('x').post('/api/auth/primeiro-acesso', { codigo: CODIGO, empresa: 'Outra', nome: 'X', email: 'x@x.com', senha: SENHA }), 409);
+  status('primeiro acesso não pode ser repetido', await new Cliente('x').post('/api/auth/primeiro-acesso', { aceite: true, codigo: CODIGO, empresa: 'Outra', nome: 'X', email: 'x@x.com', senha: SENHA }), 409);
   const eu = await dono.get('/api/auth/eu');
   checar('dono é superadmin e admin', eu.dados?.usuario?.superadmin === true && eu.dados?.usuario?.papel === 'admin', eu.dados);
+  checar('aceite dos termos registrado no primeiro acesso', eu.dados?.usuario?.precisa_aceitar === false, eu.dados?.usuario);
   checar('e-mail guardado em minúsculas', eu.dados?.usuario?.email === 'dono@epige.com.br', eu.dados?.usuario?.email);
   status('sem sessão, /eu responde 401', await new Cliente('anon').get('/api/auth/eu'), 401);
   checar('resposta da API traz cabeçalhos de segurança',
@@ -92,18 +93,20 @@ try {
   const adminB = new Cliente('adminB');
   const infoConvite = await adminB.post('/api/auth/convite', { token: token(novaEmpresa.dados.link, 'convite') });
   checar('convite mostra e-mail e empresa', infoConvite.dados?.email === 'admin@beta.com' && infoConvite.dados?.empresa === 'Construtora Beta', infoConvite.dados);
-  status('cadastro pelo convite', await adminB.post('/api/auth/cadastro', { token: token(novaEmpresa.dados.link, 'convite'), nome: 'Admin Beta', senha: SENHA }), 201);
-  status('convite não serve duas vezes', await new Cliente('y').post('/api/auth/cadastro', { token: token(novaEmpresa.dados.link, 'convite'), nome: 'Outro', senha: SENHA }), 404);
+  status('cadastro pelo convite', await adminB.post('/api/auth/cadastro', { aceite: true, token: token(novaEmpresa.dados.link, 'convite'), nome: 'Admin Beta', senha: SENHA }), 201);
+  status('convite não serve duas vezes', await new Cliente('y').post('/api/auth/cadastro', { aceite: true, token: token(novaEmpresa.dados.link, 'convite'), nome: 'Outro', senha: SENHA }), 404);
   status('admin comum não acessa a plataforma', await adminB.get('/api/plataforma/organizacoes'), 403);
 
   const convEditor = await adminB.post('/api/equipe', { email: 'editor@beta.com', papel: 'editor' });
   const convLeitor = await adminB.post('/api/equipe', { email: 'leitor@beta.com', papel: 'leitor' });
   status('admin convida editor', convEditor, 201);
   status('convite para e-mail já cadastrado é recusado', await adminB.post('/api/equipe', { email: 'dono@epige.com.br', papel: 'leitor' }), 409);
+  const semAceite = await new Cliente('s').post('/api/auth/cadastro', { token: token(convEditor.dados.link, 'convite'), nome: 'Sem aceite', senha: SENHA });
+  status('cadastro sem aceite dos termos é recusado', semAceite, 400);
   const editor = new Cliente('editor');
   const leitor = new Cliente('leitor');
-  status('editor se cadastra', await editor.post('/api/auth/cadastro', { token: token(convEditor.dados.link, 'convite'), nome: 'Editora Beta', senha: SENHA }), 201);
-  status('leitor se cadastra', await leitor.post('/api/auth/cadastro', { token: token(convLeitor.dados.link, 'convite'), nome: 'Leitor Beta', senha: SENHA }), 201);
+  status('editor se cadastra', await editor.post('/api/auth/cadastro', { aceite: true, token: token(convEditor.dados.link, 'convite'), nome: 'Editora Beta', senha: SENHA }), 201);
+  status('leitor se cadastra', await leitor.post('/api/auth/cadastro', { aceite: true, token: token(convLeitor.dados.link, 'convite'), nome: 'Leitor Beta', senha: SENHA }), 201);
   status('editor não vê a equipe', await editor.get('/api/equipe'), 403);
   status('editor não convida', await editor.post('/api/equipe', { email: 'z@beta.com', papel: 'admin' }), 403);
   const equipeB = await adminB.get('/api/equipe');
@@ -115,7 +118,7 @@ try {
   // Admin da mesma empresa do dono da plataforma não pode tomar a conta dele.
   const convColega = await dono.post('/api/equipe', { email: 'colega@epige.com.br', papel: 'admin' });
   const colega = new Cliente('colega');
-  await colega.post('/api/auth/cadastro', { token: token(convColega.dados.link, 'convite'), nome: 'Colega', senha: SENHA });
+  await colega.post('/api/auth/cadastro', { aceite: true, token: token(convColega.dados.link, 'convite'), nome: 'Colega', senha: SENHA });
   status('admin da empresa do dono não gera nova senha para o superadmin', await colega.post(`/api/equipe/${donoId}`, { acao: 'redefinir_senha' }), 403);
   status('admin da empresa do dono não rebaixa o superadmin', await colega.patch(`/api/equipe/${donoId}`, { papel: 'leitor' }), 403);
   status('admin da empresa do dono não acessa a plataforma', await colega.get('/api/plataforma/organizacoes'), 403);
@@ -282,6 +285,7 @@ try {
   const bruto = JSON.stringify(exp.dados ?? {});
   checar('exportação traz documentos e versões', exp.dados?.documentos?.length >= 2 && exp.dados?.versoes?.length >= 3, exp.status);
   checar('exportação não traz senha, chave de 2FA nem token', !/pbkdf2|totp|token_hash|"senha"/.test(bruto));
+  checar('exportação traz a versão e a data do aceite dos termos', exp.dados?.usuarios?.every((u) => u.termos_versao && u.termos_aceitos_em));
   checar('exportação é anexo', /attachment/.test(exp.headers.get('content-disposition') ?? ''));
   const ev = await adminB.get('/api/organizacao/eventos');
   const acoes = new Set((ev.dados?.eventos ?? []).map((e) => e.acao));
@@ -304,6 +308,10 @@ try {
   const pagina = await fetch(`${BASE}/`);
   const csp = pagina.headers.get('content-security-policy') ?? '';
   checar('página com CSP sem script inline', /script-src 'self'(;|$)/.test(csp) && !/script-src[^;]*unsafe-inline/.test(csp), csp);
+  for (const caminho of ['/termos/', '/privacidade/', '/ia/']) {
+    const r = await fetch(BASE + caminho);
+    checar(`página pública ${caminho} existe e tem CSP`, r.status === 200 && /script-src 'self'/.test(r.headers.get('content-security-policy') ?? ''), r.status);
+  }
   checar('página com HSTS e proteção contra moldura', /max-age=/.test(pagina.headers.get('strict-transport-security') ?? '') && /frame-ancestors 'none'/.test(csp));
 } catch (e) {
   falhas.push(`exceção no teste: ${e.stack ?? e}`);

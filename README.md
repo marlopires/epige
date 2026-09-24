@@ -22,6 +22,7 @@ qualidade, com escopo de lançamento em ISO 9001.
 | [`identidade/IDENTIDADE_VISUAL.md`](identidade/IDENTIDADE_VISUAL.md) | Manual de marca em 13 seções. Paleta canônica, tipografia, escala φ, usos vedados. |
 | [`docs/situacao-normativa.md`](docs/situacao-normativa.md) | Qual edição de cada ISO está vigente, com prazos e fontes. **Reverificar a cada trimestre.** |
 | [`docs/orientacao-uso-de-ia.md`](docs/orientacao-uso-de-ia.md) | **Para o cliente:** o que a auditoria olha em material gerado por IA, e oito regras de uso. |
+| [`docs/governanca-ia/`](docs/governanca-ia/README.md) | Política de IA, avaliação de impacto e avaliação do fornecedor — aguardando aprovação. |
 | [`docs/auditoria-42001-epige.md`](docs/auditoria-42001-epige.md) | A EPIGE auditada contra a ISO/IEC 42001: 14 constatações, 5 bloqueantes, política e avaliação de impacto em rascunho. |
 | [`docs/orientacao-transicao-9001.md`](docs/orientacao-transicao-9001.md) | Orientação de transição para clientes. Pronta para virar página, e-mail ou conversa comercial. |
 | [`agentes/README.md`](agentes/README.md) | Os prompts que governam os agentes, e a ressalva de sincronia com o HTML. |
