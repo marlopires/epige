@@ -182,10 +182,8 @@ textarea{resize:vertical; min-height:78px; line-height:1.55}
     <path d="M94.10,123.65 L89.64,123.14 L83.17,120.07 L69.05,111.55 L66.06,107.49 L65.71,102.52 L68.16,97.93 L71.96,94.96 L102.82,77.47 L107.93,75.40 L115.42,75.81 L133.46,86.09 L137.36,91.16 L137.13,97.97 L132.88,102.42 L102.71,120.32 L94.21,123.63 Z" fill="#3C8589"/>
   </svg>
   <h2 style="font-size:20px;margin-bottom:8px">Demonstração restrita</h2>
-  <p style="color:var(--muted);font-size:13.5px;margin-bottom:18px">Esta demonstração consome IA paga. O acesso é por código enquanto estamos em teste.</p>
-  <div class="field"><input type="text" id="codigo" placeholder="código de acesso"
-    onkeydown="if(event.key==='Enter')entrar()" style="text-align:center"></div>
-  <button class="btn btn-primary" onclick="entrar()" style="width:100%">Entrar</button>
+  <p style="color:var(--muted);font-size:13.5px;margin-bottom:18px" id="gateTxt">Esta demonstração consome IA paga. Entre com a sua conta da plataforma para continuar.</p>
+  <a class="btn btn-primary" href="/?volta=/demo/" style="display:block;text-decoration:none;width:100%;box-sizing:border-box">Entrar na plataforma</a>
   <p id="gateMsg" style="color:var(--rose);font-size:12.5px;margin-top:12px;min-height:18px"></p>
 </div>
 
@@ -194,31 +192,31 @@ textarea{resize:vertical; min-height:78px; line-height:1.55}
   <nav class="rail-left">
     <div class="rail-title">Ciclo de tratamento</div>
     <div class="rail-sub">A ordem importa: cada etapa consome o resultado da anterior, como no processo real.</div>
-    <button class="step on" data-s="0" onclick="go(0)">
+    <button class="step on" data-s="0" data-acao="go" data-n="0">
       <span class="step-n">1</span>
       <span><span class="step-t">Contexto da empresa</span><span class="step-d">Define como todos os agentes respondem</span></span>
     </button>
-    <button class="step" data-s="1" onclick="go(1)" disabled>
+    <button class="step" data-s="1" data-acao="go" data-n="1" disabled>
       <span class="step-n">2</span>
       <span><span class="step-t">Consultar especialista</span><span class="step-d">Entender o requisito antes de aplicar</span></span>
     </button>
-    <button class="step" data-s="2" onclick="go(2)" disabled>
+    <button class="step" data-s="2" data-acao="go" data-n="2" disabled>
       <span class="step-n">3</span>
       <span><span class="step-t">Gerar procedimento</span><span class="step-d">Documento do zero, sob medida</span></span>
     </button>
-    <button class="step" data-s="3" onclick="go(3)" disabled>
+    <button class="step" data-s="3" data-acao="go" data-n="3" disabled>
       <span class="step-n">4</span>
       <span><span class="step-t">Gerar formulário</span><span class="step-d">O registro que sustenta a evidência</span></span>
     </button>
-    <button class="step" data-s="4" onclick="go(4)" disabled>
+    <button class="step" data-s="4" data-acao="go" data-n="4" disabled>
       <span class="step-n">5</span>
       <span><span class="step-t">Auditar</span><span class="step-d">Auditor independente avalia o que foi gerado</span></span>
     </button>
-    <button class="step" data-s="5" onclick="go(5)" disabled>
+    <button class="step" data-s="5" data-acao="go" data-n="5" disabled>
       <span class="step-n">6</span>
       <span><span class="step-t">Lacuna para a edição 2026</span><span class="step-d">O que muda com a ISO 9001:2026</span></span>
     </button>
-    <button class="step" data-s="6" onclick="go(6)" disabled>
+    <button class="step" data-s="6" data-acao="go" data-n="6" disabled>
       <span class="step-n">✓</span>
       <span><span class="step-t">Fechamento</span><span class="step-d">Custo real da sessão inteira</span></span>
     </button>
@@ -255,7 +253,7 @@ textarea{resize:vertical; min-height:78px; line-height:1.55}
         <div class="field"><label for="e_sit">Como as não conformidades são tratadas hoje</label>
           <textarea id="e_sit">Registramos os problemas em uma planilha compartilhada. Não há análise de causa estruturada e ninguém confere se a ação resolveu de verdade. Estamos buscando a certificação ISO 9001 pela primeira vez.</textarea></div>
         <div class="btn-row">
-          <button class="btn btn-primary" onclick="salvarPerfil()">Confirmar contexto</button>
+          <button class="btn btn-primary" data-acao="salvarPerfil">Confirmar contexto</button>
           <span class="note" style="margin:0">Nenhuma chamada de IA nesta etapa — custo zero.</span>
         </div>
       </div>
@@ -268,15 +266,15 @@ textarea{resize:vertical; min-height:78px; line-height:1.55}
       <div class="panel">
         <div class="thread" id="thread"></div>
         <div class="suggest">
-          <button class="chip" onclick="perguntar(this.textContent)">O que o requisito 10.2 exige na prática?</button>
-          <button class="chip" onclick="perguntar(this.textContent)">Qual a diferença entre correção e ação corretiva?</button>
-          <button class="chip" onclick="perguntar(this.textContent)">Transcreva o texto literal da norma 10.2</button>
-          <button class="chip" onclick="perguntar(this.textContent)">Contratando a EPIGE eu garanto a certificação?</button>
+          <button class="chip" data-acao="perguntarChip">O que o requisito 10.2 exige na prática?</button>
+          <button class="chip" data-acao="perguntarChip">Qual a diferença entre correção e ação corretiva?</button>
+          <button class="chip" data-acao="perguntarChip">Transcreva o texto literal da norma 10.2</button>
+          <button class="chip" data-acao="perguntarChip">Contratando a EPIGE eu garanto a certificação?</button>
         </div>
         <div class="field"><textarea id="pergunta" placeholder="Ou escreva sua própria pergunta…"></textarea></div>
         <div class="btn-row">
-          <button class="btn btn-primary" id="btnAsk" onclick="perguntar()">Perguntar</button>
-          <button class="btn btn-ghost" onclick="go(2)">Avançar para geração</button>
+          <button class="btn btn-primary" id="btnAsk" data-acao="perguntar">Perguntar</button>
+          <button class="btn btn-ghost" data-acao="go" data-n="2">Avançar para geração</button>
         </div>
       </div>
       <p class="note">As duas últimas sugestões são testes de guardrail: uma pede o texto protegido por direito autoral, a outra pede promessa de certificação. Observe a recusa.</p>
@@ -288,8 +286,8 @@ textarea{resize:vertical; min-height:78px; line-height:1.55}
       <p class="lede">A empresa não tem nada escrito. O agente redige um procedimento completo, adaptado ao contexto informado, pronto para revisão e aprovação interna.</p>
       <div class="panel">
         <div class="btn-row" style="margin-bottom:16px">
-          <button class="btn btn-primary" id="btnProc" onclick="gerarProcedimento()">Gerar procedimento</button>
-          <button class="btn btn-ghost" id="btnProcCopy" onclick="copiarProc()" disabled>Copiar texto</button>
+          <button class="btn btn-primary" id="btnProc" data-acao="gerarProcedimento">Gerar procedimento</button>
+          <button class="btn btn-ghost" id="btnProcCopy" data-acao="copiarProc" disabled>Copiar texto</button>
         </div>
         <div id="procBox"><div class="locked"><div class="locked-i">◷</div>Nenhum documento gerado ainda.</div></div>
       </div>
@@ -301,7 +299,7 @@ textarea{resize:vertical; min-height:78px; line-height:1.55}
       <p class="lede">Procedimento sem registro não gera evidência, e sem evidência não há auditoria possível. O agente define os campos do RNC a partir do procedimento que ele mesmo escreveu.</p>
       <div class="panel">
         <div class="btn-row" style="margin-bottom:16px">
-          <button class="btn btn-primary" id="btnForm" onclick="gerarFormulario()">Gerar formulário RNC</button>
+          <button class="btn btn-primary" id="btnForm" data-acao="gerarFormulario">Gerar formulário RNC</button>
         </div>
         <div id="formBox"><div class="locked"><div class="locked-i">▤</div>Nenhum formulário gerado ainda.</div></div>
       </div>
@@ -313,8 +311,8 @@ textarea{resize:vertical; min-height:78px; line-height:1.55}
       <p class="lede">Um agente diferente, com regra de imparcialidade: constata, não resolve. Ele audita o procedimento da etapa 3 e classifica cada achado com a evidência que o sustenta.</p>
       <div class="panel">
         <div class="btn-row" style="margin-bottom:16px">
-          <button class="btn btn-primary" id="btnAud" onclick="auditar()">Executar auditoria</button>
-          <button class="btn btn-ghost" id="btnImp" onclick="testarImparcialidade()" disabled>Pedir a solução ao auditor</button>
+          <button class="btn btn-primary" id="btnAud" data-acao="auditar">Executar auditoria</button>
+          <button class="btn btn-ghost" id="btnImp" data-acao="testarImparcialidade" disabled>Pedir a solução ao auditor</button>
         </div>
         <div id="audBox"><div class="locked"><div class="locked-i">◎</div>Auditoria não executada.</div></div>
         <div id="impBox" class="hidden"></div>
@@ -328,7 +326,7 @@ textarea{resize:vertical; min-height:78px; line-height:1.55}
       <p class="lede">A norma foi publicada em 16 de setembro de 2026. O agente compara o contexto informado com a edição nova e devolve onde está a lacuna — e, igualmente importante, o que <em>não</em> muda.</p>
       <div class="panel">
         <div class="btn-row" style="margin-bottom:16px">
-          <button class="btn btn-primary" id="btnLac" onclick="analisarLacuna()">Analisar lacuna</button>
+          <button class="btn btn-primary" id="btnLac" data-acao="analisarLacuna">Analisar lacuna</button>
         </div>
         <div id="lacBox"><div class="locked"><div class="locked-i">⇄</div>Análise não executada.</div></div>
       </div>
@@ -367,313 +365,6 @@ textarea{resize:vertical; min-height:78px; line-height:1.55}
   </aside>
 </div>
 
-<script>
-const S = {perfil:null, historico:[], procedimento:null, formulario:null, auditoria:null, custo:0, chamadas:[], online:null};
-const PRECO = {in:2.00, out:10.00, cacheRead:0.20};
-const CAMBIO = 5.20;
-
-const $ = id => document.getElementById(id);
-const esc = t => String(t).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const brl = (v,d=4) => v.toLocaleString('pt-BR',{minimumFractionDigits:d, maximumFractionDigits:d});
-
-function md(t){
-  let h = esc(t);
-  h = h.replace(/^#{3}\s+(.+)$/gm,'<h4>$1</h4>').replace(/^#{1,2}\s+(.+)$/gm,'<h3>$1</h3>');
-  h = h.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
-  h = h.replace(/^\s*[-•]\s+(.+)$/gm,'<li>$1</li>');
-  h = h.replace(/^\s*\d+[.)]\s+(.+)$/gm,'<li>$1</li>');
-  h = h.replace(/(<li>[\s\S]*?<\/li>)/g, m => '<ul>'+m+'</ul>').replace(/<\/ul>\s*<ul>/g,'');
-  return h.split(/\n{2,}/).map(b => {
-    b = b.trim();
-    if(!b) return '';
-    return /^<(h3|h4|ul)/.test(b) ? b : '<p>'+b.replace(/\n/g,'<br>')+'</p>';
-  }).join('');
-}
-
-function registrar(rotulo, d){
-  S.custo += d.custo || 0;
-  S.chamadas.push({rotulo:rotulo, tokens:d.tokens || 0, custo:d.custo || 0});
-  $('mCusto').textContent = brl(S.custo);
-  $('ledger').innerHTML = S.chamadas.map(function(x){
-    return '<div class="ledger-row"><span>'+esc(x.rotulo)+'</span><b>R$ '+brl(x.custo)+'</b></div>';
-  }).join('');
-  projetar();
-}
-
-function projetar(){
-  if(!S.custo) return;
-  const planos = [['Consultor','R$ 89',89],['Implantação','R$ 279',279],['Empresarial','R$ 1.490',1490]];
-  const linhas = planos.map(function(p){
-    const orcamento = p[2]*0.885*0.45;
-    return '<div class="ledger-row" style="color:var(--muted)"><span>'+p[0]+' · '+p[1]+
-      '</span><b style="color:var(--ink)">'+Math.floor(orcamento/S.custo)+' ciclos</b></div>';
-  }).join('');
-  $('proj').innerHTML = '<div style="font-family:var(--mono);font-size:11px">'+linhas+
-    '</div><div style="margin-top:9px;font-size:11.5px">Ciclos completos como este que cabem no orçamento de IA de cada plano, mantendo a margem do modelo de custo.</div>';
-}
-
-async function chamar(agente, mensagens, rotulo){
-  const r = await fetch("/api/chat", {
-    method:"POST",
-    headers:{"Content-Type":"application/json","x-epige-codigo":S.codigo||""},
-    body: JSON.stringify({agente:agente, norma:'iso-9001', escopo:'10.2',
-                          mensagens:mensagens, contexto:S.perfil})
-  });
-  const d = await r.json().catch(function(){ return {erro:"Resposta ilegível do servidor."}; });
-  if(!r.ok) throw new Error(d.erro || ("O servidor respondeu com status "+r.status+"."));
-  registrar(rotulo, d);
-  return d.texto;
-}
-
-function extrairJSON(t){
-  const limpo = t.replace(/```json|```/g,'').trim();
-  const i = limpo.indexOf('{'), f = limpo.lastIndexOf('}');
-  if(i<0 || f<0) throw new Error("O agente não devolveu dados estruturados.");
-  return JSON.parse(limpo.slice(i,f+1));
-}
-
-(async function(){
-  S.codigo = (localStorage.getItem('epige_codigo') || '');
-  await verificarAcesso();
-})();
-
-async function verificarAcesso(){
-  let d = {configurado:false, autorizado:false};
-  try{
-    const r = await fetch("/api/chat", {headers:{"x-epige-codigo":S.codigo||""}});
-    d = await r.json();
-  }catch(e){ /* servidor fora do ar: d fica como veio */ }
-  S.online = d.autorizado;
-  $('dot').className = 'dot ' + (d.autorizado ? 'live' : 'down');
-  $('statusTxt').textContent = d.autorizado ? 'IA ao vivo'
-    : (d.configurado ? 'código de acesso necessário' : 'servidor não configurado');
-  $('gate').classList.toggle('hidden', d.autorizado);
-  document.querySelector('.shell').classList.toggle('hidden', !d.autorizado);
-  return d;
-}
-
-async function entrar(){
-  const v = $('codigo').value.trim();
-  if(!v) return;
-  S.codigo = v;
-  $('gateMsg').textContent = 'verificando…';
-  const d = await verificarAcesso();
-  if(d.autorizado){
-    localStorage.setItem('epige_codigo', v);
-  }else{
-    $('gateMsg').textContent = d.configurado
-      ? 'Código incorreto.'
-      : 'O servidor ainda não tem chave de API nem código configurados.';
-  }
-}
-
-
-function go(n){
-  for(let i=0;i<=6;i++){ const el=$('s'+i); if(el) el.classList.toggle('hidden', i!==n); }
-  document.querySelectorAll('.step').forEach(function(b){
-    const s = +b.dataset.s;
-    b.classList.toggle('on', s===n);
-    b.classList.toggle('done', s<n && !b.disabled);
-  });
-  if(n===6) montarFechamento();
-  window.scrollTo({top:0, behavior:'smooth'});
-}
-
-function salvarPerfil(){
-  S.perfil = {
-    nome: $('e_nome').value.trim() || 'Empresa exemplo',
-    atividade: $('e_ativ').value.trim() || 'não informada',
-    porte: $('e_porte').value,
-    nivel: $('e_nivel').value,
-    situacao: $('e_sit').value.trim() || 'não informada'
-  };
-  [1,2,3,4,5,6].forEach(function(n){
-    const b = document.querySelector('.step[data-s="'+n+'"]');
-    if(b) b.disabled = false;
-  });
-  go(1);
-}
-
-function pensando(box, msg){
-  box.innerHTML = '<div class="thinking"><span class="pulse"></span><span class="pulse"></span><span class="pulse"></span> '+esc(msg)+'</div>';
-}
-function erro(box, e){
-  box.innerHTML = '<div class="alert alert-err"><b>Não foi possível concluir.</b><br>'+esc(e.message||e)+'</div>';
-}
-
-async function perguntar(texto){
-  const q = (texto || $('pergunta').value).trim();
-  if(!q) return;
-  $('pergunta').value = '';
-  $('btnAsk').disabled = true;
-  const th = $('thread');
-  th.insertAdjacentHTML('beforeend', '<div class="msg user">'+esc(q)+'</div>');
-  const id = 'b'+Date.now();
-  th.insertAdjacentHTML('beforeend', '<div class="msg bot" id="'+id+'"><div class="who">Consultor 10.2</div><div class="thinking"><span class="pulse"></span><span class="pulse"></span><span class="pulse"></span> consultando</div></div>');
-  th.lastElementChild.scrollIntoView({behavior:'smooth', block:'nearest'});
-  try{
-    S.historico.push({role:'user', content:q});
-    const resp = await chamar('consultor', S.historico, 'Consulta');
-    S.historico.push({role:'assistant', content:resp});
-    $(id).innerHTML = '<div class="who">Consultor 10.2</div>'+md(resp);
-  }catch(e){
-    $(id).innerHTML = '<div class="who">Consultor 10.2</div><div class="alert alert-err" style="margin:0">'+esc(e.message)+'</div>';
-    S.historico.pop();
-  }
-  $('btnAsk').disabled = false;
-}
-
-async function gerarProcedimento(){
-  const box = $('procBox'); $('btnProc').disabled = true;
-  pensando(box, 'redigindo o procedimento');
-  try{
-    const t = await chamar('redator', [{role:'user', content:'Redija o procedimento para '+S.perfil.nome+'.'}], 'Procedimento');
-    S.procedimento = t;
-    box.innerHTML = '<div class="doc"><div class="doc-head">'
-      + '<div><h3 style="margin:0">Procedimento — Não conformidade e ação corretiva</h3>'
-      + '<div class="doc-code">PRO-QUA-001 · rev. 00 · '+esc(S.perfil.nome)+'</div></div>'
-      + '<span class="tag conformidade">gerado</span></div>'+md(t)+'</div>'
-      + '<p class="note">Documento gerado do zero, sem modelo pré-pronto. Requer revisão e aprovação interna antes de entrar em vigor.</p>';
-    $('btnProcCopy').disabled = false;
-  }catch(e){ erro(box, e); }
-  $('btnProc').disabled = false;
-}
-
-function copiarProc(){
-  if(!S.procedimento) return;
-  navigator.clipboard.writeText(S.procedimento).then(function(){
-    const b = $('btnProcCopy'); const t = b.textContent;
-    b.textContent = 'Copiado'; setTimeout(function(){ b.textContent = t; }, 1600);
-  });
-}
-
-async function gerarFormulario(){
-  const box = $('formBox');
-  if(!S.procedimento){ box.innerHTML = '<div class="alert alert-warn">Gere o procedimento na etapa 3 primeiro — o formulário é derivado dele.</div>'; return; }
-  $('btnForm').disabled = true;
-  pensando(box, 'definindo os campos do registro');
-  try{
-    const t = await chamar('formulario', [{role:'user', content:'Procedimento:\n\n'+S.procedimento}], 'Formulário');
-    const f = extrairJSON(t); S.formulario = f;
-    const secoes = (f.secoes||[]).map(function(s){
-      const campos = (s.campos||[]).map(function(c){
-        const req = c.obrigatorio ? ' <span class="req">*</span>' : '';
-        let ctrl;
-        if(c.tipo==='area') ctrl = '<textarea placeholder="—"></textarea>';
-        else if(c.tipo==='selecao') ctrl = '<select>'+(c.opcoes||[]).map(function(o){return '<option>'+esc(o)+'</option>';}).join('')+'</select>';
-        else if(c.tipo==='data') ctrl = '<input type="text" placeholder="dd/mm/aaaa">';
-        else ctrl = '<input type="text" placeholder="—">';
-        return '<div class="field"><label>'+esc(c.rotulo)+req+'</label>'+ctrl+'</div>';
-      }).join('');
-      return '<div class="formsec"><div class="formsec-t">'+esc(s.nome)+'</div>'+campos+'</div>';
-    }).join('');
-    box.innerHTML = '<div class="doc"><div class="doc-head">'
-      + '<div><h3 style="margin:0">'+esc(f.titulo||'Registro de Não Conformidade')+'</h3>'
-      + '<div class="doc-code">'+esc(f.codigo||'FOR-QUA-001')+' · derivado do PRO-QUA-001</div></div>'
-      + '<span class="tag conformidade">preenchível</span></div>'+secoes+'</div>'
-      + '<p class="note">Formulário derivado do procedimento gerado na etapa anterior — não é um modelo genérico de banco de dados.</p>';
-  }catch(e){ erro(box, e); }
-  $('btnForm').disabled = false;
-}
-
-
-async function auditar(){
-  const box = $('audBox');
-  if(!S.procedimento){ box.innerHTML = '<div class="alert alert-warn">Não há o que auditar. Gere o procedimento na etapa 3.</div>'; return; }
-  $('btnAud').disabled = true;
-  pensando(box, 'auditando o procedimento');
-  try{
-    const t = await chamar('auditor', [{role:'user', content:'Documento auditado:\n\n'+S.procedimento}], 'Auditoria');
-    const a = extrairJSON(t); S.auditoria = a;
-    const rotulo = {conformidade:'Conformidade', oportunidade:'Oportunidade de melhoria', nao_conformidade:'Não conformidade'};
-    const cont = {conformidade:0, oportunidade:0, nao_conformidade:0};
-    const itens = (a.achados||[]).map(function(f){
-      const c = cont.hasOwnProperty(f.classificacao) ? f.classificacao : 'oportunidade';
-      cont[c]++;
-      return '<div class="finding '+c+'"><div class="f-top">'
-        + '<span class="tag '+c+'">'+rotulo[c]+'</span>'
-        + '<span class="f-req">requisito '+esc(f.requisito||'10.2')+'</span></div>'
-        + '<div>'+esc(f.constatacao||'')+'</div>'
-        + '<div class="f-ev"><b>Evidência:</b> '+esc(f.evidencia||'—')+'</div></div>';
-    }).join('');
-    box.innerHTML = '<div class="doc-head"><div><h3 style="margin:0">Relatório de auditoria interna</h3>'
-      + '<div class="doc-code">AUD-001 · escopo: requisito 10.2 · documento PRO-QUA-001</div></div>'
-      + '<div class="f-req">'+cont.nao_conformidade+' NC · '+cont.oportunidade+' OM · '+cont.conformidade+' C</div></div>'
-      + itens
-      + '<div class="panel" style="margin:14px 0 0; background:#F7F9FC; box-shadow:none">'
-      + '<div class="card-t" style="margin-bottom:6px">Conclusão do auditor</div>'
-      + '<div style="font-size:14px">'+esc(a.conclusao||'')+'</div></div>';
-    $('btnImp').disabled = false;
-  }catch(e){ erro(box, e); }
-  $('btnAud').disabled = false;
-}
-
-async function testarImparcialidade(){
-  const box = $('impBox'); box.classList.remove('hidden'); $('btnImp').disabled = true;
-  const pedido = 'Reescreva o procedimento corrigindo as não conformidades que você apontou.';
-  pensando(box, 'aguardando o auditor');
-  try{
-    const t = await chamar('auditor_base', [
-      {role:'user', content:'Documento auditado:\n\n'+S.procedimento},
-      {role:'assistant', content:'Auditoria concluída. Achados registrados no relatório.'},
-      {role:'user', content:pedido}
-    ], 'Teste de guardrail');
-    box.innerHTML = '<div class="msg user" style="max-width:100%;margin-bottom:12px">'+esc(pedido)+'</div>'
-      + '<div class="msg bot" style="max-width:100%"><div class="who">Auditor interno</div>'+md(t)+'</div>'
-      + '<div class="alert alert-warn" style="margin-top:14px"><b>Guardrail de imparcialidade em ação.</b> Quem audita não pode consultar sobre o mesmo objeto. É a regra que separa auditoria de consultoria — e a plataforma a respeita por construção.</div>';
-  }catch(e){ erro(box, e); }
-}
-
-async function analisarLacuna(){
-  const box = $('lacBox'); $('btnLac').disabled = true;
-  pensando(box, 'comparando o sistema com a edição 2026');
-  try{
-    const t = await chamar('lacuna', [{role:'user', content:'Analise a lacuna para a edição 2026 no contexto de '+S.perfil.nome+'.'}], 'Análise de lacuna');
-    const a = extrairJSON(t);
-    const esforco = {alto:'nao_conformidade', 'médio':'oportunidade', medio:'oportunidade', baixo:'conformidade'};
-    const lacunas = (a.lacunas||[]).map(function(l){
-      const c = esforco[l.esforco] || 'oportunidade';
-      return '<div class="finding '+c+'"><div class="f-top">'
-        + '<span class="tag '+c+'">esforço '+esc(l.esforco||'—')+'</span>'
-        + '<span class="f-req">cláusula '+esc(l.clausula||'—')+' · '+esc(l.tema||'')+'</span></div>'
-        + '<div><b>Hoje:</b> '+esc(l.situacao_provavel||'—')+'</div>'
-        + '<div style="margin-top:4px"><b>Passa a pedir:</b> '+esc(l.o_que_muda||'—')+'</div>'
-        + '<div class="f-ev"><b>Evidência sugerida:</b> '+esc(l.evidencia_sugerida||'—')+'</div></div>';
-    }).join('');
-    const naoMuda = (a.nao_muda||[]).map(function(x){ return '<li>'+esc(x)+'</li>'; }).join('');
-    const seq = (a.sequencia||[]).map(function(x){ return '<li>'+esc(x)+'</li>'; }).join('');
-    box.innerHTML = '<div class="doc-head"><div><h3 style="margin:0">Análise de lacuna — edição 2015 para 2026</h3>'
-      + '<div class="doc-code">LAC-001 · '+esc(S.perfil.nome)+'</div></div>'
-      + '<span class="tag oportunidade">'+(a.lacunas||[]).length+' lacunas</span></div>'
-      + '<div class="panel" style="margin:0 0 14px;background:#F7F9FC;box-shadow:none">'
-      + '<div class="card-t" style="margin-bottom:6px">Veredito</div>'
-      + '<div style="font-size:14px">'+esc(a.veredito||'')+'</div></div>'
-      + lacunas
-      + '<div class="grid2" style="margin-top:14px">'
-      + '<div class="card"><div class="card-t">O que não muda</div><ul style="margin:0;padding-left:18px;font-size:13px;line-height:1.6">'+naoMuda+'</ul></div>'
-      + '<div class="card"><div class="card-t">Por onde começar</div><ol style="margin:0;padding-left:18px;font-size:13px;line-height:1.6">'+seq+'</ol></div>'
-      + '</div>'
-      + '<div class="alert alert-warn" style="margin-top:14px"><b>Alerta.</b> '+esc(a.alerta||'')+'</div>';
-  }catch(e){ erro(box, e); }
-  $('btnLac').disabled = false;
-}
-
-function montarFechamento(){
-  const nc = S.auditoria ? (S.auditoria.achados||[]).filter(function(a){return a.classificacao==='nao_conformidade';}).length : 0;
-  const docs = (S.procedimento?1:0)+(S.formulario?1:0);
-  const linhas = S.chamadas.map(function(c){
-    return '<div class="ledger-row" style="color:var(--muted);font-size:12px"><span>'+esc(c.rotulo)+' · '+c.tokens+' tokens</span><b style="color:var(--ink)">R$ '+brl(c.custo)+'</b></div>';
-  }).join('');
-  $('fechamento').innerHTML =
-    '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px;margin-bottom:20px">'
-    + '<div><div class="card-t">Chamadas de IA</div><div style="font-family:var(--mono);font-size:25px;font-weight:600">'+S.chamadas.length+'</div></div>'
-    + '<div><div class="card-t">Custo total</div><div style="font-family:var(--mono);font-size:25px;font-weight:600;color:var(--blue)">R$ '+brl(S.custo)+'</div></div>'
-    + '<div><div class="card-t">Documentos</div><div style="font-family:var(--mono);font-size:25px;font-weight:600">'+docs+'</div></div>'
-    + '<div><div class="card-t">Não conformidades</div><div style="font-family:var(--mono);font-size:25px;font-weight:600;color:var(--rose)">'+nc+'</div></div></div>'
-    + '<div style="font-family:var(--mono);border-top:1px solid var(--line);padding-top:12px">'+linhas+'</div>'
-    + '<p class="note" style="margin-top:16px">Este ciclo — entender o requisito, redigir o procedimento, criar o formulário e auditar o resultado — é trabalho que uma consultoria entrega em semanas. Aqui custou <b>R$ '+brl(S.custo)+'</b> de inferência. É essa diferença que sustenta uma assinatura de R$ 89.</p>'
-    + '<p class="note">Escopo desta demonstração: um requisito, de um referencial. A ISO 9001 tem dezenas de requisitos, e o documento técnico prevê nove referenciais.</p>';
-}
-</script>
+<script src="/demo/demo.js"></script>
 </body>
 </html>

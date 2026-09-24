@@ -111,11 +111,13 @@ Ordem = ordem sugerida de execução. Marque `[x]` ao concluir.
       teto diário e limites de tamanho. Lógica de guarda testada em sete cenários.
       **Efeito colateral valioso:** os prompts param de ir para o navegador, e `agentes/`
       vira a fonte de verdade da aplicação publicada — a divergência HTML/`.txt` deixa de
-      existir em produção. Falta só a chave (F0-6) e o domínio.
+      existir em produção. Falta só a chave (F0-6) e o domínio. *24/09/2026:* o código de
+      acesso compartilhado deu lugar a contas individuais (F2-5); agora só abre o primeiro acesso.
 - [x] **F1-6 · Telemetria por tipo de interação.** *Feito em 21/09/2026.* Contadores
-      agregados por dia e por agente no KV: chamadas, tokens de entrada, saída e cache,
-      custo e latência. Retenção de 90 dias, que cobre o piloto. Sem conteúdo de conversa.
-      Falha em silêncio de propósito — telemetria nunca derruba a resposta do usuário.
+      agregados por dia e por agente: chamadas, tokens de entrada, saída e cache,
+      custo e latência. Sem conteúdo de conversa. *24/09/2026:* saiu do KV para o D1, uma
+      linha por chamada, com empresa e pessoa — é o que alimenta o teto por empresa e o
+      painel **Uso de IA**.
 - [ ] **F1-7 · Base de conhecimento autoral, ISO 9001.** A parte mais lenta e mais valiosa.
       Depende de F0-1. Começar pelos requisitos da cláusula 10 já cobertos pela demo.
 - [x] **F1-9 · Encodar os modos de falha comuns nos agentes.** *Feito em 21/09/2026.*
@@ -165,10 +167,22 @@ Ordem = ordem sugerida de execução. Marque `[x]` ao concluir.
       analista de documentos, auditoria simulada e vigilância. Três normas selecionáveis,
       contexto da empresa persistido no navegador, custo por chamada visível.
       **Sem resposta real verificada** — falta a chave (F0-6).
-- [ ] **F2-4 · Reescrita para produção.** O protótipo cumpriu o papel: define exatamente
-      o que construir. Dívida a resolver na reescrita: 9 blocos `<style>`, 85 `!important`,
-      337 `onclick` embutidos (impedem CSP restritiva), zero persistência, arquivo único
-      de 322 KB. Vira componentes, backend, persistência e autenticação.
+- [~] **F2-4 · Reescrita para produção.** O protótipo cumpriu o papel: define exatamente
+      o que construir. *Grande parte feita em 24/09/2026, na plataforma publicada (`web/`):*
+      backend com banco (D1), autenticação e persistência; interface sem nenhum `onclick`
+      embutido e com CSP restritiva. O protótipo 8.2 segue como registro histórico.
+      Falta: componentização quando o front crescer além de um arquivo, e o que está em F2-6.
+- [x] **F2-5 · Contas, segurança e controle de documentos.** *Feito em 24/09/2026.*
+      Primeiro acesso, cadastro por convite, "solicitar acesso" com aprovação sua, login com
+      bloqueio por tentativas, 2FA por aplicativo, troca e redefinição de senha, sessões
+      encerráveis. Três papéis por empresa (admin, editor, leitor) mais a administração da
+      plataforma. Controle de documentos na lógica da 7.5: rascunho, aprovação, versões,
+      substituída, obsoleta, registro imutável, impressão controlada. Log de auditoria,
+      exportação LGPD, teto de IA por empresa. **150 verificações automatizadas** (119 de
+      API, 31 de navegador) no runtime real da Cloudflare. Guia em `web/README.md`.
+- [ ] **F2-6 · O que falta para abrir a cliente real.** Envio de e-mail (convite e nova
+      senha hoje são links copiados à mão); cobrança e planos; termos de uso e política de
+      privacidade (dependem de F0-3 e F0-5 — **não abrir para cliente sem eles**).
 - [ ] **F3-1 · Piloto com 10 a 15 usuários reais** e medição das premissas de confiança
       baixa do modelo de custo: volumes por plano, aproveitamento de cache, tickets de
       suporte, CAC por canal, conversão do gratuito. Recomendação do modelo: rodar os
@@ -212,6 +226,13 @@ que já foi decidido.
 | 23/09/2026 | PBQP-H/SiAC tratado como camada sobre a 9001, não sistema paralelo | É como o mercado integra, e o que evita dois manuais contraditórios |
 | 23/09/2026 | Auditor e SGI aceitam sessão combinada (principal + até 3) e carregam a matriz de integração | O auditor precisa saber o que integra e o que não — e enxergar objetivos que competem entre sistemas |
 | 23/09/2026 | Avaliação passa a usar o motor e os modelos de produção | Testar outra montagem é testar um produto que não está no ar |
+| 24/09/2026 | Sem cadastro aberto: convite, ou "solicitar acesso" com aprovação | Cadastro livre ligaria o cartão da API a qualquer visitante |
+| 24/09/2026 | Banco D1, com migração automática no código | Um passo manual a menos na publicação; KV deixa de ser necessário |
+| 24/09/2026 | Senha com PBKDF2 + pimenta fora do banco; Workers Paid obrigatório | 100 mil iterações custam ~20 ms de CPU; o plano grátis corta em 10 ms |
+| 24/09/2026 | Conversa com a IA não é guardada; só o que vira documento | Minimização de dados (LGPD) e menos superfície de vazamento |
+| 24/09/2026 | Contexto da empresa no servidor, não no navegador | É da empresa, não de uma pessoa; o agente responde para a empresa da sessão |
+| 24/09/2026 | Registro e relatório aprovados não são revisados | São evidência: corrige-se com registro novo, não reescrevendo o antigo |
+| 24/09/2026 | Conta da plataforma só se altera por ela mesma | Achado da revisão de segurança: um admin da mesma empresa poderia tomá-la por link de nova senha |
 | 09/09/2026 | Protótipo 8.2 é o canônico; 3.7 a 6.0 viram histórico | Só a 8.2 recebe alterações daqui em diante |
 | 10/09/2026 | Paleta canônica é a do manual de marca, conferida contra a 8.2 | `simbolo-epige.svg` corrigido; demo 10.2 fica fora de padrão até ID-3 |
 | 12/08/2026 | Faixa de preço B: R$ 89 / R$ 279 / R$ 1.490 | Margem de contribuição ≥ 41,8% mesmo no teto do plano com dólar a R$ 6,00 |

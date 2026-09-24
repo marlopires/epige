@@ -7,138 +7,75 @@
  *    de front-end é chave vazada, sem exceção.
  * 2. OS PROMPTS FICAM NO SERVIDOR. Eles são o ativo do produto. O navegador
  *    manda qual agente, qual norma e o que o usuário disse — nunca as regras.
- * 3. TETO DE GASTO. Uma página pública ligada a uma chave de API é um cartão de
- *    crédito exposto. Aqui há código de acesso, limites de tamanho e teto diário.
+ * 3. GASTO SOB CONTROLE. Só quem tem sessão e papel de editor ou admin chama a
+ *    IA; há limite por pessoa por hora, teto diário por empresa e teto diário
+ *    da plataforma inteira.
  *
- * Variáveis de ambiente (painel do Cloudflare → Settings → Environment variables):
- *   ANTHROPIC_API_KEY   obrigatória, marcar como "encrypted"
- *   CODIGO_ACESSO       obrigatória. Sem ela, a API recusa tudo.
- *   TETO_DIARIO_BRL     opcional, padrão 20.
+ * O contexto da empresa vem do banco, não do navegador: o agente responde para
+ * a empresa da sessão, e ninguém consegue se passar por outra.
  *
- * Binding opcional (Settings → Functions → KV namespace bindings):
- *   EPIGE_KV            habilita teto de gasto e telemetria. Sem ele, o teto não
- *                       é aplicado e a resposta avisa — não falha em silêncio.
+ * Variáveis (Cloudflare → Settings → Variables and Secrets):
+ *   ANTHROPIC_API_KEY   obrigatória, como segredo
+ *   TETO_DIARIO_BRL     teto da plataforma inteira por dia, padrão 20
+ *   TETO_ORG_BRL        teto padrão por empresa por dia, padrão 10
+ *   ANTHROPIC_BASE_URL  só para teste local; em produção, não definir
  */
 
-import {
-  AGENTES, NORMAS, DEVOLVE_JSON,
-  montarSistema, modeloDe, maxTokensDe, ferramentasDe, custoBRL,
-} from './_motor.js';
+import { AGENTES, NORMAS, DEVOLVE_JSON, montarSistema, modeloDe, maxTokensDe, ferramentasDe, custoBRL } from './_motor.js';
+import { json, lerCorpo, texto, HttpErro } from '../_lib/http.js';
+import { um, executar, agora, hoje } from '../_lib/banco.js';
+import { exigir } from '../_lib/sessao.js';
+import { gastoHoje, tetoGlobal, tetoOrg } from '../_lib/uso.js';
 
 const LIMITE_MENSAGEM = 24000; // documentos de cliente chegam por aqui
 const MAX_MENSAGENS = 24;
+const CHAMADAS_POR_HORA = 60;
 
-const json = (dados, status = 200) =>
-  new Response(JSON.stringify(dados), {
-    status,
-    headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' },
-  });
-
-const limpar = (v, max) => String(v ?? '').slice(0, max).trim();
-
-/** Gasto acumulado do dia. Sem KV não há como contar — e dizemos isso. */
-async function verificarTeto(env) {
-  if (!env.EPIGE_KV) return { ok: true, medindo: false };
-  const teto = Number(env.TETO_DIARIO_BRL ?? 20);
-  const chave = `gasto:${new Date().toISOString().slice(0, 10)}`;
-  const atual = Number((await env.EPIGE_KV.get(chave)) ?? 0);
-  return { ok: atual < teto, medindo: true, atual, teto, chave };
-}
-
-async function registrarGasto(env, chave, valor) {
-  if (!env.EPIGE_KV || !chave) return;
-  const atual = Number((await env.EPIGE_KV.get(chave)) ?? 0);
-  await env.EPIGE_KV.put(chave, String(atual + valor), { expirationTtl: 172800 });
-}
-
-/**
- * Telemetria por tipo de interação — item F1-6 do backlog.
- *
- * O modelo de custo tem seis premissas de confiança baixa e todas movem o preço.
- * Nenhuma se resolve sem medir uso real, por agente, desde a primeira chamada.
- * Contadores agregados: nada de conteúdo de conversa.
- */
-async function registrarTelemetria(env, agente, modelo, uso, custo, ms) {
-  if (!env.EPIGE_KV) return;
-  const chave = `tel:${new Date().toISOString().slice(0, 10)}:${agente}`;
-  try {
-    const atual = JSON.parse((await env.EPIGE_KV.get(chave)) ?? '{}');
-    await env.EPIGE_KV.put(
-      chave,
-      JSON.stringify({
-        modelo,
-        chamadas: (atual.chamadas ?? 0) + 1,
-        entrada: (atual.entrada ?? 0) + (uso?.input_tokens ?? 0),
-        saida: (atual.saida ?? 0) + (uso?.output_tokens ?? 0),
-        cache_leitura: (atual.cache_leitura ?? 0) + (uso?.cache_read_input_tokens ?? 0),
-        cache_escrita: (atual.cache_escrita ?? 0) + (uso?.cache_creation_input_tokens ?? 0),
-        custo: Number(((atual.custo ?? 0) + custo).toFixed(6)),
-        ms_total: (atual.ms_total ?? 0) + ms,
-      }),
-      { expirationTtl: 7776000 }, // 90 dias: cobre o piloto inteiro
-    );
-  } catch {
-    // Telemetria nunca derruba a resposta do usuário.
-  }
-}
-
-export async function onRequestPost({ request, env }) {
+export async function onRequestPost(ctx) {
   const inicio = Date.now();
+  const s = exigir(ctx, { papeis: ['admin', 'editor'] });
+  const { request, env } = ctx;
 
-  if (!env.ANTHROPIC_API_KEY) {
-    return json({ erro: 'Servidor sem chave de API configurada.' }, 500);
-  }
-  if (!env.CODIGO_ACESSO) {
-    // Falha fechada de propósito: esquecer de configurar o código não pode
-    // resultar numa API aberta ligada a um cartão de crédito.
-    return json({ erro: 'Servidor sem código de acesso configurado. Acesso bloqueado.' }, 503);
-  }
-  if (request.headers.get('x-epige-codigo') !== env.CODIGO_ACESSO) {
-    return json({ erro: 'Código de acesso inválido.' }, 401);
-  }
+  if (!env.ANTHROPIC_API_KEY) throw new HttpErro(503, 'Servidor sem chave de API configurada.');
 
-  let corpo;
-  try {
-    corpo = await request.json();
-  } catch {
-    return json({ erro: 'Corpo da requisição inválido.' }, 400);
-  }
-
-  const { agente, norma, escopo } = corpo;
-
-  if (!AGENTES[agente]) {
-    return json({ erro: `Agente desconhecido: ${agente}` }, 400);
-  }
+  const corpo = await lerCorpo(request, 400_000);
+  const { agente, norma } = corpo;
+  if (!AGENTES[agente]) throw new HttpErro(400, 'Agente desconhecido.');
   if (AGENTES[agente].norma !== false && !NORMAS[norma]) {
-    return json({ erro: `O agente ${agente} precisa de uma norma válida.` }, 400);
+    throw new HttpErro(400, `O agente ${agente} precisa de uma norma válida.`);
   }
 
   // Normas adicionais só valem para agente que aceita sessão combinada; o motor
   // descarta id desconhecido, repetido ou excedente.
   const adicionais = Array.isArray(corpo.adicionais) ? corpo.adicionais.slice(0, 8) : [];
-
+  // A demonstração guiada (/demo/) usa a empresa-exemplo digitada na própria
+  // página; fora dela, vale sempre o contexto da empresa da sessão.
+  const exemplo = corpo.demo === true && corpo.contexto && typeof corpo.contexto === 'object'
+    ? Object.fromEntries(['nome', 'atividade', 'porte', 'nivel', 'situacao'].map((k) => [k, texto(corpo.contexto[k], 600)]).filter(([, v]) => v))
+    : {};
   const sistema = montarSistema({
-    agente, norma, adicionais, escopo: limpar(escopo, 20) || null, contexto: corpo.contexto,
+    agente, norma, adicionais, escopo: texto(corpo.escopo, 20) || null, contexto: { ...s.org, ...exemplo },
   });
-  if (!sistema) {
-    return json({ erro: 'Não foi possível montar o agente com os parâmetros enviados.' }, 400);
-  }
+  if (!sistema) throw new HttpErro(400, 'Não foi possível montar o agente com os parâmetros enviados.');
 
   const mensagens = (Array.isArray(corpo.mensagens) ? corpo.mensagens : [])
     .slice(-MAX_MENSAGENS)
     .filter((m) => m && (m.role === 'user' || m.role === 'assistant') && m.content)
-    .map((m) => ({ role: m.role, content: limpar(m.content, LIMITE_MENSAGEM) }));
-
+    .map((m) => ({ role: m.role, content: String(m.content).slice(0, LIMITE_MENSAGEM).trim() }));
   if (!mensagens.length || mensagens[0].role !== 'user') {
-    return json({ erro: 'A conversa precisa começar com uma mensagem do usuário.' }, 400);
+    throw new HttpErro(400, 'A conversa precisa começar com uma mensagem do usuário.');
   }
 
-  const teto = await verificarTeto(env);
-  if (!teto.ok) {
-    return json(
-      { erro: `Teto diário de R$ ${teto.teto} atingido. O limite protege a conta de API; volta amanhã.` },
-      429,
-    );
+  const recentes = await um(env.EPIGE_DB, 'SELECT COUNT(*) AS n FROM chamadas WHERE usuario_id = ? AND em > ?', s.usuario.id, agora() - 3_600_000);
+  if (recentes.n >= CHAMADAS_POR_HORA) {
+    throw new HttpErro(429, `Limite de ${CHAMADAS_POR_HORA} chamadas por hora atingido. Tente daqui a pouco.`);
+  }
+  const [gastoOrg, gastoTotal] = await Promise.all([gastoHoje(env, s.org.id), gastoHoje(env)]);
+  if (gastoOrg >= tetoOrg(env, s.org)) {
+    throw new HttpErro(429, `A empresa atingiu o teto diário de IA (R$ ${tetoOrg(env, s.org).toFixed(2)}). Volta amanhã.`);
+  }
+  if (gastoTotal >= tetoGlobal(env)) {
+    throw new HttpErro(429, 'A plataforma atingiu o teto diário de IA. Volta amanhã.');
   }
 
   const modelo = modeloDe(agente);
@@ -158,7 +95,7 @@ export async function onRequestPost({ request, env }) {
 
   let resposta;
   try {
-    resposta = await fetch('https://api.anthropic.com/v1/messages', {
+    resposta = await fetch(`${env.ANTHROPIC_BASE_URL || 'https://api.anthropic.com'}/v1/messages`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -168,77 +105,65 @@ export async function onRequestPost({ request, env }) {
       body: JSON.stringify(requisicao),
     });
   } catch {
-    return json({ erro: 'Não foi possível alcançar o serviço de IA.' }, 502);
+    throw new HttpErro(502, 'Não foi possível alcançar o serviço de IA.');
   }
 
   if (!resposta.ok) {
     // O texto de erro da API pode conter detalhe de conta. Não repassar ao navegador.
     console.error('anthropic', resposta.status, (await resposta.text()).slice(0, 500));
-    const publico =
-      resposta.status === 429
-        ? 'O serviço está com muitas requisições. Tente em instantes.'
-        : 'O serviço de IA respondeu com erro.';
-    return json({ erro: publico }, 502);
+    throw new HttpErro(502, resposta.status === 429
+      ? 'O serviço de IA está com muitas requisições. Tente em instantes.'
+      : 'O serviço de IA respondeu com erro.');
   }
 
   const dados = await resposta.json();
+  const uso = dados.usage ?? {};
+  const custo = custoBRL(modelo, uso);
+
+  // Registra o custo antes de qualquer outra checagem: recusa também é cobrada.
+  // Só contadores — o conteúdo da conversa não é guardado.
+  await executar(
+    env.EPIGE_DB,
+    `INSERT INTO chamadas (org_id, usuario_id, agente, modelo, entrada, saida, cache_leitura, cache_escrita, custo, ms, dia, em)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    s.org.id, s.usuario.id, agente, modelo,
+    uso.input_tokens ?? 0, uso.output_tokens ?? 0, uso.cache_read_input_tokens ?? 0, uso.cache_creation_input_tokens ?? 0,
+    custo, Date.now() - inicio, hoje(), agora(),
+  );
 
   // Um classificador pode recusar a requisição com HTTP 200. Checar antes de ler o texto.
-  if (dados.stop_reason === 'refusal') {
-    return json({ erro: 'O serviço de IA recusou atender a esta requisição.' }, 422);
-  }
+  if (dados.stop_reason === 'refusal') throw new HttpErro(422, 'O serviço de IA recusou atender a esta requisição.');
 
-  const texto = (dados.content ?? [])
-    .filter((b) => b.type === 'text')
-    .map((b) => b.text)
-    .join('\n');
-
-  if (!texto) return json({ erro: 'A resposta veio vazia.' }, 502);
-
-  const custo = custoBRL(modelo, dados.usage);
-  await registrarGasto(env, teto.chave, custo);
-  await registrarTelemetria(env, agente, modelo, dados.usage, custo, Date.now() - inicio);
+  const textoResposta = (dados.content ?? []).filter((b) => b.type === 'text').map((b) => b.text).join('\n');
+  if (!textoResposta) throw new HttpErro(502, 'A resposta veio vazia.');
 
   return json({
-    texto,
+    texto: textoResposta,
     agente,
     modelo,
     json: DEVOLVE_JSON.has(agente),
     custo,
-    tokens: (dados.usage?.input_tokens ?? 0) + (dados.usage?.output_tokens ?? 0),
-    cache_lido: dados.usage?.cache_read_input_tokens ?? 0,
+    gasto_empresa_hoje: gastoOrg + custo,
+    teto_empresa: tetoOrg(env, s.org),
+    tokens: (uso.input_tokens ?? 0) + (uso.output_tokens ?? 0),
+    cache_lido: uso.cache_read_input_tokens ?? 0,
     truncado: dados.stop_reason === 'max_tokens',
-    medindo_teto: teto.medindo,
   });
 }
 
-/** GET serve para a página saber o que existe e se o código vale, antes de gastar token. */
-export async function onRequestGet({ request, env }) {
-  const configurado = Boolean(env.ANTHROPIC_API_KEY && env.CODIGO_ACESSO);
-  const autorizado = configurado && request.headers.get('x-epige-codigo') === env.CODIGO_ACESSO;
+/** O que existe: agentes e normas. Só para quem tem sessão. */
+export function onRequestGet(ctx) {
+  exigir(ctx);
   return json({
-    configurado,
-    autorizado,
-    agentes: autorizado
-      ? Object.fromEntries(
-          Object.entries(AGENTES).map(([nome, cfg]) => [
-            nome,
-            {
-              modelo: modeloDe(nome),
-              precisa_norma: cfg.norma !== false,
-              combinada: Boolean(cfg.combinada),
-              json: DEVOLVE_JSON.has(nome),
-            },
-          ]),
-        )
-      : undefined,
-    normas: autorizado
-      ? Object.fromEntries(
-          Object.entries(NORMAS).map(([k, v]) => [
-            k,
-            { rotulo: v.rotulo, tema: v.tema, confianca: v.confianca, maturidade: Boolean(v.maturidade) },
-          ]),
-        )
-      : undefined,
+    ia_configurada: Boolean(ctx.env.ANTHROPIC_API_KEY),
+    agentes: Object.fromEntries(
+      Object.entries(AGENTES).map(([nome, cfg]) => [
+        nome,
+        { modelo: modeloDe(nome), precisa_norma: cfg.norma !== false, combinada: Boolean(cfg.combinada), json: DEVOLVE_JSON.has(nome) },
+      ]),
+    ),
+    normas: Object.fromEntries(
+      Object.entries(NORMAS).map(([k, v]) => [k, { rotulo: v.rotulo, tema: v.tema, confianca: v.confianca, maturidade: Boolean(v.maturidade) }]),
+    ),
   });
 }

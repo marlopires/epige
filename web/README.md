@@ -1,26 +1,9 @@
 # Publicação
 
-A plataforma e a demonstração do 10.2, com os agentes funcionando de verdade, num domínio seu.
+A plataforma completa — contas, papéis, controle de documentos e os agentes de IA —
+num domínio seu, na Cloudflare.
 
 ---
-
-## Por que precisa de servidor
-
-O protótipo em `prototipos/` chama a API da Anthropic **direto do navegador, sem chave**.
-Isso só funciona dentro do runtime de artefatos do Claude, que injeta a credencial. Em
-qualquer outro lugar os agentes não respondem.
-
-A solução não é colocar a chave no JavaScript — chave de API em código de front-end é
-chave vazada, e qualquer pessoa com F12 a copia. A solução é um servidor mínimo que
-guarda a chave e repassa a chamada. É o que tem aqui.
-
-De quebra, resolve duas coisas:
-
-- **Os prompts param de ir para o navegador.** Eles são o ativo do produto. Agora o
-  navegador manda "qual agente" e "o que o usuário disse"; as regras ficam no servidor.
-- **`agentes/` vira a fonte de verdade.** `build-prompts.mjs` gera o módulo que o servidor
-  usa. Aquela divergência entre HTML e `.txt` que o `agentes/README.md` avisa deixa de
-  existir para a aplicação publicada — o protótipo passa a ser legado.
 
 ## O que existe aqui
 
@@ -28,146 +11,211 @@ De quebra, resolve duas coisas:
 web/
 ├── build-prompts.mjs           gera _prompts.js a partir de agentes/
 ├── public/
-│   ├── index.html              A PLATAFORMA · 12 ferramentas, 3 normas
-│   └── demo/index.html         a demonstração narrada do requisito 10.2
-└── functions/api/
-    ├── chat.js                 o proxy: acesso, limites, telemetria
-    ├── _motor.js               composição dos agentes e escolha de modelo
-    └── _prompts.js             GERADO — não editar à mão
+│   ├── index.html + app.js     A PLATAFORMA: acesso, 12 ferramentas de IA, documentos, equipe
+│   ├── demo/                   a demonstração narrada do requisito 10.2
+│   └── _headers                cabeçalhos de segurança das páginas (CSP, HSTS…)
+├── functions/
+│   ├── _lib/                   banco, criptografia, sessão, convites, documentos
+│   └── api/
+│       ├── _middleware.js      porta de entrada: CSRF, sessão, erros, cabeçalhos
+│       ├── auth/               primeiro acesso, login, cadastro, senha, 2FA, sessões
+│       ├── equipe/             convites, papéis, desativação, link de nova senha
+│       ├── organizacao/        contexto da empresa, uso de IA, log, exportação
+│       ├── documentos/         controle de documentos (cláusula 7.5)
+│       ├── plataforma/         empresas e solicitações (só a sua conta)
+│       ├── chat.js             o proxy da IA
+│       ├── _motor.js           composição dos agentes e escolha de modelo
+│       └── _prompts.js         GERADO — não editar à mão
+└── testes/
+    ├── api.mjs                 119 verificações da API no runtime real
+    └── navegador.mjs           31 verificações clicando na interface
 ```
 
-**Duas páginas, propósitos diferentes.** `/` é a área de trabalho: escolhe a norma, define
-o contexto da empresa e usa as ferramentas na ordem que quiser. `/demo/` é o percurso
-narrado do requisito 10.2, em seis etapas encadeadas — serve para mostrar o ciclo a quem
-nunca viu, com o custo aparecendo a cada passo.
+**Duas páginas.** `/` é a área de trabalho. `/demo/` é o percurso narrado do 10.2 — usa a
+mesma conta, e mostra uma empresa-exemplo em vez da sua.
+
+## Como funciona o acesso
+
+**Não há cadastro aberto.** Cadastro livre ligaria o cartão da API a qualquer visitante.
+O caminho é:
+
+1. **Você** faz o primeiro acesso uma vez e vira a administração da plataforma.
+2. Quem quer usar clica em **"solicitar acesso"** na tela de entrada. A solicitação aparece
+   para você em **Plataforma**; aceitar cria a empresa e gera o convite do administrador
+   dela. Você também pode criar a empresa direto, sem solicitação.
+3. O **administrador da empresa** convida a equipe em **Equipe**.
+
+Convites e links de nova senha são **links que você copia e envia** (WhatsApp, e-mail).
+A plataforma ainda não manda e-mail sozinha — ver "O que ainda não tem".
+
+| Papel | O que faz |
+|---|---|
+| **Administrador** | Tudo na empresa: equipe, aprovação de documentos, log de auditoria, exportação. |
+| **Editor** | Usa a IA, elabora e revisa documentos, envia para aprovação. Não aprova. |
+| **Leitor** | Consulta os documentos **vigentes**. Não vê rascunho e não usa a IA. |
+| **Plataforma** | Só a sua conta: cria e desativa empresas, ajusta o teto de IA de cada uma. |
+
+## Controle de documentos
+
+Tudo que a IA gera entra como **rascunho**. Daí: enviar para aprovação → o administrador
+**aprova** (vira vigente) ou **devolve** com parecer. Revisar um vigente abre a versão
+seguinte, com o registro do que mudou; ao aprovar, a anterior vira **substituída** e fica
+retida no histórico. Documento fora de uso vira **obsoleto**, com motivo, e some para o
+leitor. **Registros e relatórios de auditoria não são revisados** — são evidência.
+
+Cada documento tem código automático por tipo (PR-001, PO-001, FR-001, RA-001…), impressão
+com cabeçalho de identificação e aviso de cópia não controlada, e exportação em `.md`.
 
 ## O que você precisa fazer
 
 ### 1. Conta de API da Anthropic — item F0-6
 
-1. Entre em **console.anthropic.com** e crie a conta **em nome da empresa**, não pessoal.
+1. Entre em **console.anthropic.com** e crie a conta **em nome da empresa**.
 2. Adicione um cartão e **coloque um limite de gasto mensal** — comece com US$ 20.
-   Isso é a sua rede de segurança real; o teto do código é a segunda camada.
 3. Crie uma API key e guarde. Ela aparece **uma vez só**.
 
-> A assinatura do Claude que você usa para trabalhar **não** cobre isso. São contas
-> separadas, cobranças separadas. Está explicado no `ROTEIRO.md`.
+> A assinatura do Claude que você usa para trabalhar **não** cobre isso. São contas separadas.
 
 ### 2. Cloudflare
 
-Conta grátis em **dash.cloudflare.com**. Escolhi Cloudflare em vez de Vercel por dois
-motivos: o plano grátis do Vercel exclui uso comercial, e a Cloudflare resolve site
-estático e função de servidor na mesma coisa.
+**Plano:** o **Workers Paid (US$ 5/mês)** é necessário. A verificação de senha usa cerca de
+20 ms de processamento, e o plano gratuito corta em 10 ms — o login falharia de forma
+intermitente. (Existe um recuo: a variável `PBKDF2_ITERACOES=50000` cabe no plano grátis, ao
+custo de senhas duas vezes mais rápidas de atacar se o banco vazar. Não recomendo.)
 
-**Criar o projeto:** Workers & Pages → Create → Pages → Connect to Git →
-`marlopires/epige`.
+**Criar o banco:** Workers & Pages → **D1 SQL Database** → Create → nome `epige`.
+As tabelas são criadas sozinhas na primeira visita — não há SQL para rodar.
+
+**Criar o projeto:** Workers & Pages → Create → Pages → Connect to Git → `marlopires/epige`.
 
 | Campo | Valor |
 |---|---|
 | Production branch | `main` |
-| Build command | `node web/build-prompts.mjs` |
-| Build output directory | `web/public` |
+| Root directory (em *Advanced*) | **`web`** |
+| Build command | `node build-prompts.mjs` |
+| Build output directory | `public` |
 
-**Variáveis de ambiente** (Settings → Environment variables → Production):
+> **O *Root directory* `web` não é opcional.** A Cloudflare procura a pasta `functions/` na
+> raiz do projeto; sem isso, as páginas sobem mas **nenhuma rota da API existe** — o site
+> fica preso em "servidor indisponível".
+
+**Vincular o banco:** no projeto → Settings → **Bindings** → Add → D1 database →
+nome da variável **`EPIGE_DB`** → banco `epige`.
+
+**Variáveis** (Settings → Variables and Secrets → Production):
 
 | Nome | Valor | Tipo |
 |---|---|---|
-| `ANTHROPIC_API_KEY` | a chave do passo 1 | **Encrypt** |
-| `CODIGO_ACESSO` | uma frase que só você e os testadores sabem | **Encrypt** |
-| `TETO_DIARIO_BRL` | `20` | texto |
+| `ANTHROPIC_API_KEY` | a chave do passo 1 | **Secret** |
+| `SEGREDO` | 48 caracteres aleatórios (ver abaixo) | **Secret** |
+| `CODIGO_ACESSO` | uma frase que só você sabe | **Secret** |
+| `TETO_DIARIO_BRL` | `20` — teto da plataforma inteira por dia | texto |
+| `TETO_ORG_BRL` | `10` — teto padrão de cada empresa por dia | texto |
 
-> **`CODIGO_ACESSO` não é opcional.** Sem ela o proxy recusa tudo com 503, de propósito:
-> esquecer de configurar o código não pode resultar numa API aberta ligada ao seu cartão.
+**`SEGREDO`** protege as senhas e as chaves de 2FA. Gere com um gerador de senhas (48
+caracteres, letras e números) ou, num terminal, `openssl rand -base64 48`. Guarde no seu
+cofre de senhas. **Nunca troque depois de publicado:** trocar invalida todas as senhas e
+todos os 2FA de todo mundo. Sem ele — ou com menos de 32 caracteres — a API recusa tudo.
 
-**Teto de gasto** (Settings → Functions → KV namespace bindings): crie um namespace
-chamado `epige` e vincule com o nome de variável `EPIGE_KV`. Sem esse binding o site
-funciona, mas o teto diário **não é aplicado** — a resposta devolve `medindo_teto: false`
-em vez de fingir que está protegendo.
+**`CODIGO_ACESSO`** agora só serve para o **primeiro acesso**. Depois que a sua conta existe,
+ele não abre mais nada.
+
+> Se você já tinha criado o KV `EPIGE_KV` na versão anterior, pode remover o binding: o
+> teto e a telemetria agora ficam no D1.
 
 ### 3. Domínio — `epige.com.br`
 
-**Use um subdomínio, não a raiz.** A demo vai em `demo.epige.com.br`, e
-`epige.com.br` fica livre para o site institucional quando ele existir. Apontar a raiz
-para a demo agora dá trabalho para desfazer depois, e a primeira impressão de quem digitar
-o domínio não deve ser uma tela pedindo código de acesso.
+**Use um subdomínio, não a raiz.** A plataforma vai em `app.epige.com.br` (ou
+`demo.epige.com.br`), e `epige.com.br` fica livre para o site institucional.
 
-**No Cloudflare:** Websites → Add a site → `epige.com.br`. Ele mostra dois nameservers,
-algo como `ana.ns.cloudflare.com` e `bob.ns.cloudflare.com`.
+**No Cloudflare:** Websites → Add a site → `epige.com.br`. Ele mostra dois nameservers.
 
-**No registro.br:** entre em registro.br, Painel → `epige.com.br` → **DNS** →
-*Alterar servidores DNS* → cole os dois nameservers que o Cloudflare deu. Salve.
+**No registro.br:** Painel → `epige.com.br` → **DNS** → *Alterar servidores DNS* → cole os
+dois nameservers. A propagação leva de minutos a algumas horas.
 
-Propagação costuma levar de minutos a algumas horas. O Cloudflare avisa por e-mail quando
-assume o domínio.
+**Depois:** projeto Pages → Custom domains → `app.epige.com.br`. DNS e HTTPS saem sozinhos.
 
-**Depois que assumir:** volte no projeto Pages → Custom domains → Set up a domain →
-`demo.epige.com.br`. O registro DNS é criado sozinho, e o certificado HTTPS sai em
-alguns minutos.
+> **Cuidado no registro.br.** Trocar os nameservers move **todo** o DNS do domínio. Se já
+> houver e-mail nesse domínio, recrie os registros MX no Cloudflare antes da troca.
 
-> **Cuidado no registro.br.** Trocar os nameservers move **todo** o DNS do domínio para o
-> Cloudflare. Se você já tem e-mail configurado nesse domínio, os registros MX precisam ser
-> recriados lá antes da troca, ou o e-mail para de funcionar. Se o domínio é novo e não tem
-> nada, não há com o que se preocupar.
+### 4. Primeiro acesso
 
-## As três camadas que protegem sua conta
+Abra o site. A tela de **Primeiro acesso** aparece sozinha enquanto não existe nenhuma
+conta. Informe o `CODIGO_ACESSO`, sua empresa, seu nome, e-mail e uma senha longa. Pronto:
+você é administrador da sua empresa e da plataforma.
 
-Uma página pública ligada a uma chave de API é um cartão de crédito exposto. Por ordem de
-confiabilidade:
+**Ative o 2FA logo em seguida** (Minha conta → Verificação em duas etapas). A sua conta
+é a mais valiosa do sistema.
 
-1. **Limite de gasto no console da Anthropic.** A única que é garantia de verdade, porque
-   é aplicada por quem cobra.
-2. **Código de acesso.** Mantém a demo fora do alcance de quem só encontrou a URL.
-3. **Teto diário no código.** Para o gasto do dia quando o acumulado passa do limite.
-   Depende do KV estar vinculado.
+## Segurança — o que está fechado
 
-Nenhuma delas substitui as outras. A primeira é a que impede um susto na fatura.
+| Camada | Como |
+|---|---|
+| Senhas | PBKDF2-SHA256, 100 mil iterações, sal por usuário e pimenta (`SEGREDO`) fora do banco. Mínimo de 10 caracteres, e senha que aparece em vazamento público é recusada. |
+| Sessão | Cookie `__Host-`, `HttpOnly`, `Secure`, `SameSite=Strict`. O banco guarda só o hash do token. Expira em 12 h sem uso ou 7 dias no total. |
+| Força bruta | 5 erros no mesmo e-mail ou 30 no mesmo IP bloqueiam por 15 minutos. Mesma mensagem e mesmo tempo para e-mail inexistente e senha errada. |
+| 2FA | Aplicativo autenticador (TOTP). Chave cifrada no banco; código não pode ser reutilizado. |
+| CSRF | Origem conferida em toda requisição que altera dado, corpo obrigatoriamente JSON, e cookie `Strict`. |
+| Isolamento | Toda consulta filtra pela empresa **da sessão**, nunca por id vindo do navegador. Testado: outra empresa recebe "não encontrado". |
+| Papéis | Conferidos no servidor em cada rota. Esconder botão na tela é conveniência, não controle. |
+| Páginas | CSP sem script inline nem de terceiros, HSTS, bloqueio de moldura (clickjacking). |
+| Tokens de link | Convite e nova senha vão no fragmento da URL (`#`), que não chega a log de servidor; uso único; guardados só como hash. |
+| Conta da plataforma | Só ela mesma se altera. Admin da sua empresa não consegue gerar nova senha para você. |
+| IA | Chave e prompts no servidor. Limite de 60 chamadas/hora por pessoa, teto diário por empresa e teto diário global. |
+| Auditoria | Log de login, falhas, convites, mudanças de acesso, aprovações e exportações. |
+| LGPD | Conversas com a IA não são guardadas — só o que a pessoa salva como documento. Exportação completa dos dados da empresa em JSON. |
 
-## Verificação antes de mostrar para alguém
+**Três camadas protegem o cartão**, por ordem de confiabilidade: o limite de gasto no
+console da Anthropic (a única garantia de verdade); o acesso só por conta; e os tetos
+diários no código.
+
+## Testes
 
 ```bash
-node web/build-prompts.mjs                     # regenera os prompts
-grep -c "api.anthropic.com" web/public/index.html   # tem que dar 0
+node web/testes/api.mjs          # 119 verificações — não precisa de chave de API
+node web/testes/navegador.mjs    # 31 verificações — precisa do Playwright com Chromium
 ```
 
-Depois de publicado, abra `/api/chat` no navegador. A resposta deve ser
-`{"configurado":true,"autorizado":false,...}`. Se vier `configurado:false`, faltou
-variável de ambiente.
+Os dois sobem a plataforma localmente no **runtime real da Cloudflare** (wrangler), com
+banco descartável e um simulador da API da Anthropic. Não gastam token. Rode antes de
+publicar qualquer mudança em `functions/` ou `public/`.
+
+A suíte foi conferida contra defeito proposital: removendo o filtro de empresa do
+carregamento de documentos, ela acusa as 4 verificações de isolamento.
 
 ## Quando mudar um prompt
 
 ```bash
-# edite agentes/papeis/*.txt ou agentes/normas/*.txt
 node web/build-prompts.mjs
+node avaliacao/rodar.mjs guardrails   # precisa de ANTHROPIC_API_KEY
 git add -A && git commit -m "ajusta prompt do consultor" && git push
 ```
 
-A Cloudflare publica sozinha a cada push em `main`. O protótipo em `prototipos/` **não**
-acompanha — ele tem a própria cópia embutida e agora é registro histórico.
+A Cloudflare publica sozinha a cada push em `main`.
+
+## Cópia de segurança
+
+O D1 guarda o histórico de alterações e permite voltar o banco a qualquer ponto dos
+últimos 30 dias (**Time Travel**, no painel do D1). Cada empresa também exporta os próprios
+dados em **Minha conta → Exportar dados da empresa**.
 
 ## O que ainda não tem
 
-- **Sem contas de usuário.** O código de acesso é um só, compartilhado entre os testadores.
-- **Sem limite por pessoa nem por plano.** O teto é global.
-- **A conversa não sobrevive ao recarregamento.** Só o contexto da empresa e o código ficam
-  guardados no navegador.
-
-Isso é a plataforma em fase de teste, não o MVP comercial. O que falta para o MVP —
-persistência, contas, cobrança, controle de limite por plano — é a Fase 2 do roteiro e
-precisa de desenvolvedor.
+- **E-mail automático.** Convite e nova senha são links copiados à mão. Quando houver um
+  provedor de e-mail (Resend, por exemplo), o envio entra sem mudar o resto.
+- **Cobrança.** O teto por empresa existe; plano e pagamento, não.
+- **Histórico de conversa.** A conversa com a IA some ao recarregar a página — de
+  propósito, por LGPD. O que importa se salva como documento.
+- **Textos legais.** Termos de uso e política de privacidade dependem do advogado
+  (F0-3 e F0-5). **Não abra para cliente real sem eles.**
 
 ## O que NÃO foi verificado
 
-Vale dizer com precisão, porque a diferença importa:
+**Verificado:** API e interface completas no runtime da Cloudflare, com banco real (D1
+local), incluindo isolamento entre empresas, papéis, sessão, 2FA, bloqueio por
+tentativas, ciclo de aprovação, tetos de IA, CSP sem violação e layout de celular.
 
-**Verificado:** a montagem dos 14 agentes nas 3 normas, sem placeholder solto e sem
-vazamento de mecanismo entre normas; as guardas do proxy em nove cenários; os 12
-renderizadores da interface com dados representativos; as duas páginas em quatro larguras,
-sem rolagem horizontal nem erro de JavaScript.
-
-**Não verificado:** **nenhuma resposta real de agente.** Sem chave de API, não houve uma
-única chamada que chegasse ao modelo. O handler alcançou a API e recebeu
-`invalid x-api-key`, o que prova que o formato da requisição é aceito e que só falta a
-chave — mas não prova nada sobre a qualidade das respostas.
-
-A primeira coisa a fazer quando a chave existir é `node avaliacao/rodar.mjs guardrails`.
-Se os guardrails não passarem 100%, não publique.
+**Não verificado:** **nenhuma resposta real de agente** — sem chave de API, a IA foi
+simulada. E o comportamento no ambiente de produção da Cloudflare (o local é o mesmo
+runtime, mas não é a mesma rede). A primeira coisa a fazer quando a chave existir é
+`node avaliacao/rodar.mjs guardrails`. Se os guardrails não passarem 100%, não publique.

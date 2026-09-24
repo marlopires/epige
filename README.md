@@ -25,7 +25,7 @@ qualidade, com escopo de lançamento em ISO 9001.
 | [`agentes/README.md`](agentes/README.md) | Os prompts que governam os agentes, e a ressalva de sincronia com o HTML. |
 | [`avaliacao/README.md`](avaliacao/README.md) | Como preencher e rodar o conjunto de avaliação. |
 | [`avaliacao/REVISAR.md`](avaliacao/REVISAR.md) | **O que precisa da sua revisão.** O gabarito foi escrito por Claude e não está validado. |
-| [`web/README.md`](web/README.md) | **Como publicar.** Conta de API, Cloudflare, domínio, e as três camadas que protegem a conta. |
+| [`web/README.md`](web/README.md) | **Como publicar.** Conta de API, Cloudflare (banco D1 e segredos), domínio, primeiro acesso, e o que a segurança cobre. |
 
 ## Estrutura
 

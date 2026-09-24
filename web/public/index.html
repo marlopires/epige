@@ -51,7 +51,7 @@ header{background:var(--ink); color:#fff; padding:var(--e-13) var(--e-21); displ
 
 .shell{display:grid; grid-template-columns:var(--rail-l) minmax(0,1fr) var(--rail-r); min-height:calc(100vh - 56px)}
 @media (max-width:1180px){.shell{grid-template-columns:220px minmax(0,1fr)} .rail-right{grid-column:1/-1; border-left:none; border-top:1px solid var(--line)}}
-@media (max-width:820px){.shell{grid-template-columns:1fr} .rail-left{border-right:none;border-bottom:1px solid var(--line)}}
+@media (max-width:820px){.shell{grid-template-columns:minmax(0,1fr)} .rail-left{border-right:none;border-bottom:1px solid var(--line)}}
 
 .rail-left{background:var(--surface); border-right:1px solid var(--line); padding:var(--e-21) 0 var(--e-34)}
 .rail-title{font-size:var(--t-9); font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--muted); padding:0 var(--e-21) var(--e-5)}
@@ -73,7 +73,7 @@ main h2{font-size:var(--t-24); margin-bottom:var(--e-8); letter-spacing:-.035em}
 .panel{background:var(--surface); border:1px solid var(--line); border-radius:var(--e-13); padding:var(--e-21); box-shadow:var(--shadow); margin-bottom:var(--e-21)}
 
 label{display:block; font-size:var(--t-12); font-weight:600; margin-bottom:var(--e-5); color:#2C3347}
-input[type=text], select, textarea{width:100%; padding:var(--e-8) var(--e-13); border:1px solid var(--line-strong); border-radius:var(--e-8); font-family:inherit; font-size:var(--t-15); background:#fff; color:var(--ink)}
+input[type=text], input[type=email], input[type=password], input[type=number], input[type=search], select, textarea{width:100%; padding:var(--e-8) var(--e-13); border:1px solid var(--line-strong); border-radius:var(--e-8); font-family:inherit; font-size:var(--t-15); background:#fff; color:var(--ink)}
 textarea{resize:vertical; min-height:78px; line-height:1.55; font-size:var(--t-15)}
 textarea.doc{min-height:200px; font-family:var(--mono); font-size:var(--t-12)}
 .grid2{display:grid; grid-template-columns:1fr 1fr; gap:var(--e-13)}
@@ -157,6 +157,75 @@ textarea.doc{min-height:200px; font-family:var(--mono); font-size:var(--t-12)}
 .locked{text-align:center; padding:var(--e-34) var(--e-21); color:var(--muted)}
 .locked-i{font-size:var(--t-24); margin-bottom:var(--e-8); opacity:.4}
 ul.plain{margin:0;padding-left:var(--e-21);font-size:var(--t-12);line-height:1.6}
+
+/* ---------- acesso ---------- */
+.auth{max-width:440px; margin:8vh auto var(--e-55); padding:0 var(--e-21)}
+.auth h2{font-size:var(--t-24); margin-bottom:var(--e-8); letter-spacing:-.035em}
+.auth .lede{margin-bottom:var(--e-21)}
+.auth .btn-primary{width:100%}
+.auth-links{display:flex; flex-direction:column; gap:var(--e-5); margin-top:var(--e-13); font-size:var(--t-12)}
+.linkish{background:none; border:none; padding:0; color:var(--blue); font-size:var(--t-12); text-align:left; text-decoration:underline; text-underline-offset:2px}
+.hp{position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden}
+.msg-erro{color:var(--rose); font-size:var(--t-12); min-height:18px; margin-top:var(--e-8)}
+.msg-ok{color:#1F6B60; font-size:var(--t-12); margin-top:var(--e-8)}
+
+/* ---------- cabeçalho ---------- */
+.user-chip{display:flex; align-items:center; gap:var(--e-8); font-size:var(--t-12); color:#C9D3E6}
+.user-chip b{color:#fff; font-weight:600}
+.btn-sair{background:#151C33; border:1px solid #26304C; color:#C9D3E6; border-radius:var(--e-8); padding:var(--e-3) var(--e-13); font-size:var(--t-12)}
+.btn-sair:hover{border-color:#3C4A6E; color:#fff}
+
+/* ---------- tabelas e listas ---------- */
+.tbl{width:100%; border-collapse:collapse; font-size:var(--t-12)}
+.tbl th{font-size:var(--t-9); text-transform:uppercase; letter-spacing:.1em; color:var(--muted); text-align:left; font-weight:700; padding:var(--e-8); border-bottom:1px solid var(--line)}
+.tbl td{padding:var(--e-8); border-bottom:1px solid var(--line); vertical-align:top}
+.tbl td.mono{white-space:nowrap}
+@media (max-width:620px){.tbl .opc{display:none}}
+.tbl tr.clicavel{cursor:pointer}
+.tbl tr.clicavel:hover td{background:#F4F7FC}
+.tbl-wrap{overflow-x:auto}
+.mono{font-family:var(--mono)}
+.muted{color:var(--muted)}
+.badge{display:inline-block; font-family:var(--mono); font-size:var(--t-9); font-weight:600; letter-spacing:.06em; text-transform:uppercase; padding:var(--e-2) var(--e-8); border-radius:var(--e-5); background:#EEF1F6; color:#2C3347; white-space:nowrap}
+.badge.vigente{background:#E4F3F0; color:#1F6B60}
+.badge.vigente_em_revisao{background:#E4F3F0; color:#1F6B60}
+.badge.em_revisao{background:#FBF0DC; color:#8A5B06}
+.badge.em_elaboracao,.badge.rascunho{background:#EEF3FE; color:#1E3A8F}
+.badge.obsoleto,.badge.obsoleta,.badge.substituida{background:#F1F1F3; color:#6B7280}
+.badge.admin{background:#EEF3FE; color:#1E3A8F}
+.badge.inativo{background:#FAE7E4; color:#8F2A21}
+.filtros{display:grid; grid-template-columns:2fr 1fr 1fr; gap:var(--e-8); margin-bottom:var(--e-13)}
+@media (max-width:620px){.filtros{grid-template-columns:1fr}}
+.kv{display:grid; grid-template-columns:max-content 1fr; gap:var(--e-3) var(--e-13); font-size:var(--t-12); margin-bottom:var(--e-13)}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0}
+.link-box{display:flex; gap:var(--e-8); align-items:center; background:#F4F7FC; border:1px dashed var(--line-strong); border-radius:var(--e-8); padding:var(--e-8); margin:var(--e-8) 0; font-family:var(--mono); font-size:var(--t-12); word-break:break-all}
+.link-box span{flex:1}
+.btn-sm{padding:var(--e-3) var(--e-13); font-size:var(--t-12)}
+.btn-perigo{background:#fff; color:var(--rose); border-color:#F0C6C0}
+.btn-perigo:hover:not(:disabled){border-color:var(--rose)}
+.salvar-doc{border-top:1px solid var(--line); margin-top:var(--e-13); padding-top:var(--e-13)}
+.barra{height:8px; border-radius:99px; background:#EEF1F6; overflow:hidden; margin:var(--e-5) 0}
+.barra>i{display:block; height:100%; background:var(--teal)}
+.barra.alta>i{background:var(--amber)}
+.barra.cheia>i{background:var(--rose)}
+.doc-view{background:#fff; border:1px solid var(--line); border-radius:var(--e-13); padding:var(--e-21); font-size:var(--t-15); line-height:1.72}
+.doc-view h3{font-size:var(--t-19); margin:var(--e-21) 0 var(--e-5)}
+.doc-view h3:first-child{margin-top:0}
+.doc-view h4{font-size:var(--t-15); margin:var(--e-13) 0 var(--e-5)}
+.doc-view ul{margin:var(--e-5) 0 var(--e-8); padding-left:var(--e-21)}
+
+/* ---------- impressão: só o documento, com identificação e aviso de cópia ---------- */
+#impressao{display:none}
+@media print{
+  body.imprimindo > *:not(#impressao){display:none!important}
+  body.imprimindo #impressao{display:block}
+  body{background:#fff}
+  .imp-cab{border:1px solid #999; padding:8px 12px; margin-bottom:16px; font-size:11px; display:grid; grid-template-columns:1fr 1fr; gap:2px 16px}
+  .imp-cab h1{grid-column:1/-1; font-size:16px; margin:0 0 4px}
+  .imp-rodape{margin-top:24px; border-top:1px solid #999; padding-top:6px; font-size:10px; color:#444}
+  .doc-view{border:none; padding:0}
+}
 </style>
 </head>
 <body>
@@ -172,33 +241,27 @@ ul.plain{margin:0;padding-left:var(--e-21);font-size:var(--t-12);line-height:1.6
     <path d="M94.10,123.65 L89.64,123.14 L83.17,120.07 L69.05,111.55 L66.06,107.49 L65.71,102.52 L68.16,97.93 L71.96,94.96 L102.82,77.47 L107.93,75.40 L115.42,75.81 L133.46,86.09 L137.36,91.16 L137.13,97.97 L132.88,102.42 L102.71,120.32 L94.21,123.63 Z" fill="#3C8589"/>
   </svg>
   <span class="wordmark">EPIGE</span>
-  <select class="normas" id="normas" aria-label="Norma" onchange="trocarNorma(this.value)"></select>
+  <select class="normas hidden" id="normas" aria-label="Norma" data-muda="trocarNorma"></select>
   <span class="spacer"></span>
+  <span class="user-chip hidden" id="userChip"><span id="userNome"></span><button class="btn-sair" data-acao="sair">Sair</button></span>
   <span class="status"><span class="dot" id="dot"></span><span id="statusTxt">verificando…</span></span>
 </header>
 
-<div id="gate" class="hidden" style="max-width:420px;margin:12vh auto;padding:0 var(--e-21);text-align:center">
-  <h2 style="font-size:var(--t-24);margin-bottom:var(--e-8)">Acesso restrito</h2>
-  <p style="color:var(--muted);font-size:var(--t-15);margin-bottom:var(--e-21)">A plataforma consome IA paga. O acesso é por código enquanto estamos em teste.</p>
-  <div class="field"><input type="text" id="codigo" placeholder="código de acesso" onkeydown="if(event.key==='Enter')entrar()" style="text-align:center"></div>
-  <button class="btn btn-primary" onclick="entrar()" style="width:100%">Entrar</button>
-  <p id="gateMsg" style="color:var(--rose);font-size:var(--t-12);margin-top:var(--e-8);min-height:18px"></p>
-</div>
+<div id="acesso" class="hidden"></div>
 
 <div class="shell hidden" id="shell">
-  <nav class="rail-left" id="rail"></nav>
+  <nav class="rail-left" id="rail" aria-label="Ferramentas"></nav>
   <main id="main"></main>
   <aside class="rail-right">
-    <div class="meter">
-      <div class="meter-l">Custo da sessão</div>
+    <div class="meter" id="meter">
+      <div class="meter-l">Custo desta sessão</div>
       <div class="meter-v">R$ <span id="mCusto">0,0000</span></div>
       <div class="ledger" id="ledger"></div>
-      <div class="meter-sub">Tokens medidos na resposta da API, convertidos às tarifas de produção e ao câmbio de R$ 5,20. Cada agente roda no modelo do papel dele.</div>
+      <div class="meter-sub" id="meterSub">Tokens medidos na resposta da API, convertidos às tarifas de produção e ao câmbio de R$ 5,20. Cada agente roda no modelo do papel dele.</div>
     </div>
     <div class="card">
-      <div class="card-t">Contexto da empresa</div>
+      <div class="card-t">Empresa</div>
       <div id="ctxResumo" style="font-size:var(--t-12);color:var(--muted);line-height:1.6"></div>
-      <button class="btn btn-ghost" style="width:100%;margin-top:var(--e-8);font-size:var(--t-12);padding:var(--e-5)" onclick="abrir('contexto')">Editar</button>
     </div>
     <div class="card">
       <div class="card-t">Regras ativas</div>
@@ -211,461 +274,8 @@ ul.plain{margin:0;padding-left:var(--e-21);font-size:var(--t-12);line-height:1.6
   </aside>
 </div>
 
-<script>
-/* ---------- estado ---------- */
-const S = {
-  codigo:'', norma:'iso-9001', adicionais:[], normas:{}, agentes:{}, ferramenta:'contexto',
-  custo:0, chamadas:[], historico:{},
-  perfil:{nome:'', atividade:'', porte:'Pequena empresa (10 a 49 pessoas)',
-          nivel:'Iniciante — explique com calma', situacao:''},
-};
+<div id="impressao"></div>
 
-const $ = id => document.getElementById(id);
-const esc = t => String(t==null?'':t).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const brl = (v,d=4) => v.toLocaleString('pt-BR',{minimumFractionDigits:d, maximumFractionDigits:d});
-const cls = v => String(v==null?'':v).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
-
-function md(t){
-  let h = esc(t);
-  h = h.replace(/^#{3}\s+(.+)$/gm,'<h4>$1</h4>').replace(/^#{1,2}\s+(.+)$/gm,'<h3>$1</h3>');
-  h = h.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
-  h = h.replace(/^\s*[-•]\s+(.+)$/gm,'<li>$1</li>').replace(/^\s*\d+[.)]\s+(.+)$/gm,'<li>$1</li>');
-  h = h.replace(/(<li>[\s\S]*?<\/li>)/g, m => '<ul>'+m+'</ul>').replace(/<\/ul>\s*<ul>/g,'');
-  return h.split(/\n{2,}/).map(b => {
-    b = b.trim(); if(!b) return '';
-    return /^<(h3|h4|ul)/.test(b) ? b : '<p>'+b.replace(/\n/g,'<br>')+'</p>';
-  }).join('');
-}
-
-/* ---------- ferramentas ---------- */
-const FERRAMENTAS = [
-  {id:'contexto', grupo:'Começar', n:'01', t:'Contexto da empresa', d:'Define como todos os agentes respondem', agente:null},
-  {id:'diagnostico', grupo:'Começar', n:'02', t:'Diagnóstico inicial', d:'Onde você está e o primeiro passo', agente:'diagnostico'},
-  {id:'consultor', grupo:'Entender', n:'03', t:'Consultor', d:'Dúvida sobre requisito', agente:'consultor', chat:true},
-  {id:'legal', grupo:'Entender', n:'04', t:'Legal e regulatório', d:'Requisitos legais aplicáveis', agente:'legal'},
-  {id:'lacuna', grupo:'Entender', n:'05', t:'Lacuna entre edições', d:'O que muda na transição', agente:'lacuna'},
-  {id:'sgi', grupo:'Entender', n:'06', t:'Integração de normas', d:'O que unificar e o que separar', agente:'sgi'},
-  {id:'redator', grupo:'Executar', n:'07', t:'Redigir documento', d:'Procedimento, política, instrução', agente:'redator', doc:true},
-  {id:'formulario', grupo:'Executar', n:'08', t:'Criar formulário', d:'O registro que sustenta evidência', agente:'formulario', doc:true},
-  {id:'causa', grupo:'Executar', n:'09', t:'Análise de causa', d:'Chegar à causa real, não à aparente', agente:'causa', chat:true},
-  {id:'plano', grupo:'Executar', n:'10', t:'Plano de ação', d:'Lacunas viram ações com prazo', agente:'plano', doc:true},
-  {id:'analista', grupo:'Verificar', n:'11', t:'Analisar documento', d:'Confronta o seu documento com a norma', agente:'analista', doc:true},
-  {id:'auditor', grupo:'Verificar', n:'12', t:'Auditoria simulada', d:'Uma norma ou combinada, em Opus', agente:'auditor', doc:true},
-  {id:'vigilancia', grupo:'Acompanhar', n:'13', t:'Vigilância normativa', d:'Revisões e novidades, com busca', agente:'vigilancia'},
-];
-
-function montarRail(){
-  const grupos = [...new Set(FERRAMENTAS.map(f=>f.grupo))];
-  $('rail').innerHTML = grupos.map(g =>
-    '<div class="grupo"><div class="rail-title">'+esc(g)+'</div>' +
-    FERRAMENTAS.filter(f=>f.grupo===g).map(f => {
-      const trava = f.id!=='contexto' && !S.perfil.nome;
-      return '<button class="tool'+(S.ferramenta===f.id?' on':'')+'" onclick="abrir(\''+f.id+'\')"'+(trava?' disabled':'')+'>'
-        + '<span class="tool-i">'+f.n+'</span>'
-        + '<span><span class="tool-t">'+esc(f.t)+'</span><span class="tool-d">'+esc(f.d)+'</span></span></button>';
-    }).join('') + '</div>').join('');
-}
-
-function montarNormas(){
-  $('normas').innerHTML = Object.entries(S.normas).map(([k,v]) =>
-    '<option value="'+esc(k)+'"'+(S.norma===k?' selected':'')+'>'+esc(v.rotulo||v)+' · '+esc(v.tema||'')+'</option>').join('');
-}
-
-/** Auditor e SGI aceitam sessão combinada: a norma principal e até três adicionais. */
-const MAX_ADICIONAIS = 3;
-const combina = f => !!(f && f.agente && (S.agentes[f.agente]||{}).combinada);
-const normasDaTela = f => [S.norma, ...(combina(f) ? S.adicionais : [])].filter(k => S.normas[k]);
-const rotuloNormas = f => normasDaTela(f).map(k => S.normas[k].rotulo).join(' + ');
-
-/** Normas ainda não conferidas contra exemplar avisam na tela, não só no prompt. */
-function avisoConfianca(f){
-  const ids = normasDaTela(f);
-  const medias = ids.filter(k => S.normas[k].confianca !== 'alta');
-  let h = '';
-  if(medias.length){
-    h += '<div class="aviso-conf"><b>Conteúdo não conferido contra exemplar'
-      + (ids.length > 1 ? ' para: '+esc(medias.map(k => S.normas[k].rotulo).join(', '))+'.' : ' da norma.')+'</b> '
-      + 'A edição foi apurada em fonte secundária e os mecanismos vêm do conhecimento do modelo. '
-      + 'O agente vai evitar precisar número de cláusula — confira no texto antes de usar em auditoria.</div>';
-  }
-  if(f && f.id === 'auditor' && ids.some(k => S.normas[k].maturidade)){
-    h += '<div class="alert alert-info"><b>A ABNT PR 2030 não é certificável.</b> '
-      + 'Para ela, o auditor avalia estágio de maturidade — não conformidade.</div>';
-  }
-  return h;
-}
-
-function seletorCombinado(f){
-  if(!combina(f)) return '';
-  const cheio = S.adicionais.length >= MAX_ADICIONAIS;
-  const titulo = f.id === 'auditor'
-    ? 'Auditoria combinada — até '+MAX_ADICIONAIS+' referenciais além de '+S.normas[S.norma].rotulo
-    : 'Integrar '+S.normas[S.norma].rotulo+' com';
-  return '<div class="combo"><div class="combo-t">'+esc(titulo)+'</div><div class="suggest" style="margin:0">'
-    + Object.entries(S.normas).filter(([k]) => k !== S.norma).map(([k,v]) => {
-        const on = S.adicionais.includes(k);
-        return '<button type="button" class="chip'+(on?' on':'')+'" aria-pressed="'+on+'"'
-          + (!on && cheio ? ' disabled' : '')
-          + ' onclick="alternarAdicional(\''+esc(k)+'\')">'+esc(v.rotulo)+'</button>';
-      }).join('')
-    + '</div></div>';
-}
-
-/** Atualiza só o que depende da seleção — a entrada digitada pelo usuário fica intacta. */
-function alternarAdicional(k){
-  const i = S.adicionais.indexOf(k);
-  if(i >= 0) S.adicionais.splice(i, 1);
-  else if(S.adicionais.length < MAX_ADICIONAIS) S.adicionais.push(k);
-  const f = FERRAMENTAS.find(x => x.id === S.ferramenta);
-  $('combo').innerHTML = seletorCombinado(f);
-  $('avisoBox').innerHTML = avisoConfianca(f);
-  $('eyebrow').textContent = 'Passo '+f.n+' · '+rotuloNormas(f);
-}
-
-function trocarNorma(k){
-  if(k===S.norma) return;
-  S.norma = k;
-  S.adicionais = S.adicionais.filter(x => x !== k);
-  S.historico = {};   // conversa de uma norma não vale para outra
-  montarNormas();
-  abrir(S.ferramenta);
-}
-
-/* ---------- comunicação ---------- */
-async function chamar(agente, mensagens, rotulo){
-  const r = await fetch('/api/chat', {
-    method:'POST',
-    headers:{'Content-Type':'application/json','x-epige-codigo':S.codigo},
-    body: JSON.stringify({agente, norma:S.norma, mensagens, contexto:S.perfil,
-      adicionais: (S.agentes[agente]||{}).combinada ? S.adicionais : undefined}),
-  });
-  const d = await r.json().catch(()=>({erro:'Resposta ilegível do servidor.'}));
-  if(!r.ok) throw new Error(d.erro || ('O servidor respondeu com status '+r.status+'.'));
-  registrar(rotulo, d);
-  if(d.truncado) d.aviso = 'A resposta foi cortada no limite de tokens. Peça em partes menores.';
-  return d;
-}
-
-function registrar(rotulo, d){
-  S.custo += d.custo || 0;
-  S.chamadas.push({rotulo, custo:d.custo||0, modelo:d.modelo});
-  $('mCusto').textContent = brl(S.custo);
-  $('ledger').innerHTML = S.chamadas.slice(-8).map(x =>
-    '<div class="ledger-row"><span>'+esc(x.rotulo)+'</span><b>R$ '+brl(x.custo)+'</b></div>').join('');
-}
-
-function extrairJSON(t){
-  const limpo = String(t).replace(/```json|```/g,'').trim();
-  const i = limpo.indexOf('{'), f = limpo.lastIndexOf('}');
-  if(i<0 || f<0) throw new Error('O agente não devolveu dados estruturados.');
-  return JSON.parse(limpo.slice(i,f+1));
-}
-
-const pensando = (box,msg) => box.innerHTML =
-  '<div class="thinking"><span class="pulse"></span><span class="pulse"></span><span class="pulse"></span> '+esc(msg)+'</div>';
-const erro = (box,e) => box.innerHTML =
-  '<div class="alert alert-err"><b>Não foi possível concluir.</b><br>'+esc(e.message||e)+'</div>';
-
-/* ---------- renderizadores ---------- */
-const listaSimples = (arr,t) => !arr||!arr.length ? '' :
-  '<div class="card"><div class="card-t">'+esc(t)+'</div><ul class="plain">'+
-  arr.map(x=>'<li>'+esc(typeof x==='string'?x:JSON.stringify(x))+'</li>').join('')+'</ul></div>';
-
-const achado = (grau,titulo,corpo,evid) =>
-  '<div class="finding '+cls(grau)+'"><div class="f-top"><span class="tag '+cls(grau)+'">'+esc(grau)+'</span>'
-  + (titulo?'<span class="f-req">'+esc(titulo)+'</span>':'') + '</div>'
-  + '<div>'+esc(corpo)+'</div>'
-  + (evid?'<div class="f-ev">'+esc(evid)+'</div>':'') + '</div>';
-
-/** PR 2030 não tem conformidade: o achado mostra o estágio, colorido pela posição na escala. */
-function achadoMaturidade(f){
-  const n = Math.min(5, Math.max(1, parseInt(f.nivel, 10) || 1));
-  return '<div class="finding mat'+n+'"><div class="f-top"><span class="tag mat'+n+'">'+esc(f.estagio || ('estágio '+n))+'</span>'
-    + '<span class="f-req">'+esc(f.requisito||'—')+'</span></div>'
-    + '<div>'+esc(f.constatacao)+'</div>'
-    + '<div class="f-ev">Evidência: '+esc(f.evidencia||'—')+'</div></div>';
-}
-
-const RENDER = {
-  diagnostico: a =>
-    '<div class="alert alert-info"><b>Maturidade: '+esc(a.maturidade)+'.</b> '+esc(a.veredito)+'</div>'
-    + (a.lacunas||[]).map(l => achado(l.gravidade, 'cláusula '+(l.clausula||'—')+' · '+(l.tema||''), l.por_que_importa)).join('')
-    + listaSimples(a.pontos_fortes,'O que já dá para aproveitar')
-    + '<div class="card"><div class="card-t">Primeiro passo</div><div style="font-size:var(--t-15)">'+esc(a.primeiro_passo)+'</div></div>'
-    + '<div class="note">Prazo realista até estar auditável: <b>'+esc(a.prazo_realista)+'</b></div>',
-
-  analista: a =>
-    '<div class="alert alert-info"><b>Veredito.</b> '+esc(a.veredito)+'</div>'
-    + (a.cobertura||[]).map(c => achado(c.situacao, 'requisito '+(c.requisito||'—'), c.observacao, c.trecho?('Base: '+c.trecho):'')).join('')
-    + (a.inconsistencias||[]).map(i => achado('media', i.onde, i.problema)).join('')
-    + '<div class="card"><div class="card-t">Executável neste porte?</div><div>'+esc(a.executabilidade)+'</div></div>'
-    + listaSimples(a.prioridade,'Corrigir nesta ordem'),
-
-  auditor: a =>
-    '<div class="doc-head"><div><h3 style="margin:0">'
-    + (a.natureza==='avaliacao_de_maturidade' ? 'Avaliação de maturidade ESG' : 'Relatório de auditoria interna')+'</h3>'
-    + '<div class="doc-code">'+esc(a.escopo||'')+'</div></div></div>'
-    + (a.achados||[]).map(f => f.classificacao==='maturidade'
-        ? achadoMaturidade(f)
-        : achado(f.classificacao, 'requisito '+(f.requisito||'—'), f.constatacao, 'Evidência: '+(f.evidencia||'—'))).join('')
-    + '<div class="card"><div class="card-t">Conclusão do auditor</div><div style="font-size:var(--t-15)">'+esc(a.conclusao)+'</div></div>'
-    + (a.recomendacao_de_prazo ? '<div class="note">Prazo recomendado: '+esc(a.recomendacao_de_prazo)+'</div>' : ''),
-
-  plano: a =>
-    '<div class="alert alert-info"><b>Estratégia.</b> '+esc(a.estrategia)+'</div>'
-    + (a.acoes||[]).map(x => achado(x.esforco, (x.tipo==='correcao'?'correção':'ação corretiva')+' · '+(x.responsavel||'—')+' · '+(x.prazo||'—'),
-        x.o_que, 'Verificação: '+(x.verificacao||'—')+' · Gera: '+(x.evidencia_gerada||'—'))).join('')
-    + listaSimples(a.dependencias,'Dependências')
-    + '<div class="alert alert-warn"><b>Risco do plano.</b> '+esc(a.risco_do_plano)+'</div>',
-
-  legal: a =>
-    '<div class="alert alert-info"><b>Abordagem.</b> '+esc(a.abordagem)+'</div>'
-    + (a.areas||[]).map(x => achado(x.esfera==='todas'?'alta':'media', x.area, x.por_que_se_aplica, 'Verificar em: '+(x.onde_verificar||'—')+' · Esfera: '+(x.esfera||'—'))).join('')
-    + '<div class="card"><div class="card-t">Periodicidade sugerida</div><div>'+esc(a.periodicidade_sugerida)+'</div></div>'
-    + '<div class="card"><div class="card-t">Evidência de avaliação</div><div>'+esc(a.evidencia)+'</div></div>'
-    + '<div class="alert alert-warn"><b>Atenção.</b> '+esc(a.alerta)+'</div>'
-    + '<div class="note">Este agente estrutura o levantamento. Não substitui assessoria jurídica.</div>',
-
-  lacuna: a =>
-    '<div class="alert alert-info"><b>Veredito.</b> '+esc(a.veredito)+'</div>'
-    + (a.lacunas||[]).map(l => achado(l.esforco, 'cláusula '+(l.clausula||'—')+' · '+(l.tema||''),
-        'Hoje: '+(l.situacao_provavel||'—')+' → Passa a pedir: '+(l.o_que_muda||'—'),
-        'Evidência sugerida: '+(l.evidencia_sugerida||'—'))).join('')
-    + listaSimples(a.nao_muda,'O que NÃO muda')
-    + listaSimples(a.sequencia,'Por onde começar')
-    + '<div class="alert alert-warn"><b>Alerta.</b> '+esc(a.alerta)+'</div>',
-
-  sgi: a =>
-    '<div class="alert alert-info"><b>Veredito.</b> '+esc(a.veredito)+'</div>'
-    + (a.unificar||[]).map(x => achado(x.ganho, x.tema+' · '+(x.clausulas||''), x.como)).join('')
-    + (a.separar||[]).map(x => achado('alta', 'não unificar · '+x.tema, x.motivo)).join('')
-    + listaSimples(a.sequencia,'Sequência recomendada')
-    + '<div class="card"><div class="card-t">Impacto das edições</div><div>'+esc(a.impacto_das_edicoes)+'</div></div>'
-    + '<div class="alert alert-warn"><b>Erro mais comum.</b> '+esc(a.alerta)+'</div>',
-
-  vigilancia: a =>
-    (a.novidades||[]).map(n => achado(n.impacto, n.titulo, n.resumo,
-        'Fonte: '+(n.fonte||'—')+' · '+(n.quando||'—')+' · '+(n.confianca||'—'))).join('')
-    + '<div class="card"><div class="card-t">Situação da revisão</div>'
-    + '<div>'+esc(a.revisao&&a.revisao.situacao)+'</div>'
-    + '<div class="note">Estágio: '+esc(a.revisao&&a.revisao.estagio)+' · Expectativa: '+esc(a.revisao&&a.revisao.expectativa)+'</div></div>'
-    + '<div class="alert alert-info"><b>O que fazer agora.</b> '+esc(a.acao)+'</div>'
-    + listaSimples(a.nao_encontrado,'Não foi possível confirmar'),
-
-  formulario: a => {
-    const ctrl = c => c.tipo==='area' ? '<textarea placeholder="—"></textarea>'
-      : c.tipo==='selecao' ? '<select>'+(c.opcoes||[]).map(o=>'<option>'+esc(o)+'</option>').join('')+'</select>'
-      : '<input type="text" placeholder="'+esc(c.tipo==='data'?'dd/mm/aaaa':'—')+'">';
-    return '<div class="doc-head"><div><h3 style="margin:0">'+esc(a.titulo||'Formulário')+'</h3>'
-      + '<div class="doc-code">'+esc(a.codigo||'')+'</div></div></div>'
-      + (a.secoes||[]).map(s => '<div class="card"><div class="card-t">'+esc(s.nome)+'</div>'
-        + (s.campos||[]).map(c => '<div class="field"><label>'+esc(c.rotulo)
-          + (c.obrigatorio?' <span style="color:var(--rose)">*</span>':'')+'</label>'+ctrl(c)
-          + (c.ajuda?'<div class="note" style="margin-top:var(--e-2)">'+esc(c.ajuda)+'</div>':'')+'</div>').join('')
-        + '</div>').join('');
-  },
-
-  causa: a =>
-    '<div class="alert alert-info">'+esc(a.avaliacao_da_trilha)+'</div>'
-    + (a.causas_identificadas||[]).map(c => achado(c.confianca==='alta'?'baixo':(c.confianca==='media'?'medio':'alto'),
-        c.tipo, c.causa, 'Confiança: '+c.confianca)).join('')
-    + (a.alerta ? '<div class="alert alert-warn"><b>Atenção.</b> '+esc(a.alerta)+'</div>' : '')
-    + (a.suficiente
-        ? '<div class="alert alert-info"><b>A trilha é suficiente.</b> Pode seguir para o plano de ação.</div>'
-        : '<div class="card"><div class="card-t">Próxima pergunta</div><div style="font-size:var(--t-15)">'+esc(a.proxima_pergunta)+'</div></div>'),
-};
-
-/* ---------- telas ---------- */
-function abrir(id){
-  S.ferramenta = id;
-  montarRail();
-  const f = FERRAMENTAS.find(x=>x.id===id);
-  window.scrollTo({top:0,behavior:'smooth'});
-  if(id==='contexto') return telaContexto();
-  if(f.chat) return telaChat(f);
-  if(f.doc) return telaDocumento(f);
-  return telaSimples(f);
-}
-
-function telaContexto(){
-  const p = S.perfil;
-  $('main').innerHTML = '<div class="eyebrow">Passo 01</div><h2>Quem é a empresa?</h2>'
-    + '<p class="lede">Tudo que vem depois é escrito para este contexto. O mesmo requisito gera orientação diferente para uma metalúrgica de 40 pessoas e um laboratório de 300.</p>'
-    + '<div class="panel"><div class="grid2">'
-    + '<div class="field"><label for="c_nome">Nome da empresa</label><input type="text" id="c_nome" value="'+esc(p.nome)+'"></div>'
-    + '<div class="field"><label for="c_ativ">Atividade</label><input type="text" id="c_ativ" value="'+esc(p.atividade)+'"></div>'
-    + '</div><div class="grid2">'
-    + '<div class="field"><label for="c_porte">Porte</label><select id="c_porte">'
-    + ['Microempresa (até 9 pessoas)','Pequena empresa (10 a 49 pessoas)','Média empresa (50 a 249 pessoas)','Grande empresa (250 pessoas ou mais)']
-        .map(o=>'<option'+(p.porte===o?' selected':'')+'>'+o+'</option>').join('')+'</select></div>'
-    + '<div class="field"><label for="c_nivel">Nível de conhecimento em normas</label><select id="c_nivel">'
-    + ['Iniciante — explique com calma','Intermediário — já conheço o básico','Avançado — vá direto ao ponto']
-        .map(o=>'<option'+(p.nivel===o?' selected':'')+'>'+o+'</option>').join('')+'</select></div>'
-    + '</div><div class="field"><label for="c_sit">Como o sistema de gestão está hoje</label>'
-    + '<textarea id="c_sit">'+esc(p.situacao)+'</textarea></div>'
-    + '<div class="btn-row"><button class="btn btn-primary" onclick="salvarContexto()">Confirmar contexto</button>'
-    + '<span class="note" style="margin:0">Nenhuma chamada de IA nesta etapa — custo zero.</span></div></div>';
-}
-
-function salvarContexto(){
-  S.perfil = {
-    nome: $('c_nome').value.trim(), atividade: $('c_ativ').value.trim(),
-    porte: $('c_porte').value, nivel: $('c_nivel').value, situacao: $('c_sit').value.trim(),
-  };
-  if(!S.perfil.nome){ alert('O nome da empresa é necessário para os agentes responderem com contexto.'); return; }
-  try{ localStorage.setItem('epige_perfil', JSON.stringify(S.perfil)); }catch(e){}
-  resumoContexto();
-  abrir('diagnostico');
-}
-
-function resumoContexto(){
-  const p = S.perfil;
-  $('ctxResumo').innerHTML = p.nome
-    ? '<b>'+esc(p.nome)+'</b><br>'+esc(p.atividade||'atividade não informada')+'<br>'+esc(p.porte)
-    : 'Não definido. Comece pelo passo 01.';
-}
-
-function telaSimples(f){
-  $('main').innerHTML = '<div class="eyebrow" id="eyebrow">Passo '+f.n+' · '+esc(rotuloNormas(f))+'</div>'
-    + '<h2>'+esc(f.t)+'</h2><p class="lede">'+esc(f.d)+'</p>'
-    + '<div id="avisoBox">'+avisoConfianca(f)+'</div>'
-    + '<div id="combo">'+seletorCombinado(f)+'</div>'
-    + '<div class="panel"><div class="btn-row">'
-    + '<button class="btn btn-primary" id="btnGo" onclick="rodar(\''+f.id+'\')">Executar</button>'
-    + '<span class="note" style="margin:0">Modelo: '+esc((S.agentes[f.agente]||{}).modelo||'—')+'</span></div>'
-    + '<div id="saida"><div class="locked"><div class="locked-i">◷</div>Não executado ainda.</div></div></div>';
-}
-
-function telaDocumento(f){
-  const rotulos = {
-    redator:['Que documento você precisa?','Ex.: procedimento de controle de informação documentada'],
-    formulario:['Cole o procedimento de onde derivar o formulário','Ou descreva o processo que precisa de registro'],
-    plano:['Cole as lacunas ou achados a tratar','Ex.: o relatório de auditoria, ou a lista do diagnóstico'],
-    analista:['Cole o documento a analisar',''],
-    auditor:['Cole o documento ou descreva a prática a auditar',''],
-  }[f.id] || ['Entrada',''];
-  $('main').innerHTML = '<div class="eyebrow" id="eyebrow">Passo '+f.n+' · '+esc(rotuloNormas(f))+'</div>'
-    + '<h2>'+esc(f.t)+'</h2><p class="lede">'+esc(f.d)+'</p>'
-    + '<div id="avisoBox">'+avisoConfianca(f)+'</div>'
-    + '<div id="combo">'+seletorCombinado(f)+'</div>'
-    + '<div class="panel"><div class="field"><label for="entrada">'+esc(rotulos[0])+'</label>'
-    + '<textarea id="entrada" class="doc" placeholder="'+esc(rotulos[1])+'"></textarea></div>'
-    + '<div class="btn-row"><button class="btn btn-primary" id="btnGo" onclick="rodar(\''+f.id+'\')">Executar</button>'
-    + '<span class="note" style="margin:0">Modelo: '+esc((S.agentes[f.agente]||{}).modelo||'—')+'</span></div>'
-    + '<div id="saida"><div class="locked"><div class="locked-i">◷</div>Não executado ainda.</div></div></div>';
-}
-
-function telaChat(f){
-  const hist = S.historico[f.id+':'+S.norma] || [];
-  const sugestoes = {
-    consultor:['O que a cláusula 10.2 exige na prática?','Qual a diferença entre correção e ação corretiva?','Transcreva o texto literal da norma','Contratando a EPIGE eu garanto a certificação?'],
-    causa:['A peça saiu fora de tolerância e o operador não percebeu','Reclamação de cliente sobre prazo de entrega'],
-  }[f.id] || [];
-  $('main').innerHTML = '<div class="eyebrow" id="eyebrow">Passo '+f.n+' · '+esc(rotuloNormas(f))+'</div>'
-    + '<h2>'+esc(f.t)+'</h2><p class="lede">'+esc(f.d)+'</p>'
-    + '<div id="avisoBox">'+avisoConfianca(f)+'</div>'
-    + '<div id="combo">'+seletorCombinado(f)+'</div>'
-    + '<div class="panel"><div class="thread" id="thread">'
-    + hist.map(m => m.role==='user'
-        ? '<div class="msg user">'+esc(m.content)+'</div>'
-        : '<div class="msg bot"><div class="who">'+esc(f.t)+'</div>'+md(m.content)+'</div>').join('')
-    + '</div>'
-    + (sugestoes.length ? '<div class="suggest">'+sugestoes.map(x=>'<button class="chip" onclick="perguntar(\''+f.id+'\', this.textContent)">'+esc(x)+'</button>').join('')+'</div>' : '')
-    + '<div class="field"><textarea id="pergunta" placeholder="Escreva sua pergunta…"></textarea></div>'
-    + '<div class="btn-row"><button class="btn btn-primary" id="btnGo" onclick="perguntar(\''+f.id+'\')">Perguntar</button>'
-    + '<span class="note" style="margin:0">Modelo: '+esc((S.agentes[f.agente]||{}).modelo||'—')+'</span></div></div>'
-    + (f.id==='consultor' ? '<p class="note">As duas últimas sugestões testam guardrails: uma pede texto protegido por direito autoral, a outra pede promessa de certificação. Observe a recusa.</p>' : '');
-  const th = $('thread'); if(th) th.scrollTop = th.scrollHeight;
-}
-
-/* ---------- execução ---------- */
-async function rodar(id){
-  const f = FERRAMENTAS.find(x=>x.id===id);
-  const box = $('saida'); const btn = $('btnGo');
-  const entrada = $('entrada') ? $('entrada').value.trim() : '';
-  if(f.doc && !entrada){ box.innerHTML = '<div class="alert alert-warn">Preencha a entrada acima antes de executar.</div>'; return; }
-  btn.disabled = true;
-  pensando(box, 'o agente está trabalhando');
-  try{
-    const pedido = f.doc ? entrada : ('Execute a sua função para '+(S.perfil.nome||'este cliente')+'.');
-    const d = await chamar(f.agente, [{role:'user', content:pedido}], f.t);
-    if(d.aviso) box.innerHTML = '<div class="alert alert-warn">'+esc(d.aviso)+'</div>';
-    const render = RENDER[id];
-    if(render){
-      const dados = extrairJSON(d.texto);
-      box.innerHTML = render(dados);
-    } else {
-      box.innerHTML = '<div class="doc-out">'+md(d.texto)+'</div>';
-    }
-  }catch(e){ erro(box, e); }
-  btn.disabled = false;
-}
-
-async function perguntar(id, texto){
-  const f = FERRAMENTAS.find(x=>x.id===id);
-  const chave = id+':'+S.norma;
-  const q = (texto || $('pergunta').value).trim();
-  if(!q) return;
-  $('pergunta').value = '';
-  $('btnGo').disabled = true;
-  S.historico[chave] = S.historico[chave] || [];
-  const th = $('thread');
-  th.insertAdjacentHTML('beforeend','<div class="msg user">'+esc(q)+'</div>');
-  const tmp = 'b'+Date.now();
-  th.insertAdjacentHTML('beforeend','<div class="msg bot" id="'+tmp+'"><div class="who">'+esc(f.t)+'</div><div class="thinking"><span class="pulse"></span><span class="pulse"></span><span class="pulse"></span> consultando</div></div>');
-  th.scrollTop = th.scrollHeight;
-  S.historico[chave].push({role:'user', content:q});
-  try{
-    const d = await chamar(f.agente, S.historico[chave], f.t);
-    S.historico[chave].push({role:'assistant', content:d.texto});
-    const corpo = RENDER[id] ? RENDER[id](extrairJSON(d.texto)) : md(d.texto);
-    $(tmp).innerHTML = '<div class="who">'+esc(f.t)+'</div>'+corpo;
-  }catch(e){
-    $(tmp).innerHTML = '<div class="who">'+esc(f.t)+'</div><div class="alert alert-err" style="margin:0">'+esc(e.message)+'</div>';
-    S.historico[chave].pop();
-  }
-  $('btnGo').disabled = false;
-  th.scrollTop = th.scrollHeight;
-}
-
-/* ---------- acesso ---------- */
-async function verificarAcesso(){
-  let d = {configurado:false, autorizado:false};
-  try{
-    const r = await fetch('/api/chat', {headers:{'x-epige-codigo':S.codigo}});
-    d = await r.json();
-  }catch(e){}
-  $('dot').className = 'dot ' + (d.autorizado ? 'live' : 'down');
-  $('statusTxt').textContent = d.autorizado ? 'IA ao vivo'
-    : (d.configurado ? 'código de acesso necessário' : 'servidor não configurado');
-  $('gate').classList.toggle('hidden', d.autorizado);
-  $('shell').classList.toggle('hidden', !d.autorizado);
-  if(d.autorizado){
-    S.agentes = d.agentes || {};
-    S.normas = d.normas || {};
-    montarNormas(); resumoContexto(); abrir(S.perfil.nome ? 'diagnostico' : 'contexto');
-  }
-  return d;
-}
-
-async function entrar(){
-  const v = $('codigo').value.trim();
-  if(!v) return;
-  S.codigo = v;
-  $('gateMsg').textContent = 'verificando…';
-  const d = await verificarAcesso();
-  if(d.autorizado){ try{ localStorage.setItem('epige_codigo', v); }catch(e){} }
-  else $('gateMsg').textContent = d.configurado ? 'Código incorreto.' : 'O servidor ainda não tem chave de API nem código configurados.';
-}
-
-(async function(){
-  try{
-    S.codigo = localStorage.getItem('epige_codigo') || '';
-    const p = localStorage.getItem('epige_perfil');
-    if(p) S.perfil = Object.assign(S.perfil, JSON.parse(p));
-  }catch(e){}
-  await verificarAcesso();
-})();
-</script>
+<script src="/app.js"></script>
 </body>
 </html>
