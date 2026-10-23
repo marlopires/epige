@@ -16,9 +16,9 @@
 const S = {
   usuario: null, org: null, normas: {}, agentes: {}, iaConfigurada: false,
   norma: 'iso-9001', adicionais: [], tela: null,
-  custo: 0, chamadas: [], historico: {}, ultima: null, prefill: null,
+  custo: 0, chamadas: [], historico: {}, resultados: {}, ultima: null, prefill: null,
   docs: [], tipos: {}, doc: null, precisaCodigo: false,
-  tokenConvite: null, tokenRedefinir: null, primeiroDisponivel: false,
+  tokenConvite: null, tokenRedefinir: null, primeiroDisponivel: false, dono: null,
 };
 
 /* ============================================================ utilidades */
@@ -137,15 +137,26 @@ document.addEventListener('keydown', (e) => {
     e.preventDefault();
     ACOES[t.dataset.enviar](t);
   }
+  // Linha de tabela que abre algo: o teclado alcança como alcança um botão.
+  if ((e.key === 'Enter' || e.key === ' ') && t.matches('tr[data-acao]')) {
+    e.preventDefault();
+    t.click();
+  }
+  if (e.key === 'Escape' && $('shell').classList.contains('menu-aberto')) menuMovel(false);
 });
 
+// No celular o cabeçalho quebra em mais linhas; os painéis fixos precisam da altura real dele.
+new ResizeObserver(([e]) => document.documentElement.style.setProperty('--cab', e.target.offsetHeight + 'px')).observe(document.querySelector('header'));
+
 ACOES.copiar = async (el) => {
+  if (!el.dataset.original) el.dataset.original = el.textContent;
   try {
     await navigator.clipboard.writeText(el.dataset.texto);
     el.textContent = 'Copiado';
   } catch {
     el.textContent = 'Selecione e copie';
   }
+  setTimeout(() => (el.textContent = el.dataset.original), 2500);
 };
 
 /* ============================================================ acesso */
@@ -161,9 +172,10 @@ function telaAcesso(modo, aviso = '') {
   $('shell').classList.add('hidden');
   $('normas').classList.add('hidden');
   $('userChip').classList.add('hidden');
+  $('btnMenu').classList.add('hidden');
+  $('status').classList.add('hidden');
+  $('shell').classList.remove('menu-aberto');
   $('acesso').classList.remove('hidden');
-  $('dot').className = 'dot';
-  $('statusTxt').textContent = 'acesso';
 
   const avisoHtml = aviso ? '<div class="alert alert-info">' + esc(aviso) + '</div>' : '';
   const erro = '<p class="msg-erro" id="msgAcesso" role="alert"></p>';
@@ -313,11 +325,26 @@ FORMS.redefinir = (f) => enviarAcesso(f, async (c) => {
 
 ACOES.sair = async () => {
   try { await api('POST', '/api/auth/sair', {}); } catch {}
-  S.historico = {};
-  S.custo = 0;
-  S.chamadas = [];
+  limparSessao();
   telaAcesso('entrar', 'Você saiu da plataforma.');
 };
+
+const MEDIDOR_PADRAO = $('meterSub').textContent;
+
+/** Esquece o que era da pessoa anterior: conversas, custo da sessão e a última resposta. */
+function limparSessao() {
+  S.historico = {};
+  S.resultados = {};
+  S.custo = 0;
+  S.chamadas = [];
+  S.ultima = null;
+  S.adicionais = [];
+  S.doc = null;
+  S.docs = [];
+  $('mCusto').textContent = brl(0, 4);
+  $('ledger').innerHTML = '';
+  $('meterSub').textContent = MEDIDOR_PADRAO;
+}
 
 function sessaoExpirou() {
   if (!S.usuario) return;
@@ -329,6 +356,9 @@ function sessaoExpirou() {
 async function entrarNaApp() {
   const eu = await api('GET', '/api/auth/eu');
   if (eu.usuario.precisa_aceitar) return telaAceite(eu.usuario);
+  // Sessão vencida e outra pessoa entrando na mesma aba: nada da anterior fica à vista.
+  if (S.dono && S.dono !== eu.usuario.id) limparSessao();
+  S.dono = eu.usuario.id;
   S.usuario = eu.usuario;
   S.org = eu.organizacao;
   const cat = await api('GET', '/api/chat');
@@ -346,6 +376,8 @@ async function entrarNaApp() {
   $('acesso').innerHTML = '';
   $('shell').classList.remove('hidden');
   $('userChip').classList.remove('hidden');
+  $('btnMenu').classList.remove('hidden');
+  $('status').classList.remove('hidden');
   $('userNome').innerHTML = '<b>' + esc(S.usuario.nome) + '</b> · ' + esc(S.org.nome);
   const usaIA = podeIA();
   $('normas').classList.toggle('hidden', !usaIA);
@@ -396,9 +428,12 @@ const GESTAO = [
 const visivel = (g) => (!g.papeis || g.papeis.includes(S.usuario.papel)) && (!g.superadmin || S.usuario.superadmin);
 
 function montarRail() {
+  const atual = S.tela === 'doc' ? 'documentos' : S.tela;
   const botao = (id, n, t, d) =>
-    '<button class="tool' + (S.tela === id || (id === 'documentos' && S.tela === 'doc') ? ' on' : '') + '" data-acao="abrir" data-id="' + id + '">'
+    '<button class="tool' + (atual === id ? ' on" aria-current="page' : '') + '" data-acao="abrir" data-id="' + id + '">'
     + '<span class="tool-i">' + esc(n) + '</span><span><span class="tool-t">' + esc(t) + '</span><span class="tool-d">' + esc(d) + '</span></span></button>';
+  const item = [...FERRAMENTAS, ...GESTAO].find((x) => x.id === atual);
+  $('menuRotulo').textContent = item ? item.t : 'Menu';
   let h = '';
   if (podeIA()) {
     for (const g of [...new Set(FERRAMENTAS.map((f) => f.grupo))]) {
@@ -413,11 +448,21 @@ function montarRail() {
 
 const TELAS = {};
 
+/** Celular: o menu abre no lugar do conteúdo e fecha ao escolher uma tela. */
+function menuMovel(aberto) {
+  $('shell').classList.toggle('menu-aberto', aberto);
+  $('btnMenu').setAttribute('aria-expanded', String(aberto));
+  if (aberto) window.scrollTo({ top: 0 });
+}
+
+ACOES.alternarMenu = () => menuMovel(!$('shell').classList.contains('menu-aberto'));
+
 ACOES.abrir = (el) => abrir(el.dataset.id);
 
 function abrir(id) {
   S.tela = id;
   montarRail();
+  menuMovel(false);
   window.scrollTo({ top: 0, behavior: 'smooth' });
   const f = FERRAMENTAS.find((x) => x.id === id);
   if (f) {
@@ -515,7 +560,13 @@ async function chamar(agente, mensagens, rotulo) {
   return d;
 }
 
-const listaSimples = (arr, t) => !arr || !arr.length ? '' :
+const temTexto = (v) => v != null && String(v).trim() !== '';
+/** Alerta, cartão e nota que não aparecem vazios quando o agente deixa um campo em branco. */
+const caixa = (tipo, rotulo, v) => temTexto(v) ? '<div class="alert alert-' + tipo + '">' + (rotulo ? '<b>' + esc(rotulo) + '</b> ' : '') + esc(v) + '</div>' : '';
+const cartao = (t, v) => temTexto(v) ? '<div class="card"><div class="card-t">' + esc(t) + '</div><div>' + esc(v) + '</div></div>' : '';
+const nota = (rotulo, v) => temTexto(v) ? '<div class="note">' + esc(rotulo) + ' <b>' + esc(v) + '</b></div>' : '';
+
+const listaSimples = (arr, t) => !Array.isArray(arr) || !arr.length ? '' :
   '<div class="card"><div class="card-t">' + esc(t) + '</div><ul class="plain">' + arr.map((x) => '<li>' + esc(typeof x === 'string' ? x : JSON.stringify(x)) + '</li>').join('') + '</ul></div>';
 
 const achado = (grau, titulo, corpo, evid) =>
@@ -530,69 +581,86 @@ function achadoMaturidade(f) {
     + '<div class="f-ev">Evidência: ' + esc(f.evidencia || '—') + '</div></div>';
 }
 
+const lista = (v) => (Array.isArray(v) ? v : []);
+
 const RENDER = {
-  diagnostico: (a) => '<div class="alert alert-info"><b>Maturidade: ' + esc(a.maturidade) + '.</b> ' + esc(a.veredito) + '</div>'
-    + (a.lacunas || []).map((l) => achado(l.gravidade, 'cláusula ' + (l.clausula || '—') + ' · ' + (l.tema || ''), l.por_que_importa)).join('')
+  diagnostico: (a) => caixa('info', temTexto(a.maturidade) ? 'Maturidade: ' + a.maturidade + '.' : '', a.veredito)
+    + lista(a.lacunas).map((l) => achado(l.gravidade, 'cláusula ' + (l.clausula || '—') + ' · ' + (l.tema || ''), l.por_que_importa)).join('')
     + listaSimples(a.pontos_fortes, 'O que já dá para aproveitar')
-    + '<div class="card"><div class="card-t">Primeiro passo</div><div>' + esc(a.primeiro_passo) + '</div></div>'
-    + '<div class="note">Prazo realista até estar auditável: <b>' + esc(a.prazo_realista) + '</b></div>',
-  analista: (a) => '<div class="alert alert-info"><b>Veredito.</b> ' + esc(a.veredito) + '</div>'
-    + (a.cobertura || []).map((c) => achado(c.situacao, 'requisito ' + (c.requisito || '—'), c.observacao, c.trecho ? 'Base: ' + c.trecho : '')).join('')
-    + (a.inconsistencias || []).map((i) => achado('media', i.onde, i.problema)).join('')
-    + '<div class="card"><div class="card-t">Executável neste porte?</div><div>' + esc(a.executabilidade) + '</div></div>'
+    + cartao('Primeiro passo', a.primeiro_passo)
+    + nota('Prazo realista até estar auditável:', a.prazo_realista),
+  analista: (a) => caixa('info', 'Veredito.', a.veredito)
+    + lista(a.cobertura).map((c) => achado(c.situacao, 'requisito ' + (c.requisito || '—'), c.observacao, c.trecho ? 'Base: ' + c.trecho : '')).join('')
+    + lista(a.inconsistencias).map((i) => achado('media', i.onde, i.problema)).join('')
+    + cartao('Executável neste porte?', a.executabilidade)
     + listaSimples(a.prioridade, 'Corrigir nesta ordem'),
   auditor: (a) => '<div class="doc-head"><div><h3 style="margin:0">' + (a.natureza === 'avaliacao_de_maturidade' ? 'Avaliação de maturidade ESG' : 'Relatório de auditoria interna') + '</h3>'
     + '<div class="doc-code">' + esc(a.escopo || '') + '</div></div></div>'
-    + (a.achados || []).map((f) => f.classificacao === 'maturidade' ? achadoMaturidade(f)
+    + lista(a.achados).map((f) => f.classificacao === 'maturidade' ? achadoMaturidade(f)
       : achado(f.classificacao, 'requisito ' + (f.requisito || '—'), f.constatacao, 'Evidência: ' + (f.evidencia || '—'))).join('')
-    + '<div class="card"><div class="card-t">Conclusão do auditor</div><div>' + esc(a.conclusao) + '</div></div>'
-    + (a.recomendacao_de_prazo ? '<div class="note">Prazo recomendado: ' + esc(a.recomendacao_de_prazo) + '</div>' : ''),
-  plano: (a) => '<div class="alert alert-info"><b>Estratégia.</b> ' + esc(a.estrategia) + '</div>'
-    + (a.acoes || []).map((x) => achado(x.esforco, (x.tipo === 'correcao' ? 'correção' : 'ação corretiva') + ' · ' + (x.responsavel || '—') + ' · ' + (x.prazo || '—'),
+    + cartao('Conclusão do auditor', a.conclusao)
+    + nota('Prazo recomendado:', a.recomendacao_de_prazo),
+  plano: (a) => caixa('info', 'Estratégia.', a.estrategia)
+    + lista(a.acoes).map((x) => achado(x.esforco, (x.tipo === 'correcao' ? 'correção' : 'ação corretiva') + ' · ' + (x.responsavel || '—') + ' · ' + (x.prazo || '—'),
       x.o_que, 'Verificação: ' + (x.verificacao || '—') + ' · Gera: ' + (x.evidencia_gerada || '—'))).join('')
     + listaSimples(a.dependencias, 'Dependências')
-    + '<div class="alert alert-warn"><b>Risco do plano.</b> ' + esc(a.risco_do_plano) + '</div>',
-  legal: (a) => '<div class="alert alert-info"><b>Abordagem.</b> ' + esc(a.abordagem) + '</div>'
-    + (a.areas || []).map((x) => achado(x.esfera === 'todas' ? 'alta' : 'media', x.area, x.por_que_se_aplica, 'Verificar em: ' + (x.onde_verificar || '—') + ' · Esfera: ' + (x.esfera || '—'))).join('')
-    + '<div class="card"><div class="card-t">Periodicidade sugerida</div><div>' + esc(a.periodicidade_sugerida) + '</div></div>'
-    + '<div class="card"><div class="card-t">Evidência de avaliação</div><div>' + esc(a.evidencia) + '</div></div>'
-    + '<div class="alert alert-warn"><b>Atenção.</b> ' + esc(a.alerta) + '</div>'
+    + caixa('warn', 'Risco do plano.', a.risco_do_plano),
+  legal: (a) => caixa('info', 'Abordagem.', a.abordagem)
+    + lista(a.areas).map((x) => achado(x.esfera === 'todas' ? 'alta' : 'media', x.area, x.por_que_se_aplica, 'Verificar em: ' + (x.onde_verificar || '—') + ' · Esfera: ' + (x.esfera || '—'))).join('')
+    + cartao('Periodicidade sugerida', a.periodicidade_sugerida)
+    + cartao('Evidência de avaliação', a.evidencia)
+    + caixa('warn', 'Atenção.', a.alerta)
     + '<div class="note">Este agente estrutura o levantamento. Não substitui assessoria jurídica.</div>',
-  lacuna: (a) => '<div class="alert alert-info"><b>Veredito.</b> ' + esc(a.veredito) + '</div>'
-    + (a.lacunas || []).map((l) => achado(l.esforco, 'cláusula ' + (l.clausula || '—') + ' · ' + (l.tema || ''),
+  lacuna: (a) => caixa('info', 'Veredito.', a.veredito)
+    + lista(a.lacunas).map((l) => achado(l.esforco, 'cláusula ' + (l.clausula || '—') + ' · ' + (l.tema || ''),
       'Hoje: ' + (l.situacao_provavel || '—') + ' → Passa a pedir: ' + (l.o_que_muda || '—'), 'Evidência sugerida: ' + (l.evidencia_sugerida || '—'))).join('')
     + listaSimples(a.nao_muda, 'O que NÃO muda') + listaSimples(a.sequencia, 'Por onde começar')
-    + '<div class="alert alert-warn"><b>Alerta.</b> ' + esc(a.alerta) + '</div>',
-  sgi: (a) => '<div class="alert alert-info"><b>Veredito.</b> ' + esc(a.veredito) + '</div>'
-    + (a.unificar || []).map((x) => achado(x.ganho, x.tema + ' · ' + (x.clausulas || ''), x.como)).join('')
-    + (a.separar || []).map((x) => achado('alta', 'não unificar · ' + x.tema, x.motivo)).join('')
+    + caixa('warn', 'Alerta.', a.alerta),
+  sgi: (a) => caixa('info', 'Veredito.', a.veredito)
+    + lista(a.unificar).map((x) => achado(x.ganho, x.tema + ' · ' + (x.clausulas || ''), x.como)).join('')
+    + lista(a.separar).map((x) => achado('alta', 'não unificar · ' + x.tema, x.motivo)).join('')
     + listaSimples(a.sequencia, 'Sequência recomendada')
-    + '<div class="card"><div class="card-t">Impacto das edições</div><div>' + esc(a.impacto_das_edicoes) + '</div></div>'
-    + '<div class="alert alert-warn"><b>Erro mais comum.</b> ' + esc(a.alerta) + '</div>',
-  vigilancia: (a) => (a.novidades || []).map((n) => achado(n.impacto, n.titulo, n.resumo, 'Fonte: ' + (n.fonte || '—') + ' · ' + (n.quando || '—') + ' · ' + (n.confianca || '—'))).join('')
-    + '<div class="card"><div class="card-t">Situação da revisão</div><div>' + esc(a.revisao && a.revisao.situacao) + '</div>'
-    + '<div class="note">Estágio: ' + esc(a.revisao && a.revisao.estagio) + ' · Expectativa: ' + esc(a.revisao && a.revisao.expectativa) + '</div></div>'
-    + '<div class="alert alert-info"><b>O que fazer agora.</b> ' + esc(a.acao) + '</div>' + listaSimples(a.nao_encontrado, 'Não foi possível confirmar'),
+    + cartao('Impacto das edições', a.impacto_das_edicoes)
+    + caixa('warn', 'Erro mais comum.', a.alerta),
+  vigilancia: (a) => lista(a.novidades).map((n) => achado(n.impacto, n.titulo, n.resumo, 'Fonte: ' + (n.fonte || '—') + ' · ' + (n.quando || '—') + ' · ' + (n.confianca || '—'))).join('')
+    + (a.revisao ? '<div class="card"><div class="card-t">Situação da revisão</div><div>' + esc(a.revisao.situacao || '—') + '</div>'
+      + '<div class="note">Estágio: ' + esc(a.revisao.estagio || '—') + ' · Expectativa: ' + esc(a.revisao.expectativa || '—') + '</div></div>' : '')
+    + caixa('info', 'O que fazer agora.', a.acao) + listaSimples(a.nao_encontrado, 'Não foi possível confirmar'),
   formulario: (a) => {
     const ctrl = (c) => c.tipo === 'area' ? '<textarea placeholder="—" disabled></textarea>'
       : c.tipo === 'selecao' ? '<select disabled>' + (c.opcoes || []).map((o) => '<option>' + esc(o) + '</option>').join('') + '</select>'
         : '<input type="text" disabled placeholder="' + esc(c.tipo === 'data' ? 'dd/mm/aaaa' : '—') + '">';
     return '<div class="doc-head"><div><h3 style="margin:0">' + esc(a.titulo || 'Formulário') + '</h3><div class="doc-code">' + esc(a.codigo || '') + '</div></div></div>'
-      + (a.secoes || []).map((s) => '<div class="card"><div class="card-t">' + esc(s.nome) + '</div>'
-        + (s.campos || []).map((c) => '<div class="field"><label>' + esc(c.rotulo) + (c.obrigatorio ? ' <span style="color:var(--rose)">*</span>' : '') + '</label>' + ctrl(c)
+      + lista(a.secoes).map((s) => '<div class="card"><div class="card-t">' + esc(s.nome) + '</div>'
+        + lista(s.campos).map((c) => '<div class="field"><label>' + esc(c.rotulo) + (c.obrigatorio ? ' <span style="color:var(--rose)">*</span>' : '') + '</label>' + ctrl(c)
           + (c.ajuda ? '<div class="note" style="margin-top:var(--e-2)">' + esc(c.ajuda) + '</div>' : '') + '</div>').join('') + '</div>').join('');
   },
-  causa: (a) => '<div class="alert alert-info">' + esc(a.avaliacao_da_trilha) + '</div>'
-    + (a.causas_identificadas || []).map((c) => achado(c.confianca === 'alta' ? 'baixo' : c.confianca === 'media' ? 'medio' : 'alto', c.tipo, c.causa, 'Confiança: ' + c.confianca)).join('')
-    + (a.alerta ? '<div class="alert alert-warn"><b>Atenção.</b> ' + esc(a.alerta) + '</div>' : '')
+  causa: (a) => caixa('info', '', a.avaliacao_da_trilha)
+    + lista(a.causas_identificadas).map((c) => achado(c.confianca === 'alta' ? 'baixo' : c.confianca === 'media' ? 'medio' : 'alto', c.tipo, c.causa, 'Confiança: ' + c.confianca)).join('')
+    + caixa('warn', 'Atenção.', a.alerta)
     + (a.suficiente ? '<div class="alert alert-info"><b>A trilha é suficiente.</b> Pode seguir para o plano de ação.</div>'
-      : '<div class="card"><div class="card-t">Próxima pergunta</div><div>' + esc(a.proxima_pergunta) + '</div></div>'),
+      : cartao('Próxima pergunta', a.proxima_pergunta)),
 };
 
-/** Resposta estruturada quando der; se o agente fugiu do formato, mostra o texto. */
+/** O campo que identifica a resposta de cada agente. Sem ele, o agente fugiu do formato. */
+const CAMPO_PRINCIPAL = {
+  diagnostico: 'veredito', analista: 'veredito', auditor: 'achados', plano: 'acoes', legal: 'areas',
+  lacuna: 'lacunas', sgi: 'unificar', vigilancia: 'novidades', formulario: 'secoes', causa: 'avaliacao_da_trilha',
+};
+
+/** Os dados estruturados da resposta, ou null se ela não está no formato do agente. */
+function lerDados(id, texto) {
+  if (!RENDER[id]) return null;
+  try {
+    const d = extrairJSON(texto);
+    return CAMPO_PRINCIPAL[id] in d ? d : null;
+  } catch { return null; }
+}
+
+/** Resposta estruturada quando der; se o agente fugiu do formato, mostra o conteúdo como texto legível. */
 function renderResposta(id, texto) {
-  if (!RENDER[id]) return md(texto);
-  try { return RENDER[id](extrairJSON(texto)); } catch { return md(texto); }
+  const d = lerDados(id, texto);
+  return d ? RENDER[id](d) : md(respostaMd(id, texto));
 }
 
 function moldura(f, miolo) {
@@ -601,12 +669,29 @@ function moldura(f, miolo) {
     + '<div id="avisoBox">' + avisoConfianca(f) + '</div><div id="combo">' + seletorCombinado(f) + '</div>' + miolo;
 }
 
-const rodape = (f, rotuloBotao) => '<div class="btn-row"><button class="btn btn-primary" id="btnGo" data-acao="rodar" data-id="' + f.id + '">' + rotuloBotao + '</button>'
+/**
+ * Chamadas em andamento, por ferramenta e norma. Quem sai da tela e volta encontra o
+ * agente ainda trabalhando, em vez de um botão que dispararia (e cobraria) de novo.
+ */
+const pendentes = new Set();
+const chavePendente = (f) => f.id + ':' + S.norma;
+const PENSANDO = '<span class="pulse"></span><span class="pulse"></span><span class="pulse"></span> ';
+
+const rodape = (f, rotuloBotao) => '<div class="btn-row"><button class="btn btn-primary" id="btnGo" data-acao="rodar" data-id="' + f.id + '"'
+  + (pendentes.has(chavePendente(f)) ? ' disabled' : '') + '>' + rotuloBotao + '</button>'
   + '<span class="note" style="margin:0">Modelo: ' + esc((S.agentes[f.agente] || {}).modelo || '—') + '</span></div>';
-const naoExecutado = '<div id="saida"><div class="locked"><div class="locked-i">◷</div>Não executado ainda.</div></div>';
+/** Saída ao abrir a ferramenta: o agente ainda trabalhando, a última resposta desta sessão, ou nada. */
+function saidaInicial(f, anterior) {
+  if (pendentes.has(chavePendente(f))) return '<div id="saida"><div class="thinking">' + PENSANDO + 'o agente está trabalhando</div></div>';
+  if (anterior) {
+    S.ultima = anterior.ultima;
+    return '<div id="saida">' + anterior.html + '</div>';
+  }
+  return '<div id="saida"><div class="locked"><div class="locked-i">◷</div>Não executado ainda.</div></div>';
+}
 
 function telaSimples(f) {
-  $('main').innerHTML = moldura(f, '<div class="panel">' + rodape(f, 'Executar') + naoExecutado + '</div>');
+  $('main').innerHTML = moldura(f, '<div class="panel">' + rodape(f, 'Executar') + saidaInicial(f, S.resultados[chavePendente(f)]) + '</div>');
 }
 
 function telaEntrada(f) {
@@ -617,17 +702,24 @@ function telaEntrada(f) {
     analista: ['Cole o documento a analisar', ''],
     auditor: ['Cole o documento ou descreva a prática a auditar', ''],
   }[f.id] || ['Entrada', ''];
+  // Documento trazido para o agente começa do zero; senão, volta a última entrada e resposta.
+  const anterior = S.prefill ? null : S.resultados[chavePendente(f)];
   $('main').innerHTML = moldura(f, '<div class="panel"><div class="field"><label for="entrada">' + esc(rotulos[0]) + '</label>'
     + '<textarea id="entrada" class="doc" maxlength="24000" placeholder="' + esc(rotulos[1]) + '"></textarea></div>'
-    + rodape(f, 'Executar') + naoExecutado + '</div>');
+    + rodape(f, 'Executar') + saidaInicial(f, anterior) + '</div>');
   if (S.prefill) {
     $('entrada').value = S.prefill;
     S.prefill = null;
+  } else if (anterior) {
+    $('entrada').value = anterior.entrada;
   }
 }
 
+const bolhaPendente = (f) => 'resp-' + cls(chavePendente(f));
+
 function telaChat(f) {
   const hist = S.historico[f.id + ':' + S.norma] || [];
+  const esperando = pendentes.has(chavePendente(f));
   if (hist.length) S.ultima = { f, chat: hist.slice(), normas: normasDaTela(f) };
   const sugestoes = {
     consultor: ['O que a cláusula 10.2 exige na prática?', 'Qual a diferença entre correção e ação corretiva?', 'Transcreva o texto literal da norma', 'Contratando a EPIGE eu garanto a certificação?'],
@@ -636,10 +728,11 @@ function telaChat(f) {
   $('main').innerHTML = moldura(f, '<div class="panel"><div class="thread" id="thread">'
     + hist.map((m) => m.role === 'user' ? '<div class="msg user">' + esc(m.content) + '</div>'
       : '<div class="msg bot"><div class="who">' + esc(f.t) + '</div>' + renderResposta(f.id, m.content) + '</div>').join('')
+    + (esperando ? '<div class="msg bot" id="' + bolhaPendente(f) + '"><div class="who">' + esc(f.t) + '</div><div class="thinking">' + PENSANDO + 'consultando</div></div>' : '')
     + '</div>'
     + (sugestoes.length ? '<div class="suggest">' + sugestoes.map((x) => '<button class="chip" data-acao="perguntar" data-id="' + f.id + '" data-texto="' + esc(x) + '">' + esc(x) + '</button>').join('') + '</div>' : '')
     + '<div class="field"><textarea id="pergunta" maxlength="24000" placeholder="Escreva sua pergunta… (Ctrl+Enter envia)" data-enviar="perguntar" data-id="' + f.id + '"></textarea></div>'
-    + '<div class="btn-row"><button class="btn btn-primary" id="btnGo" data-acao="perguntar" data-id="' + f.id + '">Perguntar</button>'
+    + '<div class="btn-row"><button class="btn btn-primary" id="btnGo" data-acao="perguntar" data-id="' + f.id + '"' + (esperando ? ' disabled' : '') + '>Perguntar</button>'
     + '<span class="note" style="margin:0">Modelo: ' + esc((S.agentes[f.agente] || {}).modelo || '—') + '</span></div>'
     + '<div id="salvarDoc">' + (hist.length ? botaoSalvar('Salvar a conversa como registro') : '') + '</div></div>'
     + (f.id === 'consultor' ? '<p class="note">As duas últimas sugestões testam guardrails: uma pede texto protegido por direito autoral, a outra pede promessa de certificação. Observe a recusa.</p>' : ''));
@@ -647,52 +740,85 @@ function telaChat(f) {
   if (th) th.scrollTop = th.scrollHeight;
 }
 
+/** A tela da ferramenta ainda é a mesma de quando a chamada saiu (mesma ferramenta, mesma norma)? */
+const aindaNaTela = (f, norma) => S.tela === f.id && S.norma === norma;
+
 ACOES.rodar = async (el) => {
   const f = FERRAMENTAS.find((x) => x.id === el.dataset.id);
-  const box = $('saida');
+  const chave = chavePendente(f);
   const entrada = $('entrada') ? $('entrada').value.trim() : '';
-  if (f.doc && !entrada) { box.innerHTML = '<div class="alert alert-warn">Preencha a entrada acima antes de executar.</div>'; return; }
+  if (pendentes.has(chave)) return;
+  if (f.doc && !entrada) { $('saida').innerHTML = '<div class="alert alert-warn">Preencha a entrada acima antes de executar.</div>'; return; }
+  const norma = S.norma;
+  const normas = normasDaTela(f);
+  pendentes.add(chave);
   el.disabled = true;
-  pensando(box, 'o agente está trabalhando');
+  pensando($('saida'), 'o agente está trabalhando');
+  let html;
   try {
     const pedido = f.doc ? entrada : 'Execute a sua função para ' + S.org.nome + '.';
     const d = await chamar(f.agente, [{ role: 'user', content: pedido }], f.t);
     const aviso = d.aviso ? '<div class="alert alert-warn">' + esc(d.aviso) + '</div>' : '';
-    let dados = null;
-    if (RENDER[f.id]) { try { dados = extrairJSON(d.texto); } catch { dados = null; } }
-    S.ultima = { f, dados, texto: d.texto, entrada, normas: normasDaTela(f) };
-    box.innerHTML = aviso + (dados ? RENDER[f.id](dados) : '<div class="doc-out">' + md(d.texto) + '</div>')
+    const dados = lerDados(f.id, d.texto);
+    const ultima = { f, dados, texto: d.texto, entrada, normas };
+    html = aviso + (dados ? RENDER[f.id](dados) : '<div class="doc-out">' + renderResposta(f.id, d.texto) + '</div>')
       + '<div id="salvarDoc">' + botaoSalvar('Salvar em documentos') + '</div>';
-  } catch (e) { erroBox(box, e); }
-  el.disabled = false;
+    // Quem saiu da tela encontra a resposta paga ao voltar, mas ela não vira a "última" de outra ferramenta.
+    S.resultados[chave] = { html, ultima, entrada };
+    if (aindaNaTela(f, norma)) S.ultima = ultima;
+  } catch (e) {
+    html = '<div class="alert alert-err"><b>Não foi possível concluir.</b><br>' + esc(e.message || e) + '</div>';
+  }
+  pendentes.delete(chave);
+  if (aindaNaTela(f, norma) && $('saida')) {
+    $('saida').innerHTML = html;
+    $('btnGo').disabled = false;
+  }
 };
 
 ACOES.perguntar = async (el) => {
   const f = FERRAMENTAS.find((x) => x.id === el.dataset.id);
   const chave = f.id + ':' + S.norma;
-  const q = (el.dataset.texto || $('pergunta').value).trim();
-  if (!q) return;
-  $('pergunta').value = '';
+  const campo = $('pergunta');
+  const q = (el.dataset.texto || campo.value).trim();
+  // Uma pergunta por vez em cada conversa: Ctrl+Enter ou sugestão durante a espera não embaralham o histórico.
+  if (!q || pendentes.has(chave)) return;
+  if (!el.dataset.texto) campo.value = '';
+  const norma = S.norma;
+  const normas = normasDaTela(f);
+  // Referência local: se a pessoa trocar de norma no meio, a resposta não cai na conversa de outra norma.
+  const hist = S.historico[chave] = S.historico[chave] || [];
+  hist.push({ role: 'user', content: q });
+  pendentes.add(chave);
   $('btnGo').disabled = true;
-  S.historico[chave] = S.historico[chave] || [];
   const th = $('thread');
-  th.insertAdjacentHTML('beforeend', '<div class="msg user">' + esc(q) + '</div>');
-  const tmp = 'b' + Date.now();
-  th.insertAdjacentHTML('beforeend', '<div class="msg bot" id="' + tmp + '"><div class="who">' + esc(f.t) + '</div><div class="thinking"><span class="pulse"></span><span class="pulse"></span><span class="pulse"></span> consultando</div></div>');
+  const tmp = bolhaPendente(f);
+  th.insertAdjacentHTML('beforeend', '<div class="msg user">' + esc(q) + '</div>'
+    + '<div class="msg bot" id="' + tmp + '"><div class="who">' + esc(f.t) + '</div><div class="thinking">' + PENSANDO + 'consultando</div></div>');
   th.scrollTop = th.scrollHeight;
-  S.historico[chave].push({ role: 'user', content: q });
+  let html;
+  let respondeu = false;
   try {
-    const d = await chamar(f.agente, S.historico[chave], f.t);
-    S.historico[chave].push({ role: 'assistant', content: d.texto });
-    $(tmp).innerHTML = '<div class="who">' + esc(f.t) + '</div>' + renderResposta(f.id, d.texto);
-    S.ultima = { f, chat: S.historico[chave].slice(), normas: normasDaTela(f) };
-    $('salvarDoc').innerHTML = botaoSalvar('Salvar a conversa como registro');
+    const d = await chamar(f.agente, hist.slice(), f.t);
+    hist.push({ role: 'assistant', content: d.texto });
+    html = renderResposta(f.id, d.texto);
+    respondeu = true;
   } catch (e) {
-    $(tmp).innerHTML = '<div class="who">' + esc(f.t) + '</div><div class="alert alert-err" style="margin:0">' + esc(e.message) + '</div>';
-    S.historico[chave].pop();
+    hist.pop();
+    html = '<div class="alert alert-err" style="margin:0">' + esc(e.message) + '</div>';
+  }
+  pendentes.delete(chave);
+  const bolha = $(tmp);
+  if (!bolha) return;
+  if (!aindaNaTela(f, norma) || S.historico[chave] !== hist) { bolha.remove(); return; }
+  bolha.removeAttribute('id');
+  bolha.innerHTML = '<div class="who">' + esc(f.t) + '</div>' + html;
+  if (respondeu) {
+    S.ultima = { f, chat: hist.slice(), normas };
+    $('salvarDoc').innerHTML = botaoSalvar('Salvar a conversa como registro');
   }
   $('btnGo').disabled = false;
-  th.scrollTop = th.scrollHeight;
+  $('thread').scrollTop = $('thread').scrollHeight;
 };
 
 /* ---------- da IA para o controle de documentos ---------- */
@@ -762,7 +888,7 @@ function paraMarkdown(u) {
     return origem + u.chat.map((m) => (m.role === 'user' ? '## Pergunta\n' + m.content
       : '## Resposta — ' + u.f.t + '\n' + respostaMd(u.f.id, m.content))).join('\n\n');
   }
-  if (!u.dados) return origem + u.texto;
+  if (!u.dados) return origem + respostaMd(u.f.id, u.texto);
   if (u.f.id === 'auditor') {
     const a = u.dados;
     return origem + '# ' + (a.natureza === 'avaliacao_de_maturidade' ? 'Avaliação de maturidade ESG' : 'Relatório de auditoria interna') + '\n\n'
@@ -854,7 +980,7 @@ function desenharListaDocs() {
     return;
   }
   box.innerHTML = '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Código</th><th>Título</th><th class="opc">Tipo</th><th>Situação</th><th class="opc">Versão</th><th class="opc">Atualizado</th></tr></thead><tbody>'
-    + lista.map((d) => '<tr class="clicavel" data-acao="abrirDoc" data-id="' + esc(d.id) + '"><td class="mono">' + esc(d.codigo) + '</td><td>' + esc(d.titulo)
+    + lista.map((d) => '<tr class="clicavel" tabindex="0" data-acao="abrirDoc" data-id="' + esc(d.id) + '"><td class="mono">' + esc(d.codigo) + '</td><td>' + esc(d.titulo)
       + (d.apoio_ia ? ' ' + badge('ia', 'IA') : '') + '</td><td class="opc">' + esc(S.tipos[d.tipo] || d.tipo) + '</td><td>' + badge(d.situacao, SITUACAO[d.situacao]) + '</td><td class="mono opc">'
       + (d.versao_vigente ? 'v' + d.versao_vigente : '—') + (d.versao_aberta ? ' · v' + d.versao_aberta + ' aberta' : '') + '</td><td class="opc">' + data(d.atualizado_em) + '</td></tr>').join('')
     + '</tbody></table></div>';
@@ -957,8 +1083,10 @@ function desenharDoc() {
     h += '</div>';
   }
 
-  h += '<div class="panel"><div class="card-t">' + (d.obsoleto ? 'Última versão (obsoleta)' : 'Versão vigente') + '</div>'
-    + (vigente ? '<div class="doc-view">' + md(vigente) + '</div>' : '<p class="muted">Ainda sem versão aprovada.</p>') + '</div>';
+  if (vigente || !aberta) {
+    h += '<div class="panel"><div class="card-t">' + (d.obsoleto ? 'Última versão (obsoleta)' : 'Versão vigente') + '</div>'
+      + (vigente ? '<div class="doc-view">' + md(vigente) + '</div>' : '<p class="muted">Ainda sem versão aprovada.</p>') + '</div>';
+  }
 
   h += '<div class="panel"><div class="card-t">Histórico de versões</div><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Versão</th><th>Estado</th><th>O que mudou</th><th>Elaborada</th><th>Aprovada</th><th></th></tr></thead><tbody>'
     + versoes.map((v) => '<tr><td class="mono">v' + v.numero + '</td><td>' + badge(v.estado, ESTADO[v.estado]) + '</td><td>' + esc(v.resumo)
@@ -1064,6 +1192,7 @@ ACOES.verVersao = async (el) => {
   try {
     const { versao: v } = await api('GET', '/api/documentos/' + idDoc() + '/versoes/' + Number(el.dataset.n));
     box.innerHTML = '<div class="card" style="margin-top:var(--e-13)"><div class="card-t">Versão ' + v.numero + ' · ' + esc(ESTADO[v.estado]) + '</div><div class="doc-view">' + md(v.conteudo) + '</div></div>';
+    box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   } catch (e) { erroBox(box, e); }
 };
 
@@ -1145,12 +1274,12 @@ async function carregarEquipe() {
   const box = $('equipeLista');
   try {
     const d = await api('GET', '/api/equipe');
-    box.innerHTML = '<div class="panel"><div class="card-t">Pessoas</div><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Pessoa</th><th>Papel</th><th>Situação</th><th>2FA</th><th>Último acesso</th><th></th></tr></thead><tbody>'
+    box.innerHTML = '<div class="panel"><div class="card-t">Pessoas</div><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Pessoa</th><th>Papel</th><th>Situação</th><th class="opc">2FA</th><th class="opc">Último acesso</th><th></th></tr></thead><tbody>'
       + d.usuarios.map((u) => '<tr><td><b>' + esc(u.nome) + '</b>' + (u.eu ? ' <span class="note">(você)</span>' : '') + '<div class="note">' + esc(u.email) + '</div></td>'
         + '<td>' + (u.eu ? badge('admin', PAPEL[u.papel]) : '<select data-muda="mudarPapel" data-id="' + esc(u.id) + '" aria-label="Papel de ' + esc(u.nome) + '">' + opcoesPapel(u.papel) + '</select>') + '</td>'
         + '<td>' + (u.ativo ? 'Ativo' : badge('inativo', 'Inativo')) + '</td>'
-        + '<td>' + (u.totp_ativo ? 'Sim' + (u.eu ? '' : ' <button class="linkish" data-acao="remover2fa" data-id="' + esc(u.id) + '">remover</button>') : 'Não') + '</td>'
-        + '<td>' + dataHora(u.ultimo_acesso) + '</td>'
+        + '<td class="opc">' + (u.totp_ativo ? 'Sim' + (u.eu ? '' : ' <button class="linkish" data-acao="remover2fa" data-id="' + esc(u.id) + '">remover</button>') : 'Não') + '</td>'
+        + '<td class="opc">' + dataHora(u.ultimo_acesso) + '</td>'
         + '<td>' + (u.eu ? '' : '<div class="btn-row" style="margin:0"><button class="btn btn-ghost btn-sm" data-acao="gerarRedefinicao" data-id="' + esc(u.id) + '" data-nome="' + esc(u.nome) + '">Link de nova senha</button>'
           + '<button class="btn btn-ghost btn-sm" data-acao="alternarAtivo" data-id="' + esc(u.id) + '" data-ativo="' + (u.ativo ? '1' : '0') + '">' + (u.ativo ? 'Desativar' : 'Reativar') + '</button></div>') + '</td></tr>').join('')
       + '</tbody></table></div><div id="eqMsg"></div></div>'
@@ -1247,8 +1376,8 @@ TELAS.eventos = async () => {
   $('main').innerHTML = cabecalho('Gestão · Log de auditoria', 'Log de auditoria', 'Os 300 eventos mais recentes da empresa. Não pode ser editado nem apagado pela interface.') + '<div id="evBox" class="panel"><div class="thinking"><span class="pulse"></span> carregando</div></div>';
   try {
     const d = await api('GET', '/api/organizacao/eventos');
-    $('evBox').innerHTML = '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Quando</th><th>Quem</th><th>O quê</th><th>Sobre</th><th>Detalhe</th><th>IP</th></tr></thead><tbody>'
-      + d.eventos.map((e) => '<tr><td>' + dataHora(e.em) + '</td><td>' + esc(e.usuario || '—') + '</td><td>' + esc(ACAO_LOG[e.acao] || e.acao) + '</td><td class="mono">' + esc(e.alvo || '') + '</td><td>' + esc(e.detalhe || '') + '</td><td class="mono">' + esc(e.ip || '') + '</td></tr>').join('')
+    $('evBox').innerHTML = '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Quando</th><th>Quem</th><th>O quê</th><th class="opc">Sobre</th><th>Detalhe</th><th class="opc">IP</th></tr></thead><tbody>'
+      + d.eventos.map((e) => '<tr><td>' + dataHora(e.em) + '</td><td>' + esc(e.usuario || '—') + '</td><td>' + esc(ACAO_LOG[e.acao] || e.acao) + '</td><td class="mono opc">' + esc(e.alvo || '') + '</td><td>' + esc(e.detalhe || '') + '</td><td class="mono opc">' + esc(e.ip || '') + '</td></tr>').join('')
       + '</tbody></table></div>';
   } catch (e) { erroBox($('evBox'), e); }
 };

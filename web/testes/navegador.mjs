@@ -48,7 +48,7 @@ async function novaPagina(largura = 1400) {
 }
 
 const tela = (p, nome) => p.screenshot({ path: join(TELAS, `${nome}.png`), fullPage: true });
-const esperarTexto = (p, texto) => p.getByText(texto, { exact: false }).first().waitFor({ timeout: 10_000 });
+const esperarTexto = (p, texto) => p.getByText(texto, { exact: false }).filter({ visible: true }).first().waitFor({ timeout: 10_000 });
 const semRolagemLateral = (p) => p.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1);
 const SENHA = 'uma senha longa de teste';
 
@@ -80,6 +80,14 @@ try {
 
   /* ---- consultor → salvar como registro ---- */
   await dono.click('#rail button:has-text("Consultor")');
+  // A primeira pergunta falha: o erro aparece na conversa e a página continua de pé.
+  await dono.route('**/api/chat', (r) => (r.request().method() === 'POST'
+    ? r.fulfill({ status: 503, contentType: 'application/json', body: JSON.stringify({ erro: 'IA indisponível no momento.' }) })
+    : r.continue()), { times: 1 });
+  await dono.fill('#pergunta', 'Pergunta que vai falhar');
+  await dono.click('#btnGo');
+  await esperarTexto(dono, 'IA indisponível no momento.');
+  checar('erro da IA na primeira pergunta aparece e libera o botão', !(await dono.locator('#btnGo').isDisabled()));
   await dono.fill('#pergunta', 'O que o 10.2 exige?');
   await dono.click('#btnGo');
   await esperarTexto(dono, 'Salvar a conversa como registro');
@@ -90,6 +98,12 @@ try {
   await dono.fill('#sn_comentario', 'Teste de sinalização.');
   await dono.click('button:has-text("Enviar sinalização")');
   await esperarTexto(dono, 'A sinalização foi registrada');
+  // Duas sugestões no mesmo instante: só uma pergunta sai, e o histórico não embaralha.
+  const antes = await dono.locator('.msg.user').count();
+  await dono.evaluate(() => { const c = document.querySelectorAll('.suggest .chip'); c[0].click(); c[1].click(); });
+  await esperarTexto(dono, 'Salvar a conversa como registro');
+  await dono.locator('.msg.bot .thinking').waitFor({ state: 'detached', timeout: 10_000 });
+  checar('pergunta repetida durante a espera não sai duas vezes', (await dono.locator('.msg.user').count()) === antes + 1);
   await dono.fill('#pergunta', 'E a ação corretiva?');
   await dono.click('#btnGo');
   await esperarTexto(dono, 'Salvar a conversa como registro');
@@ -97,6 +111,14 @@ try {
   await dono.click('button:has-text("Salvar como rascunho")');
   await esperarTexto(dono, 'Salvo como');
   checar('registro recebe código RG-001', (await dono.locator('#salvarDoc').innerText()).includes('RG-001'));
+
+  /* ---- resposta paga não some quando a pessoa troca de tela ---- */
+  await dono.click('#rail button:has-text("Diagnóstico inicial")');
+  await dono.click('#btnGo');
+  await esperarTexto(dono, 'Salvar em documentos');
+  await dono.click('#rail button:has-text("Empresa")');
+  await dono.click('#rail button:has-text("Diagnóstico inicial")');
+  checar('resultado da ferramenta continua ao voltar para ela', await dono.locator('#saida button:has-text("Salvar em documentos")').isVisible());
 
   /* ---- auditoria combinada → salvar relatório ---- */
   await dono.click('#rail button:has-text("Auditoria simulada")');
@@ -192,7 +214,16 @@ try {
   await esperarTexto(leitor, 'PR-001');
   checar('leitor vê documento vigente', (await leitor.locator('#listaDocs').innerText()).includes('PR-001'));
   checar('celular: lista de documentos sem rolagem lateral', await semRolagemLateral(leitor));
+  checar('celular: conteúdo à vista e menu recolhido no botão', (await leitor.locator('main').isVisible()) && !(await leitor.locator('#rail').isVisible())
+    && (await leitor.locator('#btnMenu').innerText()).includes('Documentos'));
   await tela(leitor, '06-celular-leitor');
+  await leitor.click('#btnMenu');
+  checar('celular: menu abre no lugar do conteúdo', (await leitor.locator('#rail').isVisible()) && !(await leitor.locator('main').isVisible()));
+  await leitor.click('#rail button:has-text("Minha conta")');
+  await esperarTexto(leitor, 'Trocar a senha');
+  checar('celular: escolher uma tela fecha o menu', !(await leitor.locator('#rail').isVisible()) && (await leitor.locator('#btnMenu').getAttribute('aria-expanded')) === 'false');
+  await leitor.click('#btnMenu');
+  await leitor.click('#rail button:has-text("Documentos")');
   await leitor.click('#listaDocs tr:has-text("PR-001")');
   await esperarTexto(leitor, 'Histórico de versões');
   checar('leitor não vê botões de edição', !(await leitor.locator('button:has-text("Abrir revisão")').count()) && !(await leitor.locator('button:has-text("Tornar obsoleto")').count()));
