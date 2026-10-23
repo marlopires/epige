@@ -28,7 +28,7 @@ web/
 │       └── _prompts.js         GERADO — não editar à mão
 └── testes/
     ├── api.mjs                 135 verificações da API no runtime real
-    └── navegador.mjs           38 verificações clicando na interface
+    └── navegador.mjs           44 verificações clicando na interface
 ```
 
 **Duas páginas.** `/` é a área de trabalho. `/demo/` é o percurso narrado do 10.2 — usa a
@@ -173,7 +173,7 @@ diários no código.
 
 ```bash
 node web/testes/api.mjs          # 135 verificações — não precisa de chave de API
-node web/testes/navegador.mjs    # 38 verificações — precisa do Playwright com Chromium
+node web/testes/navegador.mjs    # 44 verificações — precisa do Playwright com Chromium
 node web/testes/retencao.mjs     # prazos de guarda da política de privacidade — sem wrangler
 ```
 
