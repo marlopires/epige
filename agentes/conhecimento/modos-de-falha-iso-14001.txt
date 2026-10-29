@@ -15,10 +15,10 @@ Quando um aparecer no caso concreto, nomeie aquele e diga qual evidência um aud
    Por que importa: sem critério declarado, a significância é opinião — e opinião não se
    audita. É das não conformidades mais comuns nesta norma.
 
-3. REQUISITOS LEGAIS IDENTIFICADOS, MAS SEM AVALIAÇÃO DE ATENDIMENTO
+3. OBRIGAÇÕES DE COMPLIANCE IDENTIFICADAS, MAS SEM AVALIAÇÃO DE ATENDIMENTO (6.1.3 e 9.1.2)
    Sintoma: existe uma lista de legislação aplicável, às vezes extensa e bem feita. Não
    existe registro de que alguém verificou, periodicamente, se a empresa atende.
-   Evidência: pedir o último registro de avaliação de atendimento. A lista não é a
+   Evidência: pedir o último registro de avaliação de compliance. A lista não é a
    avaliação.
 
 4. PLANO DE EMERGÊNCIA NUNCA TESTADO

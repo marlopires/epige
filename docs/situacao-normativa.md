@@ -113,10 +113,10 @@ estão instruídos a não afirmar que há lei geral de IA em vigor.
 
 ### O que continua sem confirmação
 
-**A adoção brasileira da ISO 14001:2026.** O exemplar disponível da 14001 é digitalizado em
-imagem, sem texto extraível, e o outro é a norma espanhola UNE-EN ISO 14001:2015 — que
-serve para conferir mecanismos, não a situação brasileira. As datas da 14001:2026 continuam
-apoiadas só em fontes secundárias.
+~~**A adoção brasileira da ISO 14001:2026.**~~ *Confirmada em 29/10/2026 contra exemplar:*
+**ABNT NBR ISO 14001:2026**, 4ª edição, 08/07/2026, adoção idêntica da ISO 14001:2026. Cancela a
+ABNT NBR ISO 14001:2015 e a Emenda 1:2024. A Consulta Nacional foi de 29/05 a 27/06/2026. A
+numeração mudou (6.1.4, 6.1.5, 6.3 e a seção 10 reordenada) — ver `agentes/normativa/iso-14001.md`.
 
 ---
 
@@ -125,7 +125,7 @@ apoiadas só em fontes secundárias.
 | Norma | Referência brasileira vigente | Próxima edição | Situação |
 |---|---|---|---|
 | ISO 9001 | **ABNT NBR ISO 9001:2015 + Em1:2024** | 2026 | Publicada pela ISO em **16/09/2026**; transição de três anos |
-| ISO 14001 | 2015 → 2026 *(adoção ABNT não confirmada)* | — | ISO publicada em **15/04/2026**, transição em curso |
+| ISO 14001 | **ABNT NBR ISO 14001:2026** (08/07/2026) | — | ISO publicada em **15/04/2026**, transição em curso |
 | ISO 45001 | **ABNT NBR ISO 45001:2024 + Em1:2025** | 2027 | Revisão ISO em curso, sem texto final |
 | ISO/IEC 27001 | **ABNT NBR ISO/IEC 27001:2022, Versão Corrigida 2023 + Em1:2024** | — | Vigente |
 | ISO 37001 | **ABNT NBR ISO 37001:2025** | — | Transição da 2017 até **28/02/2027** |

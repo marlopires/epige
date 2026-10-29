@@ -191,6 +191,15 @@ Ordem = ordem sugerida de execução. Marque `[x]` ao concluir.
       termos, na privacidade e na transferência internacional; conta de API para validar;
       profissional de SST para conferir o gabarito. Auditoria interna independente antes
       de pensar em certificar.
+- [~] **F2-8 · Normativa: comentário da EPIGE item a item.** *Iniciado em 29/10/2026.* Tela
+      **Normativa**, gaveta lateral e link automático em todo "requisito 6.1.2" de resposta da
+      IA ou de documento. Conteúdo em `agentes/normativa/*.md`, autoral, com número e título do
+      item, e conferido contra exemplar. **Feito:** ISO 14001:2026, ISO 45001:2024/Em1:2025,
+      ISO 37001:2025 e ISO 37301:2021 — 230 itens. **Falta:** 9001, 50001 e IATF 16949 (os dois
+      exemplares são imagem escaneada), 19011:2026 (exemplar em italiano), 14064-1/2/3, SA8000,
+      NBR 14789 e 16789, e SiAC a partir do texto oficial publicado pelo Ministério.
+      A conferência já corrigiu os agentes: a 14001:2026 renumerou a seção 6 e a 10, e a 37001
+      ganhou cultura antissuborno (5.1.3) e conflito de interesse na decisão delegada (5.3.3).
 - [ ] **F3-1 · Piloto com 10 a 15 usuários reais** e medição das premissas de confiança
       baixa do modelo de custo: volumes por plano, aproveitamento de cache, tickets de
       suporte, CAC por canal, conversão do gratuito. Recomendação do modelo: rodar os
@@ -248,6 +257,10 @@ que já foi decidido.
 | 24/09/2026 | Auditoria da EPIGE contra a 42001: cinco itens bloqueantes para abrir a cliente | Ver `docs/auditoria-42001-epige.md` |
 | 24/09/2026 | Anthropic aprovada como fornecedor, com condições | Não treina com o dado, apaga em 30 dias; armazenamento só nos EUA exige cláusulas-padrão da ANPD — ponto para o advogado |
 | 24/09/2026 | Aceite de termos obrigatório, versionado e registrado | A cada nova versão, todos aceitam de novo antes de continuar; o aceite vai na exportação |
+| 29/10/2026 | Normativa é comentário autoral por item, não a norma reescrita | Reescrever a norma inteira com outras palavras, item por item, continua sendo reprodução: a Lei 9.610/98 protege também a adaptação. O cliente vê número, título e comentário — do que trata, na prática, na auditoria |
+| 29/10/2026 | ISO 14001 e ISO 37001 elevadas a confiança alta | Conferidas contra exemplar: adoção ABNT da 14001 confirmada (08/07/2026), numeração 2026 corrigida nos agentes, novidades da 37001:2025 registradas |
+| 29/10/2026 | Instrução interna IS-CAMBR-PBQ-00 (RINA) fica fora do produto | É procedimento interno de organismo certificador, não norma nem ato oficial. O SiAC entra pelo texto oficial do Ministério, que não tem direito autoral (ato normativo) |
+| 29/10/2026 | Exemplares recebidos em 29/10 são licenciados à RINA Brasil | Mesma ressalva do F0-1, agora com o titular identificado. Usados só para conferir número, título e interpretação; nada deles é copiado para o produto |
 | 24/09/2026 | Sem profissionais externos nesta fase: a validação é feita pela ferramenta, contra a fonte primária | Decisão sua. Limite aceito: quem valida é quem escreveu; textos legais sem revisão de advogado. Ver `docs/governanca-ia/validacao-pela-ferramenta.md` |
 | 24/09/2026 | Prazos de guarda da política de privacidade aplicados no código | Política que o sistema não cumpre é declaração falsa |
 | 24/09/2026 | Política de IA (POL-IA-001) e avaliação de impacto (AVI-IA-001) aprovadas pela direção | Dois dos cinco bloqueantes da auditoria 42001 fechados; reapresentar no controle de documentos quando a plataforma estiver no ar |

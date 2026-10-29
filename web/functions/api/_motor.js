@@ -50,10 +50,10 @@ export const CAMBIO = 5.2;
  */
 export const NORMAS = {
   'iso-9001': { arquivo: 'normas/iso-9001', conhecimento: 'conhecimento/modos-de-falha-iso-9001', rotulo: 'ISO 9001', tema: 'Qualidade', confianca: 'alta' },
-  'iso-14001': { arquivo: 'normas/iso-14001', conhecimento: 'conhecimento/modos-de-falha-iso-14001', rotulo: 'ISO 14001', tema: 'Ambiental', confianca: 'media' },
+  'iso-14001': { arquivo: 'normas/iso-14001', conhecimento: 'conhecimento/modos-de-falha-iso-14001', rotulo: 'ISO 14001', tema: 'Ambiental', confianca: 'alta' },
   'iso-45001': { arquivo: 'normas/iso-45001', conhecimento: 'conhecimento/modos-de-falha-iso-45001', rotulo: 'ISO 45001', tema: 'Saúde e segurança', confianca: 'alta' },
   'iso-27001': { arquivo: 'normas/iso-27001', conhecimento: 'conhecimento/modos-de-falha-iso-27001', rotulo: 'ISO/IEC 27001', tema: 'Segurança da informação', confianca: 'alta' },
-  'iso-37001': { arquivo: 'normas/iso-37001', conhecimento: 'conhecimento/modos-de-falha-compliance', rotulo: 'ISO 37001', tema: 'Antissuborno', confianca: 'media' },
+  'iso-37001': { arquivo: 'normas/iso-37001', conhecimento: 'conhecimento/modos-de-falha-compliance', rotulo: 'ISO 37001', tema: 'Antissuborno', confianca: 'alta' },
   'iso-37301': { arquivo: 'normas/iso-37301', conhecimento: 'conhecimento/modos-de-falha-compliance', rotulo: 'ISO 37301', tema: 'Compliance', confianca: 'alta' },
   'iso-39001': { arquivo: 'normas/iso-39001', conhecimento: 'conhecimento/modos-de-falha-iso-39001', rotulo: 'ISO 39001', tema: 'Segurança viária', confianca: 'media' },
   'iso-42001': { arquivo: 'normas/iso-42001', conhecimento: 'conhecimento/modos-de-falha-iso-42001', rotulo: 'ISO/IEC 42001', tema: 'Inteligência artificial', confianca: 'media' },

@@ -19,6 +19,7 @@ const S = {
   custo: 0, chamadas: [], historico: {}, resultados: {}, ultima: null, prefill: null,
   docs: [], tipos: {}, doc: null, precisaCodigo: false,
   tokenConvite: null, tokenRedefinir: null, primeiroDisponivel: false, dono: null,
+  normativa: [], itensNorma: {}, referencial: {}, normativaSel: null, normativaFoco: null,
 };
 
 /* ============================================================ utilidades */
@@ -143,6 +144,7 @@ document.addEventListener('keydown', (e) => {
     t.click();
   }
   if (e.key === 'Escape' && $('shell').classList.contains('menu-aberto')) menuMovel(false);
+  if (e.key === 'Escape' && !$('gaveta').classList.contains('hidden')) fecharGaveta();
 });
 
 // No celular o cabeçalho quebra em mais linhas; os painéis fixos precisam da altura real dele.
@@ -174,6 +176,7 @@ function telaAcesso(modo, aviso = '') {
   $('userChip').classList.add('hidden');
   $('btnMenu').classList.add('hidden');
   $('status').classList.add('hidden');
+  $('gaveta').classList.add('hidden');
   $('shell').classList.remove('menu-aberto');
   $('acesso').classList.remove('hidden');
 
@@ -361,7 +364,7 @@ async function entrarNaApp() {
   S.dono = eu.usuario.id;
   S.usuario = eu.usuario;
   S.org = eu.organizacao;
-  const cat = await api('GET', '/api/chat');
+  const [cat] = await Promise.all([api('GET', '/api/chat'), carregarNormativa()]);
   S.agentes = cat.agentes || {};
   S.normas = cat.normas || {};
   S.iaConfigurada = cat.ia_configurada;
@@ -417,6 +420,7 @@ const FERRAMENTAS = [
 
 const GESTAO = [
   { id: 'documentos', i: '▤', t: 'Documentos', d: 'Elaboração, aprovação e versões' },
+  { id: 'normativa', i: '§', t: 'Normativa', d: 'Comentário item a item das normas' },
   { id: 'empresa', i: '◧', t: 'Empresa', d: 'O contexto que os agentes usam', papeis: ['admin', 'editor'] },
   { id: 'equipe', i: '◎', t: 'Equipe', d: 'Convites, papéis e acessos', papeis: ['admin'] },
   { id: 'uso', i: 'R$', t: 'Uso de IA', d: 'Gasto de hoje e do mês', papeis: ['admin', 'editor'] },
@@ -727,7 +731,7 @@ function telaChat(f) {
   }[f.id] || [];
   $('main').innerHTML = moldura(f, '<div class="panel"><div class="thread" id="thread">'
     + hist.map((m) => m.role === 'user' ? '<div class="msg user">' + esc(m.content) + '</div>'
-      : '<div class="msg bot"><div class="who">' + esc(f.t) + '</div>' + renderResposta(f.id, m.content) + '</div>').join('')
+      : '<div class="msg bot"><div class="who">' + esc(f.t) + '</div>' + linkarItens(renderResposta(f.id, m.content), normasDaTela(f)) + '</div>').join('')
     + (esperando ? '<div class="msg bot" id="' + bolhaPendente(f) + '"><div class="who">' + esc(f.t) + '</div><div class="thinking">' + PENSANDO + 'consultando</div></div>' : '')
     + '</div>'
     + (sugestoes.length ? '<div class="suggest">' + sugestoes.map((x) => '<button class="chip" data-acao="perguntar" data-id="' + f.id + '" data-texto="' + esc(x) + '">' + esc(x) + '</button>').join('') + '</div>' : '')
@@ -761,7 +765,7 @@ ACOES.rodar = async (el) => {
     const aviso = d.aviso ? '<div class="alert alert-warn">' + esc(d.aviso) + '</div>' : '';
     const dados = lerDados(f.id, d.texto);
     const ultima = { f, dados, texto: d.texto, entrada, normas };
-    html = aviso + (dados ? RENDER[f.id](dados) : '<div class="doc-out">' + renderResposta(f.id, d.texto) + '</div>')
+    html = aviso + linkarItens(dados ? RENDER[f.id](dados) : '<div class="doc-out">' + renderResposta(f.id, d.texto) + '</div>', normas)
       + '<div id="salvarDoc">' + botaoSalvar('Salvar em documentos') + '</div>';
     // Quem saiu da tela encontra a resposta paga ao voltar, mas ela não vira a "última" de outra ferramenta.
     S.resultados[chave] = { html, ultima, entrada };
@@ -801,7 +805,7 @@ ACOES.perguntar = async (el) => {
   try {
     const d = await chamar(f.agente, hist.slice(), f.t);
     hist.push({ role: 'assistant', content: d.texto });
-    html = renderResposta(f.id, d.texto);
+    html = linkarItens(renderResposta(f.id, d.texto), normas);
     respondeu = true;
   } catch (e) {
     hist.pop();
@@ -1068,7 +1072,7 @@ function desenharDoc() {
         + '<button class="btn btn-primary" type="button" data-acao="enviarParaAprovacao">Salvar e enviar para aprovação</button>'
         + '<button class="btn btn-perigo" type="button" data-acao="docAcao" data-a="descartar">Descartar ' + (d.versao_vigente ? 'revisão' : 'documento') + '</button></div></form>';
     } else {
-      h += '<div class="doc-view">' + md(aberta.conteudo) + '</div>';
+      h += '<div class="doc-view">' + linkarItens(md(aberta.conteudo), d.normas) + '</div>';
       if (aberta.estado === 'em_revisao') {
         h += admin
           ? '<form data-form="decidir" style="margin-top:var(--e-13)"><div class="field"><label for="dc_motivo">Parecer (obrigatório para devolver)</label><textarea id="dc_motivo" name="motivo" maxlength="1000"></textarea></div>'
@@ -1085,7 +1089,7 @@ function desenharDoc() {
 
   if (vigente || !aberta) {
     h += '<div class="panel"><div class="card-t">' + (d.obsoleto ? 'Última versão (obsoleta)' : 'Versão vigente') + '</div>'
-      + (vigente ? '<div class="doc-view">' + md(vigente) + '</div>' : '<p class="muted">Ainda sem versão aprovada.</p>') + '</div>';
+      + (vigente ? '<div class="doc-view">' + linkarItens(md(vigente), d.normas) + '</div>' : '<p class="muted">Ainda sem versão aprovada.</p>') + '</div>';
   }
 
   h += '<div class="panel"><div class="card-t">Histórico de versões</div><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Versão</th><th>Estado</th><th>O que mudou</th><th>Elaborada</th><th>Aprovada</th><th></th></tr></thead><tbody>'
@@ -1191,7 +1195,7 @@ ACOES.verVersao = async (el) => {
   pensando(box, 'carregando a versão');
   try {
     const { versao: v } = await api('GET', '/api/documentos/' + idDoc() + '/versoes/' + Number(el.dataset.n));
-    box.innerHTML = '<div class="card" style="margin-top:var(--e-13)"><div class="card-t">Versão ' + v.numero + ' · ' + esc(ESTADO[v.estado]) + '</div><div class="doc-view">' + md(v.conteudo) + '</div></div>';
+    box.innerHTML = '<div class="card" style="margin-top:var(--e-13)"><div class="card-t">Versão ' + v.numero + ' · ' + esc(ESTADO[v.estado]) + '</div><div class="doc-view">' + linkarItens(md(v.conteudo), S.doc.documento.normas) + '</div></div>';
     box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   } catch (e) { erroBox(box, e); }
 };
@@ -1224,6 +1228,138 @@ ACOES.imprimirDoc = () => {
   window.addEventListener('afterprint', () => document.body.classList.remove('imprimindo'), { once: true });
   window.print();
 };
+
+/* ============================================================ normativa */
+
+/** Lista dos referenciais com comentário e os números de item de cada um — base dos links. */
+async function carregarNormativa() {
+  try {
+    const d = await api('GET', '/api/normativa');
+    S.normativa = d.referenciais;
+    S.itensNorma = Object.fromEntries(d.referenciais.map((r) => [r.id, new Set(r.itens)]));
+  } catch {
+    // Sem a lista, as respostas só deixam de ter link para o item. Nada quebra.
+    S.normativa = [];
+    S.itensNorma = {};
+  }
+}
+
+async function referencial(id) {
+  if (!S.referencial[id]) S.referencial[id] = (await api('GET', '/api/normativa/' + encodeURIComponent(id))).referencial;
+  return S.referencial[id];
+}
+
+const NUM_ITEM = /\d{1,2}(?:\.\d{1,2}){1,3}/g;
+// "requisito 6.1.2", "cláusulas 6.1 e 8.1", "itens 6.1.2 a 6.1.5". Só número com ponto:
+// "item 3" solto é quase sempre item de uma lista, não da norma.
+const REF_ITEM = /(\b(?:cláusulas?|requisitos?|itens|item|seção|seções|subseção|subseções)\s+)(\d{1,2}(?:\.\d{1,2}){1,3}(?:(?:\s*,\s*|\s+e\s+|\s+a\s+)\d{1,2}(?:\.\d{1,2}){1,3})*)/gi;
+
+const botaoItem = (norma, n) => '<button type="button" class="ref-item" data-acao="verItem" data-norma="' + esc(norma) + '" data-item="' + esc(n)
+  + '" title="Comentário do item ' + esc(n) + '">' + esc(n) + '</button>';
+
+/**
+ * Transforma menção a item de norma em link para o comentário. Opera só no texto
+ * entre tags, de HTML já escapado; a norma é a primeira do contexto que tem o item.
+ */
+function linkarItens(html, normas) {
+  const ids = (normas || []).filter((k) => S.itensNorma[k]);
+  if (!ids.length) return html;
+  return html.split(/(<[^>]*>)/).map((parte, i) => (i % 2 ? parte : parte.replace(REF_ITEM, (m, pre, lista) =>
+    pre + lista.replace(NUM_ITEM, (n) => {
+      const k = ids.find((id) => S.itensNorma[id].has(n));
+      return k ? botaoItem(k, n) : n;
+    })))).join('');
+}
+
+const AVISO_NORMATIVA = 'Comentário da EPIGE, em linguagem própria. Não reproduz nem substitui a norma: para o texto oficial, consulte o seu exemplar.';
+
+function corpoItem(x) {
+  const campo = (rotulo, v) => (v ? '<div class="nv-campo"><b>' + esc(rotulo) + '</b> ' + esc(v.charAt(0).toUpperCase() + v.slice(1)) + '</div>' : '');
+  return campo('Do que trata.', x.trata) + campo('Na prática.', x.pratica) + campo('Na auditoria.', x.auditoria)
+    + (x.mudou ? '<div class="nv-mudou"><b>Mudou nesta edição.</b> ' + esc(x.mudou.charAt(0).toUpperCase() + x.mudou.slice(1)) + '</div>' : '');
+}
+
+ACOES.verItem = (el) => abrirGaveta(el.dataset.norma, el.dataset.item);
+ACOES.fecharGaveta = () => fecharGaveta();
+
+async function abrirGaveta(norma, n) {
+  const g = $('gaveta');
+  g.classList.remove('hidden');
+  $('gavetaNorma').textContent = '';
+  $('gavetaTitulo').textContent = 'Item ' + n;
+  pensando($('gavetaCorpo'), 'carregando o comentário');
+  try {
+    const r = await referencial(norma);
+    const x = r.itens.find((i) => i.n === n);
+    if (!x) throw new Error('Este item não tem comentário na normativa.');
+    $('gavetaNorma').textContent = r.rotulo + ' · ' + r.titulo;
+    $('gavetaTitulo').textContent = x.n + ' ' + x.t;
+    $('gavetaCorpo').innerHTML = corpoItem(x) + '<p class="note">' + esc(AVISO_NORMATIVA) + '</p>'
+      + '<button class="btn btn-ghost btn-sm" data-acao="abrirNormativa" data-norma="' + esc(norma) + '" data-item="' + esc(n) + '">Ver todos os itens da ' + esc(r.rotulo) + '</button>';
+  } catch (e) { erroBox($('gavetaCorpo'), e); }
+  $('gaveta').querySelector('.gaveta-fechar').focus();
+}
+
+function fecharGaveta() {
+  $('gaveta').classList.add('hidden');
+}
+
+ACOES.abrirNormativa = (el) => {
+  fecharGaveta();
+  S.normativaSel = el.dataset.norma;
+  S.normativaFoco = el.dataset.item || null;
+  abrir('normativa');
+};
+
+MUDA.trocarReferencial = (el) => {
+  S.normativaSel = el.value;
+  S.normativaFoco = null;
+  TELAS.normativa();
+};
+
+TELAS.normativa = async () => {
+  const lista = S.normativa;
+  if (!S.normativaSel || !S.itensNorma[S.normativaSel]) S.normativaSel = S.itensNorma[S.norma] ? S.norma : (lista[0] || {}).id;
+  $('main').innerHTML = cabecalho('Consulta · Normativa', 'Normativa', 'O que cada item das normas pede, explicado pela EPIGE: do que trata, como se atende na prática e o que a auditoria procura.')
+    + (!lista.length ? '<div class="panel"><div class="locked"><div class="locked-i">§</div>Nenhum referencial com comentário ainda.</div></div>'
+      : '<div class="panel"><div class="filtros"><input type="search" id="nvBusca" placeholder="Buscar por número ou palavra (ex.: 6.1.2, emergência)" data-filtro-nv aria-label="Buscar na normativa">'
+        + '<select id="nvRef" data-muda="trocarReferencial" aria-label="Referencial">' + lista.map((r) => '<option value="' + esc(r.id) + '"' + (r.id === S.normativaSel ? ' selected' : '') + '>' + esc(r.rotulo + ' · ' + r.titulo) + '</option>').join('') + '</select></div>'
+        + '<p class="note" style="margin-top:0">' + esc(AVISO_NORMATIVA) + '</p><div id="nvLista"><div class="thinking">' + PENSANDO + 'carregando</div></div></div>');
+  if (!lista.length) return;
+  try {
+    const r = await referencial(S.normativaSel);
+    if (S.tela !== 'normativa') return;
+    desenharNormativa(r);
+  } catch (e) { erroBox($('nvLista'), e); }
+};
+
+// 6.1.2 vira nv-6-1-2: sem o separador, 8.5.1.1 e 8.5.11 dariam o mesmo id.
+const idNv = (n) => 'nv-' + String(n).replace(/[^0-9A-Za-z]/g, '-');
+const semAcento = (t) => String(t || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+
+function desenharNormativa(r) {
+  const box = $('nvLista');
+  if (!box) return;
+  const busca = semAcento($('nvBusca').value.trim());
+  const acha = (x) => !busca || semAcento([x.n, x.t, x.trata, x.pratica, x.auditoria, x.mudou].join(' ')).includes(busca);
+  const itens = r.itens.filter(acha);
+  box.innerHTML = '<div class="nv-meta"><b>' + esc(r.edicao) + '</b><br>' + esc(r.conferido) + '</div>'
+    + (!itens.length ? '<div class="locked">Nenhum item com "' + esc($('nvBusca').value.trim()) + '".</div>'
+      : itens.map((x) => (x.secao
+        ? '<div class="nv-secao" id="' + idNv(x.n) + '"><span class="mono">' + esc(x.n) + '</span> ' + esc(x.t) + '<div class="nv-secao-d">' + esc(x.trata.charAt(0).toUpperCase() + x.trata.slice(1)) + '</div>'
+          + (x.mudou ? '<div class="nv-mudou"><b>Mudou nesta edição.</b> ' + esc(x.mudou.charAt(0).toUpperCase() + x.mudou.slice(1)) + '</div>' : '') + '</div>'
+        : '<details class="nv-item" id="' + idNv(x.n) + '"' + (busca || x.n === S.normativaFoco ? ' open' : '') + '><summary><span class="mono">' + esc(x.n) + '</span> ' + esc(x.t)
+          + (x.mudou ? ' <span class="badge em_revisao">mudou</span>' : '') + '</summary>' + corpoItem(x) + '</details>')).join(''));
+  if (S.normativaFoco) {
+    const alvo = $(idNv(S.normativaFoco));
+    S.normativaFoco = null;
+    if (alvo) { alvo.classList.add('nv-foco'); alvo.scrollIntoView({ block: 'center' }); }
+  }
+}
+
+document.addEventListener('input', (e) => {
+  if (e.target.closest('[data-filtro-nv]') && S.referencial[S.normativaSel]) desenharNormativa(S.referencial[S.normativaSel]);
+});
 
 /* ============================================================ empresa */
 
