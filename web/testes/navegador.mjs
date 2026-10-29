@@ -127,10 +127,10 @@ try {
   await dono.fill('#entrada', 'Procedimento de tratamento de não conformidade...');
   await dono.click('#btnGo');
   await esperarTexto(dono, 'Relatório de auditoria interna');
-  // "requisito 10.2" na resposta vira link para o comentário — da 14001, a norma da sessão que tem o item.
+  // "requisito 10.2" na resposta vira link para o comentário — da norma principal da sessão (9001), que tem o item.
   await dono.locator('#saida .ref-item').first().click();
   await dono.locator('#gaveta:not(.hidden) .nv-campo').first().waitFor({ timeout: 10_000 });
-  checar('item citado na resposta abre o comentário na gaveta', (await dono.locator('#gavetaTitulo').innerText()).startsWith('10.2') && (await dono.locator('#gavetaNorma').innerText()).includes('ISO 14001'));
+  checar('item citado na resposta abre o comentário na gaveta', (await dono.locator('#gavetaTitulo').innerText()).startsWith('10.2') && (await dono.locator('#gavetaNorma').innerText()).includes('ISO 9001'));
   await dono.keyboard.press('Escape');
   checar('Esc fecha a gaveta', await dono.locator('#gaveta').isHidden());
   await dono.click('button:has-text("Salvar em documentos")');
@@ -230,6 +230,9 @@ try {
   checar('celular: escolher uma tela fecha o menu', !(await leitor.locator('#rail').isVisible()) && (await leitor.locator('#btnMenu').getAttribute('aria-expanded')) === 'false');
   await leitor.click('#btnMenu');
   await leitor.click('#rail [data-id="normativa"]');
+  await leitor.locator('#nvLista details').first().waitFor({ timeout: 10_000 });
+  checar('normativa abre na norma da sessão', (await leitor.locator('#nvRef').inputValue()) === 'iso-9001');
+  await leitor.selectOption('#nvRef', 'iso-14001');
   await leitor.locator('#nvLista details').first().waitFor({ timeout: 10_000 });
   await leitor.fill('#nvBusca', 'emergência');
   checar('leitor consulta a normativa e a busca filtra', (await leitor.locator('#nvLista details').count()) >= 1 && (await leitor.locator('#nvLista').innerText()).includes('8.2'));

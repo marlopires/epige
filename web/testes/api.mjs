@@ -174,6 +174,10 @@ try {
   const item612 = c14001.dados?.referencial?.itens?.find((x) => x.n === '6.1.2');
   checar('comentário do item traz título e explicação', c14001.status === 200 && item612?.t === 'Aspectos ambientais' && item612.trata.length > 40, c14001.dados?.referencial?.edicao);
   status('referencial desconhecido dá 404', await leitor.get('/api/normativa/iso-0000'), 404);
+  const idsNv = (refs.dados?.referenciais ?? []).map((r) => r.id);
+  checar('normativa cobre os referenciais novos', ['iso-9001', 'iatf-16949', 'sa8000', 'nbr-14789', 'iso-14064-1', 'iso-19011'].every((id) => idsNv.includes(id)), idsNv);
+  const catalogo = await leitor.get('/api/chat');
+  checar('agentes atendem os referenciais novos', ['iatf-16949', 'sa8000', 'nbr-14789', 'iso-14064-1'].every((id) => catalogo.dados?.normas?.[id]?.confianca === 'alta'), Object.keys(catalogo.dados?.normas ?? {}));
   status('nome de propriedade não vaza como referencial', await leitor.get('/api/normativa/constructor'), 404);
 
   const vistoLeitor = await leitor.get(`/api/documentos/${id}`);

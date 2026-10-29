@@ -1,0 +1,24 @@
+MODOS DE FALHA RECORRENTES — SA8000
+
+Padrões observados em auditorias. Use-os para saber o que procurar; não os recite.
+
+1. HORAS EXTRAS ACIMA DO TETO DA NORMA
+   Sintoma: jornada dentro da lei, mas a soma semanal com extras passa do limite da SA8000.
+   Evidência: cruzar ponto, folha e entrevistas por amostragem de semanas de pico.
+
+2. SALÁRIO DE SUBSISTÊNCIA SEM ESTIMATIVA
+   Sintoma: a empresa paga o mínimo legal e nunca estimou o salário de subsistência local.
+
+3. EQUIPE DE DESEMPENHO SOCIAL SEM REPRESENTAÇÃO LEGÍTIMA
+   Sintoma: representante dos trabalhadores indicado pela gestão.
+
+4. RETENÇÃO DE DOCUMENTOS OU DESCONTOS INDEVIDOS
+   Sintoma: documento retido "por segurança", desconto de uniforme, alojamento ou taxa de
+   recrutamento.
+
+5. CADEIA DE FORNECIMENTO SÓ COM TERMO ASSINADO
+   Sintoma: fornecedor de risco alto com declaração de compromisso e nenhuma verificação.
+
+6. CANAL DE RECLAMAÇÃO QUE NINGUÉM USA
+   Sintoma: caixa de sugestões vazia por anos — em geral sinal de medo, não de ausência de
+   problema.

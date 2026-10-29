@@ -194,12 +194,16 @@ Ordem = ordem sugerida de execução. Marque `[x]` ao concluir.
 - [~] **F2-8 · Normativa: comentário da EPIGE item a item.** *Iniciado em 29/10/2026.* Tela
       **Normativa**, gaveta lateral e link automático em todo "requisito 6.1.2" de resposta da
       IA ou de documento. Conteúdo em `agentes/normativa/*.md`, autoral, com número e título do
-      item, e conferido contra exemplar. **Feito:** ISO 14001:2026, ISO 45001:2024/Em1:2025,
-      ISO 37001:2025 e ISO 37301:2021 — 230 itens. **Falta:** 9001, 50001 e IATF 16949 (os dois
-      exemplares são imagem escaneada), 19011:2026 (exemplar em italiano), 14064-1/2/3, SA8000,
-      NBR 14789 e 16789, e SiAC a partir do texto oficial publicado pelo Ministério.
-      A conferência já corrigiu os agentes: a 14001:2026 renumerou a seção 6 e a 10, e a 37001
-      ganhou cultura antissuborno (5.1.3) e conflito de interesse na decisão delegada (5.3.3).
+      item, e conferido contra exemplar. **Feito — 13 referenciais, 716 itens:** ISO 9001, 14001,
+      45001, 37001, 37301, 50001, 19011, 14064-1, 14064-2, 14064-3, IATF 16949, SA8000 e
+      NBR 14789 (com a 16789 como apoio). **Falta:** SiAC, a partir do texto oficial do
+      Ministério (os anexos da Portaria 577/2021 não vieram no PDF recebido); 9001:2026 quando
+      houver exemplar; 50001:2018 conferida contra exemplar da edição vigente.
+      A conferência corrigiu os agentes: a 14001:2026 renumerou a seção 6 e a 10; a 37001 ganhou
+      cultura antissuborno (5.1.3) e conflito de interesse na decisão delegada (5.3.3); e a
+      19011:2026 **não trata de IA** — as fontes secundárias diziam que sim.
+      **Agentes:** ISO 14064-1, IATF 16949, SA8000 e NBR 14789 passam a ser referenciais
+      selecionáveis, com conhecimento e modos de falha próprios.
 - [ ] **F3-1 · Piloto com 10 a 15 usuários reais** e medição das premissas de confiança
       baixa do modelo de custo: volumes por plano, aproveitamento de cache, tickets de
       suporte, CAC por canal, conversão do gratuito. Recomendação do modelo: rodar os
@@ -261,6 +265,9 @@ que já foi decidido.
 | 29/10/2026 | ISO 14001 e ISO 37001 elevadas a confiança alta | Conferidas contra exemplar: adoção ABNT da 14001 confirmada (08/07/2026), numeração 2026 corrigida nos agentes, novidades da 37001:2025 registradas |
 | 29/10/2026 | Instrução interna IS-CAMBR-PBQ-00 (RINA) fica fora do produto | É procedimento interno de organismo certificador, não norma nem ato oficial. O SiAC entra pelo texto oficial do Ministério, que não tem direito autoral (ato normativo) |
 | 29/10/2026 | Exemplares recebidos em 29/10 são licenciados à RINA Brasil | Mesma ressalva do F0-1, agora com o titular identificado. Usados só para conferir número, título e interpretação; nada deles é copiado para o produto |
+| 29/10/2026 | Texto integral das normas não entra na base, nem sem a marca da RINA | Pedido seu, recusado: copiar já é reprodução (Lei 9.610/98, art. 29), mesmo que nunca seja exibido — e os prompts vão à API a cada chamada. Tirar a identificação do licenciado é infração à parte (art. 107). A base guarda o que um especialista guarda: estrutura, mecanismos, interpretação e modos de falha, em linguagem própria |
+| 29/10/2026 | A regra "nenhum agente reproduz texto da ISO ou ABNT" continua | É o que sustenta os termos de uso e a defesa da EPIGE; tirá-la não daria ao agente nenhum conhecimento novo |
+| 29/10/2026 | Escopo vai de 11 para 15 referenciais: + ISO 14064-1, IATF 16949, SA8000, NBR 14789 | Decisão sua. Reverte a saída da IATF registrada em 22/09. A IATF é tratada como complemento da 9001, nunca sozinha |
 | 24/09/2026 | Sem profissionais externos nesta fase: a validação é feita pela ferramenta, contra a fonte primária | Decisão sua. Limite aceito: quem valida é quem escreveu; textos legais sem revisão de advogado. Ver `docs/governanca-ia/validacao-pela-ferramenta.md` |
 | 24/09/2026 | Prazos de guarda da política de privacidade aplicados no código | Política que o sistema não cumpre é declaração falsa |
 | 24/09/2026 | Política de IA (POL-IA-001) e avaliação de impacto (AVI-IA-001) aprovadas pela direção | Dois dos cinco bloqueantes da auditoria 42001 fechados; reapresentar no controle de documentos quando a plataforma estiver no ar |

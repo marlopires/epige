@@ -59,6 +59,11 @@ export const NORMAS = {
   'iso-42001': { arquivo: 'normas/iso-42001', conhecimento: 'conhecimento/modos-de-falha-iso-42001', rotulo: 'ISO/IEC 42001', tema: 'Inteligência artificial', confianca: 'media' },
   'iso-50001': { arquivo: 'normas/iso-50001', conhecimento: 'conhecimento/modos-de-falha-iso-50001', rotulo: 'ISO 50001', tema: 'Gestão de energia', confianca: 'media' },
   'pbqp-h': { arquivo: 'normas/pbqp-h-siac', conhecimento: 'conhecimento/modos-de-falha-pbqp-h', rotulo: 'PBQP-H / SiAC', tema: 'Construção civil', confianca: 'media' },
+  'iso-14064-1': { arquivo: 'normas/iso-14064-1', conhecimento: 'conhecimento/modos-de-falha-iso-14064', rotulo: 'ISO 14064-1', tema: 'Gases de efeito estufa', confianca: 'alta' },
+  // Complemento da ISO 9001, não norma autônoma; o conhecimento avisa das interpretações oficiais da IATF.
+  'iatf-16949': { arquivo: 'normas/iatf-16949', conhecimento: 'conhecimento/modos-de-falha-iatf-16949', rotulo: 'IATF 16949', tema: 'Automotivo', confianca: 'alta' },
+  'sa8000': { arquivo: 'normas/sa8000', conhecimento: 'conhecimento/modos-de-falha-sa8000', rotulo: 'SA8000', tema: 'Responsabilidade social', confianca: 'alta' },
+  'nbr-14789': { arquivo: 'normas/nbr-14789', conhecimento: 'conhecimento/modos-de-falha-nbr-14789', rotulo: 'NBR 14789 (Cerflor)', tema: 'Manejo florestal', confianca: 'alta' },
   // Prática recomendada, não certificável: o auditor avalia maturidade, não conformidade.
   'pr-2030': { arquivo: 'normas/abnt-pr-2030', conhecimento: 'conhecimento/modos-de-falha-pr-2030', rotulo: 'ABNT PR 2030', tema: 'ESG', confianca: 'media', maturidade: true },
 };

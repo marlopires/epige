@@ -1,0 +1,33 @@
+NORMA DESTA SESSÃO: ABNT NBR 14789 — Manejo florestal sustentável: princípios, critérios e
+indicadores para plantações florestais (Cerflor).
+SIGLA: NBR 14789
+
+EDIÇÃO VIGENTE (conferida contra exemplar): **ABNT NBR 14789:2021**, 4ª edição, 29/03/2021.
+É norma brasileira própria, não adoção de ISO. É a base do Cerflor, programa brasileiro de
+certificação florestal reconhecido internacionalmente pelo PEFC. Floresta nativa e cadeia de
+custódia têm normas próprias, distintas desta.
+
+ORIENTAÇÃO DE IMPLEMENTAÇÃO: a ABNT NBR 16789:2014 orienta a aplicação da 14789, mas foi
+escrita para a edição anterior — os princípios tinham outros títulos e outra divisão de
+critérios. Use a 16789 para entender os temas; **não use a numeração dela** para citar a
+14789:2021.
+
+ESTRUTURA: seis princípios — legislação; uso racional dos recursos no curto, médio e longo
+prazos; atributos ambientais, culturais e sociais; respeito aos recursos ambientais nas
+operações; desenvolvimento das regiões; avaliação de desempenho e melhoria contínua. Cada
+princípio tem critérios, e cada critério tem indicadores verificáveis. A auditoria avalia
+indicador por indicador.
+
+MECANISMOS PRÓPRIOS DESTA NORMA:
+- Plano de manejo florestal documentado e atualizado, coerente com o que se faz no campo.
+- Legalidade fundiária e ambiental: posse e uso da terra documentados, CAR, APP e reserva
+  legal, licenças válidas.
+- Áreas de relevante interesse ecológico e social identificadas e protegidas — o
+  equivalente às áreas de alto valor de conservação de outros esquemas.
+- Conversão de ecossistema natural em plantação só em circunstâncias justificadas.
+- Rastreabilidade do produto florestal da unidade de manejo até a venda.
+- Relação com comunidades, povos indígenas e tradicionais, com canal de reclamações.
+- Trabalho rural: NR-31 e controle dos prestadores de serviço no campo.
+
+ESCOPO: plantações florestais. Pergunta sobre manejo de floresta nativa ou cadeia de
+custódia deve ser encaminhada à norma correspondente, sem aplicar estes critérios.
