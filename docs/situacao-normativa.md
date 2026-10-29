@@ -92,10 +92,11 @@ agente foi instruído a não citar.
 ### Quarta rodada — 24/09/2026: IA na auditoria
 
 **ISO 19011:2026 publicada em 27/05/2026.** Revisão técnica da 2018, sem transição por ser
-diretriz. Segundo as fontes, os sete princípios se mantêm; cresceu a orientação sobre
-auditoria remota e híbrida, tecnologia digital e IA, cadeia de fornecimento e planejamento
-por risco. O conteúdo dos agentes segue conferido contra a ABNT NBR ISO 19011:2018 e agora
-avisa da edição nova. Adoção brasileira da 2026 **não confirmada**.
+diretriz. ~~Segundo as fontes, cresceu a orientação sobre tecnologia digital e IA.~~
+*Corrigido em 29/10/2026 contra exemplar da edição europeia:* os sete princípios se mantêm, e
+as mudanças declaradas são só duas — métodos de **auditoria remota** (incorporando a ISO/IEC
+TS 17012) e **locais virtuais** no Anexo A. A norma **não menciona inteligência artificial**;
+as fontes secundárias estavam erradas nisso. Adoção brasileira da 2026 **não confirmada**.
 
 **Guia do APG sobre IA, 29/05/2026.** O grupo de práticas de auditoria da ISO 9001 (TC 176 +
 IAF) publicou "Auditing a Quality Management System that uses Artificial Intelligence (AI)
@@ -113,10 +114,10 @@ estão instruídos a não afirmar que há lei geral de IA em vigor.
 
 ### O que continua sem confirmação
 
-**A adoção brasileira da ISO 14001:2026.** O exemplar disponível da 14001 é digitalizado em
-imagem, sem texto extraível, e o outro é a norma espanhola UNE-EN ISO 14001:2015 — que
-serve para conferir mecanismos, não a situação brasileira. As datas da 14001:2026 continuam
-apoiadas só em fontes secundárias.
+~~**A adoção brasileira da ISO 14001:2026.**~~ *Confirmada em 29/10/2026 contra exemplar:*
+**ABNT NBR ISO 14001:2026**, 4ª edição, 08/07/2026, adoção idêntica da ISO 14001:2026. Cancela a
+ABNT NBR ISO 14001:2015 e a Emenda 1:2024. A Consulta Nacional foi de 29/05 a 27/06/2026. A
+numeração mudou (6.1.4, 6.1.5, 6.3 e a seção 10 reordenada) — ver `agentes/normativa/iso-14001.md`.
 
 ---
 
@@ -125,7 +126,7 @@ apoiadas só em fontes secundárias.
 | Norma | Referência brasileira vigente | Próxima edição | Situação |
 |---|---|---|---|
 | ISO 9001 | **ABNT NBR ISO 9001:2015 + Em1:2024** | 2026 | Publicada pela ISO em **16/09/2026**; transição de três anos |
-| ISO 14001 | 2015 → 2026 *(adoção ABNT não confirmada)* | — | ISO publicada em **15/04/2026**, transição em curso |
+| ISO 14001 | **ABNT NBR ISO 14001:2026** (08/07/2026) | — | ISO publicada em **15/04/2026**, transição em curso |
 | ISO 45001 | **ABNT NBR ISO 45001:2024 + Em1:2025** | 2027 | Revisão ISO em curso, sem texto final |
 | ISO/IEC 27001 | **ABNT NBR ISO/IEC 27001:2022, Versão Corrigida 2023 + Em1:2024** | — | Vigente |
 | ISO 37001 | **ABNT NBR ISO 37001:2025** | — | Transição da 2017 até **28/02/2027** |
@@ -136,6 +137,10 @@ apoiadas só em fontes secundárias.
 | PBQP-H / SiAC | **Regimento Geral do SiAC** — Portaria 75/2021, anexos pela 577/2021 | — | Exclusivo desde 15/01/2022; níveis B e A |
 | ABNT PR 2030 | **PR 2030-1:2024 + PR 2030-2** | — | A 2022 foi cancelada em dez/2024. **Não certificável** |
 | ISO 19011 (diretriz) | ABNT NBR ISO 19011:2018 *(ISO 2026 publicada em 27/05/2026)* | — | Adoção ABNT da 2026 não confirmada |
+| ISO 14064-1 / -2 / -3 | **ABNT NBR ISO 14064-1:2022**, **14064-2:2022**, **14064-3:2024** | — | Conferidas contra exemplar em 29/10/2026 |
+| IATF 16949 | **IATF 16949:2016** (não é ISO nem ABNT) | — | Lida com as interpretações oficiais (SI) e FAQ da IATF; sem edição alinhada à 9001:2026 |
+| SA8000 | **SA8000:2014** (SAI) | — | Versão oficial em inglês; tradução em português conferida |
+| NBR 14789 (Cerflor) | **ABNT NBR 14789:2021** | — | A 16789:2014 orienta a edição anterior; não use a numeração dela |
 
 > A coluna diz **referência brasileira**, não ano da ISO. São coisas diferentes e confundi-las
 > foi um dos erros corrigidos em 22/09 — a 45001 é ISO 2018 e ABNT 2024.

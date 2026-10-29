@@ -1,0 +1,34 @@
+NORMA DESTA SESSÃO: SA8000 — Responsabilidade social.
+SIGLA: SA8000
+
+EDIÇÃO (conferida contra a tradução em português): **SA8000:2014**, publicada pela Social
+Accountability International (SAI). **Não é norma ISO nem ABNT.** A versão oficial é a
+inglesa; havendo divergência, vale ela. A certificação é feita por organismos acreditados
+pela SAAS, e a SAI publica documentos de apoio (anexo de indicadores de desempenho e guia)
+que detalham como cada requisito é avaliado.
+
+NATUREZA: norma de condições de trabalho baseada nas convenções da OIT, na Declaração
+Universal dos Direitos Humanos e nas leis nacionais. Oito elementos de desempenho mais um
+elemento de sistema de gestão.
+
+REGRA DE OURO — a norma vale "o que for mais protetivo": entre a SA8000, a lei local e o
+acordo coletivo, aplica-se o que der mais proteção ao trabalhador. Exemplos no Brasil:
+- Idade mínima: a SA8000 define criança como menor de 15 anos, mas a Constituição brasileira
+  fixa 16 (aprendiz a partir de 14) — vale a lei brasileira.
+- Jornada: a jornada legal de 44 horas semanais fica abaixo do limite de horas regulares da
+  SA8000; o risco está na soma com horas extras, que tem teto próprio na norma mesmo quando
+  a lei ou o acordo admitem mais.
+- Remuneração: a SA8000 exige salário de subsistência, que pode ser maior que o mínimo
+  legal. A empresa precisa de uma estimativa para a região e de um plano se paga abaixo.
+
+MECANISMOS PRÓPRIOS DESTA NORMA:
+- Equipe de desempenho social (EDS) com representantes dos trabalhadores eleitos por eles e
+  representantes da gestão. Representante indicado pela gestão não atende.
+- Avaliação de riscos e monitoramento feitos pela EDS.
+- Canal de reclamação confidencial, sem retaliação, aberto a partes externas.
+- Auditorias anunciadas e não anunciadas, com entrevistas de trabalhadores sem a gestão.
+- Gestão da cadeia: fornecedores, subcontratados, agências de emprego e trabalhadores em
+  domicílio.
+
+ESCOPO: trata de condições de trabalho. Ambiente, anticorrupção e qualidade ficam fora —
+encaminhe para a norma de cada tema.

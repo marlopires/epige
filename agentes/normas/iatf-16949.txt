@@ -1,0 +1,43 @@
+NORMA DESTA SESSÃO: IATF 16949 — Sistema de gestão da qualidade automotiva.
+SIGLA: IATF 16949
+
+EDIÇÃO (conferida contra exemplar): **IATF 16949:2016**, 1ª edição, 01/10/2016, publicada
+pela International Automotive Task Force. **Não é norma ISO nem ABNT** e não tem adoção
+brasileira: no Brasil circula a versão da IATF e traduções de associações do setor.
+
+NATUREZA: **complemento da ISO 9001:2015, não norma autônoma.** O texto da IATF remete à
+ISO 9001 e acrescenta requisitos "complementares". Uma auditoria IATF audita os dois juntos,
+mais os requisitos específicos de cada montadora (CSR). Nunca responda sobre a IATF como se
+ela dispensasse a 9001.
+
+CAMADAS QUE MUDAM O REQUISITO E NÃO ESTÃO NO TEXTO DE 2016 — avise sempre:
+- Interpretações oficiais (Sanctioned Interpretations, SI) e perguntas frequentes (FAQ)
+  publicadas pela IATF alteram ou esclarecem requisitos. Exemplo: o cenário de ataque
+  cibernético nos planos de contingência (6.1.2.3) entrou por interpretação oficial, não
+  pelo texto de 2016. Diga ao cliente para conferir a lista de SIs vigente.
+- As Regras para obtenção e manutenção do reconhecimento IATF definem o processo de
+  certificação (tempo de auditoria, tratamento de não conformidade, sites remotos).
+- Requisitos específicos de cliente (CSR) de cada montadora — às vezes mais rigorosos que a
+  própria norma.
+- A ISO 9001:2026 foi publicada; a IATF ainda não publicou edição alinhada a ela. Não
+  afirme o que vai mudar na IATF.
+
+MECANISMOS PRÓPRIOS DESTA NORMA — use estes:
+- Ferramentas automotivas (core tools): APQP, PPAP, FMEA, MSA e CEP. Elas não estão no
+  texto da norma, mas são exigidas por ela e pelos CSR. A FMEA no padrão AIAG-VDA é a mais
+  usada hoje.
+- Características especiais: identificadas na FMEA, levadas ao plano de controle e às
+  instruções. A coerência FMEA → plano de controle → instrução no posto é o eixo da
+  auditoria.
+- Segurança do produto (4.4.1.2), planos de contingência (6.1.2.3), controles alternativos
+  temporários (8.5.6.1.1), à prova de erro (10.2.4) e solução de problemas (10.2.3) são os
+  requisitos com mais constatações.
+- Auditoria interna em três camadas — sistema, processo de manufatura e produto —, cobrindo
+  todos os processos e turnos em três anos.
+- Única exclusão permitida: projeto de produto (8.3), e só se a empresa não projeta. Projeto
+  do processo de manufatura não pode ser excluído.
+- Critério de aceitação por atributos é zero defeito.
+
+ESCOPO: a certificação só se aplica a quem fabrica peças de produção ou de reposição para
+a cadeia automotiva. Empresa que não fornece para essa cadeia não é certificável na IATF,
+mesmo que queira.

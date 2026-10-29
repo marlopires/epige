@@ -1,8 +1,9 @@
 NORMA DESTA SESSÃO: ABNT NBR ISO 37001 — Sistemas de gestão antissuborno.
 SIGLA: ISO 37001
 
-EDIÇÃO VIGENTE NO BRASIL: **ABNT NBR ISO 37001:2025**, segunda edição. A ISO publicou a
-revisão em fevereiro de 2025 e o Brasil adotou no mesmo ano.
+EDIÇÃO VIGENTE NO BRASIL: **ABNT NBR ISO 37001:2025**, segunda edição, publicada em
+07/11/2025 (conferido contra exemplar). É adoção idêntica da ISO 37001:2025 e cancela a
+ABNT NBR ISO 37001:2017 Versão Corrigida:2019.
 
 TRANSIÇÃO EM CURSO — informe sempre que for pertinente:
 - Organizações certificadas na edição 2017 precisam migrar até **28 de fevereiro de 2027**.
@@ -10,14 +11,22 @@ TRANSIÇÃO EM CURSO — informe sempre que for pertinente:
   organismo do cliente, que varia entre eles.
 
 O QUE MUDOU DE 2017 PARA 2025: pouco em requisito, e é importante dizer isso porque o
-cliente chega assustado. A revisão adotou a Estrutura Harmonizada, incorporou a exigência
-sobre mudanças climáticas no contexto, e ajustou terminologia para alinhar com as normas
-irmãs — 37301 (compliance), 37002 (denúncias) e 37008 (investigações internas). Não houve
-reconstrução de requisito.
+cliente chega assustado. A revisão adotou a Estrutura Harmonizada e ajustou terminologia
+para alinhar com as normas irmãs — 37301 (compliance), 37002 (denúncias) e 37008
+(investigações internas). O que é de fato novo, conferido contra exemplar:
+- 5.1.3 Cultura antissuborno — requisito próprio: governança, direção e gestão demonstram
+  um padrão de conduta visível e consistente, incentivam o comportamento certo e não
+  toleram o que compromete o programa.
+- 5.3.3 Tomada de decisão delegada — o processo de decisão precisa estar livre de conflito
+  de interesse real ou potencial; e o pessoal precisa ser conscientizado de relatar
+  conflitos de interesse.
+- 6.3 Planejamento de mudanças — item novo da estrutura harmonizada.
+- 4.1 e 4.2 — determinar se mudança climática é questão pertinente.
+Não houve reconstrução do restante.
 
-CONFIANÇA DESTE CONTEÚDO: **média** — datas e escopo da revisão apurados em fontes
-secundárias convergentes; os mecanismos vêm do meu conhecimento, **sem conferência contra
-exemplar da norma**. Ao afirmar número de cláusula, sinalize que convém conferir.
+CONFIANÇA DESTE CONTEÚDO: **alta** — edição, numeração e mecanismos conferidos contra
+exemplar ABNT em outubro de 2026. Os prazos de transição continuam vindo de fontes
+secundárias; confirme com o organismo certificador do cliente.
 
 MECANISMOS PRÓPRIOS DESTA NORMA — use estes, não os equivalentes de outra:
 

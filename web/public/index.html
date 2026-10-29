@@ -252,6 +252,28 @@ ul.plain{margin:0;padding-left:var(--e-21);font-size:var(--t-12);line-height:1.6
 .doc-view h4{font-size:var(--t-15); margin:var(--e-13) 0 var(--e-5)}
 .doc-view ul{margin:var(--e-5) 0 var(--e-8); padding-left:var(--e-21)}
 
+/* ---------- normativa: link de item, gaveta e lista ---------- */
+.ref-item{background:none; border:none; padding:0; font:inherit; color:var(--blue); text-decoration:underline dotted; text-underline-offset:3px; cursor:pointer}
+.ref-item:hover{text-decoration-style:solid}
+.msg.user .ref-item{color:#fff}
+.gaveta{position:fixed; right:0; top:var(--cab); width:min(400px,100vw); height:calc(100vh - var(--cab)); overflow-y:auto; background:var(--surface); border-left:1px solid var(--line); box-shadow:-12px 0 32px -16px rgba(11,16,32,.28); padding:var(--e-21); z-index:40}
+.gaveta-cab{display:flex; justify-content:space-between; align-items:flex-start; gap:var(--e-13); margin-bottom:var(--e-13)}
+.gaveta-cab h3{font-size:var(--t-19)}
+.gaveta-fechar{background:none; border:1px solid var(--line-strong); border-radius:var(--e-8); width:32px; height:32px; flex:0 0 32px; color:var(--muted)}
+.gaveta-fechar:hover{border-color:var(--muted); color:var(--ink)}
+.nv-campo{margin-bottom:var(--e-13); line-height:1.6}
+.nv-mudou{background:#FDF6E7; border:1px solid #EBD9A8; color:#6E4E05; border-radius:var(--e-8); padding:var(--e-8) var(--e-13); font-size:var(--t-12); margin-bottom:var(--e-13)}
+.nv-meta{font-size:var(--t-12); color:var(--muted); margin-bottom:var(--e-13)}
+.nv-secao{font-weight:700; font-size:var(--t-15); margin:var(--e-21) 0 var(--e-8); padding-top:var(--e-13); border-top:1px solid var(--line)}
+.nv-secao-d{font-weight:400; font-size:var(--t-12); color:var(--muted); margin-top:var(--e-3)}
+.nv-secao .nv-mudou{font-weight:400; margin:var(--e-8) 0 0}
+.nv-item{border:1px solid var(--line); border-radius:var(--e-8); margin-bottom:var(--e-8); background:#fff}
+.nv-item summary{cursor:pointer; padding:var(--e-8) var(--e-13); font-weight:600; list-style-position:inside}
+.nv-item[open] summary{border-bottom:1px solid var(--line); margin-bottom:var(--e-13)}
+.nv-item > :not(summary){margin-left:var(--e-13); margin-right:var(--e-13)}
+.nv-item .mono, .nv-secao .mono{color:var(--teal); margin-right:var(--e-5)}
+.nv-foco{box-shadow:0 0 0 2px var(--blue)}
+
 /* ---------- impressão: só o documento, com identificação e aviso de cópia ---------- */
 #impressao{display:none}
 @media print{
@@ -312,6 +334,11 @@ ul.plain{margin:0;padding-left:var(--e-21);font-size:var(--t-12);line-height:1.6
     </div>
   </aside>
 </div>
+
+<aside class="gaveta hidden" id="gaveta" role="dialog" aria-labelledby="gavetaTitulo">
+  <div class="gaveta-cab"><div><div class="eyebrow" id="gavetaNorma"></div><h3 id="gavetaTitulo"></h3></div><button class="gaveta-fechar" type="button" data-acao="fecharGaveta" aria-label="Fechar o comentário">✕</button></div>
+  <div id="gavetaCorpo"></div>
+</aside>
 
 <div id="impressao"></div>
 

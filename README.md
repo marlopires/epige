@@ -26,6 +26,7 @@ qualidade, com escopo de lançamento em ISO 9001.
 | [`docs/auditoria-42001-epige.md`](docs/auditoria-42001-epige.md) | A EPIGE auditada contra a ISO/IEC 42001: 14 constatações, 5 bloqueantes, política e avaliação de impacto em rascunho. |
 | [`docs/orientacao-transicao-9001.md`](docs/orientacao-transicao-9001.md) | Orientação de transição para clientes. Pronta para virar página, e-mail ou conversa comercial. |
 | [`agentes/README.md`](agentes/README.md) | Os prompts que governam os agentes, e a ressalva de sincronia com o HTML. |
+| [`agentes/normativa/README.md`](agentes/normativa/README.md) | **Normativa:** comentário da EPIGE item a item, o que o cliente vê ao clicar num item. E a regra de não reproduzir a norma. |
 | [`avaliacao/README.md`](avaliacao/README.md) | Como preencher e rodar o conjunto de avaliação. |
 | [`avaliacao/REVISAR.md`](avaliacao/REVISAR.md) | **O que precisa da sua revisão.** O gabarito foi escrito por Claude e não está validado. |
 | [`web/README.md`](web/README.md) | **Como publicar.** Conta de API, Cloudflare (banco D1 e segredos), domínio, primeiro acesso, e o que a segurança cobre. |

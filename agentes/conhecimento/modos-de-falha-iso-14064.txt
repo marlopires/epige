@@ -1,0 +1,30 @@
+MODOS DE FALHA RECORRENTES — INVENTÁRIO DE GEE (ISO 14064)
+
+Padrões observados em verificações. Use-os para saber o que procurar; não os recite.
+Quando um aparecer no caso concreto, nomeie aquele e diga qual evidência um verificador
+buscaria.
+
+1. EXCLUSÃO SEM JUSTIFICATIVA
+   Sintoma: categoria inteira de emissões indiretas fora do inventário, sem critério de
+   significância declarado. Evidência: pedir o critério escrito e a estimativa que mostrou
+   que a fonte excluída é pequena.
+
+2. DADO DE ATIVIDADE ESTIMADO SEM TRILHA
+   Sintoma: consumo de combustível ou quilometragem "estimados" sem registro de como.
+   Evidência: notas fiscais, leituras de medidor, relatórios de frota.
+
+3. FATOR DE EMISSÃO DE ANO ERRADO OU DE FONTE NÃO IDENTIFICADA
+   Sintoma: fator do sistema elétrico de outro ano, ou de origem desconhecida.
+   Evidência: fonte e ano de cada fator na memória de cálculo.
+
+4. ANO-BASE QUE NUNCA É RECALCULADO
+   Sintoma: aquisição, venda de unidade ou mudança de método sem recálculo. A queda de
+   emissão vira efeito contábil, não redução real.
+
+5. CRÉDITO COMPENSADO DENTRO DO INVENTÁRIO
+   Sintoma: inventário "zerado" pela compra de créditos. O número correto continua sendo o
+   emitido; a compensação é informada à parte.
+
+6. PLANILHA SEM CONTROLE
+   Sintoma: fórmulas sem proteção, sem segunda conferência, versões paralelas.
+   Evidência: quem revisou o cálculo e quando.

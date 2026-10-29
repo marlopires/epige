@@ -1,0 +1,30 @@
+MODOS DE FALHA RECORRENTES — IATF 16949
+
+Padrões observados em auditorias. Use-os para saber o que procurar; não os recite.
+
+1. FMEA, PLANO DE CONTROLE E INSTRUÇÃO QUE NÃO CONVERSAM
+   Sintoma: característica especial no desenho que não aparece no plano de controle, ou
+   controle do plano que não está na instrução do posto. Evidência: escolher uma
+   característica especial e segui-la nos três documentos e no chão de fábrica.
+
+2. CSR SEM MATRIZ OU DESATUALIZADO
+   Sintoma: a empresa não sabe onde atende cada requisito específico do cliente, ou usa
+   versão antiga do manual da montadora.
+
+3. MSA AUSENTE EM MEIO DE MEDIÇÃO CRÍTICO
+   Sintoma: instrumento usado em característica especial sem estudo de repetibilidade e
+   reprodutibilidade.
+
+4. CONTROLE ALTERNATIVO SEM GESTÃO
+   Sintoma: poka-yoke desligado ou inspeção substituída "temporariamente" sem lista
+   aprovada, sem verificação diária e sem rastreabilidade do que foi produzido.
+
+5. SOLUÇÃO DE PROBLEMAS QUE PARA NA CONTENÇÃO
+   Sintoma: 8D com contenção bem feita e causa raiz rasa ("falha do operador"), sem
+   atualização da FMEA e do plano de controle.
+
+6. PLANO DE CONTINGÊNCIA NUNCA TESTADO
+   Sintoma: plano existe, sem simulação nem revisão anual registrada.
+
+7. AUDITORIA DE PROCESSO SEM TODOS OS TURNOS
+   Sintoma: programa que só audita o turno administrativo.

@@ -3,12 +3,10 @@ SIGLA: ISO 14001
 
 EDIÇÃO VIGENTE: 2026. ATENÇÃO — ESTA NORMA JÁ MUDOU.
 
-RESSALVA DE VERIFICAÇÃO: a publicação da ISO 14001:2026 e seus prazos foram apurados em
-fontes secundárias (certificadoras e consultorias convergentes), não em exemplar da norma.
-**Não foi possível confirmar o número e a data da adoção brasileira pela ABNT.** Ao falar de
-edição com um cliente brasileiro, pergunte qual exemplar ele tem em mãos em vez de afirmar
-o número da adoção — o mesmo cuidado que a 45001 exige, onde a ISO é de 2018 e a adoção
-brasileira é de 2024. Ver docs/situacao-normativa.md.
+ADOÇÃO BRASILEIRA (conferida contra exemplar): ABNT NBR ISO 14001:2026, 4ª edição, publicada
+em 08/07/2026. É adoção idêntica da ISO 14001:2026 e cancela a ABNT NBR ISO 14001:2015 e a
+Emenda 1:2024. Ainda assim, pergunte qual exemplar o cliente tem em mãos: quem certificou na
+2015 continua com certificado válido até o fim da transição.
 
 A ISO 14001:2026 foi publicada em 15 de abril de 2026 e substituiu a edição de 2015.
 Jamais trate a 2015 como corrente.
@@ -30,8 +28,19 @@ MECANISMOS PRÓPRIOS DESTA NORMA — use estes, não os equivalentes de outra:
   interação da atividade com o meio ambiente; impacto é a consequência dela.
 - Critério de significância: a organização define e declara como decide quais aspectos são
   significativos. Critério não declarado é a não conformidade mais comum aqui.
-- Requisitos legais e outros requisitos: identificar não basta — a norma pede avaliação
-  periódica de atendimento.
+- Obrigações de compliance (6.1.3): o que a lei exige e o que a empresa escolheu cumprir.
+  Identificar não basta — a norma pede avaliação periódica do atendimento (9.1.2, "avaliação
+  de compliance"). Na tradução brasileira de 2015 o mesmo item se chamava "requisitos legais
+  e outros requisitos"; o cliente pode usar qualquer dos dois nomes.
 - Perspectiva de ciclo de vida: considerar as etapas desde a obtenção de matéria-prima até
   a disposição final, no que a organização pode controlar ou influenciar.
-- Preparação e resposta a emergências: o plano precisa ser testado, não só existir.
+- Preparação e resposta a emergências: o plano precisa ser testado periodicamente, onde
+  viável, e revisado depois de teste ou ocorrência — não só existir.
+
+NUMERAÇÃO DA EDIÇÃO 2026 — mudou, e citar a numeração antiga é erro:
+- 6.1.1 virou só o processo-guarda-chuva; riscos e oportunidades ganharam item próprio, 6.1.4;
+  o planejamento de ações passou a 6.1.5.
+- 6.3 Planejamento de mudanças é item novo.
+- 9.3 dividiu-se em 9.3.1, 9.3.2 (entradas) e 9.3.3 (resultados).
+- Seção 10: 10.1 é melhoria contínua e 10.2 é não conformidade e ação corretiva. Não existe
+  mais 10.3 nesta edição.

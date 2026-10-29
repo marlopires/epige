@@ -165,6 +165,21 @@ try {
   checar('lista marca o documento feito com IA', (await adminB.get('/api/documentos')).dados.documentos.find((x) => x.id === id)?.apoio_ia === 'redator');
   status('aprovar de novo não faz nada', await adminB.post(`/api/documentos/${id}/acao`, { acao: 'aprovar' }), 409);
 
+  /* ---- normativa: comentário por item, para qualquer pessoa com sessão ---- */
+  status('normativa exige sessão', await new Cliente('anônimo').get('/api/normativa'), 401);
+  const refs = await leitor.get('/api/normativa');
+  const r14001 = refs.dados?.referenciais?.find((r) => r.id === 'iso-14001');
+  checar('leitor lista a normativa com os números de item', refs.status === 200 && r14001?.itens.includes('6.1.2') && r14001.itens.includes('10.2'), refs.dados);
+  const c14001 = await leitor.get('/api/normativa/iso-14001');
+  const item612 = c14001.dados?.referencial?.itens?.find((x) => x.n === '6.1.2');
+  checar('comentário do item traz título e explicação', c14001.status === 200 && item612?.t === 'Aspectos ambientais' && item612.trata.length > 40, c14001.dados?.referencial?.edicao);
+  status('referencial desconhecido dá 404', await leitor.get('/api/normativa/iso-0000'), 404);
+  const idsNv = (refs.dados?.referenciais ?? []).map((r) => r.id);
+  checar('normativa cobre os referenciais novos', ['iso-9001', 'iatf-16949', 'sa8000', 'nbr-14789', 'iso-14064-1', 'iso-19011'].every((id) => idsNv.includes(id)), idsNv);
+  const catalogo = await leitor.get('/api/chat');
+  checar('agentes atendem os referenciais novos', ['iatf-16949', 'sa8000', 'nbr-14789', 'iso-14064-1'].every((id) => catalogo.dados?.normas?.[id]?.confianca === 'alta'), Object.keys(catalogo.dados?.normas ?? {}));
+  status('nome de propriedade não vaza como referencial', await leitor.get('/api/normativa/constructor'), 404);
+
   const vistoLeitor = await leitor.get(`/api/documentos/${id}`);
   checar('leitor vê a versão vigente', vistoLeitor.status === 200 && vistoLeitor.dados.conteudo_vigente === '# Procedimento\nv1 corrigida', vistoLeitor.dados);
 
